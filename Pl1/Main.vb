@@ -205,6 +205,7 @@ Public Class Main
         Pl.GunName = txtGunName.Text
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
+        'TODO:Add error logic for zero division
         Dim Random = lower + CLng(Rnd() * 1000000) Mod (upper - lower) + 1
         Return Random
     End Function
@@ -224,19 +225,21 @@ Public Class Main
     End Sub
 
     Private Sub UpdateAdjustments()
-        lblAdjUp.Text = (Math.Round((CDbl(Val(txtRecoilUp.Text)) * (numRecoilV.Value / 100)) + (CDbl(Val(txtRecoilUp.Text))), 3)).ToString
-        lblAdjRight.Text = (Math.Round((CDbl(Val(txtRecoilRight.Text)) * (numRecoilH.Value / 100)) + (CDbl(Val(txtRecoilRight.Text))), 3)).ToString
-        lblAdjLeft.Text = (Math.Round((CDbl(Val(txtRecoilLeft.Text)) * (numRecoilH.Value / 100)) + (CDbl(Val(txtRecoilLeft.Text))), 3)).ToString
+        lblAdjUp.Text = calculateAdjustment(CDbl(Val(txtRecoilUp.Text)), CDbl(Val(numRecoilV.Text))).ToString
+        lblAdjRight.Text = calculateAdjustment(CDbl(Val(txtRecoilRight.Text)), CDbl(Val(numRecoilH.Text))).ToString
+        lblAdjLeft.Text = calculateAdjustment(CDbl(Val(txtRecoilLeft.Text)), CDbl(Val(numRecoilH.Text))).ToString
 
-        lblAdjMin.Text = (Math.Round((CDbl(Val(txtSpreadMin.Text)) * (numMin.Value / 100)) + (CDbl(Val(txtSpreadMin.Text))), 3)).ToString
-        lblAdjInc.Text = (Math.Round((CDbl(Val(txtSpreadInc.Text)) * (numInc.Value / 100)) + (CDbl(Val(txtSpreadInc.Text))), 3)).ToString
-
+        lblAdjMin.Text = calculateAdjustment(CDbl(Val(txtSpreadMin.Text)), (numMin.Value)).ToString
+        lblAdjInc.Text = calculateAdjustment(CDbl(Val(txtSpreadInc.Text)), (numInc.Value)).ToString
     End Sub
 
     Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numInc.ValueChanged, numMin.ValueChanged
         UpdateAdjustments()
     End Sub
 
+    Private Function calculateAdjustment(ByVal actor As Double, ByVal action As Double) As Double
+        Return Math.Round((actor * (action / 100)) + (actor), 3)
+    End Function
     Private Sub BackgroundWorker1_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         'TODO: Convert to arrays
         Dim hits1 As Integer = 0
@@ -258,12 +261,12 @@ Public Class Main
         Dim coord6y(Val(txtBursts.Text)) As Integer
 
         'Make Adjustments to values
-        Dim dblRecoilH As Double = Math.Round((Pl.RecoilUp * (Pl.AdjRecoilV / 100)) + (Pl.RecoilUp), 3)
-        Dim dblRecoilR As Double = Math.Round((Pl.RecoilRight * (Pl.AdjRecoilH / 100)) + (Pl.RecoilRight), 3)
-        Dim dblRecoilL As Double = Math.Round((Pl.RecoilLeft * (Pl.AdjRecoilH / 100)) + (Pl.RecoilLeft), 3)
+        Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
+        Dim dblRecoilR As Double = calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH)
+        Dim dblRecoilL As Double = calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH)
 
-        Dim dblSpreadMin As Double = Math.Round((Pl.SpreadMin * (Pl.AdjSpreadMin / 100)) + (Pl.SpreadMin), 3)
-        Dim dblSpreadInc As Double = Math.Round((Pl.SpreadInc * (Pl.AdjSpreadInc / 100)) + (Pl.SpreadInc), 3)
+        Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
+        Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
         Dim b As Bitmap = New Bitmap(2000, 2000)
 
@@ -354,7 +357,6 @@ Public Class Main
                 Dim x As Integer = centerx + radius * Math.Cos(angle)
                 Dim y As Integer = centy + radius * Math.Sin(angle)
 
-                Dim rRand As New Random()
                 'Add Target to heatpoints
                 HeatPoints.Add(New HeatPoint(x, y, iIntense))
 
