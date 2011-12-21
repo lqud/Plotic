@@ -95,8 +95,9 @@ Partial Class Main
         Me.chkBars = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
-        Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.chkHeatMap = New System.Windows.Forms.CheckBox()
+        Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.numHeatRadius = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
@@ -111,6 +112,7 @@ Partial Class Main
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -763,6 +765,7 @@ Partial Class Main
         'grpRender
         '
         Me.grpRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpRender.Controls.Add(Me.numHeatRadius)
         Me.grpRender.Controls.Add(Me.chkHeatMap)
         Me.grpRender.Controls.Add(Me.txtHitRateResult)
         Me.grpRender.Controls.Add(Me.chkDrawTTK)
@@ -968,7 +971,6 @@ Partial Class Main
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.mainToolStripStatus, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 417)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(810, 22)
@@ -981,6 +983,18 @@ Partial Class Main
         Me.BackgroundWorker2.WorkerReportsProgress = True
         Me.BackgroundWorker2.WorkerSupportsCancellation = True
         '
+        'chkHeatMap
+        '
+        Me.chkHeatMap.AutoSize = True
+        Me.chkHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkHeatMap.ForeColor = System.Drawing.Color.White
+        Me.chkHeatMap.Location = New System.Drawing.Point(146, 40)
+        Me.chkHeatMap.Name = "chkHeatMap"
+        Me.chkHeatMap.Size = New System.Drawing.Size(91, 17)
+        Me.chkHeatMap.TabIndex = 62
+        Me.chkHeatMap.Text = "Heat Map rad"
+        Me.chkHeatMap.UseVisualStyleBackColor = False
+        '
         'picPlot
         '
         Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -991,17 +1005,17 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
-        'chkHeatMap
+        'numHeatRadius
         '
-        Me.chkHeatMap.AutoSize = True
-        Me.chkHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkHeatMap.ForeColor = System.Drawing.Color.White
-        Me.chkHeatMap.Location = New System.Drawing.Point(205, 39)
-        Me.chkHeatMap.Name = "chkHeatMap"
-        Me.chkHeatMap.Size = New System.Drawing.Size(73, 17)
-        Me.chkHeatMap.TabIndex = 62
-        Me.chkHeatMap.Text = "Heat Map"
-        Me.chkHeatMap.UseVisualStyleBackColor = False
+        Me.numHeatRadius.Location = New System.Drawing.Point(235, 37)
+        Me.numHeatRadius.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.numHeatRadius.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numHeatRadius.Name = "numHeatRadius"
+        Me.numHeatRadius.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numHeatRadius.Size = New System.Drawing.Size(48, 20)
+        Me.numHeatRadius.TabIndex = 63
+        Me.numHeatRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numHeatRadius.Value = New Decimal(New Integer() {50, 0, 0, 0})
         '
         'Main
         '
@@ -1044,6 +1058,7 @@ Partial Class Main
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1123,4 +1138,5 @@ Partial Class Main
     Friend WithEvents txtHitRateResult As System.Windows.Forms.TextBox
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents chkHeatMap As System.Windows.Forms.CheckBox
+    Friend WithEvents numHeatRadius As System.Windows.Forms.NumericUpDown
 End Class

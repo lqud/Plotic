@@ -130,7 +130,7 @@
     <None Include="Resources\sil_mask.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\image.axd.jpg" />
+    <None Include="Resources\pal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 ﻿Public Class Plotic
     Private strGunName As String
     Private bmpImage As Bitmap
+    Private bmpHeatMap As Bitmap
     Private grhGraphic As Graphics
 
     Private dblRecoilUp As Double
@@ -130,6 +131,14 @@
             bmpImage = Value
         End Set
     End Property
+    Property HeatMap() As Bitmap
+        Get
+            Return bmpHeatMap
+        End Get
+        Set(ByVal Value As Bitmap)
+            bmpHeatMap = Value
+        End Set
+    End Property
     Property Graphic() As Graphics
         Get
             Return grhGraphic
@@ -143,6 +152,7 @@
         Dim b As Bitmap = New Bitmap(2000, 2000)
         Dim g As Graphics = Graphics.FromImage(b)
         Me.Image = b
+        Me.HeatMap = b
         Me.grhGraphic = g
     End Sub
     Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean

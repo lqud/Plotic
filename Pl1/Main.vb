@@ -323,19 +323,25 @@ Public Class Main
             Dim spread = dblSpreadMin * scale
             Dim centerx = 1000
             Dim centy = 1680
+            Dim iIntense As Byte
             For a = 0 To Int(Pl.BulletsPerBurst) - 1
                 Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
                 Select Case a
                     Case 0
                         pen1.Color = Color.YellowGreen
+                        iIntense = CByte(120)
                     Case 1
                         pen1.Color = Color.Yellow
+                        iIntense = CByte(96)
                     Case 2
                         pen1.Color = Color.Orange
+                        iIntense = CByte(72)
                     Case 3
                         pen1.Color = Color.Red
+                        iIntense = CByte(48)
                     Case 4
                         pen1.Color = Color.DarkRed
+                        iIntense = CByte(24)
                 End Select
                 Dim radius
                 Dim mul As Integer = 100000
@@ -347,6 +353,11 @@ Public Class Main
                 Dim angle = rndD(360, 0)
                 Dim x As Integer = centerx + radius * Math.Cos(angle)
                 Dim y As Integer = centy + radius * Math.Sin(angle)
+
+                Dim rRand As New Random()
+                'Add Target to heatpoints
+                HeatPoints.Add(New HeatPoint(x, y, iIntense))
+
                 If Not chkTimeToKill.Checked Then
                     g.DrawEllipse(pen1, x, y, 7, 7)
                 Else
@@ -450,8 +461,12 @@ Public Class Main
         If chkDrawTTK.Checked And chkTimeToKill.Checked Then
             drawTTK(g, Math.Round((hits1 / (intBursts + 1) * 100), 2), Math.Round((hits2 / (intBursts + 1) * 100), 2), Math.Round((hits3 / (intBursts + 1) * 100), 2), Math.Round((hits4 / (intBursts + 1) * 100), 2), Math.Round((hits5 / (intBursts + 1) * 100), 2))
         End If
-        SetImage_ThreadSafe(Pl.Image)
-        'Pl.Image = b
+        If chkHeatMap.Checked Then
+            b = CreateIntensityMask(Pl.HeatMap, HeatPoints)
+            ' Colorize the memory bitmap and assign it as the picture boxes image
+            b = Colorize(b, 255)
+        End If
+        SetImage_ThreadSafe(b)
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
@@ -480,6 +495,7 @@ Public Class Main
             Debug.WriteLine("Saving Image")
             SaveImage()
         End If
+
     End Sub
     Private Sub SaveImage()
         Dim b As Bitmap = Pl.Image
@@ -612,7 +628,7 @@ Public Class Main
         ' Traverse heat point data and draw masks for each heat point
         For Each DataPoint As HeatPoint In aHeatPoints
             ' Render current heat point on draw surface
-            DrawHeatPoint(DrawSurface, DataPoint, 15)
+            DrawHeatPoint(DrawSurface, DataPoint, numHeatRadius.Value)
         Next
 
         Return bSurface
@@ -632,7 +648,7 @@ Public Class Main
         ' Precalulate half of byte max value
         Dim bHalf As Byte = [Byte].MaxValue \ 2
         ' Flip intensity on it's center value from low-high to high-low
-        Dim iIntensity As Integer = CByte(HeatPoint.Intensity - ((HeatPoint.Intensity - bHalf) * 2))
+        Dim iIntensity As Integer = (CInt(HeatPoint.Intensity) - ((CInt(HeatPoint.Intensity) - bHalf) * 2))
         ' Store scaled and flipped intensity value for use with gradient center location
         Dim fIntensity As Single = iIntensity * fRatio
 
@@ -710,8 +726,8 @@ Public Class Main
         Dim OutputMap As ColorMap() = New ColorMap(255) {}
 
         ' Change this path to wherever you saved the palette image.
-        Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
-
+        'Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
+        Dim Palette As Bitmap = New Bitmap(My.Resources.pal)
         ' Loop through each pixel and create a new color mapping
         For X As Integer = 0 To 255
             OutputMap(X) = New ColorMap()

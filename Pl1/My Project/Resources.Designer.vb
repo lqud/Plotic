@@ -60,9 +60,9 @@ Namespace My.Resources
             End Set
         End Property
         
-        Friend ReadOnly Property image_axd() As System.Drawing.Bitmap
+        Friend ReadOnly Property pal() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("image_axd", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("pal", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
