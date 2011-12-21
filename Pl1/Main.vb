@@ -462,6 +462,8 @@ Public Class Main
             drawTTK(g, Math.Round((hits1 / (intBursts + 1) * 100), 2), Math.Round((hits2 / (intBursts + 1) * 100), 2), Math.Round((hits3 / (intBursts + 1) * 100), 2), Math.Round((hits4 / (intBursts + 1) * 100), 2), Math.Round((hits5 / (intBursts + 1) * 100), 2))
         End If
         If chkHeatMap.Checked Then
+            SetOutPutText_ThreadSafe("Please wait... Creating heat map")
+            Application.DoEvents()
             b = CreateIntensityMask(Pl.HeatMap, HeatPoints)
             ' Colorize the memory bitmap and assign it as the picture boxes image
             b = Colorize(b, 255)
@@ -632,10 +634,13 @@ Public Class Main
         ' Set background color to white so that pixels can be correctly colorized
         DrawSurface.Clear(Color.White)
 
+        Dim hCount As Integer = 1
         ' Traverse heat point data and draw masks for each heat point
         For Each DataPoint As HeatPoint In aHeatPoints
             ' Render current heat point on draw surface
             DrawHeatPoint(DrawSurface, DataPoint, numHeatRadius.Value)
+            BackgroundWorker1.ReportProgress(Math.Round((hCount / aHeatPoints.Count) * 100), 0)
+            hCount += 1
         Next
 
         Return bSurface
