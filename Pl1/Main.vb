@@ -232,11 +232,9 @@ Public Class Main
         lblAdjMin.Text = calculateAdjustment(CDbl(Val(txtSpreadMin.Text)), (numMin.Value)).ToString
         lblAdjInc.Text = calculateAdjustment(CDbl(Val(txtSpreadInc.Text)), (numInc.Value)).ToString
     End Sub
-
     Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numInc.ValueChanged, numMin.ValueChanged
         UpdateAdjustments()
     End Sub
-
     Private Function calculateAdjustment(ByVal actor As Double, ByVal action As Double) As Double
         Return Math.Round((actor * (action / 100)) + (actor), 3)
     End Function
@@ -482,6 +480,13 @@ Public Class Main
         Else
             mainToolStripStatus.Text = "Completed"
             Debug.WriteLine("Worker 1 Completed")
+
+            If chkSaveImage.Checked Then
+                Debug.WriteLine("Saving Image")
+                SetOutPutText_ThreadSafe("Please wait... Saving Image")
+                Application.DoEvents()
+                SaveImage()
+            End If
         End If
 
         Me.btnStart.Enabled = True
@@ -493,14 +498,11 @@ Public Class Main
         Me.grpRender.Enabled = True
         Me.grpSpread.Enabled = True
 
-        If chkSaveImage.Checked Then
-            Debug.WriteLine("Saving Image")
-            SaveImage()
-        End If
 
     End Sub
     Private Sub SaveImage()
-        Dim b As Bitmap = Pl.Image
+        Dim b As Bitmap = picPlot.Image
+        'Dim b As Bitmap = Pl.Image
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
         Dim bm_source As New Bitmap(b)
         Dim bm_dest As New Bitmap( _
@@ -527,6 +529,9 @@ Public Class Main
         ProcessProperties.FileName = "C:\Windows\System32\rundll32.exe"
         ProcessProperties.Arguments = """" + My.Computer.FileSystem.SpecialDirectories.ProgramFiles + "\Windows Photo Viewer\PhotoViewer.dll"", ImageView_Fullscreen " + file
         ProcessProperties.WindowStyle = ProcessWindowStyle.Maximized
+        picDest.Dispose()
+        bm_dest.Dispose()
+        mainToolStripStatus.Text = "Image Saved: " & saveImagePath
     End Sub
 
     Private Sub btnStop_Click(sender As System.Object, e As System.EventArgs) Handles btnStop.Click
