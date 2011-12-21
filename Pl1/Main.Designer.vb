@@ -50,7 +50,6 @@ Partial Class Main
         Me.txtRecoilRight = New System.Windows.Forms.TextBox()
         Me.lblBurstCounter = New System.Windows.Forms.Label()
         Me.btnStart = New System.Windows.Forms.Button()
-        Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.btnStop = New System.Windows.Forms.Button()
         Me.grpAttach = New System.Windows.Forms.GroupBox()
         Me.numRecoilH = New System.Windows.Forms.NumericUpDown()
@@ -96,10 +95,11 @@ Partial Class Main
         Me.chkBars = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
+        Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.chkHeatMap = New System.Windows.Forms.CheckBox()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
-        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpAttach.SuspendLayout()
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,6 +110,7 @@ Partial Class Main
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -456,16 +457,6 @@ Partial Class Main
         Me.btnStart.Text = "Start"
         Me.btnStart.UseVisualStyleBackColor = False
         '
-        'picPlot
-        '
-        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.picPlot.Location = New System.Drawing.Point(395, 14)
-        Me.picPlot.Name = "picPlot"
-        Me.picPlot.Size = New System.Drawing.Size(400, 400)
-        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picPlot.TabIndex = 29
-        Me.picPlot.TabStop = False
-        '
         'btnStop
         '
         Me.btnStop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -752,7 +743,7 @@ Partial Class Main
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(351, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(382, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "Plotic v 0.5"
         '
@@ -772,6 +763,7 @@ Partial Class Main
         'grpRender
         '
         Me.grpRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpRender.Controls.Add(Me.chkHeatMap)
         Me.grpRender.Controls.Add(Me.txtHitRateResult)
         Me.grpRender.Controls.Add(Me.chkDrawTTK)
         Me.grpRender.Controls.Add(Me.txtScale)
@@ -989,6 +981,28 @@ Partial Class Main
         Me.BackgroundWorker2.WorkerReportsProgress = True
         Me.BackgroundWorker2.WorkerSupportsCancellation = True
         '
+        'picPlot
+        '
+        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.picPlot.Location = New System.Drawing.Point(395, 14)
+        Me.picPlot.Name = "picPlot"
+        Me.picPlot.Size = New System.Drawing.Size(400, 400)
+        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPlot.TabIndex = 29
+        Me.picPlot.TabStop = False
+        '
+        'chkHeatMap
+        '
+        Me.chkHeatMap.AutoSize = True
+        Me.chkHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkHeatMap.ForeColor = System.Drawing.Color.White
+        Me.chkHeatMap.Location = New System.Drawing.Point(205, 39)
+        Me.chkHeatMap.Name = "chkHeatMap"
+        Me.chkHeatMap.Size = New System.Drawing.Size(73, 17)
+        Me.chkHeatMap.TabIndex = 62
+        Me.chkHeatMap.Text = "Heat Map"
+        Me.chkHeatMap.UseVisualStyleBackColor = False
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1016,7 +1030,6 @@ Partial Class Main
         Me.grpMisc.PerformLayout()
         Me.grpRecoil.ResumeLayout(False)
         Me.grpRecoil.PerformLayout()
-        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpAttach.ResumeLayout(False)
         Me.grpAttach.PerformLayout()
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1030,6 +1043,7 @@ Partial Class Main
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1108,4 +1122,5 @@ Partial Class Main
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents txtHitRateResult As System.Windows.Forms.TextBox
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents chkHeatMap As System.Windows.Forms.CheckBox
 End Class

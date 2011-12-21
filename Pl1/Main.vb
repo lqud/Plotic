@@ -1,5 +1,12 @@
-﻿Public Class Main
+﻿Imports System.Collections.Generic
+Imports System.Drawing
+Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
+Imports System.Windows.Forms
+
+Public Class Main
     Private Const SCALE_FACTOR As Single = 4.25
+    Private HeatPoints As New List(Of HeatPoint)()
 
     Dim saveImagePath As String = ""
     Dim intBurstCycle As Integer = 0
@@ -594,4 +601,135 @@
             Debug.WriteLine("Worker 2 Completed")
         End If
     End Sub
+
+    Private Function CreateIntensityMask(bSurface As Bitmap, aHeatPoints As List(Of HeatPoint)) As Bitmap
+        ' Create new graphics surface from memory bitmap
+        Dim DrawSurface As Graphics = Graphics.FromImage(bSurface)
+
+        ' Set background color to white so that pixels can be correctly colorized
+        DrawSurface.Clear(Color.White)
+
+        ' Traverse heat point data and draw masks for each heat point
+        For Each DataPoint As HeatPoint In aHeatPoints
+            ' Render current heat point on draw surface
+            DrawHeatPoint(DrawSurface, DataPoint, 15)
+        Next
+
+        Return bSurface
+    End Function
+    Private Sub DrawHeatPoint(Canvas As Graphics, HeatPoint As HeatPoint, Radius As Integer)
+        ' Create points generic list of points to hold circumference points
+        Dim CircumferencePointsList As New List(Of Point)()
+
+        ' Create an empty point to predefine the point struct used in the circumference loop
+        Dim CircumferencePoint As Point
+
+        ' Create an empty array that will be populated with points from the generic list
+        Dim CircumferencePointsArray As Point()
+
+        ' Calculate ratio to scale byte intensity range from 0-255 to 0-1
+        Dim fRatio As Single = 1.0F / [Byte].MaxValue
+        ' Precalulate half of byte max value
+        Dim bHalf As Byte = [Byte].MaxValue \ 2
+        ' Flip intensity on it's center value from low-high to high-low
+        Dim iIntensity As Integer = CByte(HeatPoint.Intensity - ((HeatPoint.Intensity - bHalf) * 2))
+        ' Store scaled and flipped intensity value for use with gradient center location
+        Dim fIntensity As Single = iIntensity * fRatio
+
+        ' Loop through all angles of a circle
+        ' Define loop variable as a double to prevent casting in each iteration
+        ' Iterate through loop on 10 degree deltas, this can change to improve performance
+        For i As Double = 0 To 360 Step 10
+            ' Replace last iteration point with new empty point struct
+            CircumferencePoint = New Point()
+
+            ' Plot new point on the circumference of a circle of the defined radius
+            ' Using the point coordinates, radius, and angle
+            ' Calculate the position of this iterations point on the circle
+            CircumferencePoint.X = Convert.ToInt32(HeatPoint.X + Radius * Math.Cos(ConvertDegreesToRadians(i)))
+            CircumferencePoint.Y = Convert.ToInt32(HeatPoint.Y + Radius * Math.Sin(ConvertDegreesToRadians(i)))
+
+            ' Add newly plotted circumference point to generic point list
+            CircumferencePointsList.Add(CircumferencePoint)
+        Next
+
+        ' Populate empty points system array from generic points array list
+        ' Do this to satisfy the datatype of the PathGradientBrush and FillPolygon methods
+        CircumferencePointsArray = CircumferencePointsList.ToArray()
+
+        ' Create new PathGradientBrush to create a radial gradient using the circumference points
+        Dim GradientShaper As New PathGradientBrush(CircumferencePointsArray)
+
+        ' Create new color blend to tell the PathGradientBrush what colors to use and where to put them
+        Dim GradientSpecifications As New ColorBlend(3)
+
+        ' Define positions of gradient colors, use intesity to adjust the middle color to
+        ' show more mask or less mask
+        GradientSpecifications.Positions = New Single(2) {0, fIntensity, 1}
+        ' Define gradient colors and their alpha values, adjust alpha of gradient colors to match intensity
+        GradientSpecifications.Colors = New Color(2) {Color.FromArgb(0, Color.White), Color.FromArgb(HeatPoint.Intensity, Color.Black), Color.FromArgb(HeatPoint.Intensity, Color.Black)}
+
+        ' Pass off color blend to PathGradientBrush to instruct it how to generate the gradient
+        GradientShaper.InterpolationColors = GradientSpecifications
+
+        ' Draw polygon (circle) using our point array and gradient brush
+        Canvas.FillPolygon(GradientShaper, CircumferencePointsArray)
+    End Sub
+
+    Private Function ConvertDegreesToRadians(degrees As Double) As Double
+        Dim radians As Double = (Math.PI / 180) * degrees
+        Return (radians)
+    End Function
+
+    Public Shared Function Colorize(Mask As Bitmap, Alpha As Byte) As Bitmap
+        ' Create new bitmap to act as a work surface for the colorization process
+        Dim Output As New Bitmap(Mask.Width, Mask.Height, PixelFormat.Format32bppArgb)
+
+        ' Create a graphics object from our memory bitmap so we can draw on it and clear it's drawing surface
+        Dim Surface As Graphics = Graphics.FromImage(Output)
+        Surface.Clear(Color.Transparent)
+
+        ' Build an array of color mappings to remap our greyscale mask to full color
+        ' Accept an alpha byte to specify the transparancy of the output image
+        Dim Colors As ColorMap() = CreatePaletteIndex(Alpha)
+
+        ' Create new image attributes class to handle the color remappings
+        ' Inject our color map array to instruct the image attributes class how to do the colorization
+        Dim Remapper As New ImageAttributes()
+        Remapper.SetRemapTable(Colors)
+
+        ' Draw our mask onto our memory bitmap work surface using the new color mapping scheme
+        Surface.DrawImage(Mask, New Rectangle(0, 0, Mask.Width, Mask.Height), 0, 0, Mask.Width, Mask.Height, _
+         GraphicsUnit.Pixel, Remapper)
+
+        ' Send back newly colorized memory bitmap
+        Return Output
+    End Function
+
+    Private Shared Function CreatePaletteIndex(Alpha As Byte) As ColorMap()
+        Dim OutputMap As ColorMap() = New ColorMap(255) {}
+
+        ' Change this path to wherever you saved the palette image.
+        Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
+
+        ' Loop through each pixel and create a new color mapping
+        For X As Integer = 0 To 255
+            OutputMap(X) = New ColorMap()
+            OutputMap(X).OldColor = Color.FromArgb(X, X, X)
+            OutputMap(X).NewColor = Color.FromArgb(Alpha, Palette.GetPixel(X, 0))
+        Next
+
+        Return OutputMap
+    End Function
 End Class
+
+Public Structure HeatPoint
+    Public X As Integer
+    Public Y As Integer
+    Public Intensity As Byte
+    Public Sub New(iX As Integer, iY As Integer, bIntensity As Byte)
+        X = iX
+        Y = iY
+        Intensity = bIntensity
+    End Sub
+End Structure
