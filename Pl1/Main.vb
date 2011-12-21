@@ -185,7 +185,7 @@ Public Class Main
         ' Enable to stop button
         btnStop.Enabled = True
         ' Start the Background Worker working
-
+        HeatPoints.Clear()
         loadPlotic()
         BackgroundWorker1.RunWorkerAsync()
         'BackgroundWorker2.RunWorkerAsync()
