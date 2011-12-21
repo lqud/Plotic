@@ -80,5 +80,12 @@ Namespace My.Resources
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
+        
+        Friend ReadOnly Property sil_mask() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sil_mask", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
     End Module
 End Namespace

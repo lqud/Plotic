@@ -145,4 +145,20 @@
         Me.Image = b
         Me.grhGraphic = g
     End Sub
+    Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean
+        Dim colo As Object
+        Dim rgbb As Integer
+        If x < 0 Or y < 0 Or x > 2000 Or y > 2000 Then
+            rgbb = 0
+        Else
+            colo = Me.Image.GetPixel(x, y)
+            rgbb = Val(colo.R) + Val(colo.G) + Val(colo.B)
+        End If
+        'Debug.WriteLine("X: " & x & " Y: " & y & " Val: " & rgbb)
+        If rgbb > 100 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class

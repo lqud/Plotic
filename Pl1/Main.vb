@@ -1,5 +1,5 @@
 ﻿Public Class Main
-    Private Const SCALE_FACTOR As Single = 0.1783
+    Private Const SCALE_FACTOR As Single = 4.25
 
     Dim saveImagePath As String = ""
     Dim intBurstCycle As Integer = 0
@@ -164,7 +164,7 @@
     End Sub
 
     Private Sub btnStart_Click() Handles btnStart.Click
-        intBurstCycle = -1
+        intBurstCycle = 0
 
         'Disable all of the input boxes
         btnStart.Enabled = False
@@ -174,8 +174,6 @@
         Me.grpRecoil.Enabled = False
         Me.grpRender.Enabled = False
         Me.grpSpread.Enabled = False
-
-
 
         ' Enable to stop button
         btnStop.Enabled = True
@@ -233,12 +231,12 @@
     End Sub
 
     Private Sub BackgroundWorker1_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-        Dim hits1 = 0
-        Dim hits2 = 0
-        Dim hits3 = 0
-        Dim hits4 = 0
-        Dim hits5 = 0
-
+        'TODO: Convert to arrays
+        Dim hits1 As Integer = 0
+        Dim hits2 As Integer = 0
+        Dim hits3 As Integer = 0
+        Dim hits4 As Integer = 0
+        Dim hits5 As Integer = 0
         Dim coord1x(Val(txtBursts.Text)) As Integer
         Dim coord1y(Val(txtBursts.Text)) As Integer
         Dim coord2x(Val(txtBursts.Text)) As Integer
@@ -262,9 +260,17 @@
 
         Dim b As Bitmap = New Bitmap(2000, 2000)
 
+        'Add the mask to the Plotic class
+        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask)
+        Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
+        Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
+        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
+        Dim vittuMask As Integer = (1000 - (solscaledMask.Width / 2))
+        Pl.Graphic.Clear(Color.Black)
+        Pl.Graphic.DrawImage(solscaledMask, vittuMask, 1000)
+
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1)
-        Dim scale_f = 4.25
-        Dim solscaled As New Bitmap(CInt(sol.Width * scale_f), CInt(sol.Height * scale_f))
+        Dim solscaled As New Bitmap(CInt(sol.Width * SCALE_FACTOR), CInt(sol.Height * SCALE_FACTOR))
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
@@ -348,37 +354,37 @@
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
                     Select Case a
                         Case 0
-                            If rgbb > 50 Then
+                            If Pl.bulletHit(x, y) Then
                                 hits1 += 1
                             End If
                             coord1x(ee) = x
                             coord1y(ee) = y
                         Case 1
-                            If rgbb > 50 Then
+                            If Pl.bulletHit(x, y) Then
                                 hits2 += 1
                             End If
                             coord2x(ee) = x
                             coord2y(ee) = y
                         Case 2
-                            If rgbb > 50 Then
+                            If Pl.bulletHit(x, y) Then
                                 hits3 += 1
                             End If
                             coord3x(ee) = x
                             coord3y(ee) = y
                         Case 3
-                            If rgbb > 50 Then
+                            If Pl.bulletHit(x, y) Then
                                 hits4 += 1
                             End If
                             coord4x(ee) = x
                             coord4y(ee) = y
                         Case 4
-                            If rgbb > 50 Then
+                            If Pl.bulletHit(x, y) Then
                                 hits5 += 1
                             End If
                             coord5x(ee) = x
                             coord5y(ee) = y
                     End Select
-                    'g.DrawEllipse(pen1, x, y, 7, 7)
+                    g.DrawEllipse(pen1, x, y, 7, 7)
                 End If
 
                 Application.DoEvents()
@@ -427,18 +433,18 @@
             Application.DoEvents()
             Debug.WriteLine("Bursts: " & intBursts)
             Debug.WriteLine("Hits #1: " & hits1)
-            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((hits1 / intBursts * 100), 2).ToString + "%" + nl + _
-                   "2nd. bullet: " + Math.Round((hits2 / intBursts * 100), 2).ToString + "%" + nl + _
-                   "3rd. bullet: " + Math.Round((hits3 / intBursts * 100), 2).ToString + "%" + nl + _
-                   "4th. bullet: " + Math.Round((hits4 / intBursts * 100), 2).ToString + "%" + nl + _
-                   "5th. bullet: " + Math.Round((hits5 / intBursts * 100), 2).ToString + "%")
+            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((hits1 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "2nd. bullet: " + Math.Round((hits2 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "3rd. bullet: " + Math.Round((hits3 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "4th. bullet: " + Math.Round((hits4 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "5th. bullet: " + Math.Round((hits5 / (intBursts + 1) * 100), 2).ToString + "%")
 
         End If
         If chkDrawTTK.Checked And chkTimeToKill.Checked Then
-            drawTTK(g, Math.Round((hits1 / intBursts * 100), 2), Math.Round((hits2 / intBursts * 100), 2), Math.Round((hits3 / intBursts * 100), 2), Math.Round((hits4 / intBursts * 100), 2), Math.Round((hits5 / intBursts * 100), 2))
+            drawTTK(g, Math.Round((hits1 / (intBursts + 1) * 100), 2), Math.Round((hits2 / (intBursts + 1) * 100), 2), Math.Round((hits3 / (intBursts + 1) * 100), 2), Math.Round((hits4 / (intBursts + 1) * 100), 2), Math.Round((hits5 / (intBursts + 1) * 100), 2))
         End If
-        SetImage_ThreadSafe(b)
-        Pl.Image = b
+        SetImage_ThreadSafe(Pl.Image)
+        'Pl.Image = b
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
@@ -528,7 +534,7 @@
         ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
         ' If these threads are different, it returns true.
         If txtHitRateResult.InvokeRequired Then
-            Dim MyDelegate As New SetCounterText_Delegate(AddressOf SetHitRateText_ThreadSafe)
+            Dim MyDelegate As New SetHitRate_Delegate(AddressOf SetHitRateText_ThreadSafe)
             Me.Invoke(MyDelegate, New Object() {[text]})
         Else
             txtHitRateResult.Text = [text]
@@ -542,22 +548,10 @@
             Dim MyDelegate As New addBurstCount_Delegate(AddressOf addBurstCount_ThreadSafe)
             Me.Invoke(MyDelegate, New Object() {})
         Else
-            intBurstCycle += 1
             lblBurstCounter.Text = "Burst " + intBurstCycle.ToString + " / " + Pl.Burst.ToString
+            intBurstCycle += 1
         End If
 
-    End Sub
-    Delegate Sub SetCounterText_Delegate(ByVal [text] As String)
-    ' The delegates subroutine.
-    Private Sub SetCounterText_ThreadSafe(ByVal [text] As String)
-        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
-        ' If these threads are different, it returns true.
-        If lblBurstCounter.InvokeRequired Then
-            Dim MyDelegate As New SetCounterText_Delegate(AddressOf SetCounterText_ThreadSafe)
-            Me.Invoke(MyDelegate, New Object() {[text]})
-        Else
-            lblBurstCounter.Text = [text]
-        End If
     End Sub
 
     Delegate Sub SetImage_Delegate(ByVal [image] As Bitmap)
@@ -589,7 +583,6 @@
     End Sub
 
     Private Sub BackgroundWorker2_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker2.ProgressChanged
-        Me.ToolStripProgressBar2.Value = e.ProgressPercentage
     End Sub
 
     Private Sub BackgroundWorker2_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker2.RunWorkerCompleted

@@ -96,7 +96,6 @@ Partial Class Main
         Me.chkBars = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
-        Me.ToolStripProgressBar2 = New System.Windows.Forms.ToolStripProgressBar()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
@@ -470,6 +469,7 @@ Partial Class Main
         'btnStop
         '
         Me.btnStop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.btnStop.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnStop.Enabled = False
         Me.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnStop.ForeColor = System.Drawing.Color.Firebrick
@@ -744,15 +744,15 @@ Partial Class Main
         Me.ToolStripProgressBar1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
         Me.ToolStripProgressBar1.Padding = New System.Windows.Forms.Padding(25, 0, 0, 0)
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(175, 16)
-        Me.ToolStripProgressBar1.Step = 1
+        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(300, 16)
+        Me.ToolStripProgressBar1.Step = 25
         '
         'mainToolStripStatus
         '
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(299, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(351, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "Plotic v 0.5"
         '
@@ -976,7 +976,7 @@ Partial Class Main
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar2, Me.ToolStripProgressBar1, Me.mainToolStripStatus, Me.ToolStripStatusLabel2})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.mainToolStripStatus, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 417)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(810, 22)
@@ -988,12 +988,6 @@ Partial Class Main
         '
         Me.BackgroundWorker2.WorkerReportsProgress = True
         Me.BackgroundWorker2.WorkerSupportsCancellation = True
-        '
-        'ToolStripProgressBar2
-        '
-        Me.ToolStripProgressBar2.Name = "ToolStripProgressBar2"
-        Me.ToolStripProgressBar2.Padding = New System.Windows.Forms.Padding(25, 0, 0, 0)
-        Me.ToolStripProgressBar2.Size = New System.Drawing.Size(175, 16)
         '
         'Main
         '
@@ -1114,5 +1108,4 @@ Partial Class Main
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents txtHitRateResult As System.Windows.Forms.TextBox
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
-    Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
 End Class
