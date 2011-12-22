@@ -326,7 +326,7 @@ Public Class Main
             Dim centy = 1680
             Dim iIntense As Byte
             For a = 0 To Int(Pl.BulletsPerBurst) - 1
-                Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
+                Dim pen1 As New System.Drawing.Pen(Color.DarkRed, 4)
                 Select Case a
                     Case 0
                         pen1.Color = Color.YellowGreen
@@ -361,14 +361,6 @@ Public Class Main
                 If Not chkTimeToKill.Checked Then
                     g.DrawEllipse(pen1, x, y, 7, 7)
                 Else
-                    Dim colo As Object
-                    Dim rgbb As Integer
-                    If x < 0 Or y < 0 Or x > 2000 Or y > 2000 Then
-                        rgbb = 0
-                    Else
-                        colo = b.GetPixel(x, y)
-                        rgbb = Val(colo.R) + Val(colo.G) + Val(colo.B)
-                    End If
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
                     Select Case a
                         Case 0

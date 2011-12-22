@@ -1150,11 +1150,11 @@ Partial Class Main
     Friend WithEvents txtScale As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents chkDrawTTK As System.Windows.Forms.CheckBox
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents txtHitRateResult As System.Windows.Forms.TextBox
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents chkHeatMap As System.Windows.Forms.CheckBox
     Friend WithEvents numHeatRadius As System.Windows.Forms.NumericUpDown
     Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
 End Class
