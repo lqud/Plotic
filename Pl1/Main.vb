@@ -6,6 +6,7 @@ Imports System.Windows.Forms
 
 Public Class Main
     Private Const SCALE_FACTOR As Single = 4.25
+    Private Const VERSION As String = "Plotic v0.6"
     Private HeatPoints As New List(Of HeatPoint)()
 
     Dim saveImagePath As String = ""
@@ -18,7 +19,8 @@ Public Class Main
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-
+        mainToolStripStatus.Text = VERSION
+        Me.Text = VERSION
     End Sub
 
     Public Sub drawTitle(ByVal g As Graphics)
@@ -293,9 +295,6 @@ Public Class Main
         If chkBars.Checked Then
             drawBars(g)
         End If
-        If chkTitles.Checked Then
-            drawTitle(g)
-        End If
         If chkPrintAdj.Checked Then
             drawAdjustments(g)
         End If
@@ -312,6 +311,7 @@ Public Class Main
                 e.Cancel = True
                 Exit For
             End If
+
             upd += 1
             If upd = 100 Then
                 upd = 0
@@ -460,6 +460,9 @@ Public Class Main
             ' Colorize the memory bitmap and assign it as the picture boxes image
             b = Colorize(b, 255)
         End If
+        If chkTitles.Checked Then
+            drawTitle(g)
+        End If
         SetImage_ThreadSafe(b)
     End Sub
 
@@ -591,7 +594,7 @@ Public Class Main
         End If
     End Sub
 
-    Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSaveImage.CheckedChanged
+    Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If chkSaveImage.Checked And saveImagePath = "" Then
             btnSaveImage_Click()
         End If
@@ -731,7 +734,7 @@ Public Class Main
 
         ' Change this path to wherever you saved the palette image.
         'Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
-        Dim Palette As Bitmap = New Bitmap(My.Resources.pal3)
+        Dim Palette As Bitmap = New Bitmap(My.Resources.pal_white_red)
         ' Loop through each pixel and create a new color mapping
         For X As Integer = 0 To 255
             OutputMap(X) = New ColorMap()
@@ -741,6 +744,10 @@ Public Class Main
 
         Return OutputMap
     End Function
+
+    Private Sub btnSaveImage_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveImage.Click
+
+    End Sub
 End Class
 
 Public Structure HeatPoint

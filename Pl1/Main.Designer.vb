@@ -39,8 +39,6 @@ Partial Class Main
         Me.Label3 = New System.Windows.Forms.Label()
         Me.chkPrintAdj = New System.Windows.Forms.CheckBox()
         Me.chkDrawGrid = New System.Windows.Forms.CheckBox()
-        Me.btnSaveImage = New System.Windows.Forms.Button()
-        Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.chkScaleRadius = New System.Windows.Forms.CheckBox()
         Me.grpRecoil = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -60,7 +58,9 @@ Partial Class Main
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.numInc = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilMultiplier = New System.Windows.Forms.NumericUpDown()
         Me.lblAdjInc = New System.Windows.Forms.Label()
+        Me.chkMultiplyRecoil = New System.Windows.Forms.CheckBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.lblAdjMin = New System.Windows.Forms.Label()
         Me.numRecoilV = New System.Windows.Forms.NumericUpDown()
@@ -84,8 +84,6 @@ Partial Class Main
         Me.txtScale = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chkTitles = New System.Windows.Forms.CheckBox()
-        Me.numRecoilMultiplier = New System.Windows.Forms.NumericUpDown()
-        Me.chkMultiplyRecoil = New System.Windows.Forms.CheckBox()
         Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
         Me.numMeters = New System.Windows.Forms.NumericUpDown()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -101,9 +99,13 @@ Partial Class Main
         Me.numIntensityScale = New System.Windows.Forms.NumericUpDown()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.tabSaveOptions = New System.Windows.Forms.TabPage()
+        Me.chkSaveImage = New System.Windows.Forms.CheckBox()
+        Me.btnSaveImage = New System.Windows.Forms.Button()
+        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
@@ -111,9 +113,9 @@ Partial Class Main
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numInc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilV, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
@@ -122,6 +124,7 @@ Partial Class Main
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        Me.tabSaveOptions.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -330,30 +333,6 @@ Partial Class Main
         Me.chkDrawGrid.TabIndex = 42
         Me.chkDrawGrid.Text = "Grid line every"
         Me.chkDrawGrid.UseVisualStyleBackColor = False
-        '
-        'btnSaveImage
-        '
-        Me.btnSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSaveImage.ForeColor = System.Drawing.Color.LightGray
-        Me.btnSaveImage.Location = New System.Drawing.Point(98, 66)
-        Me.btnSaveImage.Name = "btnSaveImage"
-        Me.btnSaveImage.Size = New System.Drawing.Size(29, 21)
-        Me.btnSaveImage.TabIndex = 41
-        Me.btnSaveImage.Text = "..."
-        Me.btnSaveImage.UseVisualStyleBackColor = False
-        '
-        'chkSaveImage
-        '
-        Me.chkSaveImage.AutoSize = True
-        Me.chkSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkSaveImage.ForeColor = System.Drawing.Color.White
-        Me.chkSaveImage.Location = New System.Drawing.Point(7, 69)
-        Me.chkSaveImage.Name = "chkSaveImage"
-        Me.chkSaveImage.Size = New System.Drawing.Size(94, 17)
-        Me.chkSaveImage.TabIndex = 22
-        Me.chkSaveImage.Text = "Save image to"
-        Me.chkSaveImage.UseVisualStyleBackColor = False
         '
         'chkScaleRadius
         '
@@ -598,6 +577,19 @@ Partial Class Main
         Me.numInc.Size = New System.Drawing.Size(48, 20)
         Me.numInc.TabIndex = 45
         '
+        'numRecoilMultiplier
+        '
+        Me.numRecoilMultiplier.DecimalPlaces = 4
+        Me.numRecoilMultiplier.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numRecoilMultiplier.Location = New System.Drawing.Point(137, 111)
+        Me.numRecoilMultiplier.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.numRecoilMultiplier.Name = "numRecoilMultiplier"
+        Me.numRecoilMultiplier.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilMultiplier.Size = New System.Drawing.Size(66, 20)
+        Me.numRecoilMultiplier.TabIndex = 56
+        Me.numRecoilMultiplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilMultiplier.Value = New Decimal(New Integer() {3, 0, 0, 65536})
+        '
         'lblAdjInc
         '
         Me.lblAdjInc.AutoSize = True
@@ -610,6 +602,18 @@ Partial Class Main
         Me.lblAdjInc.TabIndex = 46
         Me.lblAdjInc.Text = "0"
         Me.lblAdjInc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'chkMultiplyRecoil
+        '
+        Me.chkMultiplyRecoil.AutoSize = True
+        Me.chkMultiplyRecoil.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkMultiplyRecoil.ForeColor = System.Drawing.Color.White
+        Me.chkMultiplyRecoil.Location = New System.Drawing.Point(6, 113)
+        Me.chkMultiplyRecoil.Name = "chkMultiplyRecoil"
+        Me.chkMultiplyRecoil.Size = New System.Drawing.Size(135, 17)
+        Me.chkMultiplyRecoil.TabIndex = 55
+        Me.chkMultiplyRecoil.Text = "Multiply Vertical Recoil:"
+        Me.chkMultiplyRecoil.UseVisualStyleBackColor = False
         '
         'Label9
         '
@@ -775,7 +779,7 @@ Partial Class Main
         '
         'numHeatRadius
         '
-        Me.numHeatRadius.Location = New System.Drawing.Point(287, 32)
+        Me.numHeatRadius.Location = New System.Drawing.Point(307, 6)
         Me.numHeatRadius.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numHeatRadius.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numHeatRadius.Name = "numHeatRadius"
@@ -790,7 +794,7 @@ Partial Class Main
         Me.chkHeatMap.AutoSize = True
         Me.chkHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkHeatMap.ForeColor = System.Drawing.Color.White
-        Me.chkHeatMap.Location = New System.Drawing.Point(188, 35)
+        Me.chkHeatMap.Location = New System.Drawing.Point(208, 9)
         Me.chkHeatMap.Name = "chkHeatMap"
         Me.chkHeatMap.Size = New System.Drawing.Size(104, 17)
         Me.chkHeatMap.TabIndex = 62
@@ -812,7 +816,7 @@ Partial Class Main
         Me.chkDrawTTK.AutoSize = True
         Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(276, 7)
+        Me.chkDrawTTK.Location = New System.Drawing.Point(99, 24)
         Me.chkDrawTTK.Name = "chkDrawTTK"
         Me.chkDrawTTK.Size = New System.Drawing.Size(55, 17)
         Me.chkDrawTTK.TabIndex = 60
@@ -845,37 +849,12 @@ Partial Class Main
         Me.chkTitles.Checked = True
         Me.chkTitles.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTitles.ForeColor = System.Drawing.Color.White
-        Me.chkTitles.Location = New System.Drawing.Point(201, 6)
+        Me.chkTitles.Location = New System.Drawing.Point(6, 42)
         Me.chkTitles.Name = "chkTitles"
         Me.chkTitles.Size = New System.Drawing.Size(51, 17)
         Me.chkTitles.TabIndex = 57
         Me.chkTitles.Text = "Titles"
         Me.chkTitles.UseVisualStyleBackColor = False
-        '
-        'numRecoilMultiplier
-        '
-        Me.numRecoilMultiplier.DecimalPlaces = 4
-        Me.numRecoilMultiplier.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numRecoilMultiplier.Location = New System.Drawing.Point(137, 111)
-        Me.numRecoilMultiplier.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
-        Me.numRecoilMultiplier.Name = "numRecoilMultiplier"
-        Me.numRecoilMultiplier.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRecoilMultiplier.Size = New System.Drawing.Size(66, 20)
-        Me.numRecoilMultiplier.TabIndex = 56
-        Me.numRecoilMultiplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRecoilMultiplier.Value = New Decimal(New Integer() {3, 0, 0, 65536})
-        '
-        'chkMultiplyRecoil
-        '
-        Me.chkMultiplyRecoil.AutoSize = True
-        Me.chkMultiplyRecoil.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkMultiplyRecoil.ForeColor = System.Drawing.Color.White
-        Me.chkMultiplyRecoil.Location = New System.Drawing.Point(6, 113)
-        Me.chkMultiplyRecoil.Name = "chkMultiplyRecoil"
-        Me.chkMultiplyRecoil.Size = New System.Drawing.Size(135, 17)
-        Me.chkMultiplyRecoil.TabIndex = 55
-        Me.chkMultiplyRecoil.Text = "Multiply Vertical Recoil:"
-        Me.chkMultiplyRecoil.UseVisualStyleBackColor = False
         '
         'chkTimeToKill
         '
@@ -956,7 +935,7 @@ Partial Class Main
         Me.chkBars.Checked = True
         Me.chkBars.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBars.ForeColor = System.Drawing.Color.White
-        Me.chkBars.Location = New System.Drawing.Point(6, 30)
+        Me.chkBars.Location = New System.Drawing.Point(6, 24)
         Me.chkBars.Name = "chkBars"
         Me.chkBars.Size = New System.Drawing.Size(47, 17)
         Me.chkBars.TabIndex = 43
@@ -1003,8 +982,8 @@ Partial Class Main
         '
         Me.numIntensityScale.DecimalPlaces = 2
         Me.numIntensityScale.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.numIntensityScale.Location = New System.Drawing.Point(307, 54)
-        Me.numIntensityScale.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numIntensityScale.Location = New System.Drawing.Point(308, 30)
+        Me.numIntensityScale.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
         Me.numIntensityScale.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         Me.numIntensityScale.Name = "numIntensityScale"
         Me.numIntensityScale.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1018,6 +997,7 @@ Partial Class Main
         Me.tabMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tabMain.Controls.Add(Me.tabRender)
         Me.tabMain.Controls.Add(Me.TabPage2)
+        Me.tabMain.Controls.Add(Me.tabSaveOptions)
         Me.tabMain.Location = New System.Drawing.Point(16, 245)
         Me.tabMain.Name = "tabMain"
         Me.tabMain.SelectedIndex = 0
@@ -1030,7 +1010,6 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.numLineSpace)
         Me.tabRender.Controls.Add(Me.Label16)
         Me.tabRender.Controls.Add(Me.numIntensityScale)
-        Me.tabRender.Controls.Add(Me.chkSaveImage)
         Me.tabRender.Controls.Add(Me.numHeatRadius)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
         Me.tabRender.Controls.Add(Me.chkHeatMap)
@@ -1039,7 +1018,6 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.chkBars)
         Me.tabRender.Controls.Add(Me.txtScale)
         Me.tabRender.Controls.Add(Me.Label15)
-        Me.tabRender.Controls.Add(Me.btnSaveImage)
         Me.tabRender.Controls.Add(Me.chkTitles)
         Me.tabRender.Controls.Add(Me.chkPrintAdj)
         Me.tabRender.Controls.Add(Me.numMeters)
@@ -1053,18 +1031,6 @@ Partial Class Main
         Me.tabRender.Size = New System.Drawing.Size(362, 140)
         Me.tabRender.TabIndex = 0
         Me.tabRender.Text = "Render Options"
-        '
-        'TabPage2
-        '
-        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.TabPage2.Controls.Add(Me.chkTimeToKill)
-        Me.TabPage2.Controls.Add(Me.txtHitRateResult)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(362, 140)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Time to Kill"
         '
         'Label16
         '
@@ -1080,11 +1046,59 @@ Partial Class Main
         '
         Me.Label13.AutoSize = True
         Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(233, 58)
+        Me.Label13.Location = New System.Drawing.Point(234, 34)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(76, 13)
         Me.Label13.TabIndex = 66
         Me.Label13.Text = "Intensity Scale"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.chkTimeToKill)
+        Me.TabPage2.Controls.Add(Me.txtHitRateResult)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(362, 140)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Time to Kill"
+        '
+        'tabSaveOptions
+        '
+        Me.tabSaveOptions.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabSaveOptions.Controls.Add(Me.chkSaveImage)
+        Me.tabSaveOptions.Controls.Add(Me.btnSaveImage)
+        Me.tabSaveOptions.Location = New System.Drawing.Point(4, 25)
+        Me.tabSaveOptions.Name = "tabSaveOptions"
+        Me.tabSaveOptions.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabSaveOptions.Size = New System.Drawing.Size(362, 140)
+        Me.tabSaveOptions.TabIndex = 2
+        Me.tabSaveOptions.Text = "Save Options"
+        '
+        'chkSaveImage
+        '
+        Me.chkSaveImage.AutoSize = True
+        Me.chkSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkSaveImage.ForeColor = System.Drawing.Color.White
+        Me.chkSaveImage.Location = New System.Drawing.Point(15, 16)
+        Me.chkSaveImage.Name = "chkSaveImage"
+        Me.chkSaveImage.Size = New System.Drawing.Size(94, 17)
+        Me.chkSaveImage.TabIndex = 42
+        Me.chkSaveImage.Text = "Save image to"
+        Me.chkSaveImage.UseVisualStyleBackColor = False
+        '
+        'btnSaveImage
+        '
+        Me.btnSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSaveImage.ForeColor = System.Drawing.Color.LightGray
+        Me.btnSaveImage.Location = New System.Drawing.Point(110, 13)
+        Me.btnSaveImage.Name = "btnSaveImage"
+        Me.btnSaveImage.Size = New System.Drawing.Size(29, 21)
+        Me.btnSaveImage.TabIndex = 43
+        Me.btnSaveImage.Text = "..."
+        Me.btnSaveImage.UseVisualStyleBackColor = False
         '
         'Main
         '
@@ -1118,9 +1132,9 @@ Partial Class Main
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numInc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilV, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
@@ -1132,6 +1146,8 @@ Partial Class Main
         Me.tabRender.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        Me.tabSaveOptions.ResumeLayout(False)
+        Me.tabSaveOptions.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1144,7 +1160,6 @@ Partial Class Main
     Friend WithEvents txtSpreadInc As System.Windows.Forms.TextBox
     Friend WithEvents lbis As System.Windows.Forms.Label
     Friend WithEvents grpMisc As System.Windows.Forms.GroupBox
-    Friend WithEvents chkSaveImage As System.Windows.Forms.CheckBox
     Friend WithEvents chkScaleRadius As System.Windows.Forms.CheckBox
     Friend WithEvents lbbpbm As System.Windows.Forms.Label
     Friend WithEvents lbbm As System.Windows.Forms.Label
@@ -1174,7 +1189,6 @@ Partial Class Main
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents numRecoilH As System.Windows.Forms.NumericUpDown
     Private WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents btnSaveImage As System.Windows.Forms.Button
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
     Friend WithEvents chkPrintAdj As System.Windows.Forms.CheckBox
     Friend WithEvents chkDrawGrid As System.Windows.Forms.CheckBox
@@ -1218,4 +1232,8 @@ Partial Class Main
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
+    Friend WithEvents tabSaveOptions As System.Windows.Forms.TabPage
+    Friend WithEvents chkSaveImage As System.Windows.Forms.CheckBox
+    Friend WithEvents btnSaveImage As System.Windows.Forms.Button
+    Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
 End Class
