@@ -67,6 +67,20 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property pal2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("pal2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property pal3() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("pal3", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property sil_1() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_1", resourceCulture)

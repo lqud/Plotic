@@ -77,7 +77,6 @@ Partial Class Main
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
         Me.mainToolStripStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.grpRender = New System.Windows.Forms.GroupBox()
         Me.numHeatRadius = New System.Windows.Forms.NumericUpDown()
         Me.chkHeatMap = New System.Windows.Forms.CheckBox()
         Me.txtHitRateResult = New System.Windows.Forms.TextBox()
@@ -93,13 +92,18 @@ Partial Class Main
         Me.radDegrees = New System.Windows.Forms.RadioButton()
         Me.radMeters = New System.Windows.Forms.RadioButton()
         Me.numLineSpace = New System.Windows.Forms.NumericUpDown()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.chkBars = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
-        Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.ToolStripProgressBar2 = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.numIntensityScale = New System.Windows.Forms.NumericUpDown()
+        Me.tabMain = New System.Windows.Forms.TabControl()
+        Me.tabRender = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
@@ -108,13 +112,16 @@ Partial Class Main
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilV, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpRender.SuspendLayout()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabMain.SuspendLayout()
+        Me.tabRender.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -305,7 +312,7 @@ Partial Class Main
         Me.chkPrintAdj.AutoSize = True
         Me.chkPrintAdj.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
-        Me.chkPrintAdj.Location = New System.Drawing.Point(93, 19)
+        Me.chkPrintAdj.Location = New System.Drawing.Point(99, 7)
         Me.chkPrintAdj.Name = "chkPrintAdj"
         Me.chkPrintAdj.Size = New System.Drawing.Size(83, 17)
         Me.chkPrintAdj.TabIndex = 43
@@ -317,11 +324,11 @@ Partial Class Main
         Me.chkDrawGrid.AutoSize = True
         Me.chkDrawGrid.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkDrawGrid.ForeColor = System.Drawing.Color.White
-        Me.chkDrawGrid.Location = New System.Drawing.Point(5, 65)
+        Me.chkDrawGrid.Location = New System.Drawing.Point(7, 94)
         Me.chkDrawGrid.Name = "chkDrawGrid"
-        Me.chkDrawGrid.Size = New System.Drawing.Size(45, 17)
+        Me.chkDrawGrid.Size = New System.Drawing.Size(93, 17)
         Me.chkDrawGrid.TabIndex = 42
-        Me.chkDrawGrid.Text = "Grid"
+        Me.chkDrawGrid.Text = "Grid line every"
         Me.chkDrawGrid.UseVisualStyleBackColor = False
         '
         'btnSaveImage
@@ -329,7 +336,7 @@ Partial Class Main
         Me.btnSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSaveImage.ForeColor = System.Drawing.Color.LightGray
-        Me.btnSaveImage.Location = New System.Drawing.Point(97, 39)
+        Me.btnSaveImage.Location = New System.Drawing.Point(98, 66)
         Me.btnSaveImage.Name = "btnSaveImage"
         Me.btnSaveImage.Size = New System.Drawing.Size(29, 21)
         Me.btnSaveImage.TabIndex = 41
@@ -341,7 +348,7 @@ Partial Class Main
         Me.chkSaveImage.AutoSize = True
         Me.chkSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkSaveImage.ForeColor = System.Drawing.Color.White
-        Me.chkSaveImage.Location = New System.Drawing.Point(6, 42)
+        Me.chkSaveImage.Location = New System.Drawing.Point(7, 69)
         Me.chkSaveImage.Name = "chkSaveImage"
         Me.chkSaveImage.Size = New System.Drawing.Size(94, 17)
         Me.chkSaveImage.TabIndex = 22
@@ -355,7 +362,7 @@ Partial Class Main
         Me.chkScaleRadius.Checked = True
         Me.chkScaleRadius.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkScaleRadius.ForeColor = System.Drawing.Color.White
-        Me.chkScaleRadius.Location = New System.Drawing.Point(6, 19)
+        Me.chkScaleRadius.Location = New System.Drawing.Point(6, 7)
         Me.chkScaleRadius.Name = "chkScaleRadius"
         Me.chkScaleRadius.Size = New System.Drawing.Size(84, 17)
         Me.chkScaleRadius.TabIndex = 0
@@ -486,7 +493,9 @@ Partial Class Main
         Me.grpAttach.Controls.Add(Me.Label10)
         Me.grpAttach.Controls.Add(Me.Label12)
         Me.grpAttach.Controls.Add(Me.numInc)
+        Me.grpAttach.Controls.Add(Me.numRecoilMultiplier)
         Me.grpAttach.Controls.Add(Me.lblAdjInc)
+        Me.grpAttach.Controls.Add(Me.chkMultiplyRecoil)
         Me.grpAttach.Controls.Add(Me.Label9)
         Me.grpAttach.Controls.Add(Me.lblAdjMin)
         Me.grpAttach.Controls.Add(Me.numRecoilV)
@@ -532,7 +541,7 @@ Partial Class Main
         Me.lblIncTitle.AutoSize = True
         Me.lblIncTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.lblIncTitle.ForeColor = System.Drawing.Color.Red
-        Me.lblIncTitle.Location = New System.Drawing.Point(127, 103)
+        Me.lblIncTitle.Location = New System.Drawing.Point(127, 88)
         Me.lblIncTitle.Name = "lblIncTitle"
         Me.lblIncTitle.Size = New System.Drawing.Size(25, 13)
         Me.lblIncTitle.TabIndex = 10
@@ -552,7 +561,7 @@ Partial Class Main
         Me.lblMinTitle.AutoSize = True
         Me.lblMinTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.lblMinTitle.ForeColor = System.Drawing.Color.Red
-        Me.lblMinTitle.Location = New System.Drawing.Point(126, 79)
+        Me.lblMinTitle.Location = New System.Drawing.Point(126, 68)
         Me.lblMinTitle.Name = "lblMinTitle"
         Me.lblMinTitle.Size = New System.Drawing.Size(27, 13)
         Me.lblMinTitle.TabIndex = 10
@@ -574,7 +583,7 @@ Partial Class Main
         Me.Label12.AutoSize = True
         Me.Label12.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label12.ForeColor = System.Drawing.Color.Red
-        Me.Label12.Location = New System.Drawing.Point(59, 96)
+        Me.Label12.Location = New System.Drawing.Point(59, 87)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(13, 13)
         Me.Label12.TabIndex = 21
@@ -594,7 +603,7 @@ Partial Class Main
         Me.lblAdjInc.AutoSize = True
         Me.lblAdjInc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAdjInc.ForeColor = System.Drawing.Color.Red
-        Me.lblAdjInc.Location = New System.Drawing.Point(155, 103)
+        Me.lblAdjInc.Location = New System.Drawing.Point(155, 88)
         Me.lblAdjInc.MinimumSize = New System.Drawing.Size(40, 12)
         Me.lblAdjInc.Name = "lblAdjInc"
         Me.lblAdjInc.Size = New System.Drawing.Size(40, 15)
@@ -618,7 +627,7 @@ Partial Class Main
         Me.lblAdjMin.AutoSize = True
         Me.lblAdjMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAdjMin.ForeColor = System.Drawing.Color.Red
-        Me.lblAdjMin.Location = New System.Drawing.Point(155, 79)
+        Me.lblAdjMin.Location = New System.Drawing.Point(155, 68)
         Me.lblAdjMin.MinimumSize = New System.Drawing.Size(40, 12)
         Me.lblAdjMin.Name = "lblAdjMin"
         Me.lblAdjMin.Size = New System.Drawing.Size(40, 15)
@@ -640,7 +649,7 @@ Partial Class Main
         Me.lblAdjRight.AutoSize = True
         Me.lblAdjRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAdjRight.ForeColor = System.Drawing.Color.Red
-        Me.lblAdjRight.Location = New System.Drawing.Point(80, 96)
+        Me.lblAdjRight.Location = New System.Drawing.Point(80, 87)
         Me.lblAdjRight.MinimumSize = New System.Drawing.Size(40, 12)
         Me.lblAdjRight.Name = "lblAdjRight"
         Me.lblAdjRight.Size = New System.Drawing.Size(40, 15)
@@ -664,7 +673,7 @@ Partial Class Main
         Me.lblAdjLeft.AutoSize = True
         Me.lblAdjLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAdjLeft.ForeColor = System.Drawing.Color.Red
-        Me.lblAdjLeft.Location = New System.Drawing.Point(11, 96)
+        Me.lblAdjLeft.Location = New System.Drawing.Point(11, 87)
         Me.lblAdjLeft.MinimumSize = New System.Drawing.Size(40, 12)
         Me.lblAdjLeft.Name = "lblAdjLeft"
         Me.lblAdjLeft.Size = New System.Drawing.Size(40, 15)
@@ -677,7 +686,7 @@ Partial Class Main
         Me.lblAdjUp.AutoSize = True
         Me.lblAdjUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblAdjUp.ForeColor = System.Drawing.Color.Red
-        Me.lblAdjUp.Location = New System.Drawing.Point(46, 75)
+        Me.lblAdjUp.Location = New System.Drawing.Point(46, 66)
         Me.lblAdjUp.MinimumSize = New System.Drawing.Size(40, 12)
         Me.lblAdjUp.Name = "lblAdjUp"
         Me.lblAdjUp.Size = New System.Drawing.Size(40, 15)
@@ -764,43 +773,9 @@ Partial Class Main
         Me.ToolStripStatusLabel2.Text = "http://symthic.com"
         Me.ToolStripStatusLabel2.ToolTipText = "http://symthic.com"
         '
-        'grpRender
-        '
-        Me.grpRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.grpRender.Controls.Add(Me.numHeatRadius)
-        Me.grpRender.Controls.Add(Me.chkHeatMap)
-        Me.grpRender.Controls.Add(Me.txtHitRateResult)
-        Me.grpRender.Controls.Add(Me.chkDrawTTK)
-        Me.grpRender.Controls.Add(Me.txtScale)
-        Me.grpRender.Controls.Add(Me.Label15)
-        Me.grpRender.Controls.Add(Me.chkTitles)
-        Me.grpRender.Controls.Add(Me.numRecoilMultiplier)
-        Me.grpRender.Controls.Add(Me.chkMultiplyRecoil)
-        Me.grpRender.Controls.Add(Me.chkTimeToKill)
-        Me.grpRender.Controls.Add(Me.numMeters)
-        Me.grpRender.Controls.Add(Me.Label14)
-        Me.grpRender.Controls.Add(Me.radDegrees)
-        Me.grpRender.Controls.Add(Me.radMeters)
-        Me.grpRender.Controls.Add(Me.numLineSpace)
-        Me.grpRender.Controls.Add(Me.chkPrintAdj)
-        Me.grpRender.Controls.Add(Me.btnSaveImage)
-        Me.grpRender.Controls.Add(Me.Label13)
-        Me.grpRender.Controls.Add(Me.chkBars)
-        Me.grpRender.Controls.Add(Me.chkDrawGrid)
-        Me.grpRender.Controls.Add(Me.chkSaveImage)
-        Me.grpRender.Controls.Add(Me.chkScaleRadius)
-        Me.grpRender.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.grpRender.ForeColor = System.Drawing.Color.White
-        Me.grpRender.Location = New System.Drawing.Point(17, 245)
-        Me.grpRender.Name = "grpRender"
-        Me.grpRender.Size = New System.Drawing.Size(368, 169)
-        Me.grpRender.TabIndex = 32
-        Me.grpRender.TabStop = False
-        Me.grpRender.Text = "Render"
-        '
         'numHeatRadius
         '
-        Me.numHeatRadius.Location = New System.Drawing.Point(235, 37)
+        Me.numHeatRadius.Location = New System.Drawing.Point(287, 32)
         Me.numHeatRadius.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numHeatRadius.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numHeatRadius.Name = "numHeatRadius"
@@ -815,18 +790,18 @@ Partial Class Main
         Me.chkHeatMap.AutoSize = True
         Me.chkHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkHeatMap.ForeColor = System.Drawing.Color.White
-        Me.chkHeatMap.Location = New System.Drawing.Point(146, 40)
+        Me.chkHeatMap.Location = New System.Drawing.Point(188, 35)
         Me.chkHeatMap.Name = "chkHeatMap"
-        Me.chkHeatMap.Size = New System.Drawing.Size(91, 17)
+        Me.chkHeatMap.Size = New System.Drawing.Size(104, 17)
         Me.chkHeatMap.TabIndex = 62
-        Me.chkHeatMap.Text = "Heat Map rad"
+        Me.chkHeatMap.Text = "Heat Map radius"
         Me.chkHeatMap.UseVisualStyleBackColor = False
         '
         'txtHitRateResult
         '
         Me.txtHitRateResult.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtHitRateResult.ForeColor = System.Drawing.Color.YellowGreen
-        Me.txtHitRateResult.Location = New System.Drawing.Point(226, 86)
+        Me.txtHitRateResult.Location = New System.Drawing.Point(7, 39)
         Me.txtHitRateResult.Multiline = True
         Me.txtHitRateResult.Name = "txtHitRateResult"
         Me.txtHitRateResult.Size = New System.Drawing.Size(135, 77)
@@ -837,7 +812,7 @@ Partial Class Main
         Me.chkDrawTTK.AutoSize = True
         Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(307, 19)
+        Me.chkDrawTTK.Location = New System.Drawing.Point(276, 7)
         Me.chkDrawTTK.Name = "chkDrawTTK"
         Me.chkDrawTTK.Size = New System.Drawing.Size(55, 17)
         Me.chkDrawTTK.TabIndex = 60
@@ -846,7 +821,7 @@ Partial Class Main
         '
         'txtScale
         '
-        Me.txtScale.Location = New System.Drawing.Point(77, 82)
+        Me.txtScale.Location = New System.Drawing.Point(79, 117)
         Me.txtScale.Name = "txtScale"
         Me.txtScale.Size = New System.Drawing.Size(30, 20)
         Me.txtScale.TabIndex = 59
@@ -857,7 +832,7 @@ Partial Class Main
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(3, 86)
+        Me.Label15.Location = New System.Drawing.Point(5, 121)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(71, 13)
         Me.Label15.TabIndex = 58
@@ -870,7 +845,7 @@ Partial Class Main
         Me.chkTitles.Checked = True
         Me.chkTitles.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTitles.ForeColor = System.Drawing.Color.White
-        Me.chkTitles.Location = New System.Drawing.Point(242, 19)
+        Me.chkTitles.Location = New System.Drawing.Point(201, 6)
         Me.chkTitles.Name = "chkTitles"
         Me.chkTitles.Size = New System.Drawing.Size(51, 17)
         Me.chkTitles.TabIndex = 57
@@ -881,7 +856,7 @@ Partial Class Main
         '
         Me.numRecoilMultiplier.DecimalPlaces = 4
         Me.numRecoilMultiplier.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numRecoilMultiplier.Location = New System.Drawing.Point(145, 130)
+        Me.numRecoilMultiplier.Location = New System.Drawing.Point(137, 111)
         Me.numRecoilMultiplier.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numRecoilMultiplier.Name = "numRecoilMultiplier"
         Me.numRecoilMultiplier.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -895,11 +870,11 @@ Partial Class Main
         Me.chkMultiplyRecoil.AutoSize = True
         Me.chkMultiplyRecoil.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkMultiplyRecoil.ForeColor = System.Drawing.Color.White
-        Me.chkMultiplyRecoil.Location = New System.Drawing.Point(6, 131)
+        Me.chkMultiplyRecoil.Location = New System.Drawing.Point(6, 113)
         Me.chkMultiplyRecoil.Name = "chkMultiplyRecoil"
-        Me.chkMultiplyRecoil.Size = New System.Drawing.Size(140, 17)
+        Me.chkMultiplyRecoil.Size = New System.Drawing.Size(135, 17)
         Me.chkMultiplyRecoil.TabIndex = 55
-        Me.chkMultiplyRecoil.Text = "Multiply vertical recoil by"
+        Me.chkMultiplyRecoil.Text = "Multiply Vertical Recoil:"
         Me.chkMultiplyRecoil.UseVisualStyleBackColor = False
         '
         'chkTimeToKill
@@ -907,7 +882,7 @@ Partial Class Main
         Me.chkTimeToKill.AutoSize = True
         Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
-        Me.chkTimeToKill.Location = New System.Drawing.Point(6, 114)
+        Me.chkTimeToKill.Location = New System.Drawing.Point(7, 16)
         Me.chkTimeToKill.Name = "chkTimeToKill"
         Me.chkTimeToKill.Size = New System.Drawing.Size(204, 17)
         Me.chkTimeToKill.TabIndex = 54
@@ -916,7 +891,7 @@ Partial Class Main
         '
         'numMeters
         '
-        Me.numMeters.Location = New System.Drawing.Point(283, 57)
+        Me.numMeters.Location = New System.Drawing.Point(290, 91)
         Me.numMeters.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numMeters.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numMeters.Name = "numMeters"
@@ -931,7 +906,7 @@ Partial Class Main
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(332, 60)
+        Me.Label14.Location = New System.Drawing.Point(339, 94)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(15, 13)
         Me.Label14.TabIndex = 52
@@ -940,7 +915,8 @@ Partial Class Main
         'radDegrees
         '
         Me.radDegrees.AutoSize = True
-        Me.radDegrees.Location = New System.Drawing.Point(162, 73)
+        Me.radDegrees.ForeColor = System.Drawing.Color.White
+        Me.radDegrees.Location = New System.Drawing.Point(150, 100)
         Me.radDegrees.Name = "radDegrees"
         Me.radDegrees.Size = New System.Drawing.Size(65, 17)
         Me.radDegrees.TabIndex = 51
@@ -951,19 +927,20 @@ Partial Class Main
         '
         Me.radMeters.AutoSize = True
         Me.radMeters.Checked = True
-        Me.radMeters.Location = New System.Drawing.Point(162, 58)
+        Me.radMeters.ForeColor = System.Drawing.Color.White
+        Me.radMeters.Location = New System.Drawing.Point(150, 85)
         Me.radMeters.Name = "radMeters"
-        Me.radMeters.Size = New System.Drawing.Size(124, 17)
+        Me.radMeters.Size = New System.Drawing.Size(57, 17)
         Me.radMeters.TabIndex = 50
         Me.radMeters.TabStop = True
-        Me.radMeters.Text = "Meters at distance of"
+        Me.radMeters.Text = "Meters"
         Me.radMeters.UseVisualStyleBackColor = True
         '
         'numLineSpace
         '
         Me.numLineSpace.DecimalPlaces = 2
         Me.numLineSpace.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.numLineSpace.Location = New System.Drawing.Point(112, 64)
+        Me.numLineSpace.Location = New System.Drawing.Point(98, 92)
         Me.numLineSpace.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         Me.numLineSpace.Name = "numLineSpace"
         Me.numLineSpace.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -972,17 +949,6 @@ Partial Class Main
         Me.numLineSpace.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.numLineSpace.Value = New Decimal(New Integer() {25, 0, 0, 131072})
         '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(54, 66)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(56, 13)
-        Me.Label13.TabIndex = 49
-        Me.Label13.Text = "Line every"
-        '
         'chkBars
         '
         Me.chkBars.AutoSize = True
@@ -990,7 +956,7 @@ Partial Class Main
         Me.chkBars.Checked = True
         Me.chkBars.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkBars.ForeColor = System.Drawing.Color.White
-        Me.chkBars.Location = New System.Drawing.Point(183, 19)
+        Me.chkBars.Location = New System.Drawing.Point(6, 30)
         Me.chkBars.Name = "chkBars"
         Me.chkBars.Size = New System.Drawing.Size(47, 17)
         Me.chkBars.TabIndex = 43
@@ -1012,16 +978,6 @@ Partial Class Main
         Me.BackgroundWorker2.WorkerReportsProgress = True
         Me.BackgroundWorker2.WorkerSupportsCancellation = True
         '
-        'picPlot
-        '
-        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.picPlot.Location = New System.Drawing.Point(395, 14)
-        Me.picPlot.Name = "picPlot"
-        Me.picPlot.Size = New System.Drawing.Size(400, 400)
-        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picPlot.TabIndex = 29
-        Me.picPlot.TabStop = False
-        '
         'ToolStripProgressBar2
         '
         Me.ToolStripProgressBar2.Name = "ToolStripProgressBar2"
@@ -1033,6 +989,103 @@ Partial Class Main
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(121, 17)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
+        'picPlot
+        '
+        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.picPlot.Location = New System.Drawing.Point(395, 14)
+        Me.picPlot.Name = "picPlot"
+        Me.picPlot.Size = New System.Drawing.Size(400, 400)
+        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPlot.TabIndex = 29
+        Me.picPlot.TabStop = False
+        '
+        'numIntensityScale
+        '
+        Me.numIntensityScale.DecimalPlaces = 2
+        Me.numIntensityScale.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
+        Me.numIntensityScale.Location = New System.Drawing.Point(307, 54)
+        Me.numIntensityScale.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numIntensityScale.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
+        Me.numIntensityScale.Name = "numIntensityScale"
+        Me.numIntensityScale.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numIntensityScale.Size = New System.Drawing.Size(48, 20)
+        Me.numIntensityScale.TabIndex = 64
+        Me.numIntensityScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numIntensityScale.Value = New Decimal(New Integer() {8, 0, 0, 0})
+        '
+        'tabMain
+        '
+        Me.tabMain.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
+        Me.tabMain.Controls.Add(Me.tabRender)
+        Me.tabMain.Controls.Add(Me.TabPage2)
+        Me.tabMain.Location = New System.Drawing.Point(16, 245)
+        Me.tabMain.Name = "tabMain"
+        Me.tabMain.SelectedIndex = 0
+        Me.tabMain.Size = New System.Drawing.Size(370, 169)
+        Me.tabMain.TabIndex = 42
+        '
+        'tabRender
+        '
+        Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.numLineSpace)
+        Me.tabRender.Controls.Add(Me.Label16)
+        Me.tabRender.Controls.Add(Me.numIntensityScale)
+        Me.tabRender.Controls.Add(Me.chkSaveImage)
+        Me.tabRender.Controls.Add(Me.numHeatRadius)
+        Me.tabRender.Controls.Add(Me.chkScaleRadius)
+        Me.tabRender.Controls.Add(Me.chkHeatMap)
+        Me.tabRender.Controls.Add(Me.chkDrawGrid)
+        Me.tabRender.Controls.Add(Me.chkDrawTTK)
+        Me.tabRender.Controls.Add(Me.chkBars)
+        Me.tabRender.Controls.Add(Me.txtScale)
+        Me.tabRender.Controls.Add(Me.Label15)
+        Me.tabRender.Controls.Add(Me.btnSaveImage)
+        Me.tabRender.Controls.Add(Me.chkTitles)
+        Me.tabRender.Controls.Add(Me.chkPrintAdj)
+        Me.tabRender.Controls.Add(Me.numMeters)
+        Me.tabRender.Controls.Add(Me.Label14)
+        Me.tabRender.Controls.Add(Me.radMeters)
+        Me.tabRender.Controls.Add(Me.radDegrees)
+        Me.tabRender.Controls.Add(Me.Label13)
+        Me.tabRender.Location = New System.Drawing.Point(4, 25)
+        Me.tabRender.Name = "tabRender"
+        Me.tabRender.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabRender.Size = New System.Drawing.Size(362, 140)
+        Me.tabRender.TabIndex = 0
+        Me.tabRender.Text = "Render Options"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.chkTimeToKill)
+        Me.TabPage2.Controls.Add(Me.txtHitRateResult)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(362, 140)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Time to Kill"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.ForeColor = System.Drawing.Color.White
+        Me.Label16.Location = New System.Drawing.Point(209, 94)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(80, 13)
+        Me.Label16.TabIndex = 65
+        Me.Label16.Text = "at a distance of"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.ForeColor = System.Drawing.Color.White
+        Me.Label13.Location = New System.Drawing.Point(233, 58)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(76, 13)
+        Me.Label13.TabIndex = 66
+        Me.Label13.Text = "Intensity Scale"
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1041,8 +1094,8 @@ Partial Class Main
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.CancelButton = Me.btnStop
         Me.ClientSize = New System.Drawing.Size(810, 439)
+        Me.Controls.Add(Me.tabMain)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.grpRender)
         Me.Controls.Add(Me.grpAttach)
         Me.Controls.Add(Me.btnStop)
         Me.Controls.Add(Me.grpSpread)
@@ -1066,8 +1119,6 @@ Partial Class Main
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numInc, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilV, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpRender.ResumeLayout(False)
-        Me.grpRender.PerformLayout()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilMultiplier, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1075,6 +1126,12 @@ Partial Class Main
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabMain.ResumeLayout(False)
+        Me.tabRender.ResumeLayout(False)
+        Me.tabRender.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1135,10 +1192,8 @@ Partial Class Main
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents mainToolStripStatus As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents grpRender As System.Windows.Forms.GroupBox
     Friend WithEvents radMeters As System.Windows.Forms.RadioButton
     Friend WithEvents numLineSpace As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents chkBars As System.Windows.Forms.CheckBox
     Friend WithEvents numRecoilMultiplier As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkMultiplyRecoil As System.Windows.Forms.CheckBox
@@ -1157,4 +1212,10 @@ Partial Class Main
     Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Friend WithEvents numIntensityScale As System.Windows.Forms.NumericUpDown
+    Friend WithEvents tabMain As System.Windows.Forms.TabControl
+    Friend WithEvents tabRender As System.Windows.Forms.TabPage
+    Friend WithEvents Label16 As System.Windows.Forms.Label
+    Friend WithEvents Label13 As System.Windows.Forms.Label
+    Friend WithEvents TabPage2 As System.Windows.Forms.TabPage
 End Class

@@ -179,7 +179,7 @@ Public Class Main
         Me.grpAttach.Enabled = False
         Me.grpMisc.Enabled = False
         Me.grpRecoil.Enabled = False
-        Me.grpRender.Enabled = False
+        Me.tabMain.Enabled = False
         Me.grpSpread.Enabled = False
 
         ' Enable to stop button
@@ -330,19 +330,19 @@ Public Class Main
                 Select Case a
                     Case 0
                         pen1.Color = Color.YellowGreen
-                        iIntense = CByte(120)
+                        iIntense = CByte(15 * numIntensityScale.Value)
                     Case 1
                         pen1.Color = Color.Yellow
-                        iIntense = CByte(96)
+                        iIntense = CByte(12 * numIntensityScale.Value)
                     Case 2
                         pen1.Color = Color.Orange
-                        iIntense = CByte(72)
+                        iIntense = CByte(9 * numIntensityScale.Value)
                     Case 3
                         pen1.Color = Color.Red
-                        iIntense = CByte(48)
+                        iIntense = CByte(6 * numIntensityScale.Value)
                     Case 4
                         pen1.Color = Color.DarkRed
-                        iIntense = CByte(24)
+                        iIntense = CByte(3 * numIntensityScale.Value)
                 End Select
                 Dim radius
                 Dim mul As Integer = 100000
@@ -489,7 +489,7 @@ Public Class Main
         Me.grpAttach.Enabled = True
         Me.grpMisc.Enabled = True
         Me.grpRecoil.Enabled = True
-        Me.grpRender.Enabled = True
+        Me.tabMain.Enabled = True
         Me.grpSpread.Enabled = True
 
 
@@ -731,7 +731,7 @@ Public Class Main
 
         ' Change this path to wherever you saved the palette image.
         'Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
-        Dim Palette As Bitmap = New Bitmap(My.Resources.pal)
+        Dim Palette As Bitmap = New Bitmap(My.Resources.pal3)
         ' Loop through each pixel and create a new color mapping
         For X As Integer = 0 To 255
             OutputMap(X) = New ColorMap()
