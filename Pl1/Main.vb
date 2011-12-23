@@ -7,7 +7,7 @@ Imports System.IO
 
 Public Class Main
     Private Const SCALE_FACTOR As Single = 4.25
-    Private Const VERSION As String = "Plotic v0.6"
+    Private Const VERSION As String = "Plotic v0.7"
     Private HeatPoints As New List(Of HeatPoint)()
 
     Dim saveImagePath As String = ""
@@ -24,7 +24,7 @@ Public Class Main
         Me.Text = VERSION
 
         'Make call to check if a silent run will be done, then close the program.
-        Test()
+        'Test()
     End Sub
 
     Public Sub drawTitle(ByVal g As Graphics)
@@ -203,7 +203,7 @@ Public Class Main
         Pl.SpreadInc = txtSpreadInc.Text
         Pl.SpreadMin = txtSpreadMin.Text
         Pl.Burst = txtBursts.Text
-        Pl.BulletsPerBurst = txtBulletsPerBurst.Text
+        Pl.BulletsPerBurst = numBulletsPerBurst.Value
         Pl.AdjRecoilH = numRecoilH.Value
         Pl.AdjRecoilV = numRecoilV.Value
         Pl.AdjSpreadInc = numInc.Value
