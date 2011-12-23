@@ -8,12 +8,15 @@ Imports System.IO
 Public Class Main
     Private Const SCALE_FACTOR As Single = 4.25
     Private Const UPDATE_PERIOD As Integer = 100
-    Private Const VERSION As String = "Plotic v0.7"
+    Private Const VERSION As String = "Plotic v0.8"
+
     Private HeatPoints As New List(Of HeatPoint)()
 
     Private saveImagePath As String = ""
     Private paletteOverride As Boolean = False
-    Dim intBurstCycle As Integer = 0
+    Private configOverride As Boolean = False
+    Private intBurstCycle As Integer = 0
+
     Public Pl As New Plotic
 
     Private Sub exitApplication()
@@ -28,6 +31,16 @@ Public Class Main
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
 
+        'Check for a Config file in the same directory, use if found, otherwise use default
+        Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
+        If File.Exists(configPath) Then
+            configOverride = True
+            Debug.WriteLine("FOUND: " & configPath)
+        Else
+            configOverride = False
+            Debug.WriteLine("NOT FOUND: " & configPath)
+        End If
+
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
         If File.Exists(palettePath) Then
@@ -37,16 +50,24 @@ Public Class Main
             paletteOverride = False
             Debug.WriteLine("NOT FOUND: " & palettePath)
         End If
+
         'Make call to check if a silent run will be done, then close the program.
-        'CreateTemplateIni()
         Dim silentIniPath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
         If File.Exists(silentIniPath) Then
             Debug.WriteLine("FOUND: " & silentIniPath)
             'Me.WindowState = FormWindowState.Minimized
             createSilentImage()
-            'Me.Close()
         Else
             Debug.WriteLine("NOT FOUND: " & silentIniPath)
+        End If
+
+        'Check for Template file, if it isn't found, create it.
+        Dim silentIniTemplatePath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent_template.ini")
+        If File.Exists(silentIniTemplatePath) Then
+            Debug.WriteLine("FOUND: " & silentIniTemplatePath)
+        Else
+            Debug.WriteLine("NOT FOUND: " & silentIniTemplatePath)
+            CreateTemplateIni()
         End If
 
     End Sub
@@ -902,6 +923,8 @@ ByVal DefaultValue As String) As String
         INIWrite(spath, "Attach", "AttachSpreadMin", "0")
         INIWrite(spath, "Attach", "AttachSpreadInc", "0")
         INIWrite(spath, "Attach", "AttachSpreadInc", "0")
+        INIWrite(spath, "Attach", "MultiplyVerticalRecoil", "0")
+        INIWrite(spath, "Attach", "VerticalMultiplier", "0.3")
 
         INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
         INIWrite(spath, "Save", "FileName", "<<TitleText>>_bf3_<<SubText>>")
@@ -927,12 +950,6 @@ ByVal DefaultValue As String) As String
         INIWrite(spath, "HeatMap", "Radius", "75")
         INIWrite(spath, "HeatMap", "IntensityScale", "2.0")
         INIWrite(spath, "HeatMap", "OverwriteFile", "0")
-
-
-        'INIWrite(spath, "Section1", "Key1-2", "Value1-2")
-        'INIWrite(sPath, "Section1", "Key1-3", "Value1-3")
-        'INIWrite(sPath, "Section2", "Key2-1", "Value2-1")
-        'INIWrite(sPath, "Section2", "Key2-2", "Value2-2")
 
         'sValue = INIRead(sPath, "section2", "key2-1", "Unknown") ' specify all
         'MessageBox.Show(sValue, "section2/key2-1/unknown", MessageBoxButtons.OK)

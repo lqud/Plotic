@@ -30,6 +30,9 @@ Partial Class Main
         Me.txtSpreadInc = New System.Windows.Forms.TextBox()
         Me.lbis = New System.Windows.Forms.Label()
         Me.grpMisc = New System.Windows.Forms.GroupBox()
+        Me.numBulletsPerBurst = New System.Windows.Forms.NumericUpDown()
+        Me.txtSub = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lbbpbm = New System.Windows.Forms.Label()
         Me.txtGunName = New System.Windows.Forms.TextBox()
@@ -115,11 +118,9 @@ Partial Class Main
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
-        Me.txtSub = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.numBulletsPerBurst = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
+        CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRecoil.SuspendLayout()
         Me.grpAttach.SuspendLayout()
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -141,7 +142,6 @@ Partial Class Main
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSaveOptions.SuspendLayout()
-        CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -250,6 +250,42 @@ Partial Class Main
         Me.grpMisc.TabStop = False
         Me.grpMisc.Text = "Misc"
         '
+        'numBulletsPerBurst
+        '
+        Me.numBulletsPerBurst.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numBulletsPerBurst.ForeColor = System.Drawing.Color.White
+        Me.numBulletsPerBurst.Location = New System.Drawing.Point(92, 13)
+        Me.numBulletsPerBurst.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
+        Me.numBulletsPerBurst.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBulletsPerBurst.Name = "numBulletsPerBurst"
+        Me.numBulletsPerBurst.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numBulletsPerBurst.Size = New System.Drawing.Size(48, 20)
+        Me.numBulletsPerBurst.TabIndex = 67
+        Me.numBulletsPerBurst.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBulletsPerBurst.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'txtSub
+        '
+        Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSub.ForeColor = System.Drawing.Color.White
+        Me.txtSub.Location = New System.Drawing.Point(55, 104)
+        Me.txtSub.Name = "txtSub"
+        Me.txtSub.Size = New System.Drawing.Size(97, 20)
+        Me.txtSub.TabIndex = 40
+        Me.txtSub.Text = "Stock"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label24.ForeColor = System.Drawing.Color.White
+        Me.Label24.Location = New System.Drawing.Point(17, 107)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(26, 13)
+        Me.Label24.TabIndex = 41
+        Me.Label24.Text = "Sub"
+        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -303,7 +339,7 @@ Partial Class Main
         Me.txtBursts.Name = "txtBursts"
         Me.txtBursts.Size = New System.Drawing.Size(38, 20)
         Me.txtBursts.TabIndex = 21
-        Me.txtBursts.Text = "100"
+        Me.txtBursts.Text = "500"
         Me.txtBursts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label3
@@ -806,7 +842,7 @@ Partial Class Main
         Me.numHeatRadius.Size = New System.Drawing.Size(48, 20)
         Me.numHeatRadius.TabIndex = 63
         Me.numHeatRadius.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numHeatRadius.Value = New Decimal(New Integer() {50, 0, 0, 0})
+        Me.numHeatRadius.Value = New Decimal(New Integer() {75, 0, 0, 0})
         '
         'chkHeatMap
         '
@@ -951,7 +987,7 @@ Partial Class Main
         Me.numLineSpace.Size = New System.Drawing.Size(48, 20)
         Me.numLineSpace.TabIndex = 49
         Me.numLineSpace.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numLineSpace.Value = New Decimal(New Integer() {25, 0, 0, 131072})
+        Me.numLineSpace.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'chkBars
         '
@@ -1017,7 +1053,7 @@ Partial Class Main
         Me.numIntensityScale.Size = New System.Drawing.Size(48, 20)
         Me.numIntensityScale.TabIndex = 64
         Me.numIntensityScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numIntensityScale.Value = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.numIntensityScale.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'tabMain
         '
@@ -1268,42 +1304,6 @@ Partial Class Main
         Me.btnSaveImage.Text = "..."
         Me.btnSaveImage.UseVisualStyleBackColor = False
         '
-        'txtSub
-        '
-        Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSub.ForeColor = System.Drawing.Color.White
-        Me.txtSub.Location = New System.Drawing.Point(55, 104)
-        Me.txtSub.Name = "txtSub"
-        Me.txtSub.Size = New System.Drawing.Size(97, 20)
-        Me.txtSub.TabIndex = 40
-        Me.txtSub.Text = "Stock"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label24.ForeColor = System.Drawing.Color.White
-        Me.Label24.Location = New System.Drawing.Point(17, 107)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(26, 13)
-        Me.Label24.TabIndex = 41
-        Me.Label24.Text = "Sub"
-        '
-        'numBulletsPerBurst
-        '
-        Me.numBulletsPerBurst.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numBulletsPerBurst.ForeColor = System.Drawing.Color.White
-        Me.numBulletsPerBurst.Location = New System.Drawing.Point(92, 13)
-        Me.numBulletsPerBurst.Maximum = New Decimal(New Integer() {20, 0, 0, 0})
-        Me.numBulletsPerBurst.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numBulletsPerBurst.Name = "numBulletsPerBurst"
-        Me.numBulletsPerBurst.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numBulletsPerBurst.Size = New System.Drawing.Size(48, 20)
-        Me.numBulletsPerBurst.TabIndex = 67
-        Me.numBulletsPerBurst.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numBulletsPerBurst.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1329,6 +1329,7 @@ Partial Class Main
         Me.grpSpread.PerformLayout()
         Me.grpMisc.ResumeLayout(False)
         Me.grpMisc.PerformLayout()
+        CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRecoil.ResumeLayout(False)
         Me.grpRecoil.PerformLayout()
         Me.grpAttach.ResumeLayout(False)
@@ -1356,7 +1357,6 @@ Partial Class Main
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
-        CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
