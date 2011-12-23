@@ -7,6 +7,7 @@ Imports System.IO
 
 Public Class Main
     Private Const SCALE_FACTOR As Single = 4.25
+    Private Const UPDATE_PERIOD As Integer = 100
     Private Const VERSION As String = "Plotic v0.7"
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -317,11 +318,6 @@ Public Class Main
         For i As Integer = 0 To 4
             aryHits(i) = 0
         Next
-        Dim hits1 As Integer = 0
-        Dim hits2 As Integer = 0
-        Dim hits3 As Integer = 0
-        Dim hits4 As Integer = 0
-        Dim hits5 As Integer = 0
         Dim coord1x(Val(txtBursts.Text)) As Integer
         Dim coord1y(Val(txtBursts.Text)) As Integer
         Dim coord2x(Val(txtBursts.Text)) As Integer
@@ -388,7 +384,7 @@ Public Class Main
             End If
 
             upd += 1
-            If upd = 100 Then
+            If upd = UPDATE_PERIOD Then
                 upd = 0
                 SetImage_ThreadSafe(b)
             End If
@@ -441,35 +437,30 @@ Public Class Main
                         Case 0
                             If Pl.bulletHit(x, y) Then
                                 aryHits(0) += 1
-                                hits1 += 1
                             End If
                             coord1x(ee) = x
                             coord1y(ee) = y
                         Case 1
                             If Pl.bulletHit(x, y) Then
                                 aryHits(1) += 1
-                                hits2 += 1
                             End If
                             coord2x(ee) = x
                             coord2y(ee) = y
                         Case 2
                             If Pl.bulletHit(x, y) Then
                                 aryHits(2) += 1
-                                hits3 += 1
                             End If
                             coord3x(ee) = x
                             coord3y(ee) = y
                         Case 3
                             If Pl.bulletHit(x, y) Then
                                 aryHits(3) += 1
-                                hits4 += 1
                             End If
                             coord4x(ee) = x
                             coord4y(ee) = y
                         Case 4
                             If Pl.bulletHit(x, y) Then
                                 aryHits(4) += 1
-                                hits5 += 1
                             End If
                             coord5x(ee) = x
                             coord5y(ee) = y
@@ -522,16 +513,16 @@ Public Class Main
             SetImage_ThreadSafe(b)
             Application.DoEvents()
             Debug.WriteLine("Bursts: " & intBursts)
-            Debug.WriteLine("Hits #1: " & hits1)
-            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((hits1 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "2nd. bullet: " + Math.Round((hits2 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "3rd. bullet: " + Math.Round((hits3 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "4th. bullet: " + Math.Round((hits4 / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "5th. bullet: " + Math.Round((hits5 / (intBursts + 1) * 100), 2).ToString + "%")
+            Debug.WriteLine("Hits #1: " & aryHits(0))
+            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((aryHits(0) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "2nd. bullet: " + Math.Round((aryHits(1) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "3rd. bullet: " + Math.Round((aryHits(2) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "4th. bullet: " + Math.Round((aryHits(3) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "5th. bullet: " + Math.Round((aryHits(4) / (intBursts + 1) * 100), 2).ToString + "%")
 
         End If
         If chkDrawTTK.Checked And chkTimeToKill.Checked Then
-            drawTTK(g, Math.Round((hits1 / (intBursts + 1) * 100), 2), Math.Round((hits2 / (intBursts + 1) * 100), 2), Math.Round((hits3 / (intBursts + 1) * 100), 2), Math.Round((hits4 / (intBursts + 1) * 100), 2), Math.Round((hits5 / (intBursts + 1) * 100), 2))
+            drawTTK(g, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
         If chkHeatMap.Checked Then
             SetOutPutText_ThreadSafe("Please wait... Creating heat map")
