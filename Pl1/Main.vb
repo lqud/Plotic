@@ -920,10 +920,13 @@ ByVal DefaultValue As String) As String
         INIWrite(spath, "Grid", "Distance", "1")
         INIWrite(spath, "Grid", "GridValue", "1")
 
-
         INIWrite(spath, "TTk", "RenderTTK", "0")
         INIWrite(spath, "TTK", "RenderHitRates", "0")
 
+        INIWrite(spath, "HeatMap", "RenderHeatMap", "1")
+        INIWrite(spath, "HeatMap", "Radius", "75")
+        INIWrite(spath, "HeatMap", "IntensityScale", "2.0")
+        INIWrite(spath, "HeatMap", "OverwriteFile", "0")
 
 
         'INIWrite(spath, "Section1", "Key1-2", "Value1-2")
