@@ -153,7 +153,7 @@ Partial Class Main
         Me.txtDamage.Name = "txtDamage"
         Me.txtDamage.Size = New System.Drawing.Size(97, 20)
         Me.txtDamage.TabIndex = 37
-        Me.txtDamage.Text = "25 - 17"
+        Me.txtDamage.Text = "Dmg: 25 - 17"
         '
         'lbfs
         '
@@ -1277,6 +1277,7 @@ Partial Class Main
         Me.txtSub.Name = "txtSub"
         Me.txtSub.Size = New System.Drawing.Size(97, 20)
         Me.txtSub.TabIndex = 40
+        Me.txtSub.Text = "Stock"
         '
         'Label24
         '

@@ -10,11 +10,14 @@ Public Class Main
     Private Const VERSION As String = "Plotic v0.7"
     Private HeatPoints As New List(Of HeatPoint)()
 
-    Dim saveImagePath As String = ""
-    Dim paletteOverride As Boolean = False
+    Private saveImagePath As String = ""
+    Private paletteOverride As Boolean = False
     Dim intBurstCycle As Integer = 0
     Public Pl As New Plotic
 
+    Private Sub exitApplication()
+        Application.Exit()
+    End Sub
     Public Sub New()
 
         ' This call is required by the designer.
@@ -34,13 +37,28 @@ Public Class Main
             Debug.WriteLine("NOT FOUND: " & palettePath)
         End If
         'Make call to check if a silent run will be done, then close the program.
-        'Test()
-    End Sub
+        'CreateTemplateIni()
+        Dim silentIniPath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
+        If File.Exists(silentIniPath) Then
+            Debug.WriteLine("FOUND: " & silentIniPath)
+            'Me.WindowState = FormWindowState.Minimized
+            createSilentImage()
+            'Me.Close()
+        Else
+            Debug.WriteLine("NOT FOUND: " & silentIniPath)
+        End If
 
+    End Sub
+    Public Sub createSilentImage()
+        Debug.WriteLine("Running...")
+        'exitApplication()
+        Debug.WriteLine("Shutting Down")
+        btnStart_Click()
+    End Sub
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         g.DrawString(txtGunName.Text, New Font("Arial", 90), greenBrush1, 800, 30)
-        g.DrawString("Damage: " + txtDamage.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
+        g.DrawString(txtDamage.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
 
     End Sub
     Public Sub drawGrid(ByVal g As Graphics)
@@ -186,6 +204,27 @@ Public Class Main
         Dim pen111 As New System.Drawing.Pen(Color.YellowGreen, 30)
     End Sub
 
+    Private Sub startSilent()
+        intBurstCycle = 0
+
+        'Disable all of the input boxes
+        btnStart.Enabled = False
+
+        Me.grpAttach.Enabled = False
+        Me.grpMisc.Enabled = False
+        Me.grpRecoil.Enabled = False
+        Me.tabMain.Enabled = False
+        Me.grpSpread.Enabled = False
+
+        ' Enable to stop button
+        btnStop.Enabled = True
+        ' Start the Background Worker working
+        HeatPoints.Clear()
+        loadPloticINI()
+        'BackgroundWorker1.RunWorkerAsync()
+        BackgroundWorker2.RunWorkerAsync()
+    End Sub
+
     Private Sub btnStart_Click() Handles btnStart.Click
         intBurstCycle = 0
 
@@ -219,6 +258,23 @@ Public Class Main
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
         Pl.GunName = txtGunName.Text
+
+    End Sub
+
+    Private Sub loadPloticINI()
+        Pl.RecoilUp = txtRecoilUp.Text
+        Pl.RecoilLeft = txtRecoilLeft.Text
+        Pl.RecoilRight = txtRecoilRight.Text
+        Pl.SpreadInc = txtSpreadInc.Text
+        Pl.SpreadMin = txtSpreadMin.Text
+        Pl.Burst = txtBursts.Text
+        Pl.BulletsPerBurst = numBulletsPerBurst.Value
+        Pl.AdjRecoilH = numRecoilH.Value
+        Pl.AdjRecoilV = numRecoilV.Value
+        Pl.AdjSpreadInc = numInc.Value
+        Pl.AdjSpreadMin = numMin.Value
+        Pl.GunName = txtGunName.Text
+
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
         'TODO:Add error logic for zero division
@@ -472,7 +528,7 @@ Public Class Main
             Application.DoEvents()
             b = CreateIntensityMask(Pl.HeatMap, HeatPoints)
             ' Colorize the memory bitmap and assign it as the picture boxes image
-            b = Colorize(b, 255)
+            b = Colorize(b, 255, paletteOverride)
         End If
         If chkTitles.Checked Then
             drawTitle(g)
@@ -508,7 +564,7 @@ Public Class Main
         Me.grpRecoil.Enabled = True
         Me.tabMain.Enabled = True
         Me.grpSpread.Enabled = True
-
+        exitApplication()
     End Sub
     Private Sub SaveImage()
         Dim b As Bitmap = picPlot.Image
@@ -717,7 +773,7 @@ Public Class Main
         Return (radians)
     End Function
 
-    Public Shared Function Colorize(Mask As Bitmap, Alpha As Byte) As Bitmap
+    Public Shared Function Colorize(Mask As Bitmap, Alpha As Byte, CustomPal As Boolean) As Bitmap
         ' Create new bitmap to act as a work surface for the colorization process
         Dim Output As New Bitmap(Mask.Width, Mask.Height, PixelFormat.Format32bppArgb)
 
@@ -727,7 +783,7 @@ Public Class Main
 
         ' Build an array of color mappings to remap our greyscale mask to full color
         ' Accept an alpha byte to specify the transparancy of the output image
-        Dim Colors As ColorMap() = CreatePaletteIndex(Alpha)
+        Dim Colors As ColorMap() = CreatePaletteIndex(Alpha, CustomPal)
 
         ' Create new image attributes class to handle the color remappings
         ' Inject our color map array to instruct the image attributes class how to do the colorization
@@ -742,12 +798,18 @@ Public Class Main
         Return Output
     End Function
 
-    Private Shared Function CreatePaletteIndex(Alpha As Byte) As ColorMap()
+    Private Shared Function CreatePaletteIndex(Alpha As Byte, CustomPal As Boolean) As ColorMap()
         Dim OutputMap As ColorMap() = New ColorMap(255) {}
 
         ' Change this path to wherever you saved the palette image.
-        'Dim Palette As Bitmap = DirectCast(Bitmap.FromFile("image_axd"), Bitmap)
-        Dim Palette As Bitmap = New Bitmap(My.Resources.pal_white_red)
+        Dim Palette As Bitmap
+        If CustomPal = True Then
+            Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
+            Palette = DirectCast(Bitmap.FromFile(palettePath), Bitmap)
+        Else
+            Palette = New Bitmap(My.Resources.pal_white_red)
+        End If
+
         ' Loop through each pixel and create a new color mapping
         For X As Integer = 0 To 255
             OutputMap(X) = New ColorMap()
@@ -822,42 +884,82 @@ ByVal DefaultValue As String) As String
     End Sub
 
 
-    Private Sub Test()
-        Dim sValue As String
-        Dim spath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
+    Private Sub CreateTemplateIni()
+        ' Dim sValue As String
+        Dim spath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent_template.ini")
 
-        INIWrite(sPath, "Section1", "Key1-1", "Value1-1") ' build INI file
-        INIWrite(sPath, "Section1", "Key1-2", "Value1-2")
-        INIWrite(sPath, "Section1", "Key1-3", "Value1-3")
-        INIWrite(sPath, "Section2", "Key2-1", "Value2-1")
-        INIWrite(sPath, "Section2", "Key2-2", "Value2-2")
+        INIWrite(spath, "Recoil", "RecoilUp", "0.55")
+        INIWrite(spath, "Recoil", "RecoilLeft", "0.2")
+        INIWrite(spath, "Recoil", "RecoilRight", "0.3")
+        INIWrite(spath, "Recoil", "FirstShot", "1.3")
 
-        sValue = INIRead(sPath, "section2", "key2-1", "Unknown") ' specify all
-        MessageBox.Show(sValue, "section2/key2-1/unknown", MessageBoxButtons.OK)
+        INIWrite(spath, "Spread", "SpreadMin", "0.1")
+        INIWrite(spath, "Spread", "SpreadInc", "0.12")
 
-        sValue = INIRead(sPath, "section2", "XYZ", "Unknown") ' specify all
-        MessageBox.Show(sValue, "section2/xyz/unknown", MessageBoxButtons.OK)
+        INIWrite(spath, "Burst", "BurstsPerBullet", "5")
+        INIWrite(spath, "Burst", "Bursts", "1000")
 
-        sValue = INIRead(sPath, "section2", "XYZ") ' use zero-length string as default
-        MessageBox.Show(sValue, "section2/XYZ", MessageBoxButtons.OK)
+        INIWrite(spath, "Attach", "RenderAttachText", "0")
+        INIWrite(spath, "Attach", "AttachRecoilV", "0")
+        INIWrite(spath, "Attach", "AttachRecoilH", "0")
+        INIWrite(spath, "Attach", "AttachSpreadMin", "0")
+        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
+        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
 
-        sValue = INIRead(sPath, "section1") ' get all keys in section
-        sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        MessageBox.Show(sValue, "section1 pre delete", MessageBoxButtons.OK)
+        INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
+        INIWrite(spath, "Save", "FileName", "<<TitleText>>_bf3_<<SubText>>")
 
-        INIDelete(sPath, "section1", "key1-2") ' delete middle entry in section 1
-        sValue = INIRead(sPath, "section1") ' get all keys in section again
-        sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        MessageBox.Show(sValue, "section1 post delete", MessageBoxButtons.OK)
+        INIWrite(spath, "Render", "ScaleRadius", "1")
+        INIWrite(spath, "Render", "RenderBars", "1")
 
-        sValue = INIRead(sPath) ' get all section names
-        sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        MessageBox.Show(sValue, "All sections pre delete", MessageBoxButtons.OK)
+        INIWrite(spath, "Title", "RenderTitleText", "1")
+        INIWrite(spath, "Title", "TitleText", "AEK-17")
+        INIWrite(spath, "Title", "InfoText", "Dmg: 25-17")
+        INIWrite(spath, "Title", "SubText", "Stock")
 
-        INIDelete(sPath, "section1") ' delete section
-        sValue = INIRead(sPath) ' get all section names
-        sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
+        INIWrite(spath, "Grid", "RenderGrid", "0")
+        INIWrite(spath, "Grid", "Scale", "650")
+        INIWrite(spath, "Grid", "IsDegrees", "0")
+        INIWrite(spath, "Grid", "Distance", "1")
+        INIWrite(spath, "Grid", "GridValue", "1")
+
+
+        INIWrite(spath, "TTk", "RenderTTK", "0")
+        INIWrite(spath, "TTK", "RenderHitRates", "0")
+
+
+
+        'INIWrite(spath, "Section1", "Key1-2", "Value1-2")
+        'INIWrite(sPath, "Section1", "Key1-3", "Value1-3")
+        'INIWrite(sPath, "Section2", "Key2-1", "Value2-1")
+        'INIWrite(sPath, "Section2", "Key2-2", "Value2-2")
+
+        'sValue = INIRead(sPath, "section2", "key2-1", "Unknown") ' specify all
+        'MessageBox.Show(sValue, "section2/key2-1/unknown", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section2", "XYZ", "Unknown") ' specify all
+        'MessageBox.Show(sValue, "section2/xyz/unknown", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section2", "XYZ") ' use zero-length string as default
+        'MessageBox.Show(sValue, "section2/XYZ", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section1") ' get all keys in section
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "section1 pre delete", MessageBoxButtons.OK)
+
+        'INIDelete(sPath, "section1", "key1-2") ' delete middle entry in section 1
+        'sValue = INIRead(sPath, "section1") ' get all keys in section again
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "section1 post delete", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath) ' get all section names
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "All sections pre delete", MessageBoxButtons.OK)
+
+        'INIDelete(sPath, "section1") ' delete section
+        'sValue = INIRead(spath) ' get all section names
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
     End Sub
 End Class
 Public Structure HeatPoint
