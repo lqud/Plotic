@@ -53,7 +53,6 @@ Public Class Main
     Public Sub createSilentImage()
         Debug.WriteLine("Running...")
         'exitApplication()
-        Debug.WriteLine("Shutting Down")
         btnStart_Click()
     End Sub
     Public Sub drawTitle(ByVal g As Graphics)
@@ -313,11 +312,7 @@ Public Class Main
     End Function
     Private Sub BackgroundWorker1_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         'TODO: Convert to arrays
-        Dim aryHits(4) As Integer
-
-        For i As Integer = 0 To 4
-            aryHits(i) = 0
-        Next
+        Dim aryHits() As Integer = {0, 0, 0, 0, 0}
         Dim coord1x(Val(txtBursts.Text)) As Integer
         Dim coord1y(Val(txtBursts.Text)) As Integer
         Dim coord2x(Val(txtBursts.Text)) As Integer
@@ -689,6 +684,8 @@ Public Class Main
             mainToolStripStatus.Text = "Completed"
             Debug.WriteLine("Worker 2 Completed")
         End If
+        Debug.WriteLine("Shutting Down")
+        exitApplication()
     End Sub
 
     Private Function CreateIntensityMask(bSurface As Bitmap, aHeatPoints As List(Of HeatPoint)) As Bitmap
