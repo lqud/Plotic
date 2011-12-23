@@ -312,6 +312,11 @@ Public Class Main
     End Function
     Private Sub BackgroundWorker1_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         'TODO: Convert to arrays
+        Dim aryHits(4) As Integer
+
+        For i As Integer = 0 To 4
+            aryHits(i) = 0
+        Next
         Dim hits1 As Integer = 0
         Dim hits2 As Integer = 0
         Dim hits3 As Integer = 0
@@ -435,30 +440,35 @@ Public Class Main
                     Select Case a
                         Case 0
                             If Pl.bulletHit(x, y) Then
+                                aryHits(0) += 1
                                 hits1 += 1
                             End If
                             coord1x(ee) = x
                             coord1y(ee) = y
                         Case 1
                             If Pl.bulletHit(x, y) Then
+                                aryHits(1) += 1
                                 hits2 += 1
                             End If
                             coord2x(ee) = x
                             coord2y(ee) = y
                         Case 2
                             If Pl.bulletHit(x, y) Then
+                                aryHits(2) += 1
                                 hits3 += 1
                             End If
                             coord3x(ee) = x
                             coord3y(ee) = y
                         Case 3
                             If Pl.bulletHit(x, y) Then
+                                aryHits(3) += 1
                                 hits4 += 1
                             End If
                             coord4x(ee) = x
                             coord4y(ee) = y
                         Case 4
                             If Pl.bulletHit(x, y) Then
+                                aryHits(4) += 1
                                 hits5 += 1
                             End If
                             coord5x(ee) = x
@@ -564,7 +574,6 @@ Public Class Main
         Me.grpRecoil.Enabled = True
         Me.tabMain.Enabled = True
         Me.grpSpread.Enabled = True
-        exitApplication()
     End Sub
     Private Sub SaveImage()
         Dim b As Bitmap = picPlot.Image
