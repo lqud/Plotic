@@ -172,7 +172,7 @@ Public Class Main
         g.DrawString("Min.", the_font, Brushes.YellowGreen, layout_rect3, string_format)
         g.DrawString("Inc.", the_font, Brushes.YellowGreen, layout_rect4, string_format)
         Dim greenBrush5 As New SolidBrush(Color.YellowGreen)
-        g.DrawString("Left Right", New Font("Consolas", 45), greenBrush5, 837, 1820)
+        g.DrawString("Left Right", New Font("Consolas", 45), greenBrush5, 839, 1820)
         Dim pen111 As New System.Drawing.Pen(Color.YellowGreen, 30)
     End Sub
 
