@@ -11,6 +11,7 @@ Public Class Main
     Private HeatPoints As New List(Of HeatPoint)()
 
     Dim saveImagePath As String = ""
+    Dim paletteOverride As Boolean = False
     Dim intBurstCycle As Integer = 0
     Public Pl As New Plotic
 
@@ -23,6 +24,15 @@ Public Class Main
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
 
+        'Check for a Palette file in the same directory, use if found, otherwise use internal resource
+        Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
+        If File.Exists(palettePath) Then
+            paletteOverride = True
+            Debug.WriteLine("FOUND: " & palettePath)
+        Else
+            paletteOverride = False
+            Debug.WriteLine("NOT FOUND: " & palettePath)
+        End If
         'Make call to check if a silent run will be done, then close the program.
         'Test()
     End Sub
@@ -140,7 +150,7 @@ Public Class Main
         g.DrawRectangle(pen1, x2, y - height4, 30, height4)
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
         g.DrawRectangle(pen1, 1000 - height1, 1900, height1 + height3, 30)
-        g.DrawRectangle(pen2, 995, 1880, 5, 80)
+        g.DrawRectangle(pen2, 1000, 1900, 5, 30)
         Dim pen11 As New System.Drawing.Pen(Color.YellowGreen, 30)
         Dim scale1 = 3000
         Dim x11 = 1840
