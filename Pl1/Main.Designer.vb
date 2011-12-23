@@ -105,7 +105,17 @@ Partial Class Main
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
-        Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         Me.grpRecoil.SuspendLayout()
@@ -125,6 +135,10 @@ Partial Class Main
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.tabSaveOptions.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -240,7 +254,7 @@ Partial Class Main
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(27, 13)
         Me.Label1.TabIndex = 38
-        Me.Label1.Text = "Gun"
+        Me.Label1.Text = "Title"
         '
         'lbbpbm
         '
@@ -304,11 +318,11 @@ Partial Class Main
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(6, 100)
+        Me.Label3.Location = New System.Drawing.Point(18, 101)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(47, 13)
+        Me.Label3.Size = New System.Drawing.Size(25, 13)
         Me.Label3.TabIndex = 39
-        Me.Label3.Text = "Damage"
+        Me.Label3.Text = "Info"
         '
         'chkPrintAdj
         '
@@ -1055,6 +1069,17 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.NumericUpDown4)
+        Me.TabPage2.Controls.Add(Me.NumericUpDown3)
+        Me.TabPage2.Controls.Add(Me.Label23)
+        Me.TabPage2.Controls.Add(Me.Label22)
+        Me.TabPage2.Controls.Add(Me.Label21)
+        Me.TabPage2.Controls.Add(Me.Label20)
+        Me.TabPage2.Controls.Add(Me.Label19)
+        Me.TabPage2.Controls.Add(Me.NumericUpDown2)
+        Me.TabPage2.Controls.Add(Me.Label18)
+        Me.TabPage2.Controls.Add(Me.Label17)
+        Me.TabPage2.Controls.Add(Me.NumericUpDown1)
         Me.TabPage2.Controls.Add(Me.chkTimeToKill)
         Me.TabPage2.Controls.Add(Me.txtHitRateResult)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
@@ -1099,6 +1124,128 @@ Partial Class Main
         Me.btnSaveImage.TabIndex = 43
         Me.btnSaveImage.Text = "..."
         Me.btnSaveImage.UseVisualStyleBackColor = False
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.DecimalPlaces = 2
+        Me.NumericUpDown1.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
+        Me.NumericUpDown1.Location = New System.Drawing.Point(287, 55)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown1.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown1.TabIndex = 67
+        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {15, 0, 0, 0})
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label17.ForeColor = System.Drawing.Color.White
+        Me.Label17.Location = New System.Drawing.Point(337, 59)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(25, 13)
+        Me.Label17.TabIndex = 40
+        Me.Label17.Text = "m/s"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label18.ForeColor = System.Drawing.Color.White
+        Me.Label18.Location = New System.Drawing.Point(220, 58)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(65, 13)
+        Me.Label18.TabIndex = 68
+        Me.Label18.Text = "Bullet Drop -"
+        '
+        'NumericUpDown2
+        '
+        Me.NumericUpDown2.Location = New System.Drawing.Point(287, 81)
+        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.NumericUpDown2.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown2.Name = "NumericUpDown2"
+        Me.NumericUpDown2.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown2.TabIndex = 69
+        Me.NumericUpDown2.Value = New Decimal(New Integer() {500, 0, 0, 0})
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label19.ForeColor = System.Drawing.Color.White
+        Me.Label19.Location = New System.Drawing.Point(235, 84)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(49, 13)
+        Me.Label19.TabIndex = 70
+        Me.Label19.Text = "Distance"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label20.ForeColor = System.Drawing.Color.White
+        Me.Label20.Location = New System.Drawing.Point(338, 84)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(15, 13)
+        Me.Label20.TabIndex = 71
+        Me.Label20.Text = "m"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label21.ForeColor = System.Drawing.Color.White
+        Me.Label21.Location = New System.Drawing.Point(214, 23)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(47, 13)
+        Me.Label21.TabIndex = 72
+        Me.Label21.Text = "Damage"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label22.ForeColor = System.Drawing.Color.White
+        Me.Label22.Location = New System.Drawing.Point(256, 10)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(27, 13)
+        Me.Label22.TabIndex = 73
+        Me.Label22.Text = "Max"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label23.ForeColor = System.Drawing.Color.White
+        Me.Label23.Location = New System.Drawing.Point(260, 33)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(24, 13)
+        Me.Label23.TabIndex = 74
+        Me.Label23.Text = "Min"
+        '
+        'NumericUpDown3
+        '
+        Me.NumericUpDown3.Location = New System.Drawing.Point(287, 6)
+        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        Me.NumericUpDown3.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown3.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown3.TabIndex = 75
+        Me.NumericUpDown3.Value = New Decimal(New Integer() {25, 0, 0, 0})
+        '
+        'NumericUpDown4
+        '
+        Me.NumericUpDown4.Location = New System.Drawing.Point(287, 29)
+        Me.NumericUpDown4.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown4.Name = "NumericUpDown4"
+        Me.NumericUpDown4.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown4.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown4.TabIndex = 76
+        Me.NumericUpDown4.Value = New Decimal(New Integer() {17, 0, 0, 0})
         '
         'Main
         '
@@ -1148,6 +1295,10 @@ Partial Class Main
         Me.TabPage2.PerformLayout()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1235,5 +1386,15 @@ Partial Class Main
     Friend WithEvents tabSaveOptions As System.Windows.Forms.TabPage
     Friend WithEvents chkSaveImage As System.Windows.Forms.CheckBox
     Friend WithEvents btnSaveImage As System.Windows.Forms.Button
-    Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents NumericUpDown4 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
 End Class
