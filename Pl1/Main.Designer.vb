@@ -819,7 +819,7 @@ Partial Class Main
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
         Me.mainToolStripStatus.Size = New System.Drawing.Size(382, 17)
         Me.mainToolStripStatus.Spring = True
-        Me.mainToolStripStatus.Text = "Plotic v 0.5"
+        Me.mainToolStripStatus.Text = "version()"
         '
         'ToolStripStatusLabel2
         '
@@ -1357,7 +1357,9 @@ Partial Class Main
         Me.Controls.Add(Me.picPlot)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.Name = "Main"
-        Me.Text = "Plotic v0.5"
+        Me.ShowIcon = False
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
+        Me.Text = "version()"
         Me.grpSpread.ResumeLayout(False)
         Me.grpSpread.PerformLayout()
         Me.grpMisc.ResumeLayout(False)
