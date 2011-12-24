@@ -8,7 +8,7 @@ Imports System.IO
 Public Class Main
     Private Const SCALE_FACTOR As Single = 3.55
     Private Const UPDATE_PERIOD As Integer = 100
-    Private Const VERSION As String = "Plotic v0.82"
+    Private Const VERSION As String = "Plotic v0.83"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
