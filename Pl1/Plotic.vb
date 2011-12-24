@@ -1,9 +1,11 @@
 ﻿Public Class Plotic
     Private strGunName As String
-    Private bmpImage As Bitmap
-    Private bmpHeatMap As Bitmap
-    Private grhGraphic As Graphics
-
+    Private bmpImage As Bitmap = New Bitmap(2000, 2000)
+    Private bmpMask As Bitmap = New Bitmap(2000, 2000)
+    Private bmpHeatMap As Bitmap = New Bitmap(2000, 2000)
+    Private grhImageGraphic As Graphics = Graphics.FromImage(bmpImage)
+    Private grhMaskGraphic As Graphics = Graphics.FromImage(bmpMask)
+    Private grhHeatGraphic As Graphics = Graphics.FromImage(bmpHeatMap)
     Private dblRecoilUp As Double
     Private dblRecoilRight As Double
     Private dblRecoilLeft As Double
@@ -16,6 +18,8 @@
     Private intBurst As Integer
     Private intBulletsPerBurst As Integer
     Private dblFirstShot As Double
+
+    Private intScale As Integer
 
     Property GunName() As String
         Get
@@ -131,6 +135,14 @@
             bmpImage = Value
         End Set
     End Property
+    Property Mask() As Bitmap
+        Get
+            Return bmpMask
+        End Get
+        Set(ByVal Value As Bitmap)
+            bmpMask = Value
+        End Set
+    End Property
     Property HeatMap() As Bitmap
         Get
             Return bmpHeatMap
@@ -139,21 +151,51 @@
             bmpHeatMap = Value
         End Set
     End Property
-    Property Graphic() As Graphics
+    Property ImageGraphic() As Graphics
         Get
-            Return grhGraphic
+            Return grhImageGraphic
         End Get
         Set(ByVal Value As Graphics)
-            grhGraphic = Value
+            grhImageGraphic = Value
+        End Set
+    End Property
+    Property MaskGraphic() As Graphics
+        Get
+            Return grhMaskGraphic
+        End Get
+        Set(ByVal Value As Graphics)
+            grhMaskGraphic = Value
+        End Set
+    End Property
+    Property HeatGraphic() As Graphics
+        Get
+            Return grhHeatGraphic
+        End Get
+        Set(ByVal Value As Graphics)
+            grhHeatGraphic = Value
+        End Set
+    End Property
+    Property Scale() As Integer
+        Get
+            Return intScale
+        End Get
+        Set(ByVal Value As Integer)
+            intScale = Value
         End Set
     End Property
 
+
     Public Sub New()
-        Dim b As Bitmap = New Bitmap(2000, 2000)
-        Dim g As Graphics = Graphics.FromImage(b)
-        Me.Image = b
-        Me.HeatMap = b
-        Me.grhGraphic = g
+        '        Dim b As Bitmap = New Bitmap(2000, 2000)
+        'Dim g As Graphics = Graphics.FromImage(b)
+        'Me.Image = b
+        'Me.Mask = b
+        'Me.HeatMap = b
+        '        Me.grhImageGraphic = Graphics.FromImage(Me.Image)
+        '       Me.grhMaskGraphic = Graphics.FromImage(Me.Mask)
+        '      Me.grhHeatGraphic = Graphics.FromImage(Me.HeatMap)
+        'Initialize the Bitmaps and Graphics objects
+        'Me.grhImageGraphic = g
     End Sub
     Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean
         Dim colo As Object
@@ -161,7 +203,7 @@
         If x < 0 Or y < 0 Or x > 2000 Or y > 2000 Then
             rgbb = 0
         Else
-            colo = Me.Image.GetPixel(x, y)
+            colo = Me.Mask.GetPixel(x, y)
             rgbb = Val(colo.R) + Val(colo.G) + Val(colo.B)
         End If
         'Debug.WriteLine("X: " & x & " Y: " & y & " Val: " & rgbb)
@@ -171,4 +213,7 @@
             Return False
         End If
     End Function
+    Public Sub SaveMask()
+
+    End Sub
 End Class

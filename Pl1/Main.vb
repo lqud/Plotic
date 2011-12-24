@@ -6,7 +6,7 @@ Imports System.Windows.Forms
 Imports System.IO
 
 Public Class Main
-    Private Const SCALE_FACTOR As Single = 4.25
+    Private Const SCALE_FACTOR As Single = 3.55
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const VERSION As String = "Plotic v0.8"
 
@@ -18,7 +18,6 @@ Public Class Main
     Private intBurstCycle As Integer = 0
 
     Public Pl As New Plotic
-
     Private Sub exitApplication()
         Application.Exit()
     End Sub
@@ -71,6 +70,7 @@ Public Class Main
         End If
 
     End Sub
+
     Public Sub createSilentImage()
         Debug.WriteLine("Running...")
         'exitApplication()
@@ -279,6 +279,7 @@ Public Class Main
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
         Pl.GunName = txtGunName.Text
+        Pl.Scale = txtScale.Text
 
     End Sub
 
@@ -295,6 +296,7 @@ Public Class Main
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
         Pl.GunName = txtGunName.Text
+        Pl.Scale = txtScale.Text
 
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
@@ -357,16 +359,27 @@ Public Class Main
 
         Dim b As Bitmap = New Bitmap(2000, 2000)
 
+        '1.77 meters avg height of man - 
+        ' 	6 feet = 1.8288 meters
+        'Height in pixels = Scale * Atan(Distance in meters / Dude height in meters) * 180 / PI
+
         'Add the mask to the Plotic class
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask)
         Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
+        Dim TestRADIAN As Double = Math.Atan(numMeters.Value / 1.85)
+        Dim TestDEGREE As Double = TestRADIAN * (180 / Math.PI)
+        Dim TestPIXEL As Double = Math.Round((TestDEGREE * Pl.Scale), 0)
+        Dim Test4 As Double = TestPIXEL * SCALE_FACTOR
+        Dim solTestConvert As Double = SCALE_FACTOR * Math.Atan(numMeters.Value / 1.8) * 180 / Math.PI
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
         soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
         Dim vittuMask As Integer = (1000 - (solscaledMask.Width / 2))
-        Pl.Graphic.Clear(Color.Black)
-        Pl.Graphic.DrawImage(solscaledMask, vittuMask, 1000)
+        Pl.MaskGraphic.Clear(Color.Black)
+        Pl.MaskGraphic.DrawImage(solscaledMask, vittuMask, 1115)
+        Pl.SaveMask()
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1)
+        'Dim solscaled As New Bitmap(CInt(TestPIXEL), CInt(TestPIXEL))
         Dim solscaled As New Bitmap(CInt(sol.Width * SCALE_FACTOR), CInt(sol.Height * SCALE_FACTOR))
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
@@ -375,18 +388,12 @@ Public Class Main
         If chkTimeToKill.Checked Then
             Dim vittu As Integer = (1000 - (solscaled.Width / 2))
             g.Clear(Color.Black)
-            g.DrawImage(solscaled, vittu, 1000)
+            g.DrawImage(solscaled, vittu, 1115)
         Else
             g.Clear(Color.Black)
         End If
         If chkBars.Checked Then
             drawBars(g)
-        End If
-        If chkPrintAdj.Checked Then
-            drawAdjustments(g)
-        End If
-        If chkDrawGrid.Checked Then
-            drawGrid(g)
         End If
         Dim scale = Val(txtScale.Text)
         Dim montako = 0
@@ -520,11 +527,11 @@ Public Class Main
                 g.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
                 g.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
 
-                Pl.Graphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                Pl.Graphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                Pl.Graphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                Pl.Graphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                Pl.Graphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+                'Pl.Graphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
+                'Pl.Graphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
+                'Pl.Graphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
+                'Pl.Graphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
+                'Pl.Graphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
             Next
             SetImage_ThreadSafe(b)
             Application.DoEvents()
@@ -543,14 +550,31 @@ Public Class Main
         If chkHeatMap.Checked Then
             SetOutPutText_ThreadSafe("Please wait... Creating heat map")
             Application.DoEvents()
-            b = CreateIntensityMask(Pl.HeatMap, HeatPoints)
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints)
             ' Colorize the memory bitmap and assign it as the picture boxes image
-            b = Colorize(b, 255, paletteOverride)
-        End If
-        If chkTitles.Checked Then
-            drawTitle(g)
+            Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
+            'Pl.HeatMap = b
         End If
         SetImage_ThreadSafe(b)
+        If chkTitles.Checked Then
+            drawTitle(g)
+            drawTitle(Pl.ImageGraphic)
+        End If
+        If chkPrintAdj.Checked Then
+            drawAdjustments(g)
+            drawAdjustments(Pl.ImageGraphic)
+        End If
+        If chkDrawGrid.Checked Then
+            drawGrid(g)
+            drawGrid(Pl.ImageGraphic)
+        End If
+        Pl.Image = b
+        Pl.ImageGraphic = g
+        If chkShowHeatMap.Checked Then
+            SetImage_ThreadSafe(Pl.HeatMap)
+        Else
+            SetImage_ThreadSafe(Pl.Image)
+        End If
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
@@ -977,6 +1001,23 @@ ByVal DefaultValue As String) As String
         'sValue = INIRead(spath) ' get all section names
         'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
         'MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
+    End Sub
+
+    Private Sub chkShowMask_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowMask.CheckedChanged
+        If sender.checked Then
+            SetImage_ThreadSafe(Pl.Mask)
+        Else
+            SetImage_ThreadSafe(Pl.Image)
+        End If
+
+    End Sub
+
+    Private Sub chkShowHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowHeatMap.CheckedChanged
+        If sender.checked Then
+            SetImage_ThreadSafe(Pl.HeatMap)
+        Else
+            SetImage_ThreadSafe(Pl.Image)
+        End If
     End Sub
 End Class
 Public Structure HeatPoint

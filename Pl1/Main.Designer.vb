@@ -118,6 +118,8 @@ Partial Class Main
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
+        Me.chkShowMask = New System.Windows.Forms.CheckBox()
+        Me.chkShowHeatMap = New System.Windows.Forms.CheckBox()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -339,7 +341,7 @@ Partial Class Main
         Me.txtBursts.Name = "txtBursts"
         Me.txtBursts.Size = New System.Drawing.Size(38, 20)
         Me.txtBursts.TabIndex = 21
-        Me.txtBursts.Text = "500"
+        Me.txtBursts.Text = "5"
         Me.txtBursts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label3
@@ -369,6 +371,8 @@ Partial Class Main
         '
         Me.chkDrawGrid.AutoSize = True
         Me.chkDrawGrid.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkDrawGrid.Checked = True
+        Me.chkDrawGrid.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDrawGrid.ForeColor = System.Drawing.Color.White
         Me.chkDrawGrid.Location = New System.Drawing.Point(7, 94)
         Me.chkDrawGrid.Name = "chkDrawGrid"
@@ -897,7 +901,7 @@ Partial Class Main
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(71, 13)
         Me.Label15.TabIndex = 58
-        Me.Label15.Text = "Scale deg/px"
+        Me.Label15.Text = "Scale px/deg"
         '
         'chkTitles
         '
@@ -917,6 +921,8 @@ Partial Class Main
         '
         Me.chkTimeToKill.AutoSize = True
         Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkTimeToKill.Checked = True
+        Me.chkTimeToKill.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
         Me.chkTimeToKill.Location = New System.Drawing.Point(7, 8)
         Me.chkTimeToKill.Name = "chkTimeToKill"
@@ -1070,6 +1076,7 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.chkShowHeatMap)
         Me.tabRender.Controls.Add(Me.numLineSpace)
         Me.tabRender.Controls.Add(Me.Label16)
         Me.tabRender.Controls.Add(Me.numIntensityScale)
@@ -1117,6 +1124,7 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.chkShowMask)
         Me.TabPage2.Controls.Add(Me.NumericUpDown4)
         Me.TabPage2.Controls.Add(Me.NumericUpDown3)
         Me.TabPage2.Controls.Add(Me.Label23)
@@ -1304,6 +1312,30 @@ Partial Class Main
         Me.btnSaveImage.Text = "..."
         Me.btnSaveImage.UseVisualStyleBackColor = False
         '
+        'chkShowMask
+        '
+        Me.chkShowMask.AutoSize = True
+        Me.chkShowMask.ForeColor = System.Drawing.Color.White
+        Me.chkShowMask.Location = New System.Drawing.Point(143, 119)
+        Me.chkShowMask.Name = "chkShowMask"
+        Me.chkShowMask.Size = New System.Drawing.Size(82, 17)
+        Me.chkShowMask.TabIndex = 77
+        Me.chkShowMask.Text = "Show Mask"
+        Me.chkShowMask.UseVisualStyleBackColor = True
+        '
+        'chkShowHeatMap
+        '
+        Me.chkShowHeatMap.AutoSize = True
+        Me.chkShowHeatMap.Checked = True
+        Me.chkShowHeatMap.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowHeatMap.ForeColor = System.Drawing.Color.White
+        Me.chkShowHeatMap.Location = New System.Drawing.Point(273, 53)
+        Me.chkShowHeatMap.Name = "chkShowHeatMap"
+        Me.chkShowHeatMap.Size = New System.Drawing.Size(84, 17)
+        Me.chkShowHeatMap.TabIndex = 43
+        Me.chkShowHeatMap.Text = "Display Map"
+        Me.chkShowHeatMap.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1457,4 +1489,6 @@ Partial Class Main
     Friend WithEvents numBulletsPerBurst As System.Windows.Forms.NumericUpDown
     Friend WithEvents txtSub As System.Windows.Forms.TextBox
     Friend WithEvents Label24 As System.Windows.Forms.Label
+    Friend WithEvents chkShowMask As System.Windows.Forms.CheckBox
+    Friend WithEvents chkShowHeatMap As System.Windows.Forms.CheckBox
 End Class
