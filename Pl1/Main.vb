@@ -7,7 +7,7 @@ Imports System.IO
 
 Public Class Main
     Private Const SCALE_FACTOR As Single = 3.55
-    Private Const UPDATE_PERIOD As Integer = 100
+    Private Const UPDATE_PERIOD As Integer = 10
     Private Const VERSION As String = "Plotic v0.8"
 
     Private HeatPoints As New List(Of HeatPoint)()
@@ -357,7 +357,7 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-        Dim b As Bitmap = New Bitmap(2000, 2000)
+        ' Dim ggh As Bitmap = New Bitmap(2000, 2000)
 
         '1.77 meters avg height of man - 
         ' 	6 feet = 1.8288 meters
@@ -384,16 +384,16 @@ Public Class Main
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
-        Dim g As Graphics = Graphics.FromImage(b)
+        'Dim g As Graphics = Graphics.FromImage(b)
         If chkTimeToKill.Checked Then
             Dim vittu As Integer = (1000 - (solscaled.Width / 2))
-            g.Clear(Color.Black)
-            g.DrawImage(solscaled, vittu, 1115)
+            Pl.ImageGraphic.Clear(Color.Black)
+            Pl.ImageGraphic.DrawImage(solscaled, vittu, 1115)
         Else
-            g.Clear(Color.Black)
+            Pl.ImageGraphic.Clear(Color.Black)
         End If
         If chkBars.Checked Then
-            drawBars(g)
+            drawBars(Pl.ImageGraphic)
         End If
         Dim scale = Val(txtScale.Text)
         Dim montako = 0
@@ -401,7 +401,7 @@ Public Class Main
         For ee = 0 To Pl.Burst
             If BackgroundWorker1.CancellationPending Then
                 ' Set Cancel to True
-                SetImage_ThreadSafe(b)
+                SetImage_ThreadSafe(Pl.Image)
                 e.Cancel = True
                 Exit For
             End If
@@ -409,7 +409,7 @@ Public Class Main
             upd += 1
             If upd = UPDATE_PERIOD Then
                 upd = 0
-                SetImage_ThreadSafe(b)
+                SetImage_ThreadSafe(Pl.Image)
             End If
             addBurstCount_ThreadSafe()
             Dim uprecoil = 0
@@ -453,7 +453,7 @@ Public Class Main
                 HeatPoints.Add(New HeatPoint(x, y, iIntense))
 
                 If Not chkTimeToKill.Checked Then
-                    g.DrawEllipse(pen1, x, y, 7, 7)
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
                 Else
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
                     Select Case a
@@ -488,7 +488,7 @@ Public Class Main
                             coord5x(ee) = x
                             coord5y(ee) = y
                     End Select
-                    g.DrawEllipse(pen1, x, y, 7, 7)
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
                 End If
 
                 Application.DoEvents()
@@ -521,19 +521,19 @@ Public Class Main
                 Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
                 Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
 
-                g.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                g.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                g.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                g.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                g.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+                'g.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
+                'g.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
+                'g.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
+                'g.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
+                'g.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
 
-                'Pl.Graphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                'Pl.Graphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                'Pl.Graphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                'Pl.Graphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                'Pl.Graphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
             Next
-            SetImage_ThreadSafe(b)
+            SetImage_ThreadSafe(Pl.Image)
             Application.DoEvents()
             Debug.WriteLine("Bursts: " & intBursts)
             Debug.WriteLine("Hits #1: " & aryHits(0))
@@ -545,7 +545,7 @@ Public Class Main
 
         End If
         If chkDrawTTK.Checked And chkTimeToKill.Checked Then
-            drawTTK(g, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
+            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
         If chkHeatMap.Checked Then
             SetOutPutText_ThreadSafe("Please wait... Creating heat map")
@@ -555,22 +555,22 @@ Public Class Main
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
             'Pl.HeatMap = b
         End If
-        SetImage_ThreadSafe(b)
+        SetImage_ThreadSafe(Pl.Image)
         If chkTitles.Checked Then
-            drawTitle(g)
+            'drawTitle(g)
             drawTitle(Pl.ImageGraphic)
         End If
         If chkPrintAdj.Checked Then
-            drawAdjustments(g)
+            'drawAdjustments(g)
             drawAdjustments(Pl.ImageGraphic)
         End If
         If chkDrawGrid.Checked Then
-            drawGrid(g)
+            'drawGrid(g)
             drawGrid(Pl.ImageGraphic)
         End If
-        Pl.Image = b
-        Pl.ImageGraphic = g
-        If chkShowHeatMap.Checked Then
+        'Pl.Image = b
+        'Pl.ImageGraphic = g
+        If chkShowHeatMap.Checked And chkHeatMap.Checked Then
             SetImage_ThreadSafe(Pl.HeatMap)
         Else
             SetImage_ThreadSafe(Pl.Image)
@@ -596,7 +596,6 @@ Public Class Main
                 SaveImage()
             End If
         End If
-
         Me.btnStart.Enabled = True
         Me.btnStop.Enabled = False
 
@@ -1006,6 +1005,8 @@ ByVal DefaultValue As String) As String
     Private Sub chkShowMask_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowMask.CheckedChanged
         If sender.checked Then
             SetImage_ThreadSafe(Pl.Mask)
+        ElseIf chkShowHeatMap.Checked And Not sender.checked Then
+            SetImage_ThreadSafe(Pl.HeatMap)
         Else
             SetImage_ThreadSafe(Pl.Image)
         End If
@@ -1015,8 +1016,20 @@ ByVal DefaultValue As String) As String
     Private Sub chkShowHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowHeatMap.CheckedChanged
         If sender.checked Then
             SetImage_ThreadSafe(Pl.HeatMap)
+        ElseIf chkShowMask.Checked And Not sender.checked Then
+            SetImage_ThreadSafe(Pl.Mask)
         Else
             SetImage_ThreadSafe(Pl.Image)
+        End If
+    End Sub
+
+
+
+    Private Sub chkHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkHeatMap.CheckedChanged
+        If sender.checked Then
+            chkShowHeatMap.Enabled = True
+        Else
+            chkShowHeatMap.Enabled = False
         End If
     End Sub
 End Class

@@ -1328,6 +1328,7 @@ Partial Class Main
         Me.chkShowHeatMap.AutoSize = True
         Me.chkShowHeatMap.Checked = True
         Me.chkShowHeatMap.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowHeatMap.Enabled = False
         Me.chkShowHeatMap.ForeColor = System.Drawing.Color.White
         Me.chkShowHeatMap.Location = New System.Drawing.Point(273, 53)
         Me.chkShowHeatMap.Name = "chkShowHeatMap"
