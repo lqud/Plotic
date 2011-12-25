@@ -378,10 +378,14 @@ Public Class Main
         Dim sil_centerX As Integer = (1000 - (solscaledMask.Width / 2))
 
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
-        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
-        Pl.MaskGraphic.Clear(Color.Black)
-        Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, (sil_centerY - picCenter))
-        Pl.SaveMask()
+
+        If silhouetteHeight > 9800 Then
+            Pl.MaskGraphic.Clear(Color.White)
+        Else
+            soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
+            Pl.MaskGraphic.Clear(Color.Black)
+            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, (sil_centerY - picCenter))
+        End If
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
 
@@ -557,6 +561,8 @@ Public Class Main
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
             'Pl.HeatMap = b
+            ToggleToolStripHeatMap_ThreadSafe(True)
+            SetImage_ThreadSafe(Pl.HeatMap)
         End If
         SetImage_ThreadSafe(Pl.Image)
         If chkTitles.Checked Then
@@ -573,11 +579,8 @@ Public Class Main
         End If
         'Pl.Image = b
         'Pl.ImageGraphic = g
-        If chkShowHeatMap.Checked And chkHeatMap.Checked Then
-            SetImage_ThreadSafe(Pl.HeatMap)
-        Else
-            SetImage_ThreadSafe(Pl.Image)
-        End If
+        ToggleToolStripMain_ThreadSafe(True)
+        ToggleToolStripMask_ThreadSafe(True)
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
@@ -659,6 +662,45 @@ Public Class Main
             End If
         End If
     End Sub
+
+    Delegate Sub ToggleToolStripMain_Delegate(ByVal [viewBool] As Boolean)
+    ' The delegates subroutine.
+    Private Sub ToggleToolStripMain_ThreadSafe(ByVal [viewBool] As Boolean)
+        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
+        ' If these threads are different, it returns true.
+        If txtHitRateResult.InvokeRequired Then
+            Dim MyDelegate As New ToggleToolStripMain_Delegate(AddressOf ToggleToolStripMain_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[viewBool]})
+        Else
+            ViewMainToolStripMenuItem.Enabled = [viewBool]
+        End If
+    End Sub
+    Delegate Sub ToggleToolStripHeatMap_Delegate(ByVal [viewBool] As Boolean)
+    ' The delegates subroutine.
+    Private Sub ToggleToolStripHeatMap_ThreadSafe(ByVal [viewBool] As Boolean)
+        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
+        ' If these threads are different, it returns true.
+        If txtHitRateResult.InvokeRequired Then
+            Dim MyDelegate As New ToggleToolStripHeatMap_Delegate(AddressOf ToggleToolStripHeatMap_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[viewBool]})
+        Else
+            ViewHeatMapToolStripMenuItem.Enabled = [viewBool]
+        End If
+    End Sub
+    Delegate Sub ToggleToolStripMask_Delegate(ByVal [viewBool] As Boolean)
+    ' The delegates subroutine.
+    Private Sub ToggleToolStripMask_ThreadSafe(ByVal [viewBool] As Boolean)
+        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
+        ' If these threads are different, it returns true.
+        If txtHitRateResult.InvokeRequired Then
+            Dim MyDelegate As New ToggleToolStripMask_Delegate(AddressOf ToggleToolStripMask_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[viewBool]})
+        Else
+            ViewMaskToolStripMenuItem.Enabled = [viewBool]
+        End If
+    End Sub
+
+
 
     Delegate Sub SetOutPutText_Delegate(ByVal [text] As String)
     ' The delegates subroutine.
@@ -1005,37 +1047,34 @@ ByVal DefaultValue As String) As String
         'MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
     End Sub
 
-    Private Sub chkShowMask_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowMask.CheckedChanged
-        If sender.checked Then
-            SetImage_ThreadSafe(Pl.Mask)
-        ElseIf chkShowHeatMap.Checked And Not sender.checked And chkHeatMap.Checked Then
-            SetImage_ThreadSafe(Pl.HeatMap)
-        Else
-            SetImage_ThreadSafe(Pl.Image)
-        End If
+    Private Sub ViewMainToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMainToolStripMenuItem.Click
+        viewToolStrip.Text = sender.text
+        ViewMainToolStripMenuItem.CheckState = CheckState.Checked
 
+        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
+        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
+
+        SetImage_ThreadSafe(Pl.Image)
     End Sub
 
-    Private Sub chkShowHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowHeatMap.CheckedChanged
-        If sender.checked Then
-            SetImage_ThreadSafe(Pl.HeatMap)
-        ElseIf chkShowMask.Checked And Not sender.checked Then
-            SetImage_ThreadSafe(Pl.Mask)
-        Else
-            SetImage_ThreadSafe(Pl.Image)
-        End If
+    Private Sub ViewHeatMapToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewHeatMapToolStripMenuItem.Click
+        viewToolStrip.Text = sender.text
+
+        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Checked
+        ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
+        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
+
+        SetImage_ThreadSafe(Pl.HeatMap)
     End Sub
 
+    Private Sub ViewMaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMaskToolStripMenuItem.Click
+        viewToolStrip.Text = sender.text
+        ViewMaskToolStripMenuItem.CheckState = CheckState.Checked
 
+        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
+        ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
 
-    Private Sub chkHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkHeatMap.CheckedChanged
-        If sender.checked Then
-            chkShowHeatMap.Checked = True
-            chkShowHeatMap.Enabled = True
-        Else
-            chkShowHeatMap.Checked = False
-            chkShowHeatMap.Enabled = False
-        End If
+        SetImage_ThreadSafe(Pl.Mask)
     End Sub
 End Class
 Public Structure HeatPoint
