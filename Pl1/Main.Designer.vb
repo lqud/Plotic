@@ -101,9 +101,11 @@ Partial Class Main
         Me.numIntensityScale = New System.Windows.Forms.NumericUpDown()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
+        Me.chkShowHeatMap = New System.Windows.Forms.CheckBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.chkShowMask = New System.Windows.Forms.CheckBox()
         Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -118,8 +120,6 @@ Partial Class Main
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
-        Me.chkShowMask = New System.Windows.Forms.CheckBox()
-        Me.chkShowHeatMap = New System.Windows.Forms.CheckBox()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -943,7 +943,7 @@ Partial Class Main
         Me.numMeters.Size = New System.Drawing.Size(48, 20)
         Me.numMeters.TabIndex = 53
         Me.numMeters.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numMeters.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numMeters.Value = New Decimal(New Integer() {60, 0, 0, 0})
         '
         'Label14
         '
@@ -1101,6 +1101,20 @@ Partial Class Main
         Me.tabRender.TabIndex = 0
         Me.tabRender.Text = "Render Options"
         '
+        'chkShowHeatMap
+        '
+        Me.chkShowHeatMap.AutoSize = True
+        Me.chkShowHeatMap.Checked = True
+        Me.chkShowHeatMap.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkShowHeatMap.Enabled = False
+        Me.chkShowHeatMap.ForeColor = System.Drawing.Color.White
+        Me.chkShowHeatMap.Location = New System.Drawing.Point(273, 53)
+        Me.chkShowHeatMap.Name = "chkShowHeatMap"
+        Me.chkShowHeatMap.Size = New System.Drawing.Size(84, 17)
+        Me.chkShowHeatMap.TabIndex = 43
+        Me.chkShowHeatMap.Text = "Display Map"
+        Me.chkShowHeatMap.UseVisualStyleBackColor = True
+        '
         'Label16
         '
         Me.Label16.AutoSize = True
@@ -1145,6 +1159,17 @@ Partial Class Main
         Me.TabPage2.Size = New System.Drawing.Size(362, 140)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Time to Kill"
+        '
+        'chkShowMask
+        '
+        Me.chkShowMask.AutoSize = True
+        Me.chkShowMask.ForeColor = System.Drawing.Color.White
+        Me.chkShowMask.Location = New System.Drawing.Point(143, 119)
+        Me.chkShowMask.Name = "chkShowMask"
+        Me.chkShowMask.Size = New System.Drawing.Size(82, 17)
+        Me.chkShowMask.TabIndex = 77
+        Me.chkShowMask.Text = "Show Mask"
+        Me.chkShowMask.UseVisualStyleBackColor = True
         '
         'NumericUpDown4
         '
@@ -1311,31 +1336,6 @@ Partial Class Main
         Me.btnSaveImage.TabIndex = 43
         Me.btnSaveImage.Text = "..."
         Me.btnSaveImage.UseVisualStyleBackColor = False
-        '
-        'chkShowMask
-        '
-        Me.chkShowMask.AutoSize = True
-        Me.chkShowMask.ForeColor = System.Drawing.Color.White
-        Me.chkShowMask.Location = New System.Drawing.Point(143, 119)
-        Me.chkShowMask.Name = "chkShowMask"
-        Me.chkShowMask.Size = New System.Drawing.Size(82, 17)
-        Me.chkShowMask.TabIndex = 77
-        Me.chkShowMask.Text = "Show Mask"
-        Me.chkShowMask.UseVisualStyleBackColor = True
-        '
-        'chkShowHeatMap
-        '
-        Me.chkShowHeatMap.AutoSize = True
-        Me.chkShowHeatMap.Checked = True
-        Me.chkShowHeatMap.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkShowHeatMap.Enabled = False
-        Me.chkShowHeatMap.ForeColor = System.Drawing.Color.White
-        Me.chkShowHeatMap.Location = New System.Drawing.Point(273, 53)
-        Me.chkShowHeatMap.Name = "chkShowHeatMap"
-        Me.chkShowHeatMap.Size = New System.Drawing.Size(84, 17)
-        Me.chkShowHeatMap.TabIndex = 43
-        Me.chkShowHeatMap.Text = "Display Map"
-        Me.chkShowHeatMap.UseVisualStyleBackColor = True
         '
         'Main
         '

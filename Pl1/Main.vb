@@ -6,7 +6,7 @@ Imports System.Windows.Forms
 Imports System.IO
 
 Public Class Main
-    Private Const SCALE_FACTOR As Single = 3.55
+    Private Const SCALE_FACTOR As Single = 1 '3.55
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const VERSION As String = "Plotic v0.83"
 
@@ -362,25 +362,32 @@ Public Class Main
         '1.77 meters avg height of man - 
         ' 	6 feet = 1.8288 meters
         'Height in pixels = Scale * Atan(Distance in meters / Dude height in meters) * 180 / PI
+        Dim TestRADIAN As Double = Math.Atan(1.85 / numMeters.Value)
+        Dim TestDEGREE As Double = TestRADIAN * (180 / Math.PI)
+        Dim TestPIXEL As Integer = Math.Round((TestDEGREE * Pl.Scale), 0)
 
         'Add the mask to the Plotic class
-        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask)
-        Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
-        Dim TestRADIAN As Double = Math.Atan(numMeters.Value / 1.85)
-        Dim TestDEGREE As Double = TestRADIAN * (180 / Math.PI)
-        Dim TestPIXEL As Double = Math.Round((TestDEGREE * Pl.Scale), 0)
-        Dim Test4 As Double = TestPIXEL * SCALE_FACTOR
-        Dim solTestConvert As Double = SCALE_FACTOR * Math.Atan(numMeters.Value / 1.8) * 180 / Math.PI
+        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
+
+        Dim TestDiff As Double = TestPIXEL / solMask.Height
+        Dim TestWIDTH As Integer = Math.Round((TestDiff * solMask.Width), 0)
+
+
+        Dim solscaledMask As New Bitmap(CInt(TestWIDTH), CInt(TestPIXEL))
+        '        Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
+
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
-        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
+        soldestMask.DrawImage(solMask, 0, 0, TestWIDTH + 1, TestPIXEL + 1)
+        '        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
         Dim vittuMask As Integer = (1000 - (solscaledMask.Width / 2))
         Pl.MaskGraphic.Clear(Color.Black)
         Pl.MaskGraphic.DrawImage(solscaledMask, vittuMask, 1115)
         Pl.SaveMask()
 
-        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1)
-        'Dim solscaled As New Bitmap(CInt(TestPIXEL), CInt(TestPIXEL))
-        Dim solscaled As New Bitmap(CInt(sol.Width * SCALE_FACTOR), CInt(sol.Height * SCALE_FACTOR))
+        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
+
+        Dim solscaled As New Bitmap(CInt(TestWIDTH), CInt(TestPIXEL))
+        'Dim solscaled As New Bitmap(CInt(sol.Width * SCALE_FACTOR), CInt(sol.Height * SCALE_FACTOR))
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
@@ -388,7 +395,7 @@ Public Class Main
         If chkTimeToKill.Checked Then
             Dim vittu As Integer = (1000 - (solscaled.Width / 2))
             Pl.ImageGraphic.Clear(Color.Black)
-            Pl.ImageGraphic.DrawImage(solscaled, vittu, 1115)
+            Pl.ImageGraphic.DrawImage(solscaled, vittu, (-928 + 1680))
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
@@ -1005,7 +1012,7 @@ ByVal DefaultValue As String) As String
     Private Sub chkShowMask_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkShowMask.CheckedChanged
         If sender.checked Then
             SetImage_ThreadSafe(Pl.Mask)
-        ElseIf chkShowHeatMap.Checked And Not sender.checked Then
+        ElseIf chkShowHeatMap.Checked And Not sender.checked And chkHeatMap.Checked Then
             SetImage_ThreadSafe(Pl.HeatMap)
         Else
             SetImage_ThreadSafe(Pl.Image)

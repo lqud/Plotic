@@ -88,46 +88,16 @@ Namespace My.Resources
             End Get
         End Property
         
-        '''<summary>
-        '''  Looks up a localized string similar to [Recoil]
-        '''RecoilUp=0.55
-        '''RecoilLeft=0.2
-        '''RecoilRight=0.3
-        '''FirstShot=1.3
-        '''[Spread]
-        '''SpreadMin=0.1
-        '''SpreadInc=0.12
-        '''[Burst]
-        '''BurstsPerBullet=5
-        '''Bursts=1000
-        '''[Attach]
-        '''RenderAttachText=0
-        '''AttachRecoilV=0
-        '''AttachRecoilH=0
-        '''AttachSpreadMin=0
-        '''AttachSpreadInc=0
-        '''[Save]
-        '''SavePath=C:\Users\Ripley\documents\visual studio 2010\Projects\Pl1\Pl1\bin\Debug
-        '''FileName=&lt;&lt;TitleText&gt;&gt;_bf3_&lt;&lt;SubText&gt;&gt;
-        '''[Render]
-        '''ScaleRadius=1
-        '''RenderBars=1
-        '''[Title]
-        '''RenderTitleText=1
-        '''TitleText=AEK-17
-        '''InfoText=Dmg: 25-17
-        '''SubText=Stock
-        '''[Gri [rest of string was truncated]&quot;;.
-        '''</summary>
-        Friend ReadOnly Property plotic_silent() As String
-            Get
-                Return ResourceManager.GetString("plotic_silent", resourceCulture)
-            End Get
-        End Property
-        
         Friend ReadOnly Property sil_1() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property sil_1_fullsize() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sil_1_fullsize", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -139,6 +109,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property sil_2_fullsize() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sil_2_fullsize", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property sil_3() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_3", resourceCulture)
@@ -146,9 +123,23 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property sil_3_fullsize() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sil_3_fullsize", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property sil_mask() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_mask", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property sil_mask_fullsize() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("sil_mask_fullsize", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

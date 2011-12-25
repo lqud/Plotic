@@ -146,7 +146,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pl1_TemporaryKey.pfx" />
     <None Include="Resources\sil_2.png" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +170,10 @@
     <None Include="Resources\pal_white_red.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\sil_1_fullsize.png" />
+    <None Include="Resources\sil_2_fullsize.png" />
+    <None Include="Resources\sil_3_fullsize.png" />
+    <None Include="Resources\sil_mask_fullsize.png" />
     <Content Include="Silent_install_INI_help.txt" />
   </ItemGroup>
   <ItemGroup>
