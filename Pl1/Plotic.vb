@@ -1,5 +1,5 @@
 ﻿Public Class Plotic
-    Private strGunName As String
+    Private strTitle As String
     Private bmpImage As Bitmap = New Bitmap(2000, 2000)
     Private bmpMask As Bitmap = New Bitmap(2000, 2000)
     Private bmpHeatMap As Bitmap = New Bitmap(2000, 2000)
@@ -21,12 +21,12 @@
 
     Private intScale As Integer
 
-    Property GunName() As String
+    Property Title() As String
         Get
-            Return strGunName
+            Return strTitle
         End Get
         Set(ByVal Value As String)
-            strGunName = Value
+            strTitle = Value
         End Set
     End Property
 
