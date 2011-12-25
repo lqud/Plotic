@@ -6,10 +6,9 @@ Imports System.Windows.Forms
 Imports System.IO
 
 Public Class Main
-    Private Const SCALE_FACTOR As Single = 1 '3.55
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_CENTER_PERCENT As Double = 224 / 667
-    Private Const VERSION As String = "Plotic v0.83"
+    Private Const VERSION As String = "Plotic v0.9"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -616,13 +615,9 @@ Public Class Main
         'Dim b As Bitmap = Pl.Image
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
         Dim bm_source As New Bitmap(b)
-        Dim bm_dest As New Bitmap( _
-            CInt(bm_source.Width * SCALE_FACTOR), _
-            CInt(bm_source.Height * SCALE_FACTOR))
+        Dim bm_dest As New Bitmap(CInt(bm_source.Width), CInt(bm_source.Height))
         Dim gr_dest As Graphics = Graphics.FromImage(bm_dest)
-        gr_dest.DrawImage(bm_source, 0, 0, _
-            bm_dest.Width + 1, _
-            bm_dest.Height + 1)
+        gr_dest.DrawImage(bm_source, 0, 0, bm_dest.Width + 1, bm_dest.Height + 1)
         Dim picDest As New Bitmap(bm_dest)
         Dim file = saveImagePath
         If chkSaveImage.Checked = True Then
