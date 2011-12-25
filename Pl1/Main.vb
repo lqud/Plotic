@@ -8,6 +8,7 @@ Imports System.IO
 Public Class Main
     Private Const SCALE_FACTOR As Single = 1 '3.55
     Private Const UPDATE_PERIOD As Integer = 100
+    Private Const IMAGE_CENTER_PERCENT As Double = 0.333373313343
     Private Const VERSION As String = "Plotic v0.83"
 
     Private HeatPoints As New List(Of HeatPoint)()
@@ -357,45 +358,47 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-        ' Dim ggh As Bitmap = New Bitmap(2000, 2000)
+        Dim centerY As Integer = 1680
 
-        '1.77 meters avg height of man - 
         ' 	6 feet = 1.8288 meters
         'Height in pixels = Scale * Atan(Distance in meters / Dude height in meters) * 180 / PI
-        Dim TestRADIAN As Double = Math.Atan(1.85 / numMeters.Value)
-        Dim TestDEGREE As Double = TestRADIAN * (180 / Math.PI)
-        Dim TestPIXEL As Integer = Math.Round((TestDEGREE * Pl.Scale), 0)
 
-        'Add the mask to the Plotic class
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
-        Dim TestDiff As Double = TestPIXEL / solMask.Height
-        Dim TestWIDTH As Integer = Math.Round((TestDiff * solMask.Width), 0)
+        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / numMeters.Value) * (180 / Math.PI)) * Pl.Scale, 0)
 
+        Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
+        Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
 
-        Dim solscaledMask As New Bitmap(CInt(TestWIDTH), CInt(TestPIXEL))
+        'Dim TestDEGREE As Double = TestDiff * (180 / Math.PI)
+        'Dim TestPIXEL As Integer = Math.Round((TestDEGREE * Pl.Scale), 0)
+
+        'Add the mask to the Plotic class
+
+        Dim picCenter As Integer = Math.Round((silhouetteHeight * IMAGE_CENTER_PERCENT), 0)
+
+        Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
         '        Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
 
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
-        soldestMask.DrawImage(solMask, 0, 0, TestWIDTH + 1, TestPIXEL + 1)
+        ' soldestMask.DrawImage(solMask, 0, 0, TestWIDTH + 1, imageHeight + 1)
         '        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
         Dim vittuMask As Integer = (1000 - (solscaledMask.Width / 2))
         Pl.MaskGraphic.Clear(Color.Black)
-        Pl.MaskGraphic.DrawImage(solscaledMask, vittuMask, 1115)
+        Pl.MaskGraphic.DrawImage(solscaledMask, vittuMask, (centerY - picCenter))
+        SetImage_ThreadSafe(Pl.Mask)
         Pl.SaveMask()
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
 
-        Dim solscaled As New Bitmap(CInt(TestWIDTH), CInt(TestPIXEL))
-        'Dim solscaled As New Bitmap(CInt(sol.Width * SCALE_FACTOR), CInt(sol.Height * SCALE_FACTOR))
+        Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
-        'Dim g As Graphics = Graphics.FromImage(b)
         If chkTimeToKill.Checked Then
             Dim vittu As Integer = (1000 - (solscaled.Width / 2))
             Pl.ImageGraphic.Clear(Color.Black)
-            Pl.ImageGraphic.DrawImage(solscaled, vittu, (-928 + 1680))
+            Pl.ImageGraphic.DrawImage(solscaled, vittu, (centerY - picCenter))
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
@@ -1034,8 +1037,10 @@ ByVal DefaultValue As String) As String
 
     Private Sub chkHeatMap_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkHeatMap.CheckedChanged
         If sender.checked Then
+            chkShowHeatMap.Checked = True
             chkShowHeatMap.Enabled = True
         Else
+            chkShowHeatMap.Checked = False
             chkShowHeatMap.Enabled = False
         End If
     End Sub

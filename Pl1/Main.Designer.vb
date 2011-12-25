@@ -97,7 +97,6 @@ Partial Class Main
         Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.ToolStripProgressBar2 = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.numIntensityScale = New System.Windows.Forms.NumericUpDown()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
@@ -120,6 +119,7 @@ Partial Class Main
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
+        Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -134,7 +134,6 @@ Partial Class Main
         CType(Me.numMeters, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.StatusStrip1.SuspendLayout()
-        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
@@ -144,6 +143,7 @@ Partial Class Main
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSaveOptions.SuspendLayout()
+        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtDamage
@@ -1035,16 +1035,6 @@ Partial Class Main
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(121, 17)
         Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
         '
-        'picPlot
-        '
-        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.picPlot.Location = New System.Drawing.Point(395, 14)
-        Me.picPlot.Name = "picPlot"
-        Me.picPlot.Size = New System.Drawing.Size(400, 400)
-        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.picPlot.TabIndex = 29
-        Me.picPlot.TabStop = False
-        '
         'numIntensityScale
         '
         Me.numIntensityScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -1104,8 +1094,6 @@ Partial Class Main
         'chkShowHeatMap
         '
         Me.chkShowHeatMap.AutoSize = True
-        Me.chkShowHeatMap.Checked = True
-        Me.chkShowHeatMap.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkShowHeatMap.Enabled = False
         Me.chkShowHeatMap.ForeColor = System.Drawing.Color.White
         Me.chkShowHeatMap.Location = New System.Drawing.Point(273, 53)
@@ -1337,6 +1325,16 @@ Partial Class Main
         Me.btnSaveImage.Text = "..."
         Me.btnSaveImage.UseVisualStyleBackColor = False
         '
+        'picPlot
+        '
+        Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.picPlot.Location = New System.Drawing.Point(395, 14)
+        Me.picPlot.Name = "picPlot"
+        Me.picPlot.Size = New System.Drawing.Size(400, 400)
+        Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.picPlot.TabIndex = 29
+        Me.picPlot.TabStop = False
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1379,7 +1377,6 @@ Partial Class Main
         CType(Me.numLineSpace, System.ComponentModel.ISupportInitialize).EndInit()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabMain.ResumeLayout(False)
         Me.tabRender.ResumeLayout(False)
@@ -1392,6 +1389,7 @@ Partial Class Main
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
+        CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
