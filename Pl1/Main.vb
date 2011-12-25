@@ -7,7 +7,8 @@ Imports System.IO
 
 Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
-    Private Const IMAGE_CENTER_PERCENT As Double = 224 / 667
+    Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
+    Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
     Private Const VERSION As String = "Plotic v0.9"
 
     Private HeatPoints As New List(Of HeatPoint)()
@@ -358,24 +359,20 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-        ' 	6 feet = 1.8288 meters
-        'Height in pixels = Scale * Atan(Distance in meters / Dude height in meters) * 180 / PI
 
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
         Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / numMeters.Value) * (180 / Math.PI)) * Pl.Scale, 0)
-
         Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
         Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
 
-        'Add the mask to the Plotic class
-
-        Dim picCenter As Integer = Math.Round((silhouetteHeight * IMAGE_CENTER_PERCENT), 0)
+        Dim picVCenter As Integer = Math.Round((silhouetteHeight * IMAGE_V_CENTER_PERCENT), 0)
+        Dim picHCenter As Integer = Math.Round((silhouetteWidth * IMAGE_H_CENTER_PERCENT), 0)
 
         Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
 
-        Dim sil_centerY As Integer = 1680
-        Dim sil_centerX As Integer = (1000 - (solscaledMask.Width / 2))
+        Dim sil_centerY As Integer = 1680 - picVCenter
+        Dim sil_centerX As Integer = 1000 - picHCenter
 
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
 
@@ -384,7 +381,7 @@ Public Class Main
         Else
             soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
             Pl.MaskGraphic.Clear(Color.Black)
-            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, (sil_centerY - picCenter))
+            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, sil_centerY)
         End If
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
@@ -395,7 +392,7 @@ Public Class Main
 
         If chkTimeToKill.Checked Then
             Pl.ImageGraphic.Clear(Color.Black)
-            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, (sil_centerY - picCenter))
+            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
@@ -527,12 +524,6 @@ Public Class Main
                 Dim pen3 As New System.Drawing.Pen(Color.Orange, 4)
                 Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
                 Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
-
-                'g.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                'g.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                'g.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                'g.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                'g.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
 
                 Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
                 Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
