@@ -279,7 +279,7 @@ Public Class Main
         Pl.AdjRecoilV = numRecoilV.Value
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
-        Pl.GunName = txtTitle.Text
+        Pl.Title = txtTitle.Text
         Pl.Scale = txtScale.Text
 
     End Sub
@@ -296,7 +296,7 @@ Public Class Main
         Pl.AdjRecoilV = numRecoilV.Value
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
-        Pl.GunName = txtTitle.Text
+        Pl.Title = txtTitle.Text
         Pl.Scale = txtScale.Text
 
     End Sub
@@ -613,33 +613,38 @@ Public Class Main
         Me.grpSpread.Enabled = True
     End Sub
     Private Sub SaveImage()
-        Dim b As Bitmap = picPlot.Image
-        'Dim b As Bitmap = Pl.Image
-        Dim greenBrush As New SolidBrush(Color.YellowGreen)
-        Dim bm_source As New Bitmap(b)
-        Dim bm_dest As New Bitmap(CInt(bm_source.Width), CInt(bm_source.Height))
-        Dim gr_dest As Graphics = Graphics.FromImage(bm_dest)
-        gr_dest.DrawImage(bm_source, 0, 0, bm_dest.Width + 1, bm_dest.Height + 1)
-        Dim picDest As New Bitmap(bm_dest)
+        'Dim b As Bitmap = picPlot.Image
+        Dim b As Bitmap = Pl.Image
+        'Dim greenBrush As New SolidBrush(Color.YellowGreen)
+        'Dim bm_source As New Bitmap(b)
+        'Dim bm_dest As New Bitmap(CInt(bm_source.Width), CInt(bm_source.Height))
+        'Dim gr_dest As Graphics = Graphics.FromImage(bm_dest)
+        'gr_dest.DrawImage(bm_source, 0, 0, bm_dest.Width + 1, bm_dest.Height + 1)
+        'Dim picDest As New Bitmap(bm_dest)
         Dim file = saveImagePath
-        If chkSaveImage.Checked = True Then
-        Else
-            If My.Computer.FileSystem.DirectoryExists(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\") Then
-            Else
-                My.Computer.FileSystem.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\")
+        'If chkSaveImage.Checked = True Then
+        'Else
+        'If My.Computer.FileSystem.DirectoryExists(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\") Then
+        'Else
+        'My.Computer.FileSystem.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\")
 
-            End If
-            file = My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\" + txtRecoilUp.Text + ".png"
-        End If
+        'End If
+        'file = My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\" + txtRecoilUp.Text + ".png"
+        'End If
         b.Save(file)
-        picDest.Save("C:\Temp\" + Pl.GunName + ".png")
-        Dim ProcessProperties As New ProcessStartInfo
-        ProcessProperties.FileName = "C:\Windows\System32\rundll32.exe"
-        ProcessProperties.Arguments = """" + My.Computer.FileSystem.SpecialDirectories.ProgramFiles + "\Windows Photo Viewer\PhotoViewer.dll"", ImageView_Fullscreen " + file
-        ProcessProperties.WindowStyle = ProcessWindowStyle.Maximized
-        picDest.Dispose()
-        bm_dest.Dispose()
+        'picDest.Save("C:\Temp\" + Pl.Title + ".png")
+
+        If chkHeatMap.Checked Then
+            Dim h As Bitmap = Pl.HeatMap
+            'Dim b As Bitmap = Pl.Image
+            Dim heatFileName As String = file.Insert((file.Length - 4), "_heatmap")
+            h.Save(heatFileName)
+        End If
+
         mainToolStripStatus.Text = "Image Saved: " & saveImagePath
+        'Dispose of the images
+        'picDest.Dispose()
+        'bm_dest.Dispose()
     End Sub
 
     Private Sub btnStop_Click(sender As System.Object, e As System.EventArgs) Handles btnStop.Click
