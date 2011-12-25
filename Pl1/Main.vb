@@ -262,6 +262,14 @@ Public Class Main
 
         ' Enable to stop button
         btnStop.Enabled = True
+
+        viewToolStrip.Text = "View: Main"
+        ViewMainToolStripMenuItem.CheckState = CheckState.Checked
+        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
+        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
+
+        SetImage_ThreadSafe(Pl.Image)
+
         ' Start the Background Worker working
         HeatPoints.Clear()
         loadPlotic()
@@ -553,9 +561,7 @@ Public Class Main
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
             'Pl.HeatMap = b
             ToggleToolStripHeatMap_ThreadSafe(True)
-            SetImage_ThreadSafe(Pl.HeatMap)
         End If
-        SetImage_ThreadSafe(Pl.Image)
         If chkTitles.Checked Then
             'drawTitle(g)
             drawTitle(Pl.ImageGraphic)
@@ -572,7 +578,15 @@ Public Class Main
         'Pl.ImageGraphic = g
         ToggleToolStripMain_ThreadSafe(True)
         ToggleToolStripMask_ThreadSafe(True)
-        SetImage_ThreadSafe(Pl.Image)
+        If chkHeatMap.Checked Then
+            viewToolStrip.Text = "View: Heat Map"
+            ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
+            ViewHeatMapToolStripMenuItem.CheckState = CheckState.Checked
+            ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
+            SetImage_ThreadSafe(Pl.HeatMap)
+        Else
+            SetImage_ThreadSafe(Pl.Image)
+        End If
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
