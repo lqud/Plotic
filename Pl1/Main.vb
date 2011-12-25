@@ -8,7 +8,7 @@ Imports System.IO
 Public Class Main
     Private Const SCALE_FACTOR As Single = 1 '3.55
     Private Const UPDATE_PERIOD As Integer = 100
-    Private Const IMAGE_CENTER_PERCENT As Double = 0.333373313343
+    Private Const IMAGE_CENTER_PERCENT As Double = 224 / 667
     Private Const VERSION As String = "Plotic v0.83"
 
     Private HeatPoints As New List(Of HeatPoint)()
@@ -358,8 +358,6 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-        Dim centerY As Integer = 1680
-
         ' 	6 feet = 1.8288 meters
         'Height in pixels = Scale * Atan(Distance in meters / Dude height in meters) * 180 / PI
 
@@ -370,23 +368,19 @@ Public Class Main
         Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
         Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
 
-        'Dim TestDEGREE As Double = TestDiff * (180 / Math.PI)
-        'Dim TestPIXEL As Integer = Math.Round((TestDEGREE * Pl.Scale), 0)
-
         'Add the mask to the Plotic class
 
         Dim picCenter As Integer = Math.Round((silhouetteHeight * IMAGE_CENTER_PERCENT), 0)
 
         Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
-        '        Dim solscaledMask As New Bitmap(CInt(solMask.Width * SCALE_FACTOR), CInt(solMask.Height * SCALE_FACTOR))
+
+        Dim sil_centerY As Integer = 1680
+        Dim sil_centerX As Integer = (1000 - (solscaledMask.Width / 2))
 
         Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
-        ' soldestMask.DrawImage(solMask, 0, 0, TestWIDTH + 1, imageHeight + 1)
-        '        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
-        Dim vittuMask As Integer = (1000 - (solscaledMask.Width / 2))
+        soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
         Pl.MaskGraphic.Clear(Color.Black)
-        Pl.MaskGraphic.DrawImage(solscaledMask, vittuMask, (centerY - picCenter))
-        SetImage_ThreadSafe(Pl.Mask)
+        Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, (sil_centerY - picCenter))
         Pl.SaveMask()
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
@@ -396,9 +390,8 @@ Public Class Main
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
         If chkTimeToKill.Checked Then
-            Dim vittu As Integer = (1000 - (solscaled.Width / 2))
             Pl.ImageGraphic.Clear(Color.Black)
-            Pl.ImageGraphic.DrawImage(solscaled, vittu, (centerY - picCenter))
+            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, (sil_centerY - picCenter))
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
