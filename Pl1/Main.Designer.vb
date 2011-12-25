@@ -23,7 +23,7 @@ Partial Class Main
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
-        Me.txtDamage = New System.Windows.Forms.TextBox()
+        Me.txtInfo = New System.Windows.Forms.TextBox()
         Me.lbfs = New System.Windows.Forms.Label()
         Me.grpSpread = New System.Windows.Forms.GroupBox()
         Me.lbms = New System.Windows.Forms.Label()
@@ -36,7 +36,7 @@ Partial Class Main
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lbbpbm = New System.Windows.Forms.Label()
-        Me.txtGunName = New System.Windows.Forms.TextBox()
+        Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.lbbm = New System.Windows.Forms.Label()
         Me.txtBursts = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -149,16 +149,16 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'txtDamage
+        'txtInfo
         '
-        Me.txtDamage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtDamage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtDamage.ForeColor = System.Drawing.Color.White
-        Me.txtDamage.Location = New System.Drawing.Point(55, 80)
-        Me.txtDamage.Name = "txtDamage"
-        Me.txtDamage.Size = New System.Drawing.Size(97, 20)
-        Me.txtDamage.TabIndex = 37
-        Me.txtDamage.Text = "Dmg: 25 - 17"
+        Me.txtInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtInfo.ForeColor = System.Drawing.Color.White
+        Me.txtInfo.Location = New System.Drawing.Point(55, 80)
+        Me.txtInfo.Name = "txtInfo"
+        Me.txtInfo.Size = New System.Drawing.Size(97, 20)
+        Me.txtInfo.TabIndex = 37
+        Me.txtInfo.Text = "Dmg: 25 - 17"
         '
         'lbfs
         '
@@ -239,10 +239,10 @@ Partial Class Main
         Me.grpMisc.Controls.Add(Me.numBulletsPerBurst)
         Me.grpMisc.Controls.Add(Me.txtSub)
         Me.grpMisc.Controls.Add(Me.Label24)
-        Me.grpMisc.Controls.Add(Me.txtDamage)
+        Me.grpMisc.Controls.Add(Me.txtInfo)
         Me.grpMisc.Controls.Add(Me.Label1)
         Me.grpMisc.Controls.Add(Me.lbbpbm)
-        Me.grpMisc.Controls.Add(Me.txtGunName)
+        Me.grpMisc.Controls.Add(Me.txtTitle)
         Me.grpMisc.Controls.Add(Me.lbbm)
         Me.grpMisc.Controls.Add(Me.txtBursts)
         Me.grpMisc.Controls.Add(Me.Label3)
@@ -313,16 +313,16 @@ Partial Class Main
         Me.lbbpbm.TabIndex = 14
         Me.lbbpbm.Text = "Bullets per burst"
         '
-        'txtGunName
+        'txtTitle
         '
-        Me.txtGunName.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtGunName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtGunName.ForeColor = System.Drawing.Color.White
-        Me.txtGunName.Location = New System.Drawing.Point(55, 57)
-        Me.txtGunName.Name = "txtGunName"
-        Me.txtGunName.Size = New System.Drawing.Size(97, 20)
-        Me.txtGunName.TabIndex = 36
-        Me.txtGunName.Text = "AEK-971"
+        Me.txtTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtTitle.ForeColor = System.Drawing.Color.White
+        Me.txtTitle.Location = New System.Drawing.Point(55, 57)
+        Me.txtTitle.Name = "txtTitle"
+        Me.txtTitle.Size = New System.Drawing.Size(97, 20)
+        Me.txtTitle.TabIndex = 36
+        Me.txtTitle.Text = "AEK-971"
         '
         'lbbm
         '
@@ -820,7 +820,7 @@ Partial Class Main
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(304, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(429, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "version()"
         '
@@ -1405,7 +1405,7 @@ Partial Class Main
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents txtDamage As System.Windows.Forms.TextBox
+    Friend WithEvents txtInfo As System.Windows.Forms.TextBox
     Friend WithEvents lbfs As System.Windows.Forms.Label
     Friend WithEvents grpSpread As System.Windows.Forms.GroupBox
     Friend WithEvents lbms As System.Windows.Forms.Label
@@ -1423,7 +1423,7 @@ Partial Class Main
     Friend WithEvents txtRecoilLeft As System.Windows.Forms.TextBox
     Friend WithEvents txtFirstShot As System.Windows.Forms.TextBox
     Friend WithEvents txtRecoilRight As System.Windows.Forms.TextBox
-    Friend WithEvents txtGunName As System.Windows.Forms.TextBox
+    Friend WithEvents txtTitle As System.Windows.Forms.TextBox
     Friend WithEvents lblBurstCounter As System.Windows.Forms.Label
     Friend WithEvents btnStart As System.Windows.Forms.Button
     Friend WithEvents picPlot As System.Windows.Forms.PictureBox

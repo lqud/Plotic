@@ -78,8 +78,9 @@ Public Class Main
     End Sub
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        g.DrawString(txtGunName.Text, New Font("Arial", 90), greenBrush1, 800, 30)
-        g.DrawString(txtDamage.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
+        g.DrawString(txtTitle.Text, New Font("Arial", 90), greenBrush1, 800, 30)
+        g.DrawString(txtInfo.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
+        g.DrawString(txtSub.Text, New Font("Consolas", 40), greenBrush1, 710, 220)
 
     End Sub
     Public Sub drawGrid(ByVal g As Graphics)
@@ -278,7 +279,7 @@ Public Class Main
         Pl.AdjRecoilV = numRecoilV.Value
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
-        Pl.GunName = txtGunName.Text
+        Pl.GunName = txtTitle.Text
         Pl.Scale = txtScale.Text
 
     End Sub
@@ -295,7 +296,7 @@ Public Class Main
         Pl.AdjRecoilV = numRecoilV.Value
         Pl.AdjSpreadInc = numInc.Value
         Pl.AdjSpreadMin = numMin.Value
-        Pl.GunName = txtGunName.Text
+        Pl.GunName = txtTitle.Text
         Pl.Scale = txtScale.Text
 
     End Sub
@@ -580,6 +581,7 @@ Public Class Main
         'Pl.ImageGraphic = g
         ToggleToolStripMain_ThreadSafe(True)
         ToggleToolStripMask_ThreadSafe(True)
+        SetImage_ThreadSafe(Pl.Image)
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
