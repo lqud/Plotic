@@ -200,7 +200,7 @@
     Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean
         Dim colo As Object
         Dim rgbb As Integer
-        If x < 0 Or y < 0 Or x > 2000 Or y > 2000 Then
+        If x < 0 Or y < 0 Or x > 1999 Or y > 1999 Then
             rgbb = 0
         Else
             colo = Me.Mask.GetPixel(x, y)
