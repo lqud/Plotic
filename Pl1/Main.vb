@@ -247,7 +247,42 @@ Public Class Main
         'BackgroundWorker1.RunWorkerAsync()
         BackgroundWorker2.RunWorkerAsync()
     End Sub
+    Private Sub selectView(ByVal view As String)
+        Select Case view
+            Case "main"
+                SetToolStripText_ThreadSafe("View: Main")
+                CheckToolStripMain_ThreadSafe(CheckState.Checked)
 
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Image)
+            Case "heat"
+                SetToolStripText_ThreadSafe("View: Heat map")
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.HeatMap)
+            Case "mask"
+                SetToolStripText_ThreadSafe("View: Mask")
+                CheckToolStripMask_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Mask)
+            Case Else
+                SetToolStripText_ThreadSafe("View: Main")
+                CheckToolStripMain_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Image)
+
+                SetOutPutText_ThreadSafe("View: '" & view & " NOT FOUND")
+        End Select
+
+
+    End Sub
     Private Sub btnStart_Click() Handles btnStart.Click
         intBurstCycle = 0
 
@@ -263,10 +298,7 @@ Public Class Main
         ' Enable to stop button
         btnStop.Enabled = True
 
-        viewToolStrip.Text = "View: Main"
-        ViewMainToolStripMenuItem.CheckState = CheckState.Checked
-        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
-        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
+        selectView("main")
 
         SetImage_ThreadSafe(Pl.Image)
 
@@ -560,7 +592,6 @@ Public Class Main
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
             'Pl.HeatMap = b
-            ToggleToolStripHeatMap_ThreadSafe(True)
         End If
         If chkTitles.Checked Then
             'drawTitle(g)
@@ -577,16 +608,8 @@ Public Class Main
         'Pl.Image = b
         'Pl.ImageGraphic = g
         ToggleToolStripMain_ThreadSafe(True)
+        selectView("main")
         ToggleToolStripMask_ThreadSafe(True)
-        If chkHeatMap.Checked Then
-            viewToolStrip.Text = "View: Heat Map"
-            ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
-            ViewHeatMapToolStripMenuItem.CheckState = CheckState.Checked
-            ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
-            SetImage_ThreadSafe(Pl.HeatMap)
-        Else
-            SetImage_ThreadSafe(Pl.Image)
-        End If
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
@@ -607,6 +630,9 @@ Public Class Main
                 Application.DoEvents()
                 SaveImage()
             End If
+        End If
+        If chkHeatMap.Checked Then
+            ToggleToolStripHeatMap_ThreadSafe(True)
         End If
         Me.btnStart.Enabled = True
         Me.btnStop.Enabled = False
@@ -673,26 +699,20 @@ Public Class Main
     Delegate Sub ToggleToolStripMain_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
     Private Sub ToggleToolStripMain_ThreadSafe(ByVal [viewBool] As Boolean)
-        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
-        ' If these threads are different, it returns true.
-        If txtHitRateResult.InvokeRequired Then
-            Dim MyDelegate As New ToggleToolStripMain_Delegate(AddressOf ToggleToolStripMain_ThreadSafe)
-            Me.Invoke(MyDelegate, New Object() {[viewBool]})
-        Else
-            ViewMainToolStripMenuItem.Enabled = [viewBool]
-        End If
+        ViewMainToolStripMenuItem.Enabled = [viewBool]
+    End Sub
+    Delegate Sub CheckToolStripMain_Delegate(ByVal [checked] As CheckState)
+    Private Sub CheckToolStripMain_ThreadSafe(ByVal [checked] As CheckState)
+        ViewMainToolStripMenuItem.CheckState = [checked]
     End Sub
     Delegate Sub ToggleToolStripHeatMap_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
     Private Sub ToggleToolStripHeatMap_ThreadSafe(ByVal [viewBool] As Boolean)
-        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
-        ' If these threads are different, it returns true.
-        If txtHitRateResult.InvokeRequired Then
-            Dim MyDelegate As New ToggleToolStripHeatMap_Delegate(AddressOf ToggleToolStripHeatMap_ThreadSafe)
-            Me.Invoke(MyDelegate, New Object() {[viewBool]})
-        Else
-            ViewHeatMapToolStripMenuItem.Enabled = [viewBool]
-        End If
+        ViewHeatMapToolStripMenuItem.Enabled = [viewBool]
+    End Sub
+    Delegate Sub CheckToolStripHeatMap_Delegate(ByVal [checked] As CheckState)
+    Private Sub CheckToolStripHeatMap_ThreadSafe(ByVal [checked] As CheckState)
+        ViewHeatMapToolStripMenuItem.CheckState = [checked]
     End Sub
     Delegate Sub ToggleToolStripMask_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
@@ -706,8 +726,22 @@ Public Class Main
             ViewMaskToolStripMenuItem.Enabled = [viewBool]
         End If
     End Sub
+    Delegate Sub CheckToolStripMask_Delegate(ByVal [checked] As CheckState)
+    Private Sub CheckToolStripMask_ThreadSafe(ByVal [checked] As CheckState)
+        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
+        ' If these threads are different, it returns true.
+        If txtHitRateResult.InvokeRequired Then
+            Dim MyDelegate As New CheckToolStripMask_Delegate(AddressOf CheckToolStripMask_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[checked]})
+        Else
+            ViewMaskToolStripMenuItem.CheckState = [checked]
+        End If
+    End Sub
 
-
+    Delegate Sub SetToolStripText_Delegate(ByVal [text] As String)
+    Private Sub SetToolStripText_ThreadSafe(ByVal [text] As String)
+        viewToolStrip.Text = [text]
+    End Sub
 
     Delegate Sub SetOutPutText_Delegate(ByVal [text] As String)
     ' The delegates subroutine.
@@ -784,6 +818,7 @@ Public Class Main
         exitApplication()
     End Sub
 
+#Region "Heat Map Creation"
     Private Function CreateIntensityMask(bSurface As Bitmap, aHeatPoints As List(Of HeatPoint)) As Bitmap
         ' Create new graphics surface from memory bitmap
         Dim DrawSurface As Graphics = Graphics.FromImage(bSurface)
@@ -860,12 +895,10 @@ Public Class Main
         ' Draw polygon (circle) using our point array and gradient brush
         Canvas.FillPolygon(GradientShaper, CircumferencePointsArray)
     End Sub
-
     Private Function ConvertDegreesToRadians(degrees As Double) As Double
         Dim radians As Double = (Math.PI / 180) * degrees
         Return (radians)
     End Function
-
     Public Shared Function Colorize(Mask As Bitmap, Alpha As Byte, CustomPal As Boolean) As Bitmap
         ' Create new bitmap to act as a work surface for the colorization process
         Dim Output As New Bitmap(Mask.Width, Mask.Height, PixelFormat.Format32bppArgb)
@@ -890,7 +923,6 @@ Public Class Main
         ' Send back newly colorized memory bitmap
         Return Output
     End Function
-
     Private Shared Function CreatePaletteIndex(Alpha As Byte, CustomPal As Boolean) As ColorMap()
         Dim OutputMap As ColorMap() = New ColorMap(255) {}
 
@@ -912,14 +944,14 @@ Public Class Main
 
         Return OutputMap
     End Function
-
+#End Region
 #Region "API Calls"
     ' standard API declarations for INI access
     ' changing only "As Long" to "As Int32" (As Integer would work also)
-Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" _
-    Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String, _
-    ByVal lpKeyName As String, ByVal lpString As String, _
-    ByVal lpFileName As String) As Int32
+    Private Declare Unicode Function WritePrivateProfileString Lib "kernel32" _
+        Alias "WritePrivateProfileStringW" (ByVal lpApplicationName As String, _
+        ByVal lpKeyName As String, ByVal lpString As String, _
+        ByVal lpFileName As String) As Int32
 
     Private Declare Unicode Function GetPrivateProfileString Lib "kernel32" _
     Alias "GetPrivateProfileStringW" (ByVal lpApplicationName As String, _
@@ -934,13 +966,13 @@ ByVal DefaultValue As String) As String
         ' primary version of call gets single value given all parameters
         Dim n As Int32
         Dim sData As String
-        sData = space$(1024) ' allocate some room
+        sData = Space$(1024) ' allocate some room
         n = GetPrivateProfileString(SectionName, KeyName, DefaultValue, _
         sData, sData.Length, INIPath)
         If n > 0 Then ' return whatever it gave us
-            INIRead = sdata.Substring(0, n)
+            INIRead = sData.Substring(0, n)
         Else
-            iniread = ""
+            INIRead = ""
         End If
     End Function
     Public Overloads Function INIRead(ByVal INIPath As String, _
@@ -1055,33 +1087,15 @@ ByVal DefaultValue As String) As String
     End Sub
 
     Private Sub ViewMainToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMainToolStripMenuItem.Click
-        viewToolStrip.Text = sender.text
-        ViewMainToolStripMenuItem.CheckState = CheckState.Checked
-
-        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
-        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
-
-        SetImage_ThreadSafe(Pl.Image)
+        selectView("main")
     End Sub
 
     Private Sub ViewHeatMapToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewHeatMapToolStripMenuItem.Click
-        viewToolStrip.Text = sender.text
-
-        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Checked
-        ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
-        ViewMaskToolStripMenuItem.CheckState = CheckState.Unchecked
-
-        SetImage_ThreadSafe(Pl.HeatMap)
+        selectView("heat")
     End Sub
 
     Private Sub ViewMaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMaskToolStripMenuItem.Click
-        viewToolStrip.Text = sender.text
-        ViewMaskToolStripMenuItem.CheckState = CheckState.Checked
-
-        ViewHeatMapToolStripMenuItem.CheckState = CheckState.Unchecked
-        ViewMainToolStripMenuItem.CheckState = CheckState.Unchecked
-
-        SetImage_ThreadSafe(Pl.Mask)
+        selectView("mask")
     End Sub
 End Class
 Public Structure HeatPoint
