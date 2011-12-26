@@ -294,6 +294,7 @@ Public Class Main
         Me.grpRecoil.Enabled = False
         Me.tabMain.Enabled = False
         Me.grpSpread.Enabled = False
+        Me.viewToolStrip.Enabled = False
 
         ' Enable to stop button
         btnStop.Enabled = True
@@ -642,6 +643,7 @@ Public Class Main
         Me.grpRecoil.Enabled = True
         Me.tabMain.Enabled = True
         Me.grpSpread.Enabled = True
+        Me.viewToolStrip.Enabled = True
     End Sub
     Private Sub SaveImage()
         'Dim b As Bitmap = picPlot.Image
