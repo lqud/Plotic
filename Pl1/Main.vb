@@ -14,13 +14,14 @@ Public Class Main
     Private HeatPoints As New List(Of HeatPoint)()
 
     Private saveImagePath As String = ""
+    Private silentTemplateFile As String = ""
     Private paletteOverride As Boolean = False
     Private silentRun As Boolean = False
     Private intBurstCycle As Integer = 0
 
     Public Pl As New Plotic
     Private Sub exitApplication()
-        Me.Finalize()
+        System.Environment.Exit(1)
     End Sub
     Public Sub New()
 
@@ -56,6 +57,7 @@ Public Class Main
         If File.Exists(silentIniPath) Then
             Debug.WriteLine("FOUND: " & silentIniPath)
             Me.WindowState = FormWindowState.Minimized
+            silentTemplateFile = silentIniPath
             startSilent()
         Else
             Debug.WriteLine("NOT FOUND: " & silentIniPath)
@@ -327,25 +329,22 @@ Public Class Main
     End Function
 
     Private Sub loadPloticINI()
-        Dim sPath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
+        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
 
-        Dim chrDecimalSymbol As Char = INIRead(sPath, "Config", "DecimalSymbol", ".")
-
-
-        Pl.RecoilUp = convertINIValue(INIRead(sPath, "Recoil", "RecoilUp", "Unknown"), chrDecimalSymbol)
-        Pl.RecoilLeft = convertINIValue(INIRead(sPath, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
-        Pl.RecoilRight = convertINIValue(INIRead(sPath, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
-        Pl.FirstShot = convertINIValue(INIRead(sPath, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
-        Pl.SpreadInc = convertINIValue(INIRead(sPath, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
-        Pl.SpreadMin = convertINIValue(INIRead(sPath, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
-        Pl.Burst = CInt(Val(INIRead(sPath, "Burst", "Bursts", "Unknown")))
-        Pl.BulletsPerBurst = CInt(Val(INIRead(sPath, "Burst", "BulletsPerBurst", "Unknown")))
-        Pl.AdjRecoilH = convertINIValue(INIRead(sPath, "Attach", "AttachRecoilH", "Unknown"), chrDecimalSymbol)
-        Pl.AdjRecoilV = convertINIValue(INIRead(sPath, "Attach", "AttachRecoilV", "Unknown"), chrDecimalSymbol)
-        Pl.AdjSpreadInc = convertINIValue(INIRead(sPath, "Attach", "AttachSpreadInc", "Unknown"), chrDecimalSymbol)
-        Pl.AdjSpreadMin = convertINIValue(INIRead(sPath, "Attach", "AttachSpreadMin", "Unknown"), chrDecimalSymbol)
-        Pl.Title = INIRead(sPath, "Title", "TitleText", "Unknown")
-        Pl.Scale = CInt(Val(INIRead(sPath, "Grid", "Scale", "Unknown")))
+        Pl.RecoilUp = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilUp", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilLeft = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilRight = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
+        Pl.FirstShot = convertINIValue(INIRead(silentTemplateFile, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
+        Pl.SpreadInc = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
+        Pl.SpreadMin = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
+        Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "Unknown")))
+        Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "Unknown")))
+        Pl.AdjRecoilH = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilH", "0"), chrDecimalSymbol)
+        Pl.AdjRecoilV = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilV", "0"), chrDecimalSymbol)
+        Pl.AdjSpreadInc = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadInc", "0"), chrDecimalSymbol)
+        Pl.AdjSpreadMin = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadMin", "0"), chrDecimalSymbol)
+        Pl.Title = INIRead(silentTemplateFile, "Title", "TitleText", "")
+        Pl.Scale = CInt(Val(INIRead(silentTemplateFile, "Grid", "Scale", "650")))
 
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
@@ -446,7 +445,7 @@ Public Class Main
         If chkBars.Checked Then
             drawBars(Pl.ImageGraphic)
         End If
-        Dim scale = Val(txtScale.Text)
+        Dim scale = Val(Pl.Scale)
         Dim montako = 0
         Dim upd = 0
         For ee = 0 To Pl.Burst
@@ -595,7 +594,7 @@ Public Class Main
         If chkHeatMap.Checked Then
             SetOutPutText_ThreadSafe("Please wait... Creating heat map")
             Application.DoEvents()
-            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints)
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, numHeatRadius.Value)
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
             'Pl.HeatMap = b
@@ -705,6 +704,8 @@ Public Class Main
     End Sub
 
     Private Sub createSilentImage()
+        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
+
         'TODO: Convert to arrays
         Dim aryHits() As Integer = {0, 0, 0, 0, 0}
         Dim coord1x(Val(Pl.Burst)) As Integer
@@ -759,25 +760,19 @@ Public Class Main
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
-        If chkTimeToKill.Checked Then
+        If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
             Pl.ImageGraphic.Clear(Color.Black)
             Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
-        If chkBars.Checked Then
+        If INIRead(silentTemplateFile, "Render", "RenderBars", "0") = 1 Then
             drawBars(Pl.ImageGraphic)
         End If
-        Dim scale = Val(txtScale.Text)
+        Dim scale = Val(Pl.Scale)
         Dim montako = 0
         Dim upd = 0
         For ee = 0 To Pl.Burst
-            upd += 1
-            If upd = UPDATE_PERIOD Then
-                upd = 0
-                SetImage_ThreadSafe(Pl.Image)
-            End If
-            addBurstCount_ThreadSafe()
             Dim uprecoil = 0
             montako += 1
             Dim multiplier = 10
@@ -790,23 +785,23 @@ Public Class Main
                 Select Case a
                     Case 0
                         pen1.Color = Color.YellowGreen
-                        iIntense = CByte(15 * numIntensityScale.Value)
+                        iIntense = CByte(15 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
                     Case 1
                         pen1.Color = Color.Yellow
-                        iIntense = CByte(12 * numIntensityScale.Value)
+                        iIntense = CByte(12 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
                     Case 2
                         pen1.Color = Color.Orange
-                        iIntense = CByte(9 * numIntensityScale.Value)
+                        iIntense = CByte(9 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
                     Case 3
                         pen1.Color = Color.Red
-                        iIntense = CByte(6 * numIntensityScale.Value)
+                        iIntense = CByte(6 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
                     Case 4
                         pen1.Color = Color.DarkRed
-                        iIntense = CByte(3 * numIntensityScale.Value)
+                        iIntense = CByte(3 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
                 End Select
                 Dim radius
                 Dim mul As Integer = 100000
-                If chkScaleRadius.Checked = True Then
+                If INIRead(silentTemplateFile, "Render", "ScaleRadius", "0") = 1 Then
                     radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
                 Else
                     radius = rndD(spread, 0)
@@ -818,7 +813,7 @@ Public Class Main
                 'Add Target to heatpoints
                 HeatPoints.Add(New HeatPoint(x, y, iIntense))
 
-                If Not chkTimeToKill.Checked Then
+                If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") <> 1 Then
                     Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
                 Else
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
@@ -858,11 +853,11 @@ Public Class Main
                 End If
 
                 Application.DoEvents()
-                If chkMultiplyRecoil.Checked = True Then
+                If INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0") = 1 Then
                     If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * numRecoilMultiplier.Value)
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1"))))
                     Else
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * numRecoilMultiplier.Value)
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1"))))
                     End If
                 Else
                     If a = 0 Then
@@ -874,12 +869,10 @@ Public Class Main
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 spread += CDbl(dblSpreadInc) * scale
             Next
-            'Update the Progress bar
-            BackgroundWorker1.ReportProgress(Math.Round(CInt((ee / Pl.Burst) * 100), 0))
         Next
         Dim nl = Environment.NewLine
-        Dim intBursts As Integer = Val(txtBursts.Text)
-        If chkTimeToKill.Checked = True Then
+        Dim intBursts As Integer = Val(INIRead(silentTemplateFile, "Burst", "Bursts", "5"))
+        If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
             For a = 0 To intBursts - 1
                 Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
                 Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
@@ -893,47 +886,53 @@ Public Class Main
                 Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
                 Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
             Next
-            SetImage_ThreadSafe(Pl.Image)
-            Application.DoEvents()
             Debug.WriteLine("Bursts: " & intBursts)
             Debug.WriteLine("Hits #1: " & aryHits(0))
-            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((aryHits(0) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "2nd. bullet: " + Math.Round((aryHits(1) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "3rd. bullet: " + Math.Round((aryHits(2) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "4th. bullet: " + Math.Round((aryHits(3) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
-                   "5th. bullet: " + Math.Round((aryHits(4) / (intBursts + 1) * 100), 2).ToString + "%")
 
         End If
-        If chkDrawTTK.Checked And chkTimeToKill.Checked Then
+        If INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0") = 1 And INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
             drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
-        If chkHeatMap.Checked Then
-            SetOutPutText_ThreadSafe("Please wait... Creating heat map")
+        If INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0") = 1 Then
             Application.DoEvents()
-            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints)
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, CInt(Val(INIRead(silentTemplateFile, "HeatMap", "Radius", "75"))))
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
-            'Pl.HeatMap = b
         End If
-        If chkTitles.Checked Then
-            'drawTitle(g)
+        If INIRead(silentTemplateFile, "Title", "RenderTitleText", "0") = 1 Then
             drawTitle(Pl.ImageGraphic)
         End If
-        If chkPrintAdj.Checked Then
-            'drawAdjustments(g)
+        If INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0") = 1 Then
             drawAdjustments(Pl.ImageGraphic)
         End If
-        If chkDrawGrid.Checked Then
-            'drawGrid(g)
+        If INIRead(silentTemplateFile, "Grid", "RenderGrid", "0") = 1 Then
             drawGrid(Pl.ImageGraphic)
         End If
-        'Pl.Image = b
-        'Pl.ImageGraphic = g
-        ToggleToolStripMain_ThreadSafe(True)
-        selectView("main")
-        ToggleToolStripMask_ThreadSafe(True)
 
+        Dim b As Bitmap = Pl.Image
+        Dim fileDir = INIRead(silentTemplateFile, "Save", "SavePath", "Unknown")
+        Dim fileName = convertFileName(INIRead(silentTemplateFile, "Save", "FileName", "Unknown"))
+        Dim fullPath As String = Path.Combine(fileDir, fileName)
+
+        b.Save(fullPath)
+
+        If INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0") = 1 Then
+            Dim h As Bitmap = Pl.HeatMap
+            Dim heatFileName As String = fullPath.Insert((fullPath.Length - 4), "_heatmap")
+            h.Save(heatFileName)
+        End If
+        Debug.WriteLine("Image Saved: " & fullPath)
+        Debug.WriteLine("Shutting Down")
+        exitApplication()
     End Sub
+    Private Function convertFileName(ByVal inputString As String) As String
+
+        inputString = inputString.Replace("<<TitleText>>", Pl.Title)
+        inputString = inputString.Replace("<<InfoText>>", INIRead(silentTemplateFile, "Title", "InfoText", ""))
+        inputString = inputString.Replace("<<SubText>>", INIRead(silentTemplateFile, "Title", "SubText", ""))
+        inputString = inputString & ".png"
+        Return inputString
+    End Function
 
 #Region "Delegates and Thread Subs"
     Delegate Sub ToggleToolStripMain_Delegate(ByVal [viewBool] As Boolean)
@@ -1056,12 +1055,11 @@ Public Class Main
             mainToolStripStatus.Text = "Completed"
             Debug.WriteLine("Worker 2 Completed")
         End If
-        Debug.WriteLine("Shutting Down")
-        exitApplication()
+
     End Sub
 
 #Region "Heat Map Creation"
-    Private Function CreateIntensityMask(bSurface As Bitmap, aHeatPoints As List(Of HeatPoint)) As Bitmap
+    Private Function CreateIntensityMask(bSurface As Bitmap, aHeatPoints As List(Of HeatPoint), iRadius As Integer) As Bitmap
         ' Create new graphics surface from memory bitmap
         Dim DrawSurface As Graphics = Graphics.FromImage(bSurface)
 
