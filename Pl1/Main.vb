@@ -15,12 +15,12 @@ Public Class Main
 
     Private saveImagePath As String = ""
     Private paletteOverride As Boolean = False
-    Private configOverride As Boolean = False
+    Private silentRun As Boolean = False
     Private intBurstCycle As Integer = 0
 
     Public Pl As New Plotic
     Private Sub exitApplication()
-        Application.Exit()
+        Me.Finalize()
     End Sub
     Public Sub New()
 
@@ -32,14 +32,14 @@ Public Class Main
         Me.Text = VERSION
 
         'Check for a Config file in the same directory, use if found, otherwise use default
-        Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
-        If File.Exists(configPath) Then
-            configOverride = True
-            Debug.WriteLine("FOUND: " & configPath)
-        Else
-            configOverride = False
-            Debug.WriteLine("NOT FOUND: " & configPath)
-        End If
+        'Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
+        'If File.Exists(configPath) Then
+        'configOverride = True
+        'Debug.WriteLine("FOUND: " & configPath)
+        'Else
+        'configOverride = False
+        'Debug.WriteLine("NOT FOUND: " & configPath)
+        'End If
 
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
@@ -55,8 +55,8 @@ Public Class Main
         Dim silentIniPath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
         If File.Exists(silentIniPath) Then
             Debug.WriteLine("FOUND: " & silentIniPath)
-            'Me.WindowState = FormWindowState.Minimized
-            createSilentImage()
+            Me.WindowState = FormWindowState.Minimized
+            startSilent()
         Else
             Debug.WriteLine("NOT FOUND: " & silentIniPath)
         End If
@@ -69,14 +69,8 @@ Public Class Main
             Debug.WriteLine("NOT FOUND: " & silentIniTemplatePath)
             CreateTemplateIni()
         End If
-
     End Sub
 
-    Public Sub createSilentImage()
-        Debug.WriteLine("Running...")
-        'exitApplication()
-        btnStart_Click()
-    End Sub
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         g.DrawString(txtTitle.Text, New Font("Arial", 90), greenBrush1, 800, 30)
@@ -228,6 +222,7 @@ Public Class Main
     End Sub
 
     Private Sub startSilent()
+        Debug.WriteLine("Creating image in silent mode...")
         intBurstCycle = 0
 
         'Disable all of the input boxes
@@ -241,11 +236,10 @@ Public Class Main
 
         ' Enable to stop button
         btnStop.Enabled = True
-        ' Start the Background Worker working
+
         HeatPoints.Clear()
         loadPloticINI()
-        'BackgroundWorker1.RunWorkerAsync()
-        BackgroundWorker2.RunWorkerAsync()
+        createSilentImage()
     End Sub
     Private Sub selectView(ByVal view As String)
         Select Case view
@@ -327,20 +321,31 @@ Public Class Main
 
     End Sub
 
+    Private Function convertINIValue(ByVal inputValue As String, ByVal decimalSymbol As Char) As Double
+        inputValue = inputValue.Replace(decimalSymbol, "."c)
+        Return CDbl(Val(inputValue))
+    End Function
+
     Private Sub loadPloticINI()
-        Pl.RecoilUp = numRecoilUp.Value
-        Pl.RecoilLeft = numRecoilLeft.Value
-        Pl.RecoilRight = numRecoilRight.Value
-        Pl.SpreadInc = numSpreadInc.Value
-        Pl.SpreadMin = numSpreadMin.Value
-        Pl.Burst = txtBursts.Text
-        Pl.BulletsPerBurst = numBulletsPerBurst.Value
-        Pl.AdjRecoilH = numRecoilH.Value
-        Pl.AdjRecoilV = numRecoilV.Value
-        Pl.AdjSpreadInc = numInc.Value
-        Pl.AdjSpreadMin = numMin.Value
-        Pl.Title = txtTitle.Text
-        Pl.Scale = txtScale.Text
+        Dim sPath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent.ini")
+
+        Dim chrDecimalSymbol As Char = INIRead(sPath, "Config", "DecimalSymbol", ".")
+
+
+        Pl.RecoilUp = convertINIValue(INIRead(sPath, "Recoil", "RecoilUp", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilLeft = convertINIValue(INIRead(sPath, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilRight = convertINIValue(INIRead(sPath, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
+        Pl.FirstShot = convertINIValue(INIRead(sPath, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
+        Pl.SpreadInc = convertINIValue(INIRead(sPath, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
+        Pl.SpreadMin = convertINIValue(INIRead(sPath, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
+        Pl.Burst = CInt(Val(INIRead(sPath, "Burst", "Bursts", "Unknown")))
+        Pl.BulletsPerBurst = CInt(Val(INIRead(sPath, "Burst", "BulletsPerBurst", "Unknown")))
+        Pl.AdjRecoilH = convertINIValue(INIRead(sPath, "Attach", "AttachRecoilH", "Unknown"), chrDecimalSymbol)
+        Pl.AdjRecoilV = convertINIValue(INIRead(sPath, "Attach", "AttachRecoilV", "Unknown"), chrDecimalSymbol)
+        Pl.AdjSpreadInc = convertINIValue(INIRead(sPath, "Attach", "AttachSpreadInc", "Unknown"), chrDecimalSymbol)
+        Pl.AdjSpreadMin = convertINIValue(INIRead(sPath, "Attach", "AttachSpreadMin", "Unknown"), chrDecimalSymbol)
+        Pl.Title = INIRead(sPath, "Title", "TitleText", "Unknown")
+        Pl.Scale = CInt(Val(INIRead(sPath, "Grid", "Scale", "Unknown")))
 
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
@@ -380,18 +385,18 @@ Public Class Main
     Private Sub BackgroundWorker1_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
         'TODO: Convert to arrays
         Dim aryHits() As Integer = {0, 0, 0, 0, 0}
-        Dim coord1x(Val(txtBursts.Text)) As Integer
-        Dim coord1y(Val(txtBursts.Text)) As Integer
-        Dim coord2x(Val(txtBursts.Text)) As Integer
-        Dim coord2y(Val(txtBursts.Text)) As Integer
-        Dim coord3x(Val(txtBursts.Text)) As Integer
-        Dim coord3y(Val(txtBursts.Text)) As Integer
-        Dim coord4x(Val(txtBursts.Text)) As Integer
-        Dim coord4y(Val(txtBursts.Text)) As Integer
-        Dim coord5x(Val(txtBursts.Text)) As Integer
-        Dim coord5y(Val(txtBursts.Text)) As Integer
-        Dim coord6x(Val(txtBursts.Text)) As Integer
-        Dim coord6y(Val(txtBursts.Text)) As Integer
+        Dim coord1x(Val(Pl.Burst)) As Integer
+        Dim coord1y(Val(Pl.Burst)) As Integer
+        Dim coord2x(Val(Pl.Burst)) As Integer
+        Dim coord2y(Val(Pl.Burst)) As Integer
+        Dim coord3x(Val(Pl.Burst)) As Integer
+        Dim coord3y(Val(Pl.Burst)) As Integer
+        Dim coord4x(Val(Pl.Burst)) As Integer
+        Dim coord4y(Val(Pl.Burst)) As Integer
+        Dim coord5x(Val(Pl.Burst)) As Integer
+        Dim coord5y(Val(Pl.Burst)) As Integer
+        Dim coord6x(Val(Pl.Burst)) As Integer
+        Dim coord6y(Val(Pl.Burst)) As Integer
 
         'Make Adjustments to values
         Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
@@ -699,6 +704,238 @@ Public Class Main
         End If
     End Sub
 
+    Private Sub createSilentImage()
+        'TODO: Convert to arrays
+        Dim aryHits() As Integer = {0, 0, 0, 0, 0}
+        Dim coord1x(Val(Pl.Burst)) As Integer
+        Dim coord1y(Val(Pl.Burst)) As Integer
+        Dim coord2x(Val(Pl.Burst)) As Integer
+        Dim coord2y(Val(Pl.Burst)) As Integer
+        Dim coord3x(Val(Pl.Burst)) As Integer
+        Dim coord3y(Val(Pl.Burst)) As Integer
+        Dim coord4x(Val(Pl.Burst)) As Integer
+        Dim coord4y(Val(Pl.Burst)) As Integer
+        Dim coord5x(Val(Pl.Burst)) As Integer
+        Dim coord5y(Val(Pl.Burst)) As Integer
+        Dim coord6x(Val(Pl.Burst)) As Integer
+        Dim coord6y(Val(Pl.Burst)) As Integer
+
+        'Make Adjustments to values
+        Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
+        Dim dblRecoilR As Double = calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH)
+        Dim dblRecoilL As Double = calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH)
+
+        Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
+        Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
+
+
+        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
+
+        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / numMeters.Value) * (180 / Math.PI)) * Pl.Scale, 0)
+        Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
+        Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
+
+        Dim picVCenter As Integer = Math.Round((silhouetteHeight * IMAGE_V_CENTER_PERCENT), 0)
+        Dim picHCenter As Integer = Math.Round((silhouetteWidth * IMAGE_H_CENTER_PERCENT), 0)
+
+        Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
+
+        Dim sil_centerY As Integer = 1680 - picVCenter
+        Dim sil_centerX As Integer = 1000 - picHCenter
+
+        Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
+
+        If silhouetteHeight > 9800 Then
+            Pl.MaskGraphic.Clear(Color.White)
+        Else
+            soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
+            Pl.MaskGraphic.Clear(Color.Black)
+            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, sil_centerY)
+        End If
+
+        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
+
+        Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
+        Dim soldest As Graphics = Graphics.FromImage(solscaled)
+        soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
+
+        If chkTimeToKill.Checked Then
+            Pl.ImageGraphic.Clear(Color.Black)
+            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
+        Else
+            Pl.ImageGraphic.Clear(Color.Black)
+        End If
+        If chkBars.Checked Then
+            drawBars(Pl.ImageGraphic)
+        End If
+        Dim scale = Val(txtScale.Text)
+        Dim montako = 0
+        Dim upd = 0
+        For ee = 0 To Pl.Burst
+            upd += 1
+            If upd = UPDATE_PERIOD Then
+                upd = 0
+                SetImage_ThreadSafe(Pl.Image)
+            End If
+            addBurstCount_ThreadSafe()
+            Dim uprecoil = 0
+            montako += 1
+            Dim multiplier = 10
+            Dim spread = dblSpreadMin * scale
+            Dim centerx = 1000
+            Dim centy = 1680
+            Dim iIntense As Byte
+            For a = 0 To Int(Pl.BulletsPerBurst) - 1
+                Dim pen1 As New System.Drawing.Pen(Color.DarkRed, 4)
+                Select Case a
+                    Case 0
+                        pen1.Color = Color.YellowGreen
+                        iIntense = CByte(15 * numIntensityScale.Value)
+                    Case 1
+                        pen1.Color = Color.Yellow
+                        iIntense = CByte(12 * numIntensityScale.Value)
+                    Case 2
+                        pen1.Color = Color.Orange
+                        iIntense = CByte(9 * numIntensityScale.Value)
+                    Case 3
+                        pen1.Color = Color.Red
+                        iIntense = CByte(6 * numIntensityScale.Value)
+                    Case 4
+                        pen1.Color = Color.DarkRed
+                        iIntense = CByte(3 * numIntensityScale.Value)
+                End Select
+                Dim radius
+                Dim mul As Integer = 100000
+                If chkScaleRadius.Checked = True Then
+                    radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
+                Else
+                    radius = rndD(spread, 0)
+                End If
+                Dim angle = rndD(360, 0)
+                Dim x As Integer = centerx + radius * Math.Cos(angle)
+                Dim y As Integer = centy + radius * Math.Sin(angle)
+
+                'Add Target to heatpoints
+                HeatPoints.Add(New HeatPoint(x, y, iIntense))
+
+                If Not chkTimeToKill.Checked Then
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
+                Else
+                    'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
+                    Select Case a
+                        Case 0
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(0) += 1
+                            End If
+                            coord1x(ee) = x
+                            coord1y(ee) = y
+                        Case 1
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(1) += 1
+                            End If
+                            coord2x(ee) = x
+                            coord2y(ee) = y
+                        Case 2
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(2) += 1
+                            End If
+                            coord3x(ee) = x
+                            coord3y(ee) = y
+                        Case 3
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(3) += 1
+                            End If
+                            coord4x(ee) = x
+                            coord4y(ee) = y
+                        Case 4
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(4) += 1
+                            End If
+                            coord5x(ee) = x
+                            coord5y(ee) = y
+                    End Select
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
+                End If
+
+                Application.DoEvents()
+                If chkMultiplyRecoil.Checked = True Then
+                    If a = 0 Then
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * numRecoilMultiplier.Value)
+                    Else
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * numRecoilMultiplier.Value)
+                    End If
+                Else
+                    If a = 0 Then
+                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
+                    Else
+                        centy -= CDbl(Val(dblRecoilH)) * scale
+                    End If
+                End If
+                centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
+                spread += CDbl(dblSpreadInc) * scale
+            Next
+            'Update the Progress bar
+            BackgroundWorker1.ReportProgress(Math.Round(CInt((ee / Pl.Burst) * 100), 0))
+        Next
+        Dim nl = Environment.NewLine
+        Dim intBursts As Integer = Val(txtBursts.Text)
+        If chkTimeToKill.Checked = True Then
+            For a = 0 To intBursts - 1
+                Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
+                Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
+                Dim pen3 As New System.Drawing.Pen(Color.Orange, 4)
+                Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
+                Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
+
+                Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+            Next
+            SetImage_ThreadSafe(Pl.Image)
+            Application.DoEvents()
+            Debug.WriteLine("Bursts: " & intBursts)
+            Debug.WriteLine("Hits #1: " & aryHits(0))
+            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((aryHits(0) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "2nd. bullet: " + Math.Round((aryHits(1) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "3rd. bullet: " + Math.Round((aryHits(2) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "4th. bullet: " + Math.Round((aryHits(3) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+                   "5th. bullet: " + Math.Round((aryHits(4) / (intBursts + 1) * 100), 2).ToString + "%")
+
+        End If
+        If chkDrawTTK.Checked And chkTimeToKill.Checked Then
+            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
+        End If
+        If chkHeatMap.Checked Then
+            SetOutPutText_ThreadSafe("Please wait... Creating heat map")
+            Application.DoEvents()
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints)
+            ' Colorize the memory bitmap and assign it as the picture boxes image
+            Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
+            'Pl.HeatMap = b
+        End If
+        If chkTitles.Checked Then
+            'drawTitle(g)
+            drawTitle(Pl.ImageGraphic)
+        End If
+        If chkPrintAdj.Checked Then
+            'drawAdjustments(g)
+            drawAdjustments(Pl.ImageGraphic)
+        End If
+        If chkDrawGrid.Checked Then
+            'drawGrid(g)
+            drawGrid(Pl.ImageGraphic)
+        End If
+        'Pl.Image = b
+        'Pl.ImageGraphic = g
+        ToggleToolStripMain_ThreadSafe(True)
+        selectView("main")
+        ToggleToolStripMask_ThreadSafe(True)
+
+    End Sub
+
+#Region "Delegates and Thread Subs"
     Delegate Sub ToggleToolStripMain_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
     Private Sub ToggleToolStripMain_ThreadSafe(ByVal [viewBool] As Boolean)
@@ -791,6 +1028,8 @@ Public Class Main
         End If
     End Sub
 
+#End Region
+
     Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs)
         If chkSaveImage.Checked And saveImagePath = "" Then
             btnSaveImage_Click()
@@ -802,7 +1041,7 @@ Public Class Main
     End Sub
 
     Private Sub BackgroundWorker2_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
-        ' Reserved for Distance calculations
+
 
     End Sub
 
@@ -1016,6 +1255,8 @@ ByVal DefaultValue As String) As String
         ' Dim sValue As String
         Dim spath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent_template.ini")
 
+        INIWrite(spath, "Config", "DecimalSymbol", ".")
+
         INIWrite(spath, "Recoil", "RecoilUp", "0.55")
         INIWrite(spath, "Recoil", "RecoilLeft", "0.2")
         INIWrite(spath, "Recoil", "RecoilRight", "0.3")
@@ -1024,7 +1265,7 @@ ByVal DefaultValue As String) As String
         INIWrite(spath, "Spread", "SpreadMin", "0.1")
         INIWrite(spath, "Spread", "SpreadInc", "0.12")
 
-        INIWrite(spath, "Burst", "BurstsPerBullet", "5")
+        INIWrite(spath, "Burst", "BulletsPerBurst", "5")
         INIWrite(spath, "Burst", "Bursts", "1000")
 
         INIWrite(spath, "Attach", "RenderAttachText", "0")
