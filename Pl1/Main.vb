@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v0.9"
+    Private Const VERSION As String = "Plotic v0.91"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -183,10 +183,10 @@ Public Class Main
         Dim y = 1800
         Dim x2 = 130
         Dim x3 = 220
-        Dim height1 As Integer = CDbl(Val(txtRecoilLeft.Text)) * (scale - 400)
-        Dim height2 As Integer = CDbl(Val(txtRecoilUp.Text)) * scale
-        Dim height3 As Integer = CDbl(Val(txtRecoilRight.Text)) * (scale - 400)
-        Dim height4 As Integer = CDbl(Val(txtFirstShot.Text)) * 500
+        Dim height1 As Integer = CDbl(Val(numRecoilLeft.Value)) * (scale - 400)
+        Dim height2 As Integer = CDbl(Val(numRecoilUp.Value)) * scale
+        Dim height3 As Integer = CDbl(Val(numRecoilRight.Value)) * (scale - 400)
+        Dim height4 As Integer = CDbl(Val(numFirstShot.Value)) * 500
         g.DrawRectangle(pen1, x1, y - height2, 30, height2)
         g.DrawRectangle(pen1, x2, y - height4, 30, height4)
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
@@ -197,8 +197,8 @@ Public Class Main
         Dim x11 = 1840
         Dim y1 = 1800
         Dim x12 = 1930
-        Dim height11 As Integer = CDbl(Val(txtSpreadMin.Text)) * scale1
-        Dim height12 As Integer = CDbl(Val(txtSpreadInc.Text)) * scale1
+        Dim height11 As Integer = CDbl(Val(numSpreadMin.Value)) * scale1
+        Dim height12 As Integer = CDbl(Val(numSpreadInc.Value)) * scale1
         g.DrawRectangle(pen11, x11, y - height11, 30, height11)
         g.DrawRectangle(pen11, x12, y - height12, 30, height12)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -310,28 +310,28 @@ Public Class Main
         'BackgroundWorker2.RunWorkerAsync()
     End Sub
     Private Sub loadPlotic()
-        Pl.RecoilUp = txtRecoilUp.Text
-        Pl.RecoilLeft = txtRecoilLeft.Text
-        Pl.RecoilRight = txtRecoilRight.Text
-        Pl.SpreadInc = txtSpreadInc.Text
-        Pl.SpreadMin = txtSpreadMin.Text
+        Pl.RecoilUp = Double.Parse(numRecoilUp.Value)
+        Pl.RecoilLeft = Double.Parse(numRecoilLeft.Value)
+        Pl.RecoilRight = Double.Parse(numRecoilRight.Value)
+        Pl.SpreadInc = Double.Parse(numSpreadInc.Value)
+        Pl.SpreadMin = Double.Parse(numSpreadMin.Value)
         Pl.Burst = txtBursts.Text
         Pl.BulletsPerBurst = numBulletsPerBurst.Value
-        Pl.AdjRecoilH = numRecoilH.Value
-        Pl.AdjRecoilV = numRecoilV.Value
-        Pl.AdjSpreadInc = numInc.Value
-        Pl.AdjSpreadMin = numMin.Value
+        Pl.AdjRecoilH = Double.Parse(numRecoilH.Value)
+        Pl.AdjRecoilV = Double.Parse(numRecoilV.Value)
+        Pl.AdjSpreadInc = Double.Parse(numInc.Value)
+        Pl.AdjSpreadMin = Double.Parse(numMin.Value)
         Pl.Title = txtTitle.Text
         Pl.Scale = txtScale.Text
 
     End Sub
 
     Private Sub loadPloticINI()
-        Pl.RecoilUp = txtRecoilUp.Text
-        Pl.RecoilLeft = txtRecoilLeft.Text
-        Pl.RecoilRight = txtRecoilRight.Text
-        Pl.SpreadInc = txtSpreadInc.Text
-        Pl.SpreadMin = txtSpreadMin.Text
+        Pl.RecoilUp = numRecoilUp.Value
+        Pl.RecoilLeft = numRecoilLeft.Value
+        Pl.RecoilRight = numRecoilRight.Value
+        Pl.SpreadInc = numSpreadInc.Value
+        Pl.SpreadMin = numSpreadMin.Value
         Pl.Burst = txtBursts.Text
         Pl.BulletsPerBurst = numBulletsPerBurst.Value
         Pl.AdjRecoilH = numRecoilH.Value
@@ -363,12 +363,12 @@ Public Class Main
     End Sub
 
     Private Sub UpdateAdjustments()
-        lblAdjUp.Text = calculateAdjustment(CDbl(Val(txtRecoilUp.Text)), CDbl(Val(numRecoilV.Text))).ToString
-        lblAdjRight.Text = calculateAdjustment(CDbl(Val(txtRecoilRight.Text)), CDbl(Val(numRecoilH.Text))).ToString
-        lblAdjLeft.Text = calculateAdjustment(CDbl(Val(txtRecoilLeft.Text)), CDbl(Val(numRecoilH.Text))).ToString
+        lblAdjUp.Text = calculateAdjustment(CDbl(Val(numRecoilUp.Value)), CDbl(Val(numRecoilV.Text))).ToString
+        lblAdjRight.Text = calculateAdjustment(CDbl(Val(numRecoilRight.Value)), CDbl(Val(numRecoilH.Text))).ToString
+        lblAdjLeft.Text = calculateAdjustment(CDbl(Val(numRecoilLeft.Value)), CDbl(Val(numRecoilH.Text))).ToString
 
-        lblAdjMin.Text = calculateAdjustment(CDbl(Val(txtSpreadMin.Text)), (numMin.Value)).ToString
-        lblAdjInc.Text = calculateAdjustment(CDbl(Val(txtSpreadInc.Text)), (numInc.Value)).ToString
+        lblAdjMin.Text = calculateAdjustment(CDbl(Val(numSpreadMin.Value)), (numMin.Value)).ToString
+        lblAdjInc.Text = calculateAdjustment(CDbl(Val(numSpreadInc.Value)), (numInc.Value)).ToString
     End Sub
     Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numInc.ValueChanged, numMin.ValueChanged
         UpdateAdjustments()
@@ -539,15 +539,15 @@ Public Class Main
                 Application.DoEvents()
                 If chkMultiplyRecoil.Checked = True Then
                     If a = 0 Then
-                        centy -= ((CDbl(Val(txtRecoilUp.Text)) * scale) * CDbl(Val(txtFirstShot.Text)) * numRecoilMultiplier.Value)
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(numFirstShot.Value)) * numRecoilMultiplier.Value)
                     Else
-                        centy -= ((CDbl(Val(txtRecoilUp.Text)) * scale) * numRecoilMultiplier.Value)
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * numRecoilMultiplier.Value)
                     End If
                 Else
                     If a = 0 Then
-                        centy -= (CDbl(Val(txtRecoilUp.Text)) * scale) * CDbl(Val(txtFirstShot.Text))
+                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(numFirstShot.Value))
                     Else
-                        centy -= CDbl(Val(txtRecoilUp.Text)) * scale
+                        centy -= CDbl(Val(dblRecoilH)) * scale
                     End If
                 End If
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000

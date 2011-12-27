@@ -27,8 +27,6 @@ Partial Class Main
         Me.lbfs = New System.Windows.Forms.Label()
         Me.grpSpread = New System.Windows.Forms.GroupBox()
         Me.lbms = New System.Windows.Forms.Label()
-        Me.txtSpreadMin = New System.Windows.Forms.TextBox()
-        Me.txtSpreadInc = New System.Windows.Forms.TextBox()
         Me.lbis = New System.Windows.Forms.Label()
         Me.grpMisc = New System.Windows.Forms.GroupBox()
         Me.numBulletsPerBurst = New System.Windows.Forms.NumericUpDown()
@@ -45,10 +43,6 @@ Partial Class Main
         Me.chkScaleRadius = New System.Windows.Forms.CheckBox()
         Me.grpRecoil = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtRecoilUp = New System.Windows.Forms.TextBox()
-        Me.txtRecoilLeft = New System.Windows.Forms.TextBox()
-        Me.txtFirstShot = New System.Windows.Forms.TextBox()
-        Me.txtRecoilRight = New System.Windows.Forms.TextBox()
         Me.lblBurstCounter = New System.Windows.Forms.Label()
         Me.btnStart = New System.Windows.Forms.Button()
         Me.btnStop = New System.Windows.Forms.Button()
@@ -108,6 +102,12 @@ Partial Class Main
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
         Me.Label23 = New System.Windows.Forms.Label()
@@ -123,12 +123,12 @@ Partial Class Main
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.picPlot = New System.Windows.Forms.PictureBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilUp = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilLeft = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilRight = New System.Windows.Forms.NumericUpDown()
+        Me.numFirstShot = New System.Windows.Forms.NumericUpDown()
+        Me.numSpreadMin = New System.Windows.Forms.NumericUpDown()
+        Me.numSpreadInc = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         Me.grpMisc.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -147,14 +147,20 @@ Partial Class Main
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSaveOptions.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -173,7 +179,7 @@ Partial Class Main
         Me.lbfs.AutoSize = True
         Me.lbfs.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.lbfs.ForeColor = System.Drawing.Color.White
-        Me.lbfs.Location = New System.Drawing.Point(23, 55)
+        Me.lbfs.Location = New System.Drawing.Point(10, 62)
         Me.lbfs.Name = "lbfs"
         Me.lbfs.Size = New System.Drawing.Size(49, 13)
         Me.lbfs.TabIndex = 20
@@ -182,9 +188,9 @@ Partial Class Main
         'grpSpread
         '
         Me.grpSpread.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpSpread.Controls.Add(Me.numSpreadInc)
+        Me.grpSpread.Controls.Add(Me.numSpreadMin)
         Me.grpSpread.Controls.Add(Me.lbms)
-        Me.grpSpread.Controls.Add(Me.txtSpreadMin)
-        Me.grpSpread.Controls.Add(Me.txtSpreadInc)
         Me.grpSpread.Controls.Add(Me.lbis)
         Me.grpSpread.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.grpSpread.ForeColor = System.Drawing.Color.White
@@ -200,42 +206,18 @@ Partial Class Main
         Me.lbms.AutoSize = True
         Me.lbms.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.lbms.ForeColor = System.Drawing.Color.White
-        Me.lbms.Location = New System.Drawing.Point(6, 21)
+        Me.lbms.Location = New System.Drawing.Point(2, 21)
         Me.lbms.Name = "lbms"
         Me.lbms.Size = New System.Drawing.Size(27, 13)
         Me.lbms.TabIndex = 7
         Me.lbms.Text = "Min."
-        '
-        'txtSpreadMin
-        '
-        Me.txtSpreadMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtSpreadMin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSpreadMin.ForeColor = System.Drawing.Color.White
-        Me.txtSpreadMin.Location = New System.Drawing.Point(33, 18)
-        Me.txtSpreadMin.Name = "txtSpreadMin"
-        Me.txtSpreadMin.Size = New System.Drawing.Size(38, 20)
-        Me.txtSpreadMin.TabIndex = 6
-        Me.txtSpreadMin.Text = "0.5"
-        Me.txtSpreadMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtSpreadInc
-        '
-        Me.txtSpreadInc.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtSpreadInc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSpreadInc.ForeColor = System.Drawing.Color.White
-        Me.txtSpreadInc.Location = New System.Drawing.Point(33, 48)
-        Me.txtSpreadInc.Name = "txtSpreadInc"
-        Me.txtSpreadInc.Size = New System.Drawing.Size(38, 20)
-        Me.txtSpreadInc.TabIndex = 8
-        Me.txtSpreadInc.Text = "0.1"
-        Me.txtSpreadInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lbis
         '
         Me.lbis.AutoSize = True
         Me.lbis.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.lbis.ForeColor = System.Drawing.Color.White
-        Me.lbis.Location = New System.Drawing.Point(8, 49)
+        Me.lbis.Location = New System.Drawing.Point(3, 53)
         Me.lbis.Name = "lbis"
         Me.lbis.Size = New System.Drawing.Size(25, 13)
         Me.lbis.TabIndex = 9
@@ -408,12 +390,12 @@ Partial Class Main
         'grpRecoil
         '
         Me.grpRecoil.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpRecoil.Controls.Add(Me.numFirstShot)
+        Me.grpRecoil.Controls.Add(Me.numRecoilRight)
+        Me.grpRecoil.Controls.Add(Me.numRecoilLeft)
+        Me.grpRecoil.Controls.Add(Me.numRecoilUp)
         Me.grpRecoil.Controls.Add(Me.Label2)
-        Me.grpRecoil.Controls.Add(Me.txtRecoilUp)
         Me.grpRecoil.Controls.Add(Me.lbfs)
-        Me.grpRecoil.Controls.Add(Me.txtRecoilLeft)
-        Me.grpRecoil.Controls.Add(Me.txtFirstShot)
-        Me.grpRecoil.Controls.Add(Me.txtRecoilRight)
         Me.grpRecoil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.grpRecoil.ForeColor = System.Drawing.Color.White
         Me.grpRecoil.Location = New System.Drawing.Point(16, 14)
@@ -428,59 +410,11 @@ Partial Class Main
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(58, 35)
+        Me.Label2.Location = New System.Drawing.Point(56, 35)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(13, 13)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "+"
-        '
-        'txtRecoilUp
-        '
-        Me.txtRecoilUp.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtRecoilUp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtRecoilUp.ForeColor = System.Drawing.Color.White
-        Me.txtRecoilUp.Location = New System.Drawing.Point(47, 13)
-        Me.txtRecoilUp.Name = "txtRecoilUp"
-        Me.txtRecoilUp.Size = New System.Drawing.Size(38, 20)
-        Me.txtRecoilUp.TabIndex = 0
-        Me.txtRecoilUp.Text = "0.3"
-        Me.txtRecoilUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtRecoilLeft
-        '
-        Me.txtRecoilLeft.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtRecoilLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtRecoilLeft.ForeColor = System.Drawing.Color.White
-        Me.txtRecoilLeft.Location = New System.Drawing.Point(10, 32)
-        Me.txtRecoilLeft.Name = "txtRecoilLeft"
-        Me.txtRecoilLeft.Size = New System.Drawing.Size(38, 20)
-        Me.txtRecoilLeft.TabIndex = 2
-        Me.txtRecoilLeft.Text = "0.6"
-        Me.txtRecoilLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtFirstShot
-        '
-        Me.txtFirstShot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtFirstShot.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtFirstShot.ForeColor = System.Drawing.Color.White
-        Me.txtFirstShot.Location = New System.Drawing.Point(72, 52)
-        Me.txtFirstShot.Name = "txtFirstShot"
-        Me.txtFirstShot.Size = New System.Drawing.Size(38, 20)
-        Me.txtFirstShot.TabIndex = 19
-        Me.txtFirstShot.Text = "2.0"
-        Me.txtFirstShot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtRecoilRight
-        '
-        Me.txtRecoilRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtRecoilRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtRecoilRight.ForeColor = System.Drawing.Color.White
-        Me.txtRecoilRight.Location = New System.Drawing.Point(84, 32)
-        Me.txtRecoilRight.Name = "txtRecoilRight"
-        Me.txtRecoilRight.Size = New System.Drawing.Size(38, 20)
-        Me.txtRecoilRight.TabIndex = 4
-        Me.txtRecoilRight.Text = "0.6"
-        Me.txtRecoilRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'lblBurstCounter
         '
@@ -1182,6 +1116,79 @@ Partial Class Main
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Time to Kill"
         '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label27.ForeColor = System.Drawing.Color.SkyBlue
+        Me.Label27.Location = New System.Drawing.Point(244, 120)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(24, 13)
+        Me.Label27.TabIndex = 82
+        Me.Label27.Text = "rpm"
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label28.ForeColor = System.Drawing.Color.SkyBlue
+        Me.Label28.Location = New System.Drawing.Point(162, 120)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(29, 13)
+        Me.Label28.TabIndex = 81
+        Me.Label28.Text = "ROF"
+        '
+        'NumericUpDown6
+        '
+        Me.NumericUpDown6.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown6.ForeColor = System.Drawing.Color.SkyBlue
+        Me.NumericUpDown6.Location = New System.Drawing.Point(194, 117)
+        Me.NumericUpDown6.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.NumericUpDown6.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown6.Name = "NumericUpDown6"
+        Me.NumericUpDown6.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown6.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown6.TabIndex = 80
+        Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown6.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label25.Location = New System.Drawing.Point(220, 99)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(67, 13)
+        Me.Label25.TabIndex = 79
+        Me.Label25.Text = "Bullet Speed"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label26.Location = New System.Drawing.Point(337, 100)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(25, 13)
+        Me.Label26.TabIndex = 77
+        Me.Label26.Text = "m/s"
+        '
+        'NumericUpDown5
+        '
+        Me.NumericUpDown5.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown5.ForeColor = System.Drawing.Color.LightGreen
+        Me.NumericUpDown5.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NumericUpDown5.Location = New System.Drawing.Point(287, 96)
+        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
+        Me.NumericUpDown5.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown5.Name = "NumericUpDown5"
+        Me.NumericUpDown5.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown5.Size = New System.Drawing.Size(48, 20)
+        Me.NumericUpDown5.TabIndex = 78
+        Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown5.Value = New Decimal(New Integer() {630, 0, 0, 0})
+        '
         'NumericUpDown4
         '
         Me.NumericUpDown4.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -1361,78 +1368,101 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
-        'Label25
+        'numRecoilUp
         '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label25.Location = New System.Drawing.Point(220, 99)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(67, 13)
-        Me.Label25.TabIndex = 79
-        Me.Label25.Text = "Bullet Speed"
+        Me.numRecoilUp.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilUp.DecimalPlaces = 2
+        Me.numRecoilUp.ForeColor = System.Drawing.Color.White
+        Me.numRecoilUp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilUp.Location = New System.Drawing.Point(40, 11)
+        Me.numRecoilUp.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilUp.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numRecoilUp.Name = "numRecoilUp"
+        Me.numRecoilUp.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilUp.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilUp.TabIndex = 67
+        Me.numRecoilUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilUp.Value = New Decimal(New Integer() {3, 0, 0, 65536})
         '
-        'Label26
+        'numRecoilLeft
         '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label26.Location = New System.Drawing.Point(337, 100)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(25, 13)
-        Me.Label26.TabIndex = 77
-        Me.Label26.Text = "m/s"
+        Me.numRecoilLeft.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilLeft.DecimalPlaces = 2
+        Me.numRecoilLeft.ForeColor = System.Drawing.Color.White
+        Me.numRecoilLeft.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilLeft.Location = New System.Drawing.Point(5, 33)
+        Me.numRecoilLeft.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilLeft.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numRecoilLeft.Name = "numRecoilLeft"
+        Me.numRecoilLeft.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilLeft.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilLeft.TabIndex = 68
+        Me.numRecoilLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilLeft.Value = New Decimal(New Integer() {6, 0, 0, 65536})
         '
-        'NumericUpDown5
+        'numRecoilRight
         '
-        Me.NumericUpDown5.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown5.ForeColor = System.Drawing.Color.LightGreen
-        Me.NumericUpDown5.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.NumericUpDown5.Location = New System.Drawing.Point(287, 96)
-        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
-        Me.NumericUpDown5.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDown5.Name = "NumericUpDown5"
-        Me.NumericUpDown5.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown5.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown5.TabIndex = 78
-        Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown5.Value = New Decimal(New Integer() {630, 0, 0, 0})
+        Me.numRecoilRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilRight.DecimalPlaces = 2
+        Me.numRecoilRight.ForeColor = System.Drawing.Color.White
+        Me.numRecoilRight.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilRight.Location = New System.Drawing.Point(75, 33)
+        Me.numRecoilRight.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilRight.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numRecoilRight.Name = "numRecoilRight"
+        Me.numRecoilRight.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilRight.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilRight.TabIndex = 69
+        Me.numRecoilRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilRight.Value = New Decimal(New Integer() {6, 0, 0, 65536})
         '
-        'Label27
+        'numFirstShot
         '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label27.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label27.Location = New System.Drawing.Point(244, 120)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(24, 13)
-        Me.Label27.TabIndex = 82
-        Me.Label27.Text = "rpm"
+        Me.numFirstShot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numFirstShot.DecimalPlaces = 2
+        Me.numFirstShot.ForeColor = System.Drawing.Color.White
+        Me.numFirstShot.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numFirstShot.Location = New System.Drawing.Point(60, 58)
+        Me.numFirstShot.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.numFirstShot.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numFirstShot.Name = "numFirstShot"
+        Me.numFirstShot.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numFirstShot.Size = New System.Drawing.Size(48, 20)
+        Me.numFirstShot.TabIndex = 70
+        Me.numFirstShot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numFirstShot.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
-        'Label28
+        'numSpreadMin
         '
-        Me.Label28.AutoSize = True
-        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label28.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label28.Location = New System.Drawing.Point(162, 120)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(29, 13)
-        Me.Label28.TabIndex = 81
-        Me.Label28.Text = "ROF"
+        Me.numSpreadMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numSpreadMin.DecimalPlaces = 2
+        Me.numSpreadMin.ForeColor = System.Drawing.Color.White
+        Me.numSpreadMin.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSpreadMin.Location = New System.Drawing.Point(27, 19)
+        Me.numSpreadMin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numSpreadMin.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numSpreadMin.Name = "numSpreadMin"
+        Me.numSpreadMin.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numSpreadMin.Size = New System.Drawing.Size(48, 20)
+        Me.numSpreadMin.TabIndex = 71
+        Me.numSpreadMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numSpreadMin.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
-        'NumericUpDown6
+        'numSpreadInc
         '
-        Me.NumericUpDown6.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown6.ForeColor = System.Drawing.Color.SkyBlue
-        Me.NumericUpDown6.Location = New System.Drawing.Point(194, 117)
-        Me.NumericUpDown6.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.NumericUpDown6.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown6.Name = "NumericUpDown6"
-        Me.NumericUpDown6.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown6.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown6.TabIndex = 80
-        Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown6.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.numSpreadInc.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numSpreadInc.DecimalPlaces = 2
+        Me.numSpreadInc.ForeColor = System.Drawing.Color.White
+        Me.numSpreadInc.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSpreadInc.Location = New System.Drawing.Point(27, 50)
+        Me.numSpreadInc.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numSpreadInc.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numSpreadInc.Name = "numSpreadInc"
+        Me.numSpreadInc.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numSpreadInc.Size = New System.Drawing.Size(48, 20)
+        Me.numSpreadInc.TabIndex = 72
+        Me.numSpreadInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numSpreadInc.Value = New Decimal(New Integer() {1, 0, 0, 65536})
         '
         'Main
         '
@@ -1482,6 +1512,8 @@ Partial Class Main
         Me.tabRender.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1489,8 +1521,12 @@ Partial Class Main
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1499,8 +1535,6 @@ Partial Class Main
     Friend WithEvents lbfs As System.Windows.Forms.Label
     Friend WithEvents grpSpread As System.Windows.Forms.GroupBox
     Friend WithEvents lbms As System.Windows.Forms.Label
-    Friend WithEvents txtSpreadMin As System.Windows.Forms.TextBox
-    Friend WithEvents txtSpreadInc As System.Windows.Forms.TextBox
     Friend WithEvents lbis As System.Windows.Forms.Label
     Friend WithEvents grpMisc As System.Windows.Forms.GroupBox
     Friend WithEvents chkScaleRadius As System.Windows.Forms.CheckBox
@@ -1509,10 +1543,6 @@ Partial Class Main
     Friend WithEvents txtBursts As System.Windows.Forms.TextBox
     Friend WithEvents grpRecoil As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents txtRecoilUp As System.Windows.Forms.TextBox
-    Friend WithEvents txtRecoilLeft As System.Windows.Forms.TextBox
-    Friend WithEvents txtFirstShot As System.Windows.Forms.TextBox
-    Friend WithEvents txtRecoilRight As System.Windows.Forms.TextBox
     Friend WithEvents txtTitle As System.Windows.Forms.TextBox
     Friend WithEvents lblBurstCounter As System.Windows.Forms.Label
     Friend WithEvents btnStart As System.Windows.Forms.Button
@@ -1601,4 +1631,10 @@ Partial Class Main
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numRecoilUp As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numSpreadInc As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numSpreadMin As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numFirstShot As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numRecoilRight As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numRecoilLeft As System.Windows.Forms.NumericUpDown
 End Class
