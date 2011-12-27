@@ -377,8 +377,6 @@ Partial Class Main
         '
         Me.chkScaleRadius.AutoSize = True
         Me.chkScaleRadius.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkScaleRadius.Checked = True
-        Me.chkScaleRadius.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkScaleRadius.ForeColor = System.Drawing.Color.White
         Me.chkScaleRadius.Location = New System.Drawing.Point(6, 7)
         Me.chkScaleRadius.Name = "chkScaleRadius"
