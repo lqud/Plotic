@@ -183,10 +183,10 @@ Public Class Main
         Dim y = 1800
         Dim x2 = 130
         Dim x3 = 220
-        Dim height1 As Integer = CDbl(Val(numRecoilLeft.Value)) * (scale - 400)
-        Dim height2 As Integer = CDbl(Val(numRecoilUp.Value)) * scale
-        Dim height3 As Integer = CDbl(Val(numRecoilRight.Value)) * (scale - 400)
-        Dim height4 As Integer = CDbl(Val(numFirstShot.Value)) * 500
+        Dim height1 As Integer = CDbl(Val(Pl.RecoilLeft)) * (scale - 400)
+        Dim height2 As Integer = CDbl(Val(Pl.RecoilUp)) * scale
+        Dim height3 As Integer = CDbl(Val(Pl.RecoilRight)) * (scale - 400)
+        Dim height4 As Integer = CDbl(Val(Pl.FirstShot)) * 500
         g.DrawRectangle(pen1, x1, y - height2, 30, height2)
         g.DrawRectangle(pen1, x2, y - height4, 30, height4)
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
@@ -197,8 +197,8 @@ Public Class Main
         Dim x11 = 1840
         Dim y1 = 1800
         Dim x12 = 1930
-        Dim height11 As Integer = CDbl(Val(numSpreadMin.Value)) * scale1
-        Dim height12 As Integer = CDbl(Val(numSpreadInc.Value)) * scale1
+        Dim height11 As Integer = CDbl(Val(Pl.SpreadMin)) * scale1
+        Dim height12 As Integer = CDbl(Val(Pl.SpreadInc)) * scale1
         g.DrawRectangle(pen11, x11, y - height11, 30, height11)
         g.DrawRectangle(pen11, x12, y - height12, 30, height12)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -315,6 +315,7 @@ Public Class Main
         Pl.RecoilRight = Double.Parse(numRecoilRight.Value)
         Pl.SpreadInc = Double.Parse(numSpreadInc.Value)
         Pl.SpreadMin = Double.Parse(numSpreadMin.Value)
+        Pl.FirstShot = Double.Parse(numFirstShot.Value)
         Pl.Burst = txtBursts.Text
         Pl.BulletsPerBurst = numBulletsPerBurst.Value
         Pl.AdjRecoilH = Double.Parse(numRecoilH.Value)
@@ -539,13 +540,13 @@ Public Class Main
                 Application.DoEvents()
                 If chkMultiplyRecoil.Checked = True Then
                     If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(numFirstShot.Value)) * numRecoilMultiplier.Value)
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * numRecoilMultiplier.Value)
                     Else
                         centy -= ((CDbl(Val(dblRecoilH)) * scale) * numRecoilMultiplier.Value)
                     End If
                 Else
                     If a = 0 Then
-                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(numFirstShot.Value))
+                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
                     Else
                         centy -= CDbl(Val(dblRecoilH)) * scale
                     End If
