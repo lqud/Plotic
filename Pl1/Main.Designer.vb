@@ -26,6 +26,8 @@ Partial Class Main
         Me.txtInfo = New System.Windows.Forms.TextBox()
         Me.lbfs = New System.Windows.Forms.Label()
         Me.grpSpread = New System.Windows.Forms.GroupBox()
+        Me.numSpreadInc = New System.Windows.Forms.NumericUpDown()
+        Me.numSpreadMin = New System.Windows.Forms.NumericUpDown()
         Me.lbms = New System.Windows.Forms.Label()
         Me.lbis = New System.Windows.Forms.Label()
         Me.grpMisc = New System.Windows.Forms.GroupBox()
@@ -42,6 +44,10 @@ Partial Class Main
         Me.chkDrawGrid = New System.Windows.Forms.CheckBox()
         Me.chkScaleRadius = New System.Windows.Forms.CheckBox()
         Me.grpRecoil = New System.Windows.Forms.GroupBox()
+        Me.numFirstShot = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilRight = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilLeft = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilUp = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblBurstCounter = New System.Windows.Forms.Label()
         Me.btnStart = New System.Windows.Forms.Button()
@@ -123,16 +129,16 @@ Partial Class Main
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.picPlot = New System.Windows.Forms.PictureBox()
-        Me.numRecoilUp = New System.Windows.Forms.NumericUpDown()
-        Me.numRecoilLeft = New System.Windows.Forms.NumericUpDown()
-        Me.numRecoilRight = New System.Windows.Forms.NumericUpDown()
-        Me.numFirstShot = New System.Windows.Forms.NumericUpDown()
-        Me.numSpreadMin = New System.Windows.Forms.NumericUpDown()
-        Me.numSpreadInc = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
+        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpMisc.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRecoil.SuspendLayout()
+        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpAttach.SuspendLayout()
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -155,12 +161,6 @@ Partial Class Main
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSaveOptions.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -200,6 +200,36 @@ Partial Class Main
         Me.grpSpread.TabIndex = 32
         Me.grpSpread.TabStop = False
         Me.grpSpread.Text = "Spread"
+        '
+        'numSpreadInc
+        '
+        Me.numSpreadInc.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numSpreadInc.DecimalPlaces = 2
+        Me.numSpreadInc.ForeColor = System.Drawing.Color.White
+        Me.numSpreadInc.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSpreadInc.Location = New System.Drawing.Point(27, 50)
+        Me.numSpreadInc.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numSpreadInc.Name = "numSpreadInc"
+        Me.numSpreadInc.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numSpreadInc.Size = New System.Drawing.Size(48, 20)
+        Me.numSpreadInc.TabIndex = 72
+        Me.numSpreadInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numSpreadInc.Value = New Decimal(New Integer() {1, 0, 0, 65536})
+        '
+        'numSpreadMin
+        '
+        Me.numSpreadMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numSpreadMin.DecimalPlaces = 2
+        Me.numSpreadMin.ForeColor = System.Drawing.Color.White
+        Me.numSpreadMin.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numSpreadMin.Location = New System.Drawing.Point(27, 19)
+        Me.numSpreadMin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numSpreadMin.Name = "numSpreadMin"
+        Me.numSpreadMin.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numSpreadMin.Size = New System.Drawing.Size(48, 20)
+        Me.numSpreadMin.TabIndex = 71
+        Me.numSpreadMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numSpreadMin.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
         'lbms
         '
@@ -402,6 +432,67 @@ Partial Class Main
         Me.grpRecoil.TabIndex = 31
         Me.grpRecoil.TabStop = False
         Me.grpRecoil.Text = "Recoil"
+        '
+        'numFirstShot
+        '
+        Me.numFirstShot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numFirstShot.DecimalPlaces = 2
+        Me.numFirstShot.ForeColor = System.Drawing.Color.White
+        Me.numFirstShot.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numFirstShot.Location = New System.Drawing.Point(60, 58)
+        Me.numFirstShot.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
+        Me.numFirstShot.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numFirstShot.Name = "numFirstShot"
+        Me.numFirstShot.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numFirstShot.Size = New System.Drawing.Size(48, 20)
+        Me.numFirstShot.TabIndex = 70
+        Me.numFirstShot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numFirstShot.Value = New Decimal(New Integer() {2, 0, 0, 0})
+        '
+        'numRecoilRight
+        '
+        Me.numRecoilRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilRight.DecimalPlaces = 2
+        Me.numRecoilRight.ForeColor = System.Drawing.Color.White
+        Me.numRecoilRight.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilRight.Location = New System.Drawing.Point(75, 33)
+        Me.numRecoilRight.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilRight.Name = "numRecoilRight"
+        Me.numRecoilRight.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilRight.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilRight.TabIndex = 69
+        Me.numRecoilRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilRight.Value = New Decimal(New Integer() {6, 0, 0, 65536})
+        '
+        'numRecoilLeft
+        '
+        Me.numRecoilLeft.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilLeft.DecimalPlaces = 2
+        Me.numRecoilLeft.ForeColor = System.Drawing.Color.White
+        Me.numRecoilLeft.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilLeft.Location = New System.Drawing.Point(5, 33)
+        Me.numRecoilLeft.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilLeft.Name = "numRecoilLeft"
+        Me.numRecoilLeft.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilLeft.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilLeft.TabIndex = 68
+        Me.numRecoilLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilLeft.Value = New Decimal(New Integer() {6, 0, 0, 65536})
+        '
+        'numRecoilUp
+        '
+        Me.numRecoilUp.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilUp.DecimalPlaces = 2
+        Me.numRecoilUp.ForeColor = System.Drawing.Color.White
+        Me.numRecoilUp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilUp.Location = New System.Drawing.Point(40, 11)
+        Me.numRecoilUp.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.numRecoilUp.Name = "numRecoilUp"
+        Me.numRecoilUp.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilUp.Size = New System.Drawing.Size(48, 20)
+        Me.numRecoilUp.TabIndex = 67
+        Me.numRecoilUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRecoilUp.Value = New Decimal(New Integer() {3, 0, 0, 65536})
         '
         'Label2
         '
@@ -1124,6 +1215,7 @@ Partial Class Main
         Me.Label27.Size = New System.Drawing.Size(24, 13)
         Me.Label27.TabIndex = 82
         Me.Label27.Text = "rpm"
+        Me.Label27.Visible = False
         '
         'Label28
         '
@@ -1135,6 +1227,7 @@ Partial Class Main
         Me.Label28.Size = New System.Drawing.Size(29, 13)
         Me.Label28.TabIndex = 81
         Me.Label28.Text = "ROF"
+        Me.Label28.Visible = False
         '
         'NumericUpDown6
         '
@@ -1149,6 +1242,7 @@ Partial Class Main
         Me.NumericUpDown6.TabIndex = 80
         Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown6.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown6.Visible = False
         '
         'Label25
         '
@@ -1160,6 +1254,7 @@ Partial Class Main
         Me.Label25.Size = New System.Drawing.Size(67, 13)
         Me.Label25.TabIndex = 79
         Me.Label25.Text = "Bullet Speed"
+        Me.Label25.Visible = False
         '
         'Label26
         '
@@ -1171,6 +1266,7 @@ Partial Class Main
         Me.Label26.Size = New System.Drawing.Size(25, 13)
         Me.Label26.TabIndex = 77
         Me.Label26.Text = "m/s"
+        Me.Label26.Visible = False
         '
         'NumericUpDown5
         '
@@ -1186,6 +1282,7 @@ Partial Class Main
         Me.NumericUpDown5.TabIndex = 78
         Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown5.Value = New Decimal(New Integer() {630, 0, 0, 0})
+        Me.NumericUpDown5.Visible = False
         '
         'NumericUpDown4
         '
@@ -1199,6 +1296,7 @@ Partial Class Main
         Me.NumericUpDown4.TabIndex = 76
         Me.NumericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown4.Value = New Decimal(New Integer() {17, 0, 0, 0})
+        Me.NumericUpDown4.Visible = False
         '
         'NumericUpDown3
         '
@@ -1212,6 +1310,7 @@ Partial Class Main
         Me.NumericUpDown3.TabIndex = 75
         Me.NumericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown3.Value = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.NumericUpDown3.Visible = False
         '
         'Label23
         '
@@ -1223,6 +1322,7 @@ Partial Class Main
         Me.Label23.Size = New System.Drawing.Size(24, 13)
         Me.Label23.TabIndex = 74
         Me.Label23.Text = "Min"
+        Me.Label23.Visible = False
         '
         'Label22
         '
@@ -1234,6 +1334,7 @@ Partial Class Main
         Me.Label22.Size = New System.Drawing.Size(27, 13)
         Me.Label22.TabIndex = 73
         Me.Label22.Text = "Max"
+        Me.Label22.Visible = False
         '
         'Label21
         '
@@ -1245,6 +1346,7 @@ Partial Class Main
         Me.Label21.Size = New System.Drawing.Size(47, 13)
         Me.Label21.TabIndex = 72
         Me.Label21.Text = "Damage"
+        Me.Label21.Visible = False
         '
         'Label20
         '
@@ -1256,6 +1358,7 @@ Partial Class Main
         Me.Label20.Size = New System.Drawing.Size(15, 13)
         Me.Label20.TabIndex = 71
         Me.Label20.Text = "m"
+        Me.Label20.Visible = False
         '
         'Label19
         '
@@ -1267,6 +1370,7 @@ Partial Class Main
         Me.Label19.Size = New System.Drawing.Size(49, 13)
         Me.Label19.TabIndex = 70
         Me.Label19.Text = "Distance"
+        Me.Label19.Visible = False
         '
         'NumericUpDown2
         '
@@ -1281,6 +1385,7 @@ Partial Class Main
         Me.NumericUpDown2.TabIndex = 69
         Me.NumericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown2.Value = New Decimal(New Integer() {945, 0, 0, 0})
+        Me.NumericUpDown2.Visible = False
         '
         'Label18
         '
@@ -1292,6 +1397,7 @@ Partial Class Main
         Me.Label18.Size = New System.Drawing.Size(65, 13)
         Me.Label18.TabIndex = 68
         Me.Label18.Text = "Bullet Drop -"
+        Me.Label18.Visible = False
         '
         'Label17
         '
@@ -1303,6 +1409,7 @@ Partial Class Main
         Me.Label17.Size = New System.Drawing.Size(25, 13)
         Me.Label17.TabIndex = 40
         Me.Label17.Text = "m/s"
+        Me.Label17.Visible = False
         '
         'NumericUpDown1
         '
@@ -1319,6 +1426,7 @@ Partial Class Main
         Me.NumericUpDown1.TabIndex = 67
         Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.NumericUpDown1.Value = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.NumericUpDown1.Visible = False
         '
         'tabSaveOptions
         '
@@ -1366,102 +1474,6 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
-        'numRecoilUp
-        '
-        Me.numRecoilUp.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRecoilUp.DecimalPlaces = 2
-        Me.numRecoilUp.ForeColor = System.Drawing.Color.White
-        Me.numRecoilUp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilUp.Location = New System.Drawing.Point(40, 11)
-        Me.numRecoilUp.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numRecoilUp.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numRecoilUp.Name = "numRecoilUp"
-        Me.numRecoilUp.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRecoilUp.Size = New System.Drawing.Size(48, 20)
-        Me.numRecoilUp.TabIndex = 67
-        Me.numRecoilUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRecoilUp.Value = New Decimal(New Integer() {3, 0, 0, 65536})
-        '
-        'numRecoilLeft
-        '
-        Me.numRecoilLeft.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRecoilLeft.DecimalPlaces = 2
-        Me.numRecoilLeft.ForeColor = System.Drawing.Color.White
-        Me.numRecoilLeft.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilLeft.Location = New System.Drawing.Point(5, 33)
-        Me.numRecoilLeft.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numRecoilLeft.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numRecoilLeft.Name = "numRecoilLeft"
-        Me.numRecoilLeft.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRecoilLeft.Size = New System.Drawing.Size(48, 20)
-        Me.numRecoilLeft.TabIndex = 68
-        Me.numRecoilLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRecoilLeft.Value = New Decimal(New Integer() {6, 0, 0, 65536})
-        '
-        'numRecoilRight
-        '
-        Me.numRecoilRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRecoilRight.DecimalPlaces = 2
-        Me.numRecoilRight.ForeColor = System.Drawing.Color.White
-        Me.numRecoilRight.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilRight.Location = New System.Drawing.Point(75, 33)
-        Me.numRecoilRight.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numRecoilRight.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numRecoilRight.Name = "numRecoilRight"
-        Me.numRecoilRight.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRecoilRight.Size = New System.Drawing.Size(48, 20)
-        Me.numRecoilRight.TabIndex = 69
-        Me.numRecoilRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRecoilRight.Value = New Decimal(New Integer() {6, 0, 0, 65536})
-        '
-        'numFirstShot
-        '
-        Me.numFirstShot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numFirstShot.DecimalPlaces = 2
-        Me.numFirstShot.ForeColor = System.Drawing.Color.White
-        Me.numFirstShot.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numFirstShot.Location = New System.Drawing.Point(60, 58)
-        Me.numFirstShot.Maximum = New Decimal(New Integer() {8, 0, 0, 0})
-        Me.numFirstShot.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numFirstShot.Name = "numFirstShot"
-        Me.numFirstShot.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numFirstShot.Size = New System.Drawing.Size(48, 20)
-        Me.numFirstShot.TabIndex = 70
-        Me.numFirstShot.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numFirstShot.Value = New Decimal(New Integer() {2, 0, 0, 0})
-        '
-        'numSpreadMin
-        '
-        Me.numSpreadMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numSpreadMin.DecimalPlaces = 2
-        Me.numSpreadMin.ForeColor = System.Drawing.Color.White
-        Me.numSpreadMin.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numSpreadMin.Location = New System.Drawing.Point(27, 19)
-        Me.numSpreadMin.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numSpreadMin.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numSpreadMin.Name = "numSpreadMin"
-        Me.numSpreadMin.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numSpreadMin.Size = New System.Drawing.Size(48, 20)
-        Me.numSpreadMin.TabIndex = 71
-        Me.numSpreadMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numSpreadMin.Value = New Decimal(New Integer() {5, 0, 0, 65536})
-        '
-        'numSpreadInc
-        '
-        Me.numSpreadInc.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numSpreadInc.DecimalPlaces = 2
-        Me.numSpreadInc.ForeColor = System.Drawing.Color.White
-        Me.numSpreadInc.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numSpreadInc.Location = New System.Drawing.Point(27, 50)
-        Me.numSpreadInc.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.numSpreadInc.Minimum = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numSpreadInc.Name = "numSpreadInc"
-        Me.numSpreadInc.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numSpreadInc.Size = New System.Drawing.Size(48, 20)
-        Me.numSpreadInc.TabIndex = 72
-        Me.numSpreadInc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numSpreadInc.Value = New Decimal(New Integer() {1, 0, 0, 65536})
-        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1487,11 +1499,17 @@ Partial Class Main
         Me.Text = "version()"
         Me.grpSpread.ResumeLayout(False)
         Me.grpSpread.PerformLayout()
+        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpMisc.ResumeLayout(False)
         Me.grpMisc.PerformLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRecoil.ResumeLayout(False)
         Me.grpRecoil.PerformLayout()
+        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpAttach.ResumeLayout(False)
         Me.grpAttach.PerformLayout()
         CType(Me.numRecoilH, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1519,12 +1537,6 @@ Partial Class Main
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

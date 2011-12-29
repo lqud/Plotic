@@ -349,7 +349,16 @@ Public Class Main
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
         'TODO:Add error logic for zero division
-        Dim Random = lower + CLng(Rnd() * 1000000) Mod (upper - lower) + 1
+        Dim Random As Long
+        Try
+            If (upper - lower) > 0 Then
+                Random = lower + CLng(Rnd() * 1000000) Mod (upper - lower) + 1
+            Else
+                Random = 1
+            End If
+        Catch exc As DivideByZeroException
+            Random = 1
+        End Try
         Return Random
     End Function
 
