@@ -155,6 +155,26 @@ Public Class Main
         End If
 
     End Sub
+    Private Sub drawBulletDrop(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.Green)
+        Dim centerx = 1000
+        Dim centery = 1680
+        Dim penAdjustTarget As New System.Drawing.Pen(Color.White, 2)
+        Dim penDropTarget As New System.Drawing.Pen(Color.Red, 2)
+        Dim pen6 As New System.Drawing.Pen(Color.White, 2)
+        pen6.DashStyle = Drawing2D.DashStyle.Solid
+
+        Dim bulletAdjustX = centerx - 25
+        Dim bulletAdjustY = (centery - Pl.dropInPixels) - 25
+
+        Dim bulletTargetX = centerx - 25
+        Dim bulletTargetY = (centery + Pl.dropInPixels) - 25
+
+        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
+        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
+        g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
+        g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
+    End Sub
     Public Sub drawAdjustments(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim hPos As Integer = 5
@@ -630,6 +650,10 @@ Public Class Main
         If chkDrawGrid.Checked Then
             'drawGrid(g)
             drawGrid(Pl.ImageGraphic)
+        End If
+        If chkRenderBulletDrop.Checked Then
+            'drawGrid(g)
+            drawBulletDrop(Pl.ImageGraphic)
         End If
         'Pl.Image = b
         'Pl.ImageGraphic = g

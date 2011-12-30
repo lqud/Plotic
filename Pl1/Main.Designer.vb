@@ -129,7 +129,7 @@ Partial Class Main
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.picPlot = New System.Windows.Forms.PictureBox()
-        Me.txtTest = New System.Windows.Forms.TextBox()
+        Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1132,6 +1132,7 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.chkRenderBulletDrop)
         Me.tabRender.Controls.Add(Me.numLineSpace)
         Me.tabRender.Controls.Add(Me.Label16)
         Me.tabRender.Controls.Add(Me.numIntensityScale)
@@ -1179,7 +1180,6 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.TabPage2.Controls.Add(Me.txtTest)
         Me.TabPage2.Controls.Add(Me.Label27)
         Me.TabPage2.Controls.Add(Me.Label28)
         Me.TabPage2.Controls.Add(Me.numRateOfFire)
@@ -1459,12 +1459,17 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
-        'txtTest
+        'chkRenderBulletDrop
         '
-        Me.txtTest.Location = New System.Drawing.Point(147, 39)
-        Me.txtTest.Name = "txtTest"
-        Me.txtTest.Size = New System.Drawing.Size(64, 20)
-        Me.txtTest.TabIndex = 83
+        Me.chkRenderBulletDrop.AutoSize = True
+        Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
+        Me.chkRenderBulletDrop.Location = New System.Drawing.Point(6, 40)
+        Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
+        Me.chkRenderBulletDrop.Size = New System.Drawing.Size(78, 17)
+        Me.chkRenderBulletDrop.TabIndex = 84
+        Me.chkRenderBulletDrop.Text = "Bullet Drop"
+        Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
         '
         'Main
         '
@@ -1639,5 +1644,5 @@ Partial Class Main
     Friend WithEvents numFirstShot As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilRight As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilLeft As System.Windows.Forms.NumericUpDown
-    Friend WithEvents txtTest As System.Windows.Forms.TextBox
+    Friend WithEvents chkRenderBulletDrop As System.Windows.Forms.CheckBox
 End Class
