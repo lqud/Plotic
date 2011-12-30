@@ -130,6 +130,7 @@ Partial Class Main
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
+        Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -909,11 +910,11 @@ Partial Class Main
         Me.chkDrawTTK.AutoSize = True
         Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(7, 42)
+        Me.chkDrawTTK.Location = New System.Drawing.Point(7, 24)
         Me.chkDrawTTK.Name = "chkDrawTTK"
-        Me.chkDrawTTK.Size = New System.Drawing.Size(101, 17)
+        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
         Me.chkDrawTTK.TabIndex = 60
-        Me.chkDrawTTK.Text = "Render hit rates"
+        Me.chkDrawTTK.Text = "Write hit rates"
         Me.chkDrawTTK.UseVisualStyleBackColor = False
         '
         'txtScale
@@ -1180,6 +1181,7 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.chkWriteDropInfo)
         Me.TabPage2.Controls.Add(Me.Label27)
         Me.TabPage2.Controls.Add(Me.Label28)
         Me.TabPage2.Controls.Add(Me.numRateOfFire)
@@ -1471,6 +1473,18 @@ Partial Class Main
         Me.chkRenderBulletDrop.Text = "Bullet Drop"
         Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
         '
+        'chkWriteDropInfo
+        '
+        Me.chkWriteDropInfo.AutoSize = True
+        Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
+        Me.chkWriteDropInfo.Location = New System.Drawing.Point(7, 40)
+        Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
+        Me.chkWriteDropInfo.Size = New System.Drawing.Size(98, 17)
+        Me.chkWriteDropInfo.TabIndex = 83
+        Me.chkWriteDropInfo.Text = "Write Drop Info"
+        Me.chkWriteDropInfo.UseVisualStyleBackColor = False
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1645,4 +1659,5 @@ Partial Class Main
     Friend WithEvents numRecoilRight As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilLeft As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkRenderBulletDrop As System.Windows.Forms.CheckBox
+    Friend WithEvents chkWriteDropInfo As System.Windows.Forms.CheckBox
 End Class

@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v0.96"
+    Private Const VERSION As String = "Plotic v0.97"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -197,6 +197,7 @@ Public Class Main
     Public Sub drawBars(ByVal g As Graphics)
         ' prnt("Draw bars")
         Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 30)
+        Dim penAdustments As New System.Drawing.Pen(Color.Green, 30)
         Dim pen2 As New System.Drawing.Pen(Color.Black, 30)
         Dim scale = 1500
         Dim x1 = 40
@@ -204,13 +205,32 @@ Public Class Main
         Dim x2 = 130
         Dim x3 = 220
         Dim height1 As Integer = CDbl(Val(Pl.RecoilLeft)) * (scale - 400)
+        Dim heightAdjust1 As Integer = CDbl(Val(calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH))) * (scale - 400)
         Dim height2 As Integer = CDbl(Val(Pl.RecoilUp)) * scale
+        Dim heightAdjust2 As Integer = CDbl(Val(calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV))) * scale
         Dim height3 As Integer = CDbl(Val(Pl.RecoilRight)) * (scale - 400)
+        Dim heightAdjust3 As Integer = CDbl(Val(calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH))) * (scale - 400)
         Dim height4 As Integer = CDbl(Val(Pl.FirstShot)) * 500
-        g.DrawRectangle(pen1, x1, y - height2, 30, height2)
         g.DrawRectangle(pen1, x2, y - height4, 30, height4)
+
+        If height2 <= heightAdjust2 Then
+            g.DrawRectangle(penAdustments, x1, y - heightAdjust2, 30, heightAdjust2)
+            g.DrawRectangle(pen1, x1, y - height2, 30, height2)
+        Else
+            g.DrawRectangle(pen1, x1, y - height2, 30, height2)
+            g.DrawRectangle(penAdustments, x1, y - heightAdjust2, 30, heightAdjust2)
+        End If
+
         Dim greenBrush As New SolidBrush(Color.YellowGreen)
-        g.DrawRectangle(pen1, 1000 - height1, 1900, height1 + height3, 30)
+        If height1 <= heightAdjust1 Then
+            g.DrawRectangle(penAdustments, 1000 - heightAdjust1, 1900, heightAdjust1 + heightAdjust3, 30)
+            g.DrawRectangle(pen1, 1000 - height1, 1900, height1 + height3, 30)
+        Else
+            g.DrawRectangle(pen1, 1000 - height1, 1900, height1 + height3, 30)
+            g.DrawRectangle(penAdustments, 1000 - heightAdjust1, 1900, heightAdjust1 + heightAdjust3, 30)
+        End If
+
+
         g.DrawRectangle(pen2, 1000, 1900, 5, 30)
         Dim pen11 As New System.Drawing.Pen(Color.YellowGreen, 30)
         Dim scale1 = 3000
@@ -218,9 +238,26 @@ Public Class Main
         Dim y1 = 1800
         Dim x12 = 1930
         Dim height11 As Integer = CDbl(Val(Pl.SpreadMin)) * scale1
+        Dim heightAdjust11 As Integer = CDbl(Val(calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin))) * scale1
         Dim height12 As Integer = CDbl(Val(Pl.SpreadInc)) * scale1
-        g.DrawRectangle(pen11, x11, y - height11, 30, height11)
-        g.DrawRectangle(pen11, x12, y - height12, 30, height12)
+        Dim heightAdjust12 As Integer = CDbl(Val(calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc))) * scale1
+        If height11 <= heightAdjust11 Then
+            g.DrawRectangle(penAdustments, x11, y - heightAdjust11, 30, heightAdjust11)
+            g.DrawRectangle(pen11, x11, y - height11, 30, height11)
+        Else
+            g.DrawRectangle(pen11, x11, y - height11, 30, height11)
+            g.DrawRectangle(penAdustments, x11, y - heightAdjust11, 30, heightAdjust11)
+        End If
+
+        If height12 <= heightAdjust12 Then
+            g.DrawRectangle(penAdustments, x12, y - heightAdjust12, 30, heightAdjust12)
+            g.DrawRectangle(pen11, x12, y - height12, 30, height12)
+        Else
+            g.DrawRectangle(pen11, x12, y - height12, 30, height12)
+            g.DrawRectangle(penAdustments, x12, y - heightAdjust12, 30, heightAdjust12)
+        End If
+
+
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim txt As String = "UP"
         Dim the_font As New Font("Consolas", 60, FontStyle.Bold, GraphicsUnit.Pixel)
