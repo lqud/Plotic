@@ -32,6 +32,10 @@
         bulletDrop = (dblBulletDrop * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
         Return Math.Round(bulletDrop, presision)
     End Function
+
+    Public Function dropInPixels() As Integer
+        Return Math.Round((Math.Atan(Me.dropInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
+    End Function
     Property BulletDrop() As Double
         Get
             Return dblBulletDrop
