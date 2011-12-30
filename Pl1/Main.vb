@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v0.95"
+    Private Const VERSION As String = "Plotic v0.96"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -31,6 +31,7 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
+        txtTest.Text = calculateBulletDrop(numBulletVelocity.Value, numMeters.Value, numBulletDrop.Value)
 
         'Check for a Config file in the same directory, use if found, otherwise use default
         'Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
@@ -72,7 +73,11 @@ Public Class Main
             CreateTemplateIni()
         End If
     End Sub
-
+    Private Function calculateBulletDrop(ByVal velocity As Double, ByVal range As Double, ByVal drop As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (drop * range ^ 2) / (2 * velocity ^ 2)
+        Return bulletDrop
+    End Function
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         g.DrawString(txtTitle.Text, New Font("Arial", 90), greenBrush1, 800, 30)
