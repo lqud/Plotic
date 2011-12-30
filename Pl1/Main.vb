@@ -31,7 +31,6 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-        txtTest.Text = calculateBulletDrop(numBulletVelocity.Value, numMeters.Value, numBulletDrop.Value)
 
         'Check for a Config file in the same directory, use if found, otherwise use default
         'Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
@@ -76,7 +75,7 @@ Public Class Main
     Private Function calculateBulletDrop(ByVal velocity As Double, ByVal range As Double, ByVal drop As Double) As Double
         Dim bulletDrop As Double = 0
         bulletDrop = (drop * range ^ 2) / (2 * velocity ^ 2)
-        Return bulletDrop
+        Return Math.Round(bulletDrop, 3)
     End Function
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -325,6 +324,13 @@ Public Class Main
         Pl.AdjSpreadMin = Double.Parse(numMin.Value)
         Pl.Title = txtTitle.Text
         Pl.Scale = txtScale.Text
+
+        Pl.BulletVelocity = numBulletVelocity.Value
+        Pl.MaxDistance = numMaxDistance.Value
+        Pl.BulletDrop = numBulletDrop.Value
+        Pl.TargetRange = numMeters.Value
+        Pl.RateOfFire = numRateOfFire.Value
+
 
     End Sub
 
@@ -1308,6 +1314,10 @@ ByVal DefaultValue As String) As String
 
         INIWrite(spath, "TTk", "RenderTTK", "0")
         INIWrite(spath, "TTK", "RenderHitRates", "0")
+        INIWrite(spath, "TTK", "BulletVelocity", "500")
+        INIWrite(spath, "TTK", "RateOfFire", "500")
+        INIWrite(spath, "TTK", "MaxDistance", "0")
+        INIWrite(spath, "TTK", "BulletDrop", "15")
 
         INIWrite(spath, "HeatMap", "RenderHeatMap", "1")
         INIWrite(spath, "HeatMap", "Radius", "75")
