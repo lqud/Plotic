@@ -18,8 +18,60 @@
     Private intBurst As Integer
     Private intBulletsPerBurst As Integer
     Private dblFirstShot As Double
-
     Private intScale As Integer
+
+    Private dblBulletDrop As Double
+    Private dblBulletVelocity As Double
+    Private dblMaxDistance As Double
+    Private dblTargetRange As Double
+    Private dblRateOfFire As Double
+
+
+    Public Function dropInMeters(ByVal presision As Integer) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (dblBulletDrop * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
+        Return Math.Round(bulletDrop, presision)
+    End Function
+    Property BulletDrop() As Double
+        Get
+            Return dblBulletDrop
+        End Get
+        Set(ByVal Value As Double)
+            dblBulletDrop = Value
+        End Set
+    End Property
+    Property BulletVelocity() As Double
+        Get
+            Return dblBulletVelocity
+        End Get
+        Set(ByVal Value As Double)
+            dblBulletVelocity = Value
+        End Set
+    End Property
+    Property MaxDistance() As Double
+        Get
+            Return dblMaxDistance
+        End Get
+        Set(ByVal Value As Double)
+            dblMaxDistance = Value
+        End Set
+    End Property
+    Property TargetRange() As Double
+        Get
+            Return dblTargetRange
+        End Get
+        Set(ByVal Value As Double)
+            dblTargetRange = Value
+        End Set
+    End Property
+    Property RateOfFire() As Double
+        Get
+            Return dblRateOfFire
+        End Get
+        Set(ByVal Value As Double)
+            dblRateOfFire = Value
+        End Set
+    End Property
 
     Property Title() As String
         Get
@@ -29,7 +81,6 @@
             strTitle = Value
         End Set
     End Property
-
 
     Property RecoilUp() As Double
         Get
