@@ -110,25 +110,26 @@ Partial Class Main
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
+        Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.Label26 = New System.Windows.Forms.Label()
-        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.numBulletVelocity = New System.Windows.Forms.NumericUpDown()
+        Me.numDamageMin = New System.Windows.Forms.NumericUpDown()
+        Me.numDamageMax = New System.Windows.Forms.NumericUpDown()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label22 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.numMaxDistance = New System.Windows.Forms.NumericUpDown()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.numBulletDrop = New System.Windows.Forms.NumericUpDown()
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.txtTest = New System.Windows.Forms.TextBox()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -153,12 +154,12 @@ Partial Class Main
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numMaxDistance, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numBulletDrop, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabSaveOptions.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -969,21 +970,21 @@ Partial Class Main
         Me.numMeters.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numMeters.ForeColor = System.Drawing.Color.White
         Me.numMeters.Location = New System.Drawing.Point(290, 91)
-        Me.numMeters.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.numMeters.Maximum = New Decimal(New Integer() {4000, 0, 0, 0})
         Me.numMeters.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numMeters.Name = "numMeters"
         Me.numMeters.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numMeters.Size = New System.Drawing.Size(48, 20)
+        Me.numMeters.Size = New System.Drawing.Size(56, 20)
         Me.numMeters.TabIndex = 53
         Me.numMeters.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numMeters.Value = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.numMeters.Value = New Decimal(New Integer() {230, 0, 0, 0})
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(339, 94)
+        Me.Label14.Location = New System.Drawing.Point(346, 94)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(15, 13)
         Me.Label14.TabIndex = 52
@@ -1178,23 +1179,24 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.txtTest)
         Me.TabPage2.Controls.Add(Me.Label27)
         Me.TabPage2.Controls.Add(Me.Label28)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown6)
+        Me.TabPage2.Controls.Add(Me.numRateOfFire)
         Me.TabPage2.Controls.Add(Me.Label25)
         Me.TabPage2.Controls.Add(Me.Label26)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown5)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown4)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown3)
+        Me.TabPage2.Controls.Add(Me.numBulletVelocity)
+        Me.TabPage2.Controls.Add(Me.numDamageMin)
+        Me.TabPage2.Controls.Add(Me.numDamageMax)
         Me.TabPage2.Controls.Add(Me.Label23)
         Me.TabPage2.Controls.Add(Me.Label22)
         Me.TabPage2.Controls.Add(Me.Label21)
         Me.TabPage2.Controls.Add(Me.Label20)
         Me.TabPage2.Controls.Add(Me.Label19)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown2)
+        Me.TabPage2.Controls.Add(Me.numMaxDistance)
         Me.TabPage2.Controls.Add(Me.Label18)
         Me.TabPage2.Controls.Add(Me.Label17)
-        Me.TabPage2.Controls.Add(Me.NumericUpDown1)
+        Me.TabPage2.Controls.Add(Me.numBulletDrop)
         Me.TabPage2.Controls.Add(Me.chkTimeToKill)
         Me.TabPage2.Controls.Add(Me.txtHitRateResult)
         Me.TabPage2.Controls.Add(Me.chkDrawTTK)
@@ -1215,7 +1217,6 @@ Partial Class Main
         Me.Label27.Size = New System.Drawing.Size(24, 13)
         Me.Label27.TabIndex = 82
         Me.Label27.Text = "rpm"
-        Me.Label27.Visible = False
         '
         'Label28
         '
@@ -1227,22 +1228,20 @@ Partial Class Main
         Me.Label28.Size = New System.Drawing.Size(29, 13)
         Me.Label28.TabIndex = 81
         Me.Label28.Text = "ROF"
-        Me.Label28.Visible = False
         '
-        'NumericUpDown6
+        'numRateOfFire
         '
-        Me.NumericUpDown6.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown6.ForeColor = System.Drawing.Color.SkyBlue
-        Me.NumericUpDown6.Location = New System.Drawing.Point(194, 117)
-        Me.NumericUpDown6.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.NumericUpDown6.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown6.Name = "NumericUpDown6"
-        Me.NumericUpDown6.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown6.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown6.TabIndex = 80
-        Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown6.Value = New Decimal(New Integer() {1000, 0, 0, 0})
-        Me.NumericUpDown6.Visible = False
+        Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRateOfFire.ForeColor = System.Drawing.Color.SkyBlue
+        Me.numRateOfFire.Location = New System.Drawing.Point(194, 117)
+        Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.numRateOfFire.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numRateOfFire.Name = "numRateOfFire"
+        Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
+        Me.numRateOfFire.TabIndex = 80
+        Me.numRateOfFire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRateOfFire.Value = New Decimal(New Integer() {1000, 0, 0, 0})
         '
         'Label25
         '
@@ -1254,7 +1253,6 @@ Partial Class Main
         Me.Label25.Size = New System.Drawing.Size(67, 13)
         Me.Label25.TabIndex = 79
         Me.Label25.Text = "Bullet Speed"
-        Me.Label25.Visible = False
         '
         'Label26
         '
@@ -1266,51 +1264,47 @@ Partial Class Main
         Me.Label26.Size = New System.Drawing.Size(25, 13)
         Me.Label26.TabIndex = 77
         Me.Label26.Text = "m/s"
-        Me.Label26.Visible = False
         '
-        'NumericUpDown5
+        'numBulletVelocity
         '
-        Me.NumericUpDown5.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown5.ForeColor = System.Drawing.Color.LightGreen
-        Me.NumericUpDown5.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.NumericUpDown5.Location = New System.Drawing.Point(287, 96)
-        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
-        Me.NumericUpDown5.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDown5.Name = "NumericUpDown5"
-        Me.NumericUpDown5.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown5.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown5.TabIndex = 78
-        Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown5.Value = New Decimal(New Integer() {630, 0, 0, 0})
-        Me.NumericUpDown5.Visible = False
+        Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
+        Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.numBulletVelocity.Location = New System.Drawing.Point(287, 96)
+        Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
+        Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBulletVelocity.Name = "numBulletVelocity"
+        Me.numBulletVelocity.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numBulletVelocity.Size = New System.Drawing.Size(48, 20)
+        Me.numBulletVelocity.TabIndex = 78
+        Me.numBulletVelocity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBulletVelocity.Value = New Decimal(New Integer() {600, 0, 0, 0})
         '
-        'NumericUpDown4
+        'numDamageMin
         '
-        Me.NumericUpDown4.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown4.ForeColor = System.Drawing.Color.SkyBlue
-        Me.NumericUpDown4.Location = New System.Drawing.Point(287, 29)
-        Me.NumericUpDown4.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown4.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown4.TabIndex = 76
-        Me.NumericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown4.Value = New Decimal(New Integer() {17, 0, 0, 0})
-        Me.NumericUpDown4.Visible = False
+        Me.numDamageMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDamageMin.ForeColor = System.Drawing.Color.SkyBlue
+        Me.numDamageMin.Location = New System.Drawing.Point(287, 29)
+        Me.numDamageMin.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numDamageMin.Name = "numDamageMin"
+        Me.numDamageMin.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDamageMin.Size = New System.Drawing.Size(48, 20)
+        Me.numDamageMin.TabIndex = 76
+        Me.numDamageMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDamageMin.Value = New Decimal(New Integer() {17, 0, 0, 0})
         '
-        'NumericUpDown3
+        'numDamageMax
         '
-        Me.NumericUpDown3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown3.ForeColor = System.Drawing.Color.SkyBlue
-        Me.NumericUpDown3.Location = New System.Drawing.Point(287, 6)
-        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown3.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown3.TabIndex = 75
-        Me.NumericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown3.Value = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.NumericUpDown3.Visible = False
+        Me.numDamageMax.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDamageMax.ForeColor = System.Drawing.Color.SkyBlue
+        Me.numDamageMax.Location = New System.Drawing.Point(287, 6)
+        Me.numDamageMax.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numDamageMax.Name = "numDamageMax"
+        Me.numDamageMax.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDamageMax.Size = New System.Drawing.Size(48, 20)
+        Me.numDamageMax.TabIndex = 75
+        Me.numDamageMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDamageMax.Value = New Decimal(New Integer() {25, 0, 0, 0})
         '
         'Label23
         '
@@ -1322,7 +1316,6 @@ Partial Class Main
         Me.Label23.Size = New System.Drawing.Size(24, 13)
         Me.Label23.TabIndex = 74
         Me.Label23.Text = "Min"
-        Me.Label23.Visible = False
         '
         'Label22
         '
@@ -1334,7 +1327,6 @@ Partial Class Main
         Me.Label22.Size = New System.Drawing.Size(27, 13)
         Me.Label22.TabIndex = 73
         Me.Label22.Text = "Max"
-        Me.Label22.Visible = False
         '
         'Label21
         '
@@ -1346,7 +1338,6 @@ Partial Class Main
         Me.Label21.Size = New System.Drawing.Size(47, 13)
         Me.Label21.TabIndex = 72
         Me.Label21.Text = "Damage"
-        Me.Label21.Visible = False
         '
         'Label20
         '
@@ -1358,34 +1349,31 @@ Partial Class Main
         Me.Label20.Size = New System.Drawing.Size(15, 13)
         Me.Label20.TabIndex = 71
         Me.Label20.Text = "m"
-        Me.Label20.Visible = False
         '
         'Label19
         '
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label19.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label19.Location = New System.Drawing.Point(142, 76)
+        Me.Label19.Location = New System.Drawing.Point(142, 77)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(49, 13)
+        Me.Label19.Size = New System.Drawing.Size(51, 13)
         Me.Label19.TabIndex = 70
-        Me.Label19.Text = "Distance"
-        Me.Label19.Visible = False
+        Me.Label19.Text = "Max Dist."
         '
-        'NumericUpDown2
+        'numMaxDistance
         '
-        Me.NumericUpDown2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown2.ForeColor = System.Drawing.Color.SkyBlue
-        Me.NumericUpDown2.Location = New System.Drawing.Point(194, 74)
-        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.NumericUpDown2.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown2.TabIndex = 69
-        Me.NumericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown2.Value = New Decimal(New Integer() {945, 0, 0, 0})
-        Me.NumericUpDown2.Visible = False
+        Me.numMaxDistance.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numMaxDistance.ForeColor = System.Drawing.Color.SkyBlue
+        Me.numMaxDistance.Location = New System.Drawing.Point(194, 74)
+        Me.numMaxDistance.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.numMaxDistance.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numMaxDistance.Name = "numMaxDistance"
+        Me.numMaxDistance.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numMaxDistance.Size = New System.Drawing.Size(48, 20)
+        Me.numMaxDistance.TabIndex = 69
+        Me.numMaxDistance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numMaxDistance.Value = New Decimal(New Integer() {945, 0, 0, 0})
         '
         'Label18
         '
@@ -1397,7 +1385,6 @@ Partial Class Main
         Me.Label18.Size = New System.Drawing.Size(65, 13)
         Me.Label18.TabIndex = 68
         Me.Label18.Text = "Bullet Drop -"
-        Me.Label18.Visible = False
         '
         'Label17
         '
@@ -1409,24 +1396,22 @@ Partial Class Main
         Me.Label17.Size = New System.Drawing.Size(25, 13)
         Me.Label17.TabIndex = 40
         Me.Label17.Text = "m/s"
-        Me.Label17.Visible = False
         '
-        'NumericUpDown1
+        'numBulletDrop
         '
-        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown1.DecimalPlaces = 2
-        Me.NumericUpDown1.ForeColor = System.Drawing.Color.LightGreen
-        Me.NumericUpDown1.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.NumericUpDown1.Location = New System.Drawing.Point(287, 55)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown1.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown1.TabIndex = 67
-        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {15, 0, 0, 0})
-        Me.NumericUpDown1.Visible = False
+        Me.numBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numBulletDrop.DecimalPlaces = 2
+        Me.numBulletDrop.ForeColor = System.Drawing.Color.LightGreen
+        Me.numBulletDrop.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
+        Me.numBulletDrop.Location = New System.Drawing.Point(287, 55)
+        Me.numBulletDrop.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.numBulletDrop.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBulletDrop.Name = "numBulletDrop"
+        Me.numBulletDrop.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numBulletDrop.Size = New System.Drawing.Size(48, 20)
+        Me.numBulletDrop.TabIndex = 67
+        Me.numBulletDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBulletDrop.Value = New Decimal(New Integer() {15, 0, 0, 0})
         '
         'tabSaveOptions
         '
@@ -1473,6 +1458,13 @@ Partial Class Main
         Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
+        '
+        'txtTest
+        '
+        Me.txtTest.Location = New System.Drawing.Point(147, 39)
+        Me.txtTest.Name = "txtTest"
+        Me.txtTest.Size = New System.Drawing.Size(64, 20)
+        Me.txtTest.TabIndex = 83
         '
         'Main
         '
@@ -1528,12 +1520,12 @@ Partial Class Main
         Me.tabRender.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numMaxDistance, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numBulletDrop, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1617,17 +1609,17 @@ Partial Class Main
     Friend WithEvents tabSaveOptions As System.Windows.Forms.TabPage
     Friend WithEvents chkSaveImage As System.Windows.Forms.CheckBox
     Friend WithEvents btnSaveImage As System.Windows.Forms.Button
-    Friend WithEvents NumericUpDown4 As System.Windows.Forms.NumericUpDown
-    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numDamageMin As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numDamageMax As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label23 As System.Windows.Forms.Label
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numMaxDistance As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label18 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numBulletDrop As System.Windows.Forms.NumericUpDown
     Friend WithEvents numBulletsPerBurst As System.Windows.Forms.NumericUpDown
     Friend WithEvents txtSub As System.Windows.Forms.TextBox
     Friend WithEvents Label24 As System.Windows.Forms.Label
@@ -1637,14 +1629,15 @@ Partial Class Main
     Friend WithEvents ViewMaskToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents Label28 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown6 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numRateOfFire As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label25 As System.Windows.Forms.Label
     Friend WithEvents Label26 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numBulletVelocity As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilUp As System.Windows.Forms.NumericUpDown
     Friend WithEvents numSpreadInc As System.Windows.Forms.NumericUpDown
     Friend WithEvents numSpreadMin As System.Windows.Forms.NumericUpDown
     Friend WithEvents numFirstShot As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilRight As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilLeft As System.Windows.Forms.NumericUpDown
+    Friend WithEvents txtTest As System.Windows.Forms.TextBox
 End Class
