@@ -435,9 +435,6 @@ Public Class Main
         Return Random
     End Function
 
-    Private Function fullSavePath() As String
-        Return Path.Combine(saveImagePath, convertFileName(txtFilename.Text))
-    End Function
     Private Sub btnSaveImage_Click() Handles btnSaveImage.Click
         Pl.Title = txtTitle.Text
         Pl.Info = txtInfo.Text
@@ -450,6 +447,7 @@ Public Class Main
 
         If saveFileDialog1.ShowDialog() = DialogResult.OK Then
             saveImagePath = saveFileDialog1.FileName
+            lblPath.Text = saveFileDialog1.FileName
             chkSaveImage.Checked = True
         End If
     End Sub
@@ -749,7 +747,7 @@ Public Class Main
 
         Dim b As Bitmap = Pl.Image
 
-        Dim file = fullSavePath()
+        Dim file = saveImagePath
 
         b.Save(file)
 
