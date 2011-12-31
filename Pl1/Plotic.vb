@@ -1,5 +1,7 @@
 ﻿Public Class Plotic
     Private strTitle As String
+    Private strInfo As String
+    Private strSubText As String
     Private bmpImage As Bitmap = New Bitmap(2000, 2000)
     Private bmpMask As Bitmap = New Bitmap(2000, 2000)
     Private bmpHeatMap As Bitmap = New Bitmap(2000, 2000)
@@ -26,6 +28,26 @@
     Private dblTargetRange As Double
     Private dblRateOfFire As Double
 
+    Public Sub New()
+
+    End Sub
+#Region "Functions"
+    Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean
+        Dim colo As Object
+        Dim rgbb As Integer
+        If x < 0 Or y < 0 Or x > 1999 Or y > 1999 Then
+            rgbb = 0
+        Else
+            colo = Me.Mask.GetPixel(x, y)
+            rgbb = Val(colo.R) + Val(colo.G) + Val(colo.B)
+        End If
+        'Debug.WriteLine("X: " & x & " Y: " & y & " Val: " & rgbb)
+        If rgbb > 100 Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 
     Public Function dropInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
@@ -33,9 +55,28 @@
         Return Math.Round(bulletDrop, presision)
     End Function
 
+    Public Function correctionInMeters(ByVal presision As Integer) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = (bulletDrop * 0.5)
+        bulletDrop = Me.TargetRange * (Math.Tan(bulletDrop))
+        Return Math.Round(bulletDrop, presision)
+    End Function
+
+    Public Function timeOfFlight(ByVal presision As Integer) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = Me.TargetRange / (Me.BulletVelocity * Math.Cos(((Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2))))))
+        Return Math.Round(bulletDrop, presision)
+    End Function
+
     Public Function dropInPixels() As Integer
         Return Math.Round((Math.Atan(Me.dropInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
     End Function
+    Public Function correctionInPixels() As Integer
+        Return Math.Round((Math.Atan(Me.correctionInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
+    End Function
+#End Region
+#Region "Properties"
     Property BulletDrop() As Double
         Get
             Return dblBulletDrop
@@ -85,6 +126,22 @@
             strTitle = Value
         End Set
     End Property
+    Property Info() As String
+        Get
+            Return strInfo
+        End Get
+        Set(ByVal Value As String)
+            strInfo = Value
+        End Set
+    End Property
+    Property SubText() As String
+        Get
+            Return strSubText
+        End Get
+        Set(ByVal Value As String)
+            strSubText = Value
+        End Set
+    End Property
 
     Property RecoilUp() As Double
         Get
@@ -110,6 +167,15 @@
             dblRecoilLeft = Value
         End Set
     End Property
+    Property FirstShot() As Double
+        Get
+            Return dblFirstShot
+        End Get
+        Set(ByVal Value As Double)
+            dblFirstShot = Value
+        End Set
+    End Property
+
     Property SpreadMin() As Double
         Get
             Return dblSpreadMin
@@ -126,6 +192,7 @@
             dblSpreadInc = Value
         End Set
     End Property
+
     Property AdjRecoilH() As Double
         Get
             Return dblAdjRecoilH
@@ -158,14 +225,6 @@
             dblAdjSpreadInc = Value
         End Set
     End Property
-    Property FirstShot() As Double
-        Get
-            Return dblFirstShot
-        End Get
-        Set(ByVal Value As Double)
-            dblFirstShot = Value
-        End Set
-    End Property
     Property Burst() As Integer
         Get
             Return intBurst
@@ -182,6 +241,15 @@
             intBulletsPerBurst = Value
         End Set
     End Property
+    Property Scale() As Integer
+        Get
+            Return intScale
+        End Get
+        Set(ByVal Value As Integer)
+            intScale = Value
+        End Set
+    End Property
+
     Property Image() As Bitmap
         Get
             Return bmpImage
@@ -206,6 +274,7 @@
             bmpHeatMap = Value
         End Set
     End Property
+
     Property ImageGraphic() As Graphics
         Get
             Return grhImageGraphic
@@ -230,45 +299,6 @@
             grhHeatGraphic = Value
         End Set
     End Property
-    Property Scale() As Integer
-        Get
-            Return intScale
-        End Get
-        Set(ByVal Value As Integer)
-            intScale = Value
-        End Set
-    End Property
+#End Region
 
-
-    Public Sub New()
-        '        Dim b As Bitmap = New Bitmap(2000, 2000)
-        'Dim g As Graphics = Graphics.FromImage(b)
-        'Me.Image = b
-        'Me.Mask = b
-        'Me.HeatMap = b
-        '        Me.grhImageGraphic = Graphics.FromImage(Me.Image)
-        '       Me.grhMaskGraphic = Graphics.FromImage(Me.Mask)
-        '      Me.grhHeatGraphic = Graphics.FromImage(Me.HeatMap)
-        'Initialize the Bitmaps and Graphics objects
-        'Me.grhImageGraphic = g
-    End Sub
-    Public Function bulletHit(ByVal x As Integer, ByVal y As Integer) As Boolean
-        Dim colo As Object
-        Dim rgbb As Integer
-        If x < 0 Or y < 0 Or x > 1999 Or y > 1999 Then
-            rgbb = 0
-        Else
-            colo = Me.Mask.GetPixel(x, y)
-            rgbb = Val(colo.R) + Val(colo.G) + Val(colo.B)
-        End If
-        'Debug.WriteLine("X: " & x & " Y: " & y & " Val: " & rgbb)
-        If rgbb > 100 Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
-    Public Sub SaveMask()
-
-    End Sub
 End Class

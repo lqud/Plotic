@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v0.971"
+    Private Const VERSION As String = "Plotic v0.98"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -31,16 +31,6 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-
-        'Check for a Config file in the same directory, use if found, otherwise use default
-        'Dim configPath As String = Path.Combine(Directory.GetCurrentDirectory, "config.ini")
-        'If File.Exists(configPath) Then
-        'configOverride = True
-        'Debug.WriteLine("FOUND: " & configPath)
-        'Else
-        'configOverride = False
-        'Debug.WriteLine("NOT FOUND: " & configPath)
-        'End If
 
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
@@ -156,16 +146,15 @@ Public Class Main
 
     End Sub
     Private Sub drawBulletDrop(ByVal g As Graphics)
-        Dim greenBrush1 As New SolidBrush(Color.Green)
         Dim centerx = 1000
         Dim centery = 1680
-        Dim penAdjustTarget As New System.Drawing.Pen(Color.White, 2)
-        Dim penDropTarget As New System.Drawing.Pen(Color.Red, 2)
-        Dim pen6 As New System.Drawing.Pen(Color.White, 2)
+        Dim penAdjustTarget As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
+        Dim penDropTarget As New System.Drawing.Pen(Color.Red, numDropLineThickness.Value)
+        Dim pen6 As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
         pen6.DashStyle = Drawing2D.DashStyle.Solid
 
         Dim bulletAdjustX = centerx - 25
-        Dim bulletAdjustY = (centery - Pl.dropInPixels) - 25
+        Dim bulletAdjustY = (centery - Pl.correctionInPixels) - 25
 
         Dim bulletTargetX = centerx - 25
         Dim bulletTargetY = (centery + Pl.dropInPixels) - 25
@@ -177,21 +166,33 @@ Public Class Main
     End Sub
     Public Sub drawAdjustments(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 5
-        g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush1, hPos, 25)
+        g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
         g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
-        g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 110)
+        g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
         g.DrawString("Spread Min: " + numMin.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
-        g.DrawString("Spread Inc: " + numInc.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
+        g.DrawString("Spread Inc: " + numInc.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
+    End Sub
+    Public Sub drawDropInfo(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+        Dim hPos As Integer = 5
+        g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
+        g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
+        g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush2, hPos, 335)
+        g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
+        'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
     Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 1550
-        g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush1, (hPos - 20), 25)
+        g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush2, (hPos - 20), 25)
         g.DrawString("1st Bullet: " + Hit1.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
-        g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 110)
+        g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
         g.DrawString("3rd Bullet: " + Hit3.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
-        g.DrawString("4th Bullet: " + Hit4.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
+        g.DrawString("4th Bullet: " + Hit4.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
         g.DrawString("5th Bullet: " + Hit5.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 230)
     End Sub
     Public Sub drawBars(ByVal g As Graphics)
@@ -380,6 +381,8 @@ Public Class Main
         Pl.AdjSpreadInc = Double.Parse(numInc.Value)
         Pl.AdjSpreadMin = Double.Parse(numMin.Value)
         Pl.Title = txtTitle.Text
+        Pl.Info = txtInfo.Text
+        Pl.SubText = txtSub.Text
         Pl.Scale = txtScale.Text
 
         Pl.BulletVelocity = numBulletVelocity.Value
@@ -412,6 +415,8 @@ Public Class Main
         Pl.AdjSpreadInc = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadInc", "0"), chrDecimalSymbol)
         Pl.AdjSpreadMin = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadMin", "0"), chrDecimalSymbol)
         Pl.Title = INIRead(silentTemplateFile, "Title", "TitleText", "")
+        Pl.Info = INIRead(silentTemplateFile, "Title", "InfoText", "")
+        Pl.SubText = INIRead(silentTemplateFile, "Title", "SubText", "")
         Pl.Scale = CInt(Val(INIRead(silentTemplateFile, "Grid", "Scale", "650")))
 
     End Sub
@@ -430,11 +435,16 @@ Public Class Main
         Return Random
     End Function
 
+    Private Function fullSavePath() As String
+        Return Path.Combine(saveImagePath, convertFileName(txtFilename.Text))
+    End Function
     Private Sub btnSaveImage_Click() Handles btnSaveImage.Click
+        Pl.Title = txtTitle.Text
+        Pl.Info = txtInfo.Text
+        Pl.SubText = txtSub.Text
         Dim saveFileDialog1 As New SaveFileDialog()
-
         saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*"
-        saveFileDialog1.FileName = "image.png"
+        saveFileDialog1.FileName = convertFileName(txtFilename.Text)
         saveFileDialog1.FilterIndex = 1
         saveFileDialog1.RestoreDirectory = True
 
@@ -692,6 +702,10 @@ Public Class Main
             'drawGrid(g)
             drawBulletDrop(Pl.ImageGraphic)
         End If
+        If chkWriteDropInfo.Checked Then
+            'drawAdjustments(g)
+            drawDropInfo(Pl.ImageGraphic)
+        End If
         'Pl.Image = b
         'Pl.ImageGraphic = g
         ToggleToolStripMain_ThreadSafe(True)
@@ -732,38 +746,25 @@ Public Class Main
         Me.viewToolStrip.Enabled = True
     End Sub
     Private Sub SaveImage()
-        'Dim b As Bitmap = picPlot.Image
-        Dim b As Bitmap = Pl.Image
-        'Dim greenBrush As New SolidBrush(Color.YellowGreen)
-        'Dim bm_source As New Bitmap(b)
-        'Dim bm_dest As New Bitmap(CInt(bm_source.Width), CInt(bm_source.Height))
-        'Dim gr_dest As Graphics = Graphics.FromImage(bm_dest)
-        'gr_dest.DrawImage(bm_source, 0, 0, bm_dest.Width + 1, bm_dest.Height + 1)
-        'Dim picDest As New Bitmap(bm_dest)
-        Dim file = saveImagePath
-        'If chkSaveImage.Checked = True Then
-        'Else
-        'If My.Computer.FileSystem.DirectoryExists(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\") Then
-        'Else
-        'My.Computer.FileSystem.CreateDirectory(My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\")
 
-        'End If
-        'file = My.Computer.FileSystem.SpecialDirectories.Temp + "\Plotic\" + txtRecoilUp.Text + ".png"
-        'End If
+        Dim b As Bitmap = Pl.Image
+
+        Dim file = fullSavePath()
+
         b.Save(file)
-        'picDest.Save("C:\Temp\" + Pl.Title + ".png")
+
 
         If chkHeatMap.Checked Then
             Dim h As Bitmap = Pl.HeatMap
-            'Dim b As Bitmap = Pl.Image
+
             Dim heatFileName As String = file.Insert((file.Length - 4), "_heatmap")
             h.Save(heatFileName)
+            h.Dispose()
         End If
 
         mainToolStripStatus.Text = "Image Saved: " & saveImagePath
         'Dispose of the images
-        'picDest.Dispose()
-        'bm_dest.Dispose()
+        b.Dispose()
     End Sub
 
     Private Sub btnStop_Click(sender As System.Object, e As System.EventArgs) Handles btnStop.Click
@@ -1008,9 +1009,9 @@ Public Class Main
     End Sub
     Private Function convertFileName(ByVal inputString As String) As String
 
-        inputString = inputString.Replace("<<TitleText>>", Pl.Title)
-        inputString = inputString.Replace("<<InfoText>>", INIRead(silentTemplateFile, "Title", "InfoText", ""))
-        inputString = inputString.Replace("<<SubText>>", INIRead(silentTemplateFile, "Title", "SubText", ""))
+        inputString = inputString.Replace("<<Title>>", Pl.Title)
+        inputString = inputString.Replace("<<Info>>", Pl.Info)
+        inputString = inputString.Replace("<<Sub>>", Pl.SubText)
         inputString = inputString & ".png"
         Return inputString
     End Function
