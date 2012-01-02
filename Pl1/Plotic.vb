@@ -51,31 +51,55 @@
         End If
     End Function
 
-    Public Function dropInMeters(ByVal presision As Integer) As Double
+    Public Overloads Function dropInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
         bulletDrop = (dblBulletDrop * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
         Return Math.Round(bulletDrop, presision)
     End Function
+    Public Overloads Function dropInMeters(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (dblBulletDrop * range ^ 2) / (2 * dblBulletVelocity ^ 2)
+        Return Math.Round(bulletDrop, presision)
+    End Function
 
-    Public Function correctionInMeters(ByVal presision As Integer) As Double
+    Public Overloads Function correctionInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
         bulletDrop = (Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
         bulletDrop = (bulletDrop * 0.5)
         bulletDrop = Me.TargetRange * (Math.Tan(bulletDrop))
         Return Math.Round(bulletDrop, presision)
     End Function
+    Public Overloads Function correctionInMeters(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (Math.Asin((range * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = (bulletDrop * 0.5)
+        bulletDrop = Me.TargetRange * (Math.Tan(bulletDrop))
+        Return Math.Round(bulletDrop, presision)
+    End Function
 
-    Public Function timeOfFlight(ByVal presision As Integer) As Double
+    Public Overloads Function timeOfFlight(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
         bulletDrop = Me.TargetRange / (Me.BulletVelocity * Math.Cos(((Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2))))))
         Return Math.Round(bulletDrop, presision)
     End Function
+    Public Overloads Function timeOfFlight(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = range / (Me.BulletVelocity * Math.Cos(((Math.Asin((range * Me.BulletDrop) / (Me.BulletVelocity ^ 2))))))
+        Return Math.Round(bulletDrop, presision)
+    End Function
 
-    Public Function dropInPixels() As Integer
+    Public Overloads Function dropInPixels() As Integer
         Return Math.Round((Math.Atan(Me.dropInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
     End Function
+    Public Overloads Function dropInPixels(ByVal range As Double) As Integer
+        Return Math.Round((Math.Atan(Me.dropInMeters(5) / range) * (180 / Math.PI)) * Me.Scale, 0)
+    End Function
+
     Public Function correctionInPixels() As Integer
         Return Math.Round((Math.Atan(Me.correctionInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
+    End Function
+    Public Function correctionInPixels(ByVal range As Double) As Integer
+        Return Math.Round((Math.Atan(Me.correctionInMeters(5) / range) * (180 / Math.PI)) * Me.Scale, 0)
     End Function
 #End Region
 #Region "Properties"
