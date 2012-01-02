@@ -103,6 +103,7 @@ Partial Class Main
         Me.tabRender = New System.Windows.Forms.TabPage()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
         Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
         Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
         Me.Label27 = New System.Windows.Forms.Label()
@@ -122,6 +123,7 @@ Partial Class Main
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.numBulletDrop = New System.Windows.Forms.NumericUpDown()
+        Me.Label33 = New System.Windows.Forms.Label()
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -140,8 +142,7 @@ Partial Class Main
         Me.chkHeatMap = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.picPlot = New System.Windows.Forms.PictureBox()
-        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
-        Me.Label33 = New System.Windows.Forms.Label()
+        Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -164,6 +165,7 @@ Partial Class Main
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -175,7 +177,6 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -867,7 +868,7 @@ Partial Class Main
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(429, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(398, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "version()"
         '
@@ -1048,7 +1049,7 @@ Partial Class Main
         'viewToolStrip
         '
         Me.viewToolStrip.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.viewToolStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewMainToolStripMenuItem, Me.ViewHeatMapToolStripMenuItem, Me.ViewMaskToolStripMenuItem})
+        Me.viewToolStrip.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ViewMainToolStripMenuItem, Me.ViewHeatMapToolStripMenuItem, Me.ViewMaskToolStripMenuItem, Me.ViewTTKToolStripMenuItem})
         Me.viewToolStrip.Image = CType(resources.GetObject("viewToolStrip.Image"), System.Drawing.Image)
         Me.viewToolStrip.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.viewToolStrip.Name = "viewToolStrip"
@@ -1173,6 +1174,20 @@ Partial Class Main
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Time to Kill"
         '
+        'numDropLineThickness
+        '
+        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
+        Me.numDropLineThickness.Location = New System.Drawing.Point(165, 23)
+        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDropLineThickness.Name = "numDropLineThickness"
+        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
+        Me.numDropLineThickness.TabIndex = 86
+        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
         'chkRenderBulletDrop
         '
         Me.chkRenderBulletDrop.AutoSize = True
@@ -1229,7 +1244,7 @@ Partial Class Main
         Me.numRateOfFire.ForeColor = System.Drawing.Color.SkyBlue
         Me.numRateOfFire.Location = New System.Drawing.Point(194, 117)
         Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.numRateOfFire.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numRateOfFire.Name = "numRateOfFire"
         Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
@@ -1360,8 +1375,8 @@ Partial Class Main
         Me.numMaxDistance.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numMaxDistance.ForeColor = System.Drawing.Color.SkyBlue
         Me.numMaxDistance.Location = New System.Drawing.Point(194, 74)
-        Me.numMaxDistance.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.numMaxDistance.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numMaxDistance.Maximum = New Decimal(New Integer() {5000, 0, 0, 0})
+        Me.numMaxDistance.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numMaxDistance.Name = "numMaxDistance"
         Me.numMaxDistance.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numMaxDistance.Size = New System.Drawing.Size(48, 20)
@@ -1406,6 +1421,17 @@ Partial Class Main
         Me.numBulletDrop.TabIndex = 67
         Me.numBulletDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.numBulletDrop.Value = New Decimal(New Integer() {15, 0, 0, 0})
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label33.ForeColor = System.Drawing.Color.White
+        Me.Label33.Location = New System.Drawing.Point(141, 26)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(27, 13)
+        Me.Label33.TabIndex = 87
+        Me.Label33.Text = "Line"
         '
         'tabSaveOptions
         '
@@ -1636,30 +1662,11 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
-        'numDropLineThickness
+        'ViewTTKToolStripMenuItem
         '
-        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
-        Me.numDropLineThickness.Location = New System.Drawing.Point(165, 23)
-        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numDropLineThickness.Name = "numDropLineThickness"
-        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
-        Me.numDropLineThickness.TabIndex = 86
-        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label33.ForeColor = System.Drawing.Color.White
-        Me.Label33.Location = New System.Drawing.Point(141, 26)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(27, 13)
-        Me.Label33.TabIndex = 87
-        Me.Label33.Text = "Line"
+        Me.ViewTTKToolStripMenuItem.Name = "ViewTTKToolStripMenuItem"
+        Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.ViewTTKToolStripMenuItem.Text = "View: TTK"
         '
         'Main
         '
@@ -1713,6 +1720,7 @@ Partial Class Main
         Me.tabRender.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1726,7 +1734,6 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1850,4 +1857,5 @@ Partial Class Main
     Friend WithEvents chkRenderHeatAdjust As System.Windows.Forms.CheckBox
     Friend WithEvents numDropLineThickness As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents ViewTTKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

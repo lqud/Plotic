@@ -168,6 +168,8 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 5
+        Dim rect As New Rectangle(3, 23, 350, 220)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
         g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
         g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
         g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
@@ -177,7 +179,10 @@ Public Class Main
     Public Sub drawDropInfo(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+
         Dim hPos As Integer = 5
+        Dim rect As New Rectangle(3, 248, 700, 180)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
         g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
         g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
         g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush2, hPos, 335)
@@ -188,6 +193,8 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 1550
+        Dim rect As New Rectangle(1528, 23, 465, 260)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
         g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush2, (hPos - 20), 25)
         g.DrawString("1st Bullet: " + Hit1.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
         g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
@@ -509,6 +516,8 @@ Public Class Main
 
         If silhouetteHeight > 9800 Then
             Pl.MaskGraphic.Clear(Color.White)
+            silhouetteHeight = 9800
+            silhouetteWidth = Math.Round(silhouetteHeight / silhouetteDiff, 0)
         Else
             soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
             Pl.MaskGraphic.Clear(Color.Black)
@@ -703,6 +712,18 @@ Public Class Main
         If chkWriteDropInfo.Checked Then
             'drawAdjustments(g)
             drawDropInfo(Pl.ImageGraphic)
+        End If
+        If chkRenderHeatBars.Checked Then
+            'drawAdjustments(g)
+            drawBars(Pl.HeatGraphic)
+        End If
+        If chkRenderHeatAdjust.Checked Then
+            'drawAdjustments(g)
+            drawAdjustments(Pl.HeatGraphic)
+        End If
+        If chkRenderHeatTitle.Checked Then
+            'drawAdjustments(g)
+            drawTitle(Pl.HeatGraphic)
         End If
         'Pl.Image = b
         'Pl.ImageGraphic = g
