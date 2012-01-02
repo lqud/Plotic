@@ -179,14 +179,23 @@ Public Class Main
     Public Sub drawDropInfo(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
-
+        Dim redBrush As New SolidBrush(Color.Red)
         Dim hPos As Integer = 5
         Dim rect As New Rectangle(3, 248, 700, 180)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
-        g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
-        g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
-        g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush2, hPos, 335)
-        g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
+
+        If Pl.TargetRange > Pl.MaxDistance Then
+            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
+            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 335)
+            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
+        Else
+            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
+            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush2, hPos, 335)
+            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
+        End If
+
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
     Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
