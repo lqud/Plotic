@@ -5,9 +5,11 @@
     Private bmpImage As Bitmap = New Bitmap(2000, 2000)
     Private bmpMask As Bitmap = New Bitmap(2000, 2000)
     Private bmpHeatMap As Bitmap = New Bitmap(2000, 2000)
+    Private bmpTTK As Bitmap = New Bitmap(2000, 2000)
     Private grhImageGraphic As Graphics = Graphics.FromImage(bmpImage)
     Private grhMaskGraphic As Graphics = Graphics.FromImage(bmpMask)
     Private grhHeatGraphic As Graphics = Graphics.FromImage(bmpHeatMap)
+    Private grhTTKGraphic As Graphics = Graphics.FromImage(bmpTTK)
     Private dblRecoilUp As Double
     Private dblRecoilRight As Double
     Private dblRecoilLeft As Double
