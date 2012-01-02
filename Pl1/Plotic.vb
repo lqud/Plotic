@@ -276,6 +276,14 @@
             bmpHeatMap = Value
         End Set
     End Property
+    Property TTK() As Bitmap
+        Get
+            Return bmpTTK
+        End Get
+        Set(ByVal Value As Bitmap)
+            bmpTTK = Value
+        End Set
+    End Property
 
     Property ImageGraphic() As Graphics
         Get
@@ -299,6 +307,14 @@
         End Get
         Set(ByVal Value As Graphics)
             grhHeatGraphic = Value
+        End Set
+    End Property
+    Property TTKGraphic() As Graphics
+        Get
+            Return grhTTKGraphic
+        End Get
+        Set(ByVal Value As Graphics)
+            grhTTKGraphic = Value
         End Set
     End Property
 #End Region
