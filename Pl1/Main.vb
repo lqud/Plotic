@@ -85,10 +85,13 @@ Public Class Main
         Dim xPixel As Integer = 10
         Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
-        g.DrawString("1m", New Font("Arial", 20), brushYellow, (xPixel - 5), 1960)
+        g.DrawString("1m", New Font("Arial", 25), brushYellow, (xPixel - 5), 1960)
+        g.DrawLine(penScale, xPixel, 1050, xPixel, 1950)
+        meterValue += numTTKGridSpacing.Value
+        xPixel = xPixel + pixelsPerNMeters
         Do While (xPixel < 1990)
             g.DrawLine(penScale, xPixel, 1050, xPixel, 1950)
-            g.DrawString(meterValue & "m", New Font("Arial", 20), brushYellow, (xPixel - 50), 1960)
+            g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), 1960)
             xPixel = xPixel + pixelsPerNMeters
             meterValue += numTTKGridSpacing.Value
         Loop
@@ -103,9 +106,10 @@ Public Class Main
         ' meterValue = 0
         'Draw Top Line
         g.DrawLine(penDamageEdge, 10, yPixel, 1950, yPixel)
-        g.DrawString(numDamageMax.Value, New Font("Arial", 20), brushBlue, 1950, (yPixel - 50))
+        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, 1950, (yPixel - 50))
+        g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
         yPixel = yPixel + pixelsPerLine
-        Do While (yPixel < 1950)
+        Do While (yPixel < (1950 - pixelsPerLine))
             g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
             g.DrawString(numDamageMax.Value, New Font("Arial", 20), brushBlue, 1950, (yPixel - 20))
             yPixel = yPixel + pixelsPerLine
@@ -113,7 +117,7 @@ Public Class Main
         Loop
         'Draw Bottom Line
         g.DrawLine(penDamageEdge, 10, 1950, 1950, 1950)
-        g.DrawString(numDamageMin.Value, New Font("Arial", 20), brushBlue, 1950, 1950)
+        g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
 
     Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
@@ -121,7 +125,11 @@ Public Class Main
         Dim centerx = 0
         Dim centy = 1500
 
-        Dim pixelsPerMeters As Integer = Math.Round(((1980 / numTTKRange.Value)), 0)
+        Dim pixelsPerMeter As Integer = Math.Round(((1980 / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
 
         Dim penRed As New System.Drawing.Pen(Color.Red, 5)
         Dim penWhite As New System.Drawing.Pen(Color.White, 1)
@@ -131,35 +139,47 @@ Public Class Main
         'Create point array
         Dim ptsDamage(1990) As Point
         'Calculate meters per pixel based on target distance
-        Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
+        'Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
 
         'Set first point
         For i = 0 To 9 Step 1
-            ptsDamage(i) = New Point(10, centy)
+            ptsDamage(i) = New Point(10, 1050)
         Next
         'ptsCorrection(0) = New Point(0, centy)
         'Calculate the position of the other points
+        Dim yValue As Integer = 0
         For i = 10 To 1990 Step 1
-            Dim rangeInMeters As Double = (i - 10) / pixelsPerMeter
 
-            'Dim dropInPixels As Integer = Math.Round(Pl.dropInMeters(5, rangeInMeters) * pixelsPerMeter, 0)
-            Dim correctionInPixels As Integer = Math.Round(Pl.dropInMeters(5, rangeInMeters) * pixelsPerMeter, 0)
-            Dim flightTime As Double = Pl.timeOfFlight(15, rangeInMeters)
-            Dim acceleration As Double = -15 * flightTime
-            'Debug.WriteLine(acceleration)
-            Dim agle As Double = (Pl.correctionAngle(5, Pl.TargetRange))
-            Dim test1 As Double = Pl.BulletVelocity * Math.Cos(Pl.correctionAngle(5, 1260) * (Math.PI / 180))
-            Dim VertDisplacement As Double = ((Pl.BulletVelocity * test1) * flightTime) + (0.5 * -(Pl.BulletDrop) * flightTime ^ 2)
-            Dim test3 As Double = 0.5 * -(Pl.BulletDrop) * flightTime ^ 2
-            Dim test4 As Integer = Math.Round(VertDisplacement, 0)
-            'g.DrawEllipse(penRed, i, (centy - test4), 1, 1)
+            Dim rangeInMeters As Double = i * metersperPixel
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = 1050
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = 1950
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = a / distanceDifference
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(900 * b, 2)
+                yValue = Math.Round(1050 + e, 0)
+
+                a = a
+
+            End If
+            Dim convertedDamage = 0
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
             'g.DrawEllipse(penWhite, i, (centy - correctionInPixels), 1, 1)
-            'ptsDrop(i) = New Point(i, (centy + dropInPixels))
+            'ptsDamage(i) = New Point(i, yValue)
             'ptsCorrection(i) = New Point(i, (centy - correctionInPixels))
 
         Next
         'g.DrawLines(penRed, ptsDrop)
-        'g.DrawLines(penWhite, ptsCorrection)
+        g.DrawLines(penWhite, ptsDamage)
     End Sub
 
 
@@ -1258,7 +1278,7 @@ Public Class Main
 
 #End Region
 
-    Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs)
+    Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSaveImage.CheckedChanged
         If chkSaveImage.Checked And saveImagePath = "" Then
             btnSaveImage_Click()
         End If
