@@ -97,27 +97,29 @@ Public Class Main
         Loop
 
         Dim yPixel As Integer = 1050
-        Dim pixelsPerLine As Double = Math.Round(900 / numDamageSplitter.Value, 0)
+        Dim pixelsPerLine As Double = Math.Round(900 / (numDamageMax.Value - numDamageMin.Value) * numDamageSplitter.Value, 0)
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
         Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
         penDamage.DashStyle = Drawing2D.DashStyle.Dash
 
         ' pixelsPerNMeters = Math.Round((numTTKGridSpacing.Value * (1980 / 80)), 0)
-        ' meterValue = 0
+        Dim meterYValue As Integer = pixelsPerLine
         'Draw Top Line
         g.DrawLine(penDamageEdge, 10, yPixel, 1950, yPixel)
-        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, 1950, (yPixel - 50))
+        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, 1910, (yPixel + 5))
         g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
         yPixel = yPixel + pixelsPerLine
-        Do While (yPixel < (1950 - pixelsPerLine))
+        Do While (yPixel < (1950))
+            Dim linePercent As Double = meterYValue / 900
+            Dim lineDamage As Double = Math.Round(numDamageMax.Value - ((numDamageMax.Value - numDamageMin.Value) * linePercent), 1)
             g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
-            g.DrawString(numDamageMax.Value, New Font("Arial", 20), brushBlue, 1950, (yPixel - 20))
+            g.DrawString(lineDamage, New Font("Arial", 20), brushBlue, 1910, (yPixel + 5))
             yPixel = yPixel + pixelsPerLine
-            meterValue += pixelsPerLine
+            meterYValue += pixelsPerLine
         Loop
         'Draw Bottom Line
         g.DrawLine(penDamageEdge, 10, 1950, 1950, 1950)
-        g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
+        'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
 
     Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
@@ -137,15 +139,10 @@ Public Class Main
         penWhite.DashStyle = Drawing2D.DashStyle.Solid
         'g.DrawLine(penWhite, 0, 1500, 2000, 1500)
         'Create point array
-        Dim ptsDamage(1990) As Point
+
         'Calculate meters per pixel based on target distance
         'Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
 
-        'Set first point
-        For i = 0 To 9 Step 1
-            ptsDamage(i) = New Point(10, 1050)
-        Next
-        'ptsCorrection(0) = New Point(0, centy)
         'Calculate the position of the other points
         Dim yValue As Integer = 0
         For i = 10 To 1990 Step 1
@@ -167,19 +164,12 @@ Public Class Main
                 Dim e As Double = Math.Round(900 * b, 2)
                 yValue = Math.Round(1050 + e, 0)
 
-                a = a
-
             End If
-            Dim convertedDamage = 0
 
             g.DrawEllipse(penRed, i, yValue, 1, 1)
-            'g.DrawEllipse(penWhite, i, (centy - correctionInPixels), 1, 1)
-            'ptsDamage(i) = New Point(i, yValue)
-            'ptsCorrection(i) = New Point(i, (centy - correctionInPixels))
 
         Next
-        'g.DrawLines(penRed, ptsDrop)
-        g.DrawLines(penWhite, ptsDamage)
+
     End Sub
 
 
