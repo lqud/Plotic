@@ -62,6 +62,65 @@ Public Class Main
             CreateTemplateIni()
         End If
     End Sub
+
+    Public Sub drawTTKSplit(ByVal g As Graphics)
+        g.Clear(Color.Black)
+        Dim centerx = 1000
+        Dim centy = 1680
+        Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 5)
+        pen6.DashStyle = Drawing2D.DashStyle.Solid
+        g.DrawLine(pen6, 1000, 0, 1000, 1000)
+        g.DrawLine(pen6, 0, 1000, 2000, 1000)
+    End Sub
+    Public Sub drawTTKGrid(ByVal g As Graphics)
+        Dim centerx = 1000
+        Dim centy = 1680
+        Dim greenBrush1 As New SolidBrush(Color.Yellow)
+        Dim penScale As New System.Drawing.Pen(Color.Yellow, 3)
+        penScale.DashStyle = Drawing2D.DashStyle.Dot
+
+        Dim xPixel As Integer = 10
+        Dim pixelsPer100Meters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numMeters.Value)), 0)
+        Dim meterValue As Integer = 0
+        For i = 0 To 70 Step 1
+            g.DrawLine(penScale, xPixel, 1006, xPixel, 1900)
+            g.DrawString(meterValue & "m", New Font("Arial", 20), greenBrush1, (xPixel - 60), 1910)
+            xPixel = xPixel + pixelsPer100Meters
+            meterValue += numTTKGridSpacing.Value
+        Next
+    End Sub
+
+    Public Sub drawTTKBulletDropArc(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim centerx = 0
+        Dim centy = 1500
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 5)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 5)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+        'Create point array
+        Dim ptsDrop(1980) As Point
+        Dim ptsCorrection(1980) As Point
+        'Calculate meters per pixel based on target distance
+        Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
+
+        'Set first point
+        ptsDrop(0) = New Point(0, centy)
+        ptsCorrection(0) = New Point(0, centy)
+        'Calculate the position of the other points
+        For i = 1 To 1980 Step 1
+            Dim rangeInMeters As Double = i / pixelsPerMeter
+            Dim dropInPixels As Integer = Pl.dropInPixels(rangeInMeters, numTTKScale.Value)
+            Dim correctionInPixels As Integer = Pl.correctionInPixels(rangeInMeters, numTTKScale.Value)
+            ptsDrop(i) = New Point(i, (centy + dropInPixels))
+            ptsCorrection(i) = New Point(i, (centy - correctionInPixels))
+        Next
+        g.DrawLines(penRed, ptsDrop)
+        g.DrawLines(penWhite, ptsCorrection)
+    End Sub
+
+
     Private Function calculateBulletDrop(ByVal velocity As Double, ByVal range As Double, ByVal drop As Double) As Double
         Dim bulletDrop As Double = 0
         bulletDrop = (drop * range ^ 2) / (2 * velocity ^ 2)
@@ -69,6 +128,8 @@ Public Class Main
     End Function
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim rect As New Rectangle(700, 28, 675, 250)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
         g.DrawString(txtTitle.Text, New Font("Arial", 90), greenBrush1, 800, 30)
         g.DrawString(txtInfo.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
         g.DrawString(txtSub.Text, New Font("Consolas", 40), greenBrush1, 710, 220)
@@ -169,7 +230,7 @@ Public Class Main
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 5
         Dim rect As New Rectangle(3, 23, 350, 220)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
         g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
         g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
         g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
@@ -182,7 +243,7 @@ Public Class Main
         Dim redBrush As New SolidBrush(Color.Red)
         Dim hPos As Integer = 5
         Dim rect As New Rectangle(3, 248, 700, 180)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
         If Pl.TargetRange > Pl.MaxDistance Then
             g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
@@ -203,7 +264,7 @@ Public Class Main
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 1550
         Dim rect As New Rectangle(1528, 23, 465, 260)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 34, 34, 34)), rect)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
         g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush2, (hPos - 20), 25)
         g.DrawString("1st Bullet: " + Hit1.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
         g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
@@ -329,6 +390,7 @@ Public Class Main
 
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Image)
             Case "heat"
                 SetToolStripText_ThreadSafe("View: Heat map")
@@ -336,20 +398,32 @@ Public Class Main
 
                 CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.HeatMap)
             Case "mask"
                 SetToolStripText_ThreadSafe("View: Mask")
                 CheckToolStripMask_ThreadSafe(CheckState.Checked)
 
                 CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Mask)
+
+            Case "ttk"
+                SetToolStripText_ThreadSafe("View: TTK")
+                CheckToolStripTTK_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.TTK)
             Case Else
                 SetToolStripText_ThreadSafe("View: Main")
                 CheckToolStripMain_ThreadSafe(CheckState.Checked)
 
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Image)
 
                 SetOutPutText_ThreadSafe("View: '" & view & " NOT FOUND")
@@ -684,7 +758,7 @@ Public Class Main
             Application.DoEvents()
             Debug.WriteLine("Bursts: " & intBursts)
             Debug.WriteLine("Hits #1: " & aryHits(0))
-            SetHitRateText_ThreadSafe("1st. bullet: " + Math.Round((aryHits(0) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
+            Debug.WriteLine("1st. bullet: " + Math.Round((aryHits(0) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
                    "2nd. bullet: " + Math.Round((aryHits(1) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
                    "3rd. bullet: " + Math.Round((aryHits(2) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
                    "4th. bullet: " + Math.Round((aryHits(3) / (intBursts + 1) * 100), 2).ToString + "%" + nl + _
@@ -700,44 +774,38 @@ Public Class Main
             Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, numHeatRadius.Value)
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
-            'Pl.HeatMap = b
         End If
         If chkTitles.Checked Then
-            'drawTitle(g)
             drawTitle(Pl.ImageGraphic)
         End If
         If chkPrintAdj.Checked Then
-            'drawAdjustments(g)
             drawAdjustments(Pl.ImageGraphic)
         End If
-        If chkDrawGrid.Checked Then
-            'drawGrid(g)
-            drawGrid(Pl.ImageGraphic)
-        End If
         If chkRenderBulletDrop.Checked Then
-            'drawGrid(g)
             drawBulletDrop(Pl.ImageGraphic)
         End If
         If chkWriteDropInfo.Checked Then
-            'drawAdjustments(g)
             drawDropInfo(Pl.ImageGraphic)
         End If
+        If chkDrawGrid.Checked Then
+            drawGrid(Pl.ImageGraphic)
+        End If
         If chkRenderHeatBars.Checked Then
-            'drawAdjustments(g)
             drawBars(Pl.HeatGraphic)
         End If
         If chkRenderHeatAdjust.Checked Then
-            'drawAdjustments(g)
             drawAdjustments(Pl.HeatGraphic)
         End If
         If chkRenderHeatTitle.Checked Then
-            'drawAdjustments(g)
             drawTitle(Pl.HeatGraphic)
         End If
-        'Pl.Image = b
-        'Pl.ImageGraphic = g
+        drawTTKSplit(Pl.TTKGraphic)
+        If chkDrawTTKGrid.Checked Then
+            drawTTKGrid(Pl.TTKGraphic)
+        End If
+        drawTTKBulletDropArc(Pl.TTKGraphic)
         ToggleToolStripMain_ThreadSafe(True)
-        selectView("main")
+        selectView("ttk")
         ToggleToolStripMask_ThreadSafe(True)
     End Sub
 
@@ -775,24 +843,31 @@ Public Class Main
     End Sub
     Private Sub SaveImage()
 
-        Dim b As Bitmap = Pl.Image
+        Dim b As New Bitmap(Pl.Image)
 
         Dim file = saveImagePath
 
         b.Save(file)
+        b.Dispose()
 
-
-        If chkHeatMap.Checked Then
-            Dim h As Bitmap = Pl.HeatMap
+        If chkHeatMap.Checked And chkSaveHeatMap.Checked Then
+            Dim h As New Bitmap(Pl.HeatMap)
 
             Dim heatFileName As String = file.Insert((file.Length - 4), "_heatmap")
             h.Save(heatFileName)
             h.Dispose()
         End If
 
+        If chkSaveTTKChart.Checked Then
+            Dim t As New Bitmap(Pl.TTK)
+
+            Dim ttkFileName As String = file.Insert((file.Length - 4), "_TTK")
+            t.Save(ttkFileName)
+            t.Dispose()
+        End If
+
         mainToolStripStatus.Text = "Image Saved: " & saveImagePath
         'Dispose of the images
-        b.Dispose()
     End Sub
 
     Private Sub btnStop_Click(sender As System.Object, e As System.EventArgs) Handles btnStop.Click
@@ -1052,7 +1127,12 @@ Public Class Main
     End Sub
     Delegate Sub CheckToolStripMain_Delegate(ByVal [checked] As CheckState)
     Private Sub CheckToolStripMain_ThreadSafe(ByVal [checked] As CheckState)
-        ViewMainToolStripMenuItem.CheckState = [checked]
+        If picPlot.InvokeRequired Then
+            Dim MyDelegate As New CheckToolStripMain_Delegate(AddressOf CheckToolStripMain_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[checked]})
+        Else
+            ViewMainToolStripMenuItem.CheckState = [checked]
+        End If
     End Sub
     Delegate Sub ToggleToolStripHeatMap_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
@@ -1063,12 +1143,21 @@ Public Class Main
     Private Sub CheckToolStripHeatMap_ThreadSafe(ByVal [checked] As CheckState)
         ViewHeatMapToolStripMenuItem.CheckState = [checked]
     End Sub
+    Delegate Sub CheckToolStripTTK_Delegate(ByVal [checked] As CheckState)
+    Private Sub CheckToolStripTTK_ThreadSafe(ByVal [checked] As CheckState)
+        If picPlot.InvokeRequired Then
+            Dim MyDelegate As New CheckToolStripTTK_Delegate(AddressOf CheckToolStripTTK_ThreadSafe)
+            Me.Invoke(MyDelegate, New Object() {[checked]})
+        Else
+            ViewTTKToolStripMenuItem.CheckState = [checked]
+        End If
+    End Sub
     Delegate Sub ToggleToolStripMask_Delegate(ByVal [viewBool] As Boolean)
     ' The delegates subroutine.
     Private Sub ToggleToolStripMask_ThreadSafe(ByVal [viewBool] As Boolean)
         ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
         ' If these threads are different, it returns true.
-        If txtHitRateResult.InvokeRequired Then
+        If picPlot.InvokeRequired Then
             Dim MyDelegate As New ToggleToolStripMask_Delegate(AddressOf ToggleToolStripMask_ThreadSafe)
             Me.Invoke(MyDelegate, New Object() {[viewBool]})
         Else
@@ -1079,7 +1168,7 @@ Public Class Main
     Private Sub CheckToolStripMask_ThreadSafe(ByVal [checked] As CheckState)
         ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
         ' If these threads are different, it returns true.
-        If txtHitRateResult.InvokeRequired Then
+        If picPlot.InvokeRequired Then
             Dim MyDelegate As New CheckToolStripMask_Delegate(AddressOf CheckToolStripMask_ThreadSafe)
             Me.Invoke(MyDelegate, New Object() {[checked]})
         Else
@@ -1098,18 +1187,6 @@ Public Class Main
         mainToolStripStatus.Text = [text]
     End Sub
 
-    Delegate Sub SetHitRate_Delegate(ByVal [text] As String)
-    ' The delegates subroutine.
-    Private Sub SetHitRateText_ThreadSafe(ByVal [text] As String)
-        ' InvokeRequired required compares the thread ID of the calling thread to the thread ID of the creating thread.
-        ' If these threads are different, it returns true.
-        If txtHitRateResult.InvokeRequired Then
-            Dim MyDelegate As New SetHitRate_Delegate(AddressOf SetHitRateText_ThreadSafe)
-            Me.Invoke(MyDelegate, New Object() {[text]})
-        Else
-            txtHitRateResult.Text = [text]
-        End If
-    End Sub
 
     Delegate Sub addBurstCount_Delegate()
     ' The delegates subroutine.
@@ -1452,6 +1529,10 @@ ByVal DefaultValue As String) As String
 
     Private Sub ViewMaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMaskToolStripMenuItem.Click
         selectView("mask")
+    End Sub
+
+    Private Sub ViewTTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewTTKToolStripMenuItem.Click
+        selectView("ttk")
     End Sub
 End Class
 Public Structure HeatPoint
