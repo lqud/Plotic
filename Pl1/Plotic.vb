@@ -73,7 +73,7 @@
         Dim bulletDrop As Double = 0
         bulletDrop = (Math.Asin((range * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
         bulletDrop = (bulletDrop * 0.5)
-        bulletDrop = Me.TargetRange * (Math.Tan(bulletDrop))
+        bulletDrop = range * (Math.Tan(bulletDrop))
         Return Math.Round(bulletDrop, presision)
     End Function
 
@@ -91,15 +91,15 @@
     Public Overloads Function dropInPixels() As Integer
         Return Math.Round((Math.Atan(Me.dropInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
     End Function
-    Public Overloads Function dropInPixels(ByVal range As Double) As Integer
-        Return Math.Round((Math.Atan(Me.dropInMeters(5) / range) * (180 / Math.PI)) * Me.Scale, 0)
+    Public Overloads Function dropInPixels(ByVal range As Double, ByVal scale As Integer) As Integer
+        Return Math.Round((Math.Atan(Me.dropInMeters(5, range) / range) * (180 / Math.PI)) * scale, 0)
     End Function
 
     Public Function correctionInPixels() As Integer
         Return Math.Round((Math.Atan(Me.correctionInMeters(5) / Me.TargetRange) * (180 / Math.PI)) * Me.Scale, 0)
     End Function
-    Public Function correctionInPixels(ByVal range As Double) As Integer
-        Return Math.Round((Math.Atan(Me.correctionInMeters(5) / range) * (180 / Math.PI)) * Me.Scale, 0)
+    Public Function correctionInPixels(ByVal range As Double, ByVal scale As Integer) As Integer
+        Return Math.Round((Math.Atan(Me.correctionInMeters(5, range) / range) * (180 / Math.PI)) * scale, 0)
     End Function
 #End Region
 #Region "Properties"
