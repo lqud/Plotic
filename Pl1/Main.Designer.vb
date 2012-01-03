@@ -79,11 +79,9 @@ Partial Class Main
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
         Me.mainToolStripStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
         Me.txtScale = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.chkTitles = New System.Windows.Forms.CheckBox()
-        Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
         Me.numMeters = New System.Windows.Forms.NumericUpDown()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.radDegrees = New System.Windows.Forms.RadioButton()
@@ -102,9 +100,6 @@ Partial Class Main
         Me.tabRender = New System.Windows.Forms.TabPage()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
-        Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
-        Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
@@ -122,7 +117,6 @@ Partial Class Main
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.numBulletDrop = New System.Windows.Forms.NumericUpDown()
-        Me.Label33 = New System.Windows.Forms.Label()
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -142,7 +136,7 @@ Partial Class Main
         Me.Label13 = New System.Windows.Forms.Label()
         Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.numTTKScale = New System.Windows.Forms.NumericUpDown()
+        Me.numTTKRange = New System.Windows.Forms.NumericUpDown()
         Me.numTTKGridSpacing = New System.Windows.Forms.NumericUpDown()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.chkDrawTTKGrid = New System.Windows.Forms.CheckBox()
@@ -154,6 +148,17 @@ Partial Class Main
         Me.numMinRange = New System.Windows.Forms.NumericUpDown()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.Label38 = New System.Windows.Forms.Label()
+        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
+        Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
+        Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
+        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.numDamageSplitter = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -176,7 +181,6 @@ Partial Class Main
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
         Me.TabPage2.SuspendLayout()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -188,10 +192,12 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numTTKScale, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTTKGridSpacing, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMaxRange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMinRange, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDamageSplitter, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -415,7 +421,7 @@ Partial Class Main
         Me.chkPrintAdj.Checked = True
         Me.chkPrintAdj.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
-        Me.chkPrintAdj.Location = New System.Drawing.Point(99, 7)
+        Me.chkPrintAdj.Location = New System.Drawing.Point(6, 41)
         Me.chkPrintAdj.Name = "chkPrintAdj"
         Me.chkPrintAdj.Size = New System.Drawing.Size(83, 17)
         Me.chkPrintAdj.TabIndex = 43
@@ -900,20 +906,6 @@ Partial Class Main
         Me.ToolStripStatusLabel2.Text = "http://symthic.com"
         Me.ToolStripStatusLabel2.ToolTipText = "http://symthic.com"
         '
-        'chkDrawTTK
-        '
-        Me.chkDrawTTK.AutoSize = True
-        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkDrawTTK.Checked = True
-        Me.chkDrawTTK.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(7, 24)
-        Me.chkDrawTTK.Name = "chkDrawTTK"
-        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
-        Me.chkDrawTTK.TabIndex = 60
-        Me.chkDrawTTK.Text = "Write hit rates"
-        Me.chkDrawTTK.UseVisualStyleBackColor = False
-        '
         'txtScale
         '
         Me.txtScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -942,26 +934,12 @@ Partial Class Main
         Me.chkTitles.Checked = True
         Me.chkTitles.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTitles.ForeColor = System.Drawing.Color.White
-        Me.chkTitles.Location = New System.Drawing.Point(99, 24)
+        Me.chkTitles.Location = New System.Drawing.Point(6, 58)
         Me.chkTitles.Name = "chkTitles"
         Me.chkTitles.Size = New System.Drawing.Size(51, 17)
         Me.chkTitles.TabIndex = 57
         Me.chkTitles.Text = "Titles"
         Me.chkTitles.UseVisualStyleBackColor = False
-        '
-        'chkTimeToKill
-        '
-        Me.chkTimeToKill.AutoSize = True
-        Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkTimeToKill.Checked = True
-        Me.chkTimeToKill.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
-        Me.chkTimeToKill.Location = New System.Drawing.Point(7, 8)
-        Me.chkTimeToKill.Name = "chkTimeToKill"
-        Me.chkTimeToKill.Size = New System.Drawing.Size(204, 17)
-        Me.chkTimeToKill.TabIndex = 54
-        Me.chkTimeToKill.Text = "Average time to kill @ distance of grid"
-        Me.chkTimeToKill.UseVisualStyleBackColor = False
         '
         'numMeters
         '
@@ -1115,6 +1093,12 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.numDropLineThickness)
+        Me.tabRender.Controls.Add(Me.Label33)
+        Me.tabRender.Controls.Add(Me.chkRenderBulletDrop)
+        Me.tabRender.Controls.Add(Me.chkWriteDropInfo)
+        Me.tabRender.Controls.Add(Me.chkTimeToKill)
+        Me.tabRender.Controls.Add(Me.chkDrawTTK)
         Me.tabRender.Controls.Add(Me.numLineSpace)
         Me.tabRender.Controls.Add(Me.Label16)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
@@ -1128,6 +1112,7 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.Label14)
         Me.tabRender.Controls.Add(Me.radMeters)
         Me.tabRender.Controls.Add(Me.radDegrees)
+        Me.tabRender.Controls.Add(Me.Label39)
         Me.tabRender.Location = New System.Drawing.Point(4, 25)
         Me.tabRender.Name = "tabRender"
         Me.tabRender.Padding = New System.Windows.Forms.Padding(3)
@@ -1148,18 +1133,18 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.Label42)
+        Me.TabPage2.Controls.Add(Me.numDamageSplitter)
+        Me.TabPage2.Controls.Add(Me.Label41)
+        Me.TabPage2.Controls.Add(Me.Label40)
         Me.TabPage2.Controls.Add(Me.Label38)
         Me.TabPage2.Controls.Add(Me.Label37)
         Me.TabPage2.Controls.Add(Me.numMinRange)
         Me.TabPage2.Controls.Add(Me.numMaxRange)
-        Me.TabPage2.Controls.Add(Me.numDropLineThickness)
-        Me.TabPage2.Controls.Add(Me.Label33)
         Me.TabPage2.Controls.Add(Me.Label35)
         Me.TabPage2.Controls.Add(Me.numTTKGridSpacing)
         Me.TabPage2.Controls.Add(Me.chkDrawTTKGrid)
-        Me.TabPage2.Controls.Add(Me.numTTKScale)
-        Me.TabPage2.Controls.Add(Me.chkRenderBulletDrop)
-        Me.TabPage2.Controls.Add(Me.chkWriteDropInfo)
+        Me.TabPage2.Controls.Add(Me.numTTKRange)
         Me.TabPage2.Controls.Add(Me.Label27)
         Me.TabPage2.Controls.Add(Me.Label28)
         Me.TabPage2.Controls.Add(Me.numRateOfFire)
@@ -1177,8 +1162,6 @@ Partial Class Main
         Me.TabPage2.Controls.Add(Me.Label18)
         Me.TabPage2.Controls.Add(Me.Label17)
         Me.TabPage2.Controls.Add(Me.numBulletDrop)
-        Me.TabPage2.Controls.Add(Me.chkTimeToKill)
-        Me.TabPage2.Controls.Add(Me.chkDrawTTK)
         Me.TabPage2.Controls.Add(Me.Label34)
         Me.TabPage2.Controls.Add(Me.Label36)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
@@ -1188,54 +1171,12 @@ Partial Class Main
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Time to Kill"
         '
-        'numDropLineThickness
-        '
-        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
-        Me.numDropLineThickness.Location = New System.Drawing.Point(104, 54)
-        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numDropLineThickness.Name = "numDropLineThickness"
-        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
-        Me.numDropLineThickness.TabIndex = 86
-        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
-        'chkRenderBulletDrop
-        '
-        Me.chkRenderBulletDrop.AutoSize = True
-        Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderBulletDrop.Checked = True
-        Me.chkRenderBulletDrop.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
-        Me.chkRenderBulletDrop.Location = New System.Drawing.Point(7, 56)
-        Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
-        Me.chkRenderBulletDrop.Size = New System.Drawing.Size(78, 17)
-        Me.chkRenderBulletDrop.TabIndex = 85
-        Me.chkRenderBulletDrop.Text = "Bullet Drop"
-        Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
-        '
-        'chkWriteDropInfo
-        '
-        Me.chkWriteDropInfo.AutoSize = True
-        Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkWriteDropInfo.Checked = True
-        Me.chkWriteDropInfo.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
-        Me.chkWriteDropInfo.Location = New System.Drawing.Point(7, 40)
-        Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
-        Me.chkWriteDropInfo.Size = New System.Drawing.Size(98, 17)
-        Me.chkWriteDropInfo.TabIndex = 83
-        Me.chkWriteDropInfo.Text = "Write Drop Info"
-        Me.chkWriteDropInfo.UseVisualStyleBackColor = False
-        '
         'Label27
         '
         Me.Label27.AutoSize = True
         Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label27.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label27.Location = New System.Drawing.Point(282, 120)
+        Me.Label27.ForeColor = System.Drawing.Color.Lime
+        Me.Label27.Location = New System.Drawing.Point(221, 58)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(24, 13)
         Me.Label27.TabIndex = 82
@@ -1245,8 +1186,8 @@ Partial Class Main
         '
         Me.Label28.AutoSize = True
         Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label28.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label28.Location = New System.Drawing.Point(200, 120)
+        Me.Label28.ForeColor = System.Drawing.Color.Lime
+        Me.Label28.Location = New System.Drawing.Point(139, 58)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(29, 13)
         Me.Label28.TabIndex = 81
@@ -1255,8 +1196,8 @@ Partial Class Main
         'numRateOfFire
         '
         Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRateOfFire.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numRateOfFire.Location = New System.Drawing.Point(232, 117)
+        Me.numRateOfFire.ForeColor = System.Drawing.Color.Lime
+        Me.numRateOfFire.Location = New System.Drawing.Point(171, 55)
         Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
         Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numRateOfFire.Name = "numRateOfFire"
@@ -1271,7 +1212,7 @@ Partial Class Main
         Me.Label25.AutoSize = True
         Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label25.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label25.Location = New System.Drawing.Point(220, 99)
+        Me.Label25.Location = New System.Drawing.Point(217, 33)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(67, 13)
         Me.Label25.TabIndex = 79
@@ -1282,7 +1223,7 @@ Partial Class Main
         Me.Label26.AutoSize = True
         Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label26.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label26.Location = New System.Drawing.Point(337, 100)
+        Me.Label26.Location = New System.Drawing.Point(334, 34)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(25, 13)
         Me.Label26.TabIndex = 77
@@ -1293,7 +1234,7 @@ Partial Class Main
         Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
         Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.numBulletVelocity.Location = New System.Drawing.Point(287, 96)
+        Me.numBulletVelocity.Location = New System.Drawing.Point(284, 30)
         Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
         Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numBulletVelocity.Name = "numBulletVelocity"
@@ -1308,7 +1249,7 @@ Partial Class Main
         Me.numDamageMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numDamageMin.DecimalPlaces = 1
         Me.numDamageMin.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numDamageMin.Location = New System.Drawing.Point(233, 29)
+        Me.numDamageMin.Location = New System.Drawing.Point(76, 28)
         Me.numDamageMin.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numDamageMin.Name = "numDamageMin"
         Me.numDamageMin.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1322,7 +1263,7 @@ Partial Class Main
         Me.numDamageMax.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numDamageMax.DecimalPlaces = 1
         Me.numDamageMax.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numDamageMax.Location = New System.Drawing.Point(233, 6)
+        Me.numDamageMax.Location = New System.Drawing.Point(76, 5)
         Me.numDamageMax.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numDamageMax.Name = "numDamageMax"
         Me.numDamageMax.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -1336,7 +1277,7 @@ Partial Class Main
         Me.Label23.AutoSize = True
         Me.Label23.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label23.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label23.Location = New System.Drawing.Point(209, 33)
+        Me.Label23.Location = New System.Drawing.Point(52, 32)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(24, 13)
         Me.Label23.TabIndex = 74
@@ -1347,7 +1288,7 @@ Partial Class Main
         Me.Label22.AutoSize = True
         Me.Label22.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label22.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label22.Location = New System.Drawing.Point(206, 10)
+        Me.Label22.Location = New System.Drawing.Point(49, 9)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(27, 13)
         Me.Label22.TabIndex = 73
@@ -1358,7 +1299,7 @@ Partial Class Main
         Me.Label21.AutoSize = True
         Me.Label21.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label21.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label21.Location = New System.Drawing.Point(163, 23)
+        Me.Label21.Location = New System.Drawing.Point(6, 22)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(47, 13)
         Me.Label21.TabIndex = 72
@@ -1368,8 +1309,8 @@ Partial Class Main
         '
         Me.Label20.AutoSize = True
         Me.Label20.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label20.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label20.Location = New System.Drawing.Point(281, 79)
+        Me.Label20.ForeColor = System.Drawing.Color.Lime
+        Me.Label20.Location = New System.Drawing.Point(107, 57)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(15, 13)
         Me.Label20.TabIndex = 71
@@ -1379,8 +1320,8 @@ Partial Class Main
         '
         Me.Label19.AutoSize = True
         Me.Label19.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label19.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label19.Location = New System.Drawing.Point(180, 79)
+        Me.Label19.ForeColor = System.Drawing.Color.Lime
+        Me.Label19.Location = New System.Drawing.Point(6, 57)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(51, 13)
         Me.Label19.TabIndex = 70
@@ -1389,8 +1330,8 @@ Partial Class Main
         'numMaxDistance
         '
         Me.numMaxDistance.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numMaxDistance.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numMaxDistance.Location = New System.Drawing.Point(232, 76)
+        Me.numMaxDistance.ForeColor = System.Drawing.Color.Lime
+        Me.numMaxDistance.Location = New System.Drawing.Point(58, 54)
         Me.numMaxDistance.Maximum = New Decimal(New Integer() {5000, 0, 0, 0})
         Me.numMaxDistance.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numMaxDistance.Name = "numMaxDistance"
@@ -1405,7 +1346,7 @@ Partial Class Main
         Me.Label18.AutoSize = True
         Me.Label18.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label18.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label18.Location = New System.Drawing.Point(220, 58)
+        Me.Label18.Location = New System.Drawing.Point(217, 9)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(65, 13)
         Me.Label18.TabIndex = 68
@@ -1416,7 +1357,7 @@ Partial Class Main
         Me.Label17.AutoSize = True
         Me.Label17.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label17.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label17.Location = New System.Drawing.Point(337, 59)
+        Me.Label17.Location = New System.Drawing.Point(334, 10)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(25, 13)
         Me.Label17.TabIndex = 40
@@ -1428,7 +1369,7 @@ Partial Class Main
         Me.numBulletDrop.DecimalPlaces = 2
         Me.numBulletDrop.ForeColor = System.Drawing.Color.LightGreen
         Me.numBulletDrop.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.numBulletDrop.Location = New System.Drawing.Point(287, 55)
+        Me.numBulletDrop.Location = New System.Drawing.Point(284, 6)
         Me.numBulletDrop.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
         Me.numBulletDrop.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numBulletDrop.Name = "numBulletDrop"
@@ -1437,17 +1378,6 @@ Partial Class Main
         Me.numBulletDrop.TabIndex = 67
         Me.numBulletDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.numBulletDrop.Value = New Decimal(New Integer() {15, 0, 0, 0})
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label33.ForeColor = System.Drawing.Color.White
-        Me.Label33.Location = New System.Drawing.Point(78, 57)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(27, 13)
-        Me.Label33.TabIndex = 87
-        Me.Label33.Text = "Line"
         '
         'tabSaveOptions
         '
@@ -1582,8 +1512,7 @@ Partial Class Main
         '
         Me.chkRenderHeatBars.AutoSize = True
         Me.chkRenderHeatBars.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderHeatBars.Checked = True
-        Me.chkRenderHeatBars.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRenderHeatBars.Enabled = False
         Me.chkRenderHeatBars.ForeColor = System.Drawing.Color.White
         Me.chkRenderHeatBars.Location = New System.Drawing.Point(273, 42)
         Me.chkRenderHeatBars.Name = "chkRenderHeatBars"
@@ -1596,8 +1525,7 @@ Partial Class Main
         '
         Me.chkRenderHeatTitle.AutoSize = True
         Me.chkRenderHeatTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderHeatTitle.Checked = True
-        Me.chkRenderHeatTitle.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRenderHeatTitle.Enabled = False
         Me.chkRenderHeatTitle.ForeColor = System.Drawing.Color.White
         Me.chkRenderHeatTitle.Location = New System.Drawing.Point(273, 25)
         Me.chkRenderHeatTitle.Name = "chkRenderHeatTitle"
@@ -1610,6 +1538,7 @@ Partial Class Main
         '
         Me.chkRenderHeatAdjust.AutoSize = True
         Me.chkRenderHeatAdjust.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderHeatAdjust.Enabled = False
         Me.chkRenderHeatAdjust.ForeColor = System.Drawing.Color.White
         Me.chkRenderHeatAdjust.Location = New System.Drawing.Point(273, 8)
         Me.chkRenderHeatAdjust.Name = "chkRenderHeatAdjust"
@@ -1686,20 +1615,20 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ViewTTKToolStripMenuItem.Text = "View: TTK"
         '
-        'numTTKScale
+        'numTTKRange
         '
-        Me.numTTKScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numTTKScale.ForeColor = System.Drawing.Color.LightGreen
-        Me.numTTKScale.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.numTTKScale.Location = New System.Drawing.Point(47, 91)
-        Me.numTTKScale.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
-        Me.numTTKScale.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numTTKScale.Name = "numTTKScale"
-        Me.numTTKScale.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numTTKScale.Size = New System.Drawing.Size(48, 20)
-        Me.numTTKScale.TabIndex = 88
-        Me.numTTKScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numTTKScale.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.numTTKRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numTTKRange.ForeColor = System.Drawing.Color.LightGreen
+        Me.numTTKRange.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.numTTKRange.Location = New System.Drawing.Point(52, 91)
+        Me.numTTKRange.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
+        Me.numTTKRange.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numTTKRange.Name = "numTTKRange"
+        Me.numTTKRange.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numTTKRange.Size = New System.Drawing.Size(43, 20)
+        Me.numTTKRange.TabIndex = 88
+        Me.numTTKRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numTTKRange.Value = New Decimal(New Integer() {80, 0, 0, 0})
         '
         'numTTKGridSpacing
         '
@@ -1713,7 +1642,7 @@ Partial Class Main
         Me.numTTKGridSpacing.Size = New System.Drawing.Size(43, 20)
         Me.numTTKGridSpacing.TabIndex = 89
         Me.numTTKGridSpacing.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numTTKGridSpacing.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numTTKGridSpacing.Value = New Decimal(New Integer() {20, 0, 0, 0})
         '
         'Label35
         '
@@ -1745,7 +1674,7 @@ Partial Class Main
         Me.chkSaveHeatMap.AutoSize = True
         Me.chkSaveHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkSaveHeatMap.ForeColor = System.Drawing.Color.White
-        Me.chkSaveHeatMap.Location = New System.Drawing.Point(254, 6)
+        Me.chkSaveHeatMap.Location = New System.Drawing.Point(256, 94)
         Me.chkSaveHeatMap.Name = "chkSaveHeatMap"
         Me.chkSaveHeatMap.Size = New System.Drawing.Size(101, 17)
         Me.chkSaveHeatMap.TabIndex = 51
@@ -1757,7 +1686,7 @@ Partial Class Main
         Me.chkSaveTTKChart.AutoSize = True
         Me.chkSaveTTKChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkSaveTTKChart.ForeColor = System.Drawing.Color.White
-        Me.chkSaveTTKChart.Location = New System.Drawing.Point(254, 29)
+        Me.chkSaveTTKChart.Location = New System.Drawing.Point(256, 117)
         Me.chkSaveTTKChart.Name = "chkSaveTTKChart"
         Me.chkSaveTTKChart.Size = New System.Drawing.Size(103, 17)
         Me.chkSaveTTKChart.TabIndex = 52
@@ -1769,7 +1698,7 @@ Partial Class Main
         Me.Label34.AutoSize = True
         Me.Label34.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label34.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label34.Location = New System.Drawing.Point(280, 9)
+        Me.Label34.Location = New System.Drawing.Point(123, 8)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(18, 13)
         Me.Label34.TabIndex = 93
@@ -1780,7 +1709,7 @@ Partial Class Main
         Me.Label36.AutoSize = True
         Me.Label36.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label36.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label36.Location = New System.Drawing.Point(280, 32)
+        Me.Label36.Location = New System.Drawing.Point(123, 31)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(18, 13)
         Me.Label36.TabIndex = 94
@@ -1790,7 +1719,7 @@ Partial Class Main
         '
         Me.numMaxRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numMaxRange.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numMaxRange.Location = New System.Drawing.Point(297, 6)
+        Me.numMaxRange.Location = New System.Drawing.Point(140, 5)
         Me.numMaxRange.Name = "numMaxRange"
         Me.numMaxRange.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numMaxRange.Size = New System.Drawing.Size(48, 20)
@@ -1802,7 +1731,7 @@ Partial Class Main
         '
         Me.numMinRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numMinRange.ForeColor = System.Drawing.Color.SkyBlue
-        Me.numMinRange.Location = New System.Drawing.Point(297, 29)
+        Me.numMinRange.Location = New System.Drawing.Point(140, 28)
         Me.numMinRange.Name = "numMinRange"
         Me.numMinRange.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numMinRange.Size = New System.Drawing.Size(48, 20)
@@ -1815,7 +1744,7 @@ Partial Class Main
         Me.Label37.AutoSize = True
         Me.Label37.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label37.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label37.Location = New System.Drawing.Point(346, 10)
+        Me.Label37.Location = New System.Drawing.Point(189, 9)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(15, 13)
         Me.Label37.TabIndex = 97
@@ -1826,11 +1755,150 @@ Partial Class Main
         Me.Label38.AutoSize = True
         Me.Label38.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label38.ForeColor = System.Drawing.Color.SkyBlue
-        Me.Label38.Location = New System.Drawing.Point(346, 33)
+        Me.Label38.Location = New System.Drawing.Point(189, 32)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(15, 13)
         Me.Label38.TabIndex = 98
         Me.Label38.Text = "m"
+        '
+        'numDropLineThickness
+        '
+        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
+        Me.numDropLineThickness.Location = New System.Drawing.Point(216, 57)
+        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDropLineThickness.Name = "numDropLineThickness"
+        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
+        Me.numDropLineThickness.TabIndex = 92
+        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label33.ForeColor = System.Drawing.Color.White
+        Me.Label33.Location = New System.Drawing.Point(190, 60)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(27, 13)
+        Me.Label33.TabIndex = 93
+        Me.Label33.Text = "Line"
+        '
+        'chkRenderBulletDrop
+        '
+        Me.chkRenderBulletDrop.AutoSize = True
+        Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderBulletDrop.Checked = True
+        Me.chkRenderBulletDrop.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
+        Me.chkRenderBulletDrop.Location = New System.Drawing.Point(119, 59)
+        Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
+        Me.chkRenderBulletDrop.Size = New System.Drawing.Size(78, 17)
+        Me.chkRenderBulletDrop.TabIndex = 91
+        Me.chkRenderBulletDrop.Text = "Bullet Drop"
+        Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
+        '
+        'chkWriteDropInfo
+        '
+        Me.chkWriteDropInfo.AutoSize = True
+        Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkWriteDropInfo.Checked = True
+        Me.chkWriteDropInfo.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
+        Me.chkWriteDropInfo.Location = New System.Drawing.Point(119, 42)
+        Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
+        Me.chkWriteDropInfo.Size = New System.Drawing.Size(98, 17)
+        Me.chkWriteDropInfo.TabIndex = 90
+        Me.chkWriteDropInfo.Text = "Write Drop Info"
+        Me.chkWriteDropInfo.UseVisualStyleBackColor = False
+        '
+        'chkTimeToKill
+        '
+        Me.chkTimeToKill.AutoSize = True
+        Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkTimeToKill.Checked = True
+        Me.chkTimeToKill.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
+        Me.chkTimeToKill.Location = New System.Drawing.Point(119, 8)
+        Me.chkTimeToKill.Name = "chkTimeToKill"
+        Me.chkTimeToKill.Size = New System.Drawing.Size(204, 17)
+        Me.chkTimeToKill.TabIndex = 88
+        Me.chkTimeToKill.Text = "Average time to kill @ distance of grid"
+        Me.chkTimeToKill.UseVisualStyleBackColor = False
+        '
+        'chkDrawTTK
+        '
+        Me.chkDrawTTK.AutoSize = True
+        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkDrawTTK.Checked = True
+        Me.chkDrawTTK.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
+        Me.chkDrawTTK.Location = New System.Drawing.Point(119, 25)
+        Me.chkDrawTTK.Name = "chkDrawTTK"
+        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
+        Me.chkDrawTTK.TabIndex = 89
+        Me.chkDrawTTK.Text = "Write hit rates"
+        Me.chkDrawTTK.UseVisualStyleBackColor = False
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label39.ForeColor = System.Drawing.Color.White
+        Me.Label39.Location = New System.Drawing.Point(250, 61)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(18, 13)
+        Me.Label39.TabIndex = 94
+        Me.Label39.Text = "px"
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label40.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label40.Location = New System.Drawing.Point(9, 95)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(39, 13)
+        Me.Label40.TabIndex = 99
+        Me.Label40.Text = "Range"
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label41.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label41.Location = New System.Drawing.Point(98, 95)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(15, 13)
+        Me.Label41.TabIndex = 100
+        Me.Label41.Text = "m"
+        '
+        'Label42
+        '
+        Me.Label42.AutoSize = True
+        Me.Label42.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label42.ForeColor = System.Drawing.Color.SkyBlue
+        Me.Label42.Location = New System.Drawing.Point(179, 121)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(21, 13)
+        Me.Label42.TabIndex = 102
+        Me.Label42.Text = "pts"
+        '
+        'numDamageSplitter
+        '
+        Me.numDamageSplitter.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDamageSplitter.ForeColor = System.Drawing.Color.White
+        Me.numDamageSplitter.Location = New System.Drawing.Point(133, 117)
+        Me.numDamageSplitter.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.numDamageSplitter.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDamageSplitter.Name = "numDamageSplitter"
+        Me.numDamageSplitter.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDamageSplitter.Size = New System.Drawing.Size(43, 20)
+        Me.numDamageSplitter.TabIndex = 101
+        Me.numDamageSplitter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDamageSplitter.Value = New Decimal(New Integer() {8, 0, 0, 0})
         '
         'Main
         '
@@ -1884,7 +1952,6 @@ Partial Class Main
         Me.tabRender.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1898,10 +1965,12 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numTTKScale, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numTTKGridSpacing, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMaxRange, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMinRange, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDamageSplitter, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1957,14 +2026,12 @@ Partial Class Main
     Friend WithEvents chkBars As System.Windows.Forms.CheckBox
     Friend WithEvents numRecoilMultiplier As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkMultiplyRecoil As System.Windows.Forms.CheckBox
-    Friend WithEvents chkTimeToKill As System.Windows.Forms.CheckBox
     Friend WithEvents numMeters As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents radDegrees As System.Windows.Forms.RadioButton
     Friend WithEvents chkTitles As System.Windows.Forms.CheckBox
     Friend WithEvents txtScale As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents chkDrawTTK As System.Windows.Forms.CheckBox
     Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
@@ -2006,8 +2073,6 @@ Partial Class Main
     Friend WithEvents numFirstShot As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilRight As System.Windows.Forms.NumericUpDown
     Friend WithEvents numRecoilLeft As System.Windows.Forms.NumericUpDown
-    Friend WithEvents chkWriteDropInfo As System.Windows.Forms.CheckBox
-    Friend WithEvents chkRenderBulletDrop As System.Windows.Forms.CheckBox
     Friend WithEvents tabHeatMap As System.Windows.Forms.TabPage
     Friend WithEvents numIntensityScale As System.Windows.Forms.NumericUpDown
     Friend WithEvents numHeatRadius As System.Windows.Forms.NumericUpDown
@@ -2022,10 +2087,8 @@ Partial Class Main
     Friend WithEvents chkRenderHeatBars As System.Windows.Forms.CheckBox
     Friend WithEvents chkRenderHeatTitle As System.Windows.Forms.CheckBox
     Friend WithEvents chkRenderHeatAdjust As System.Windows.Forms.CheckBox
-    Friend WithEvents numDropLineThickness As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents ViewTTKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents numTTKScale As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numTTKRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label35 As System.Windows.Forms.Label
     Friend WithEvents numTTKGridSpacing As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkDrawTTKGrid As System.Windows.Forms.CheckBox
@@ -2037,4 +2100,15 @@ Partial Class Main
     Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents numMinRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents numMaxRange As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numDropLineThickness As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents chkRenderBulletDrop As System.Windows.Forms.CheckBox
+    Friend WithEvents chkWriteDropInfo As System.Windows.Forms.CheckBox
+    Friend WithEvents chkTimeToKill As System.Windows.Forms.CheckBox
+    Friend WithEvents chkDrawTTK As System.Windows.Forms.CheckBox
+    Friend WithEvents Label39 As System.Windows.Forms.Label
+    Friend WithEvents Label41 As System.Windows.Forms.Label
+    Friend WithEvents Label40 As System.Windows.Forms.Label
+    Friend WithEvents Label42 As System.Windows.Forms.Label
+    Friend WithEvents numDamageSplitter As System.Windows.Forms.NumericUpDown
 End Class

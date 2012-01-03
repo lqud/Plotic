@@ -65,6 +65,8 @@ Public Class Main
 
     Public Sub drawTTKSplit(ByVal g As Graphics)
         g.Clear(Color.Black)
+        g.DrawImage(Pl.Image, 0, 0, 1000, 1000)
+        g.DrawImage(Pl.HeatMap, 1000, 0, 1000, 1000)
         Dim centerx = 1000
         Dim centy = 1680
         Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 5)
@@ -75,49 +77,89 @@ Public Class Main
     Public Sub drawTTKGrid(ByVal g As Graphics)
         Dim centerx = 1000
         Dim centy = 1680
-        Dim greenBrush1 As New SolidBrush(Color.Yellow)
-        Dim penScale As New System.Drawing.Pen(Color.Yellow, 3)
+        Dim brushYellow As New SolidBrush(Color.Yellow)
+        Dim brushBlue As New SolidBrush(Color.LightBlue)
+        Dim penScale As New System.Drawing.Pen(Color.Yellow, 1)
         penScale.DashStyle = Drawing2D.DashStyle.Dot
 
         Dim xPixel As Integer = 10
-        Dim pixelsPer100Meters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numMeters.Value)), 0)
+        Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
-        For i = 0 To 70 Step 1
-            g.DrawLine(penScale, xPixel, 1006, xPixel, 1900)
-            g.DrawString(meterValue & "m", New Font("Arial", 20), greenBrush1, (xPixel - 60), 1910)
-            xPixel = xPixel + pixelsPer100Meters
+        g.DrawString("1m", New Font("Arial", 20), brushYellow, (xPixel - 5), 1960)
+        Do While (xPixel < 1990)
+            g.DrawLine(penScale, xPixel, 1050, xPixel, 1950)
+            g.DrawString(meterValue & "m", New Font("Arial", 20), brushYellow, (xPixel - 50), 1960)
+            xPixel = xPixel + pixelsPerNMeters
             meterValue += numTTKGridSpacing.Value
-        Next
+        Loop
+
+        Dim yPixel As Integer = 1050
+        Dim pixelsPerLine As Double = Math.Round(900 / numDamageSplitter.Value, 0)
+        Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
+        Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
+        penDamage.DashStyle = Drawing2D.DashStyle.Dash
+
+        ' pixelsPerNMeters = Math.Round((numTTKGridSpacing.Value * (1980 / 80)), 0)
+        ' meterValue = 0
+        'Draw Top Line
+        g.DrawLine(penDamageEdge, 10, yPixel, 1950, yPixel)
+        g.DrawString(numDamageMax.Value, New Font("Arial", 20), brushBlue, 1950, (yPixel - 50))
+        yPixel = yPixel + pixelsPerLine
+        Do While (yPixel < 1950)
+            g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
+            g.DrawString(numDamageMax.Value, New Font("Arial", 20), brushBlue, 1950, (yPixel - 20))
+            yPixel = yPixel + pixelsPerLine
+            meterValue += pixelsPerLine
+        Loop
+        'Draw Bottom Line
+        g.DrawLine(penDamageEdge, 10, 1950, 1950, 1950)
+        g.DrawString(numDamageMin.Value, New Font("Arial", 20), brushBlue, 1950, 1950)
     End Sub
 
-    Public Sub drawTTKBulletDropArc(ByVal g As Graphics)
+    Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim centerx = 0
         Dim centy = 1500
 
+        Dim pixelsPerMeters As Integer = Math.Round(((1980 / numTTKRange.Value)), 0)
+
         Dim penRed As New System.Drawing.Pen(Color.Red, 5)
-        Dim penWhite As New System.Drawing.Pen(Color.White, 5)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
         penRed.DashStyle = Drawing2D.DashStyle.Solid
         penWhite.DashStyle = Drawing2D.DashStyle.Solid
+        'g.DrawLine(penWhite, 0, 1500, 2000, 1500)
         'Create point array
-        Dim ptsDrop(1980) As Point
-        Dim ptsCorrection(1980) As Point
+        Dim ptsDamage(1990) As Point
         'Calculate meters per pixel based on target distance
         Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
 
         'Set first point
-        ptsDrop(0) = New Point(0, centy)
-        ptsCorrection(0) = New Point(0, centy)
-        'Calculate the position of the other points
-        For i = 1 To 1980 Step 1
-            Dim rangeInMeters As Double = i / pixelsPerMeter
-            Dim dropInPixels As Integer = Pl.dropInPixels(rangeInMeters, numTTKScale.Value)
-            Dim correctionInPixels As Integer = Pl.correctionInPixels(rangeInMeters, numTTKScale.Value)
-            ptsDrop(i) = New Point(i, (centy + dropInPixels))
-            ptsCorrection(i) = New Point(i, (centy - correctionInPixels))
+        For i = 0 To 9 Step 1
+            ptsDamage(i) = New Point(10, centy)
         Next
-        g.DrawLines(penRed, ptsDrop)
-        g.DrawLines(penWhite, ptsCorrection)
+        'ptsCorrection(0) = New Point(0, centy)
+        'Calculate the position of the other points
+        For i = 10 To 1990 Step 1
+            Dim rangeInMeters As Double = (i - 10) / pixelsPerMeter
+
+            'Dim dropInPixels As Integer = Math.Round(Pl.dropInMeters(5, rangeInMeters) * pixelsPerMeter, 0)
+            Dim correctionInPixels As Integer = Math.Round(Pl.dropInMeters(5, rangeInMeters) * pixelsPerMeter, 0)
+            Dim flightTime As Double = Pl.timeOfFlight(15, rangeInMeters)
+            Dim acceleration As Double = -15 * flightTime
+            'Debug.WriteLine(acceleration)
+            Dim agle As Double = (Pl.correctionAngle(5, Pl.TargetRange))
+            Dim test1 As Double = Pl.BulletVelocity * Math.Cos(Pl.correctionAngle(5, 1260) * (Math.PI / 180))
+            Dim VertDisplacement As Double = ((Pl.BulletVelocity * test1) * flightTime) + (0.5 * -(Pl.BulletDrop) * flightTime ^ 2)
+            Dim test3 As Double = 0.5 * -(Pl.BulletDrop) * flightTime ^ 2
+            Dim test4 As Integer = Math.Round(VertDisplacement, 0)
+            'g.DrawEllipse(penRed, i, (centy - test4), 1, 1)
+            'g.DrawEllipse(penWhite, i, (centy - correctionInPixels), 1, 1)
+            'ptsDrop(i) = New Point(i, (centy + dropInPixels))
+            'ptsCorrection(i) = New Point(i, (centy - correctionInPixels))
+
+        Next
+        'g.DrawLines(penRed, ptsDrop)
+        'g.DrawLines(penWhite, ptsCorrection)
     End Sub
 
 
@@ -803,7 +845,7 @@ Public Class Main
         If chkDrawTTKGrid.Checked Then
             drawTTKGrid(Pl.TTKGraphic)
         End If
-        drawTTKBulletDropArc(Pl.TTKGraphic)
+        drawTTKBulletDamageArc(Pl.TTKGraphic)
         ToggleToolStripMain_ThreadSafe(True)
         selectView("ttk")
         ToggleToolStripMask_ThreadSafe(True)

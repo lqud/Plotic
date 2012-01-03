@@ -53,27 +53,34 @@
 
     Public Overloads Function dropInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (dblBulletDrop * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
+        bulletDrop = (-(Me.BulletDrop) * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
         Return Math.Round(bulletDrop, presision)
     End Function
     Public Overloads Function dropInMeters(ByVal presision As Integer, ByVal range As Double) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (dblBulletDrop * range ^ 2) / (2 * dblBulletVelocity ^ 2)
+        bulletDrop = (-(Me.BulletDrop) * range ^ 2) / (2 * dblBulletVelocity ^ 2)
         Return Math.Round(bulletDrop, presision)
     End Function
 
     Public Overloads Function correctionInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = (Math.Asin((Me.TargetRange * -(Me.BulletDrop)) / (Me.BulletVelocity ^ 2)))
         bulletDrop = (bulletDrop * 0.5)
         bulletDrop = Me.TargetRange * (Math.Tan(bulletDrop))
         Return Math.Round(bulletDrop, presision)
     End Function
     Public Overloads Function correctionInMeters(ByVal presision As Integer, ByVal range As Double) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (Math.Asin((range * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = (Math.Asin((range * -(Me.BulletDrop)) / (Me.BulletVelocity ^ 2)))
         bulletDrop = (bulletDrop * 0.5)
         bulletDrop = range * (Math.Tan(bulletDrop))
+        Return Math.Round(bulletDrop, presision)
+    End Function
+
+    Public Function correctionAngle(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (Math.Asin((range * -(Me.BulletDrop)) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = (bulletDrop * 0.5)
         Return Math.Round(bulletDrop, presision)
     End Function
 
