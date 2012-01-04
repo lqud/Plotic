@@ -159,6 +159,10 @@ Partial Class Main
         Me.chkHeatMap = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.numHealthPercent = New System.Windows.Forms.NumericUpDown()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.numDamagePercent = New System.Windows.Forms.NumericUpDown()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -198,6 +202,8 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -1231,6 +1237,10 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage2.Controls.Add(Me.numDamagePercent)
+        Me.TabPage2.Controls.Add(Me.Label44)
+        Me.TabPage2.Controls.Add(Me.Label43)
+        Me.TabPage2.Controls.Add(Me.numHealthPercent)
         Me.TabPage2.Controls.Add(Me.Label42)
         Me.TabPage2.Controls.Add(Me.numDamageSplitter)
         Me.TabPage2.Controls.Add(Me.Label41)
@@ -1902,6 +1912,56 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
+        'numHealthPercent
+        '
+        Me.numHealthPercent.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numHealthPercent.ForeColor = System.Drawing.Color.Red
+        Me.numHealthPercent.Location = New System.Drawing.Point(312, 94)
+        Me.numHealthPercent.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.numHealthPercent.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numHealthPercent.Name = "numHealthPercent"
+        Me.numHealthPercent.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numHealthPercent.Size = New System.Drawing.Size(48, 20)
+        Me.numHealthPercent.TabIndex = 104
+        Me.numHealthPercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numHealthPercent.Value = New Decimal(New Integer() {100, 0, 0, 0})
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label43.ForeColor = System.Drawing.Color.Red
+        Me.Label43.Location = New System.Drawing.Point(251, 120)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(58, 13)
+        Me.Label43.TabIndex = 105
+        Me.Label43.Text = "Damage %"
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label44.ForeColor = System.Drawing.Color.Red
+        Me.Label44.Location = New System.Drawing.Point(260, 97)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(49, 13)
+        Me.Label44.TabIndex = 106
+        Me.Label44.Text = "Health %"
+        '
+        'numDamagePercent
+        '
+        Me.numDamagePercent.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDamagePercent.ForeColor = System.Drawing.Color.Red
+        Me.numDamagePercent.Location = New System.Drawing.Point(312, 117)
+        Me.numDamagePercent.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
+        Me.numDamagePercent.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDamagePercent.Name = "numDamagePercent"
+        Me.numDamagePercent.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDamagePercent.Size = New System.Drawing.Size(48, 20)
+        Me.numDamagePercent.TabIndex = 107
+        Me.numDamagePercent.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDamagePercent.Value = New Decimal(New Integer() {100, 0, 0, 0})
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -1973,6 +2033,8 @@ Partial Class Main
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHeatRadius, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2113,4 +2175,8 @@ Partial Class Main
     Friend WithEvents Label40 As System.Windows.Forms.Label
     Friend WithEvents Label42 As System.Windows.Forms.Label
     Friend WithEvents numDamageSplitter As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label44 As System.Windows.Forms.Label
+    Friend WithEvents Label43 As System.Windows.Forms.Label
+    Friend WithEvents numHealthPercent As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numDamagePercent As System.Windows.Forms.NumericUpDown
 End Class
