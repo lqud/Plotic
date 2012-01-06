@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v0.99"
+    Private Const VERSION As String = "Plotic v1.00"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -75,60 +75,230 @@ Public Class Main
         g.DrawLine(pen6, 0, 1000, 2000, 1000)
     End Sub
     Public Sub drawTTKGrid(ByVal g As Graphics)
-        Dim centerx = 1000
-        Dim centy = 1680
+
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1950
+        Dim leftX = 10
+
+        Dim graphWidth = 1900
+        Dim graphHeight = 450
         Dim brushYellow As New SolidBrush(Color.Yellow)
         Dim brushBlue As New SolidBrush(Color.LightBlue)
+        Dim brushLightBlue As New SolidBrush(Color.LightCyan)
         Dim penScale As New System.Drawing.Pen(Color.Yellow, 1)
         penScale.DashStyle = Drawing2D.DashStyle.Dot
 
         Dim xPixel As Integer = 10
         Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
-        g.DrawString("1m", New Font("Arial", 25), brushYellow, (xPixel - 5), 1960)
-        g.DrawLine(penScale, xPixel, 1050, xPixel, 1950)
+        g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel - 5), 1960)
+        g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
         meterValue += numTTKGridSpacing.Value
         xPixel = xPixel + pixelsPerNMeters
-        Do While (xPixel < 1990)
-            g.DrawLine(penScale, xPixel, 1050, xPixel, 1950)
+        Do While (xPixel < rightX)
+            g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
             g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), 1960)
             xPixel = xPixel + pixelsPerNMeters
             meterValue += numTTKGridSpacing.Value
         Loop
 
-        Dim yPixel As Integer = 1050
-        Dim pixelsPerLine As Double = Math.Round(900 / (numDamageMax.Value - numDamageMin.Value) * numDamageSplitter.Value, 0)
+        Dim yPixel As Integer = topY
+        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numDamageSplitter.Value, 0)
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
+        Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
         Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
         penDamage.DashStyle = Drawing2D.DashStyle.Dash
 
         ' pixelsPerNMeters = Math.Round((numTTKGridSpacing.Value * (1980 / 80)), 0)
         Dim meterYValue As Integer = pixelsPerLine
         'Draw Top Line
-        g.DrawLine(penDamageEdge, 10, yPixel, 1950, yPixel)
-        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, 1910, (yPixel + 5))
-        g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
+        g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
+        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
+        'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
         yPixel = yPixel + pixelsPerLine
-        Do While (yPixel < (1950))
-            Dim linePercent As Double = meterYValue / 900
+        Dim intAltToggle As Integer = 0
+        Do While (yPixel < bottomY)
+            Dim linePercent As Double = meterYValue / graphHeight
             Dim lineDamage As Double = Math.Round(numDamageMax.Value - ((numDamageMax.Value - numDamageMin.Value) * linePercent), 1)
-            g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
-            g.DrawString(lineDamage, New Font("Arial", 20), brushBlue, 1910, (yPixel + 5))
+            If intAltToggle = 1 Then
+                g.DrawLine(penDamageAlt, leftX, yPixel, bottomY, yPixel)
+                g.DrawString(lineDamage, New Font("Arial", 15), brushLightBlue, (rightX - 5), (yPixel + 5))
+            Else
+                g.DrawLine(penDamage, leftX, yPixel, bottomY, yPixel)
+                g.DrawString(lineDamage, New Font("Arial", 15), brushBlue, (rightX - 5), (yPixel + 5))
+
+            End If
             yPixel = yPixel + pixelsPerLine
             meterYValue += pixelsPerLine
+            If intAltToggle = 1 Then
+                intAltToggle = 0
+            Else
+                intAltToggle = 1
+            End If
         Loop
         'Draw Bottom Line
-        g.DrawLine(penDamageEdge, 10, 1950, 1950, 1950)
+        g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
+        g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
+        'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
+    End Sub
+
+    Public Sub drawDropGrid(ByVal g As Graphics)
+
+
+        Dim topY = 1010
+        Dim bottomY = 1450
+        Dim rightX = 1925
+        Dim leftX = 10
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim peakH = (Pl.BulletVelocity * Math.Sin(Pl.correctionAngle(15) * (Math.PI / 180)) - Pl.BulletDrop * 0) ^ 2 / (2 * Pl.BulletDrop)
+
+        Dim verticleDistanceDifference = peakH + Math.Abs(Pl.dropInMeters(15))
+
+        Dim peakPercent As Double = peakH / verticleDistanceDifference
+        Dim dropPercent As Double = Math.Abs(Pl.dropInMeters(15)) / verticleDistanceDifference
+
+        Dim centerPixel As Integer = topY + Math.Round(peakPercent * graphHeight, 0)
+
+        Dim brushYellow As New SolidBrush(Color.Yellow)
+        Dim brushBlue As New SolidBrush(Color.LightBlue)
+        Dim brushLightBlue As New SolidBrush(Color.LightCyan)
+        Dim penScale As New System.Drawing.Pen(Color.Yellow, 1)
+        penScale.DashStyle = Drawing2D.DashStyle.Dot
+
+        Dim brushLightGreen As New SolidBrush(Color.LightGreen)
+        Dim penZeroMark As New System.Drawing.Pen(Color.LightGreen, 1)
+        penZeroMark.DashStyle = Drawing2D.DashStyle.DashDotDot
+
+        Dim xPixel As Integer = 10
+        Dim pixelsPerNMeters As Integer = Math.Round((numDropHorizontalScale.Value * (graphWidth / numMeters.Value)), 0)
+        Dim meterValue As Integer = 0
+        g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel + 2), (bottomY + 5))
+        g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
+        meterValue += numDropHorizontalScale.Value
+        xPixel = xPixel + pixelsPerNMeters
+        Do While (xPixel < rightX)
+            g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
+            g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), (bottomY + 5))
+            xPixel = xPixel + pixelsPerNMeters
+            meterValue += numDropHorizontalScale.Value
+        Loop
+
+        Dim yPixel As Integer = topY
+        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numDropVerticalScale.Value, 0)
+        Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
+        Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
+        Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
+        penDamage.DashStyle = Drawing2D.DashStyle.Dash
+
+        ' pixelsPerNMeters = Math.Round((numTTKGridSpacing.Value * (1980 / 80)), 0)
+        Dim meterYValue As Integer = pixelsPerLine
+
+        'Draw Zero Marker
+        g.DrawLine(penZeroMark, leftX, centerPixel, rightX, centerPixel)
+        g.DrawString(0, New Font("Arial", 15), brushLightGreen, (rightX + 1), centerPixel - 10)
+
+        'Draw Top Line
+        g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
+        g.DrawString(Math.Round(peakH, 2) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel + 15))
+
+        'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
+        yPixel = yPixel + pixelsPerLine
+        Dim intAltToggle As Integer = 0
+        Do While (yPixel < bottomY)
+            Dim linePercent As Double = meterYValue / graphHeight
+            Dim lineDamage As Double = Math.Round(numDamageMax.Value - ((numDamageMax.Value - numDamageMin.Value) * linePercent), 1)
+            If intAltToggle = 1 Then
+                g.DrawLine(penDamageAlt, leftX, yPixel, rightX, yPixel)
+                'g.DrawString(lineDamage, New Font("Arial", 15), brushLightBlue, (rightX + 1), (yPixel - 10))
+            Else
+                g.DrawLine(penDamage, leftX, yPixel, rightX, yPixel)
+                'g.DrawString(lineDamage, New Font("Arial", 15), brushBlue, (rightX + 1), (yPixel - 10))
+
+            End If
+            yPixel = yPixel + pixelsPerLine
+            meterYValue += pixelsPerLine
+            If intAltToggle = 1 Then
+                intAltToggle = 0
+            Else
+                intAltToggle = 1
+            End If
+        Loop
+        'Draw Bottom Line
+        g.DrawString(Pl.dropInMeters(2), New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel - 25))
+        g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
 
     Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim centerx = 0
-        Dim centy = 1500
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1950
+        Dim leftX = 10
 
-        Dim pixelsPerMeter As Integer = Math.Round(((1980 / numTTKRange.Value)), 0)
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
         Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+
+        'Calculate the position of the other points
+        Dim yValue As Integer = 0
+        For i = 10 To graphWidth Step 1
+
+            Dim rangeInMeters As Double = i * metersperPixel
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = topY
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = bottomY
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = a / distanceDifference
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(graphHeight * b, 2)
+                yValue = Math.Round(topY + e, 0)
+
+            End If
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
+        Next
+
+    End Sub
+    Public Sub drawTTKBulletDropArc(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+
+        Dim topY = 1010
+        Dim bottomY = 1450
+        Dim rightX = 1925
+        Dim leftX = 10
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim peakH = (Pl.BulletVelocity * Math.Sin(Pl.correctionAngle(15) * (Math.PI / 180)) - Pl.BulletDrop * 0) ^ 2 / (2 * Pl.BulletDrop)
+
+        Dim verticleDistanceDifference = peakH + Math.Abs(Pl.dropInMeters(15))
+        Dim pixelsPerMeter = Math.Round(graphHeight / verticleDistanceDifference, 0)
+
+        Dim peakPercent As Double = peakH / verticleDistanceDifference
+        Dim dropPercent As Double = Math.Abs(Pl.dropInMeters(15)) / verticleDistanceDifference
+
+        Dim centerPixel As Integer = topY + Math.Round(peakPercent * graphHeight, 0)
+
+        Dim HmetersperPixel As Double = 1 / (graphWidth / Pl.TargetRange)
+        Dim VmetersperPixel As Double = 1 / (graphWidth / verticleDistanceDifference)
 
         Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
         Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
@@ -137,36 +307,32 @@ Public Class Main
         Dim penWhite As New System.Drawing.Pen(Color.White, 1)
         penRed.DashStyle = Drawing2D.DashStyle.Solid
         penWhite.DashStyle = Drawing2D.DashStyle.Solid
-        'g.DrawLine(penWhite, 0, 1500, 2000, 1500)
-        'Create point array
-
-        'Calculate meters per pixel based on target distance
-        'Dim pixelsPerMeter As Double = 1980 / Pl.TargetRange
 
         'Calculate the position of the other points
         Dim yValue As Integer = 0
-        For i = 10 To 1990 Step 1
+        For i = 1 To graphWidth Step 1
 
-            Dim rangeInMeters As Double = i * metersperPixel
+            Dim rangeInMeters As Double = i * HmetersperPixel
 
-            If rangeInMeters <= numMaxRange.Value Then
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-                yValue = 1050
-            ElseIf rangeInMeters >= numMinRange.Value Then
-                yValue = 1950
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-            Else
-                Dim a As Double = rangeInMeters - numMaxRange.Value
-                Dim b As Double = a / distanceDifference
-                Dim c As Double = damageDifference * b
-                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
-                ' Debug.WriteLine(rangeInMeters & "-> " & d)
-                Dim e As Double = Math.Round(900 * b, 2)
-                yValue = Math.Round(1050 + e, 0)
+            Dim e = (Pl.BulletVelocity * Math.Sin(0) * Pl.timeOfFlight(15, rangeInMeters) - 0.5 * Pl.BulletDrop * Pl.timeOfFlight(15, rangeInMeters) * Pl.timeOfFlight(15, rangeInMeters))
+            Dim percentOfHeight = Math.Abs(e / verticleDistanceDifference)
+            Dim pixelAdjust = Math.Round(percentOfHeight * (graphHeight), 0)
 
+            yValue = Math.Round(centerPixel + pixelAdjust, 0)
+            If (yValue <= bottomY) Then
+                'Debug.WriteLine(rangeInMeters & "-> " & e & "m " & Math.Round(percentOfHeight * 100, 2) & "%")
+                g.DrawEllipse(penRed, i, yValue, 1, 1)
             End If
 
-            g.DrawEllipse(penRed, i, yValue, 1, 1)
+            e = (Pl.BulletVelocity * Math.Sin(Pl.correctionAngle(15) * Math.PI / 180) * Pl.timeOfFlight(15, rangeInMeters) - 0.5 * Pl.BulletDrop * Pl.timeOfFlight(15, rangeInMeters) * Pl.timeOfFlight(15, rangeInMeters))
+            percentOfHeight = Math.Abs(e) / peakH
+            pixelAdjust = Math.Round(percentOfHeight * (peakPercent * graphHeight), 0)
+            yValue = Math.Round(centerPixel - pixelAdjust, 0)
+            If (yValue <= bottomY) Then
+                'Debug.WriteLine(rangeInMeters & "-> " & e & "m " & percentOfHeight & "%")
+                g.DrawEllipse(penWhite, i, yValue, 1, 1)
+            End If
+
 
         Next
 
@@ -270,10 +436,10 @@ Public Class Main
         Dim bulletAdjustY = (centery - Pl.correctionInPixels) - 25
 
         Dim bulletTargetX = centerx - 25
-        Dim bulletTargetY = (centery + Pl.dropInPixels) - 25
+        Dim bulletTargetY = (centery - Pl.dropInPixels) - 25
 
-        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
-        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
+        'g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
+        'g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
         g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
         g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
     End Sub
@@ -297,15 +463,16 @@ Public Class Main
         Dim rect As New Rectangle(3, 248, 700, 180)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
+        Dim test As Double = Pl.correctionAngle(5, 700)
         If Pl.TargetRange > Pl.MaxDistance Then
             g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
             g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 335)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), redBrush, hPos, 335)
             g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
         Else
             g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
             g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush2, hPos, 335)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
             g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
         End If
 
@@ -856,6 +1023,8 @@ Public Class Main
             drawTTKGrid(Pl.TTKGraphic)
         End If
         drawTTKBulletDamageArc(Pl.TTKGraphic)
+        drawTTKBulletDropArc(Pl.TTKGraphic)
+        drawDropGrid(Pl.TTKGraphic)
         ToggleToolStripMain_ThreadSafe(True)
         selectView("ttk")
         ToggleToolStripMask_ThreadSafe(True)
