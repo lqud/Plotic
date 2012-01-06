@@ -1022,11 +1022,15 @@ Public Class Main
         If chkDrawTTKGrid.Checked Then
             drawTTKGrid(Pl.TTKGraphic)
         End If
+        If chkDrawDropGrid.Checked Then
+            drawTTKGrid(Pl.TTKGraphic)
+            drawDropGrid(Pl.TTKGraphic)
+        End If
         drawTTKBulletDamageArc(Pl.TTKGraphic)
         drawTTKBulletDropArc(Pl.TTKGraphic)
-        drawDropGrid(Pl.TTKGraphic)
+
         ToggleToolStripMain_ThreadSafe(True)
-        selectView("ttk")
+        selectView("main")
         ToggleToolStripMask_ThreadSafe(True)
     End Sub
 
