@@ -53,12 +53,12 @@
 
     Public Overloads Function dropInMeters(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (-(Me.BulletDrop) * dblTargetRange ^ 2) / (2 * dblBulletVelocity ^ 2)
+        bulletDrop = -(Me.BulletDrop * (Me.TargetRange ^ 2)) / (2 * (Me.BulletVelocity ^ 2))
         Return Math.Round(bulletDrop, presision)
     End Function
     Public Overloads Function dropInMeters(ByVal presision As Integer, ByVal range As Double) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (-(Me.BulletDrop) * range ^ 2) / (2 * dblBulletVelocity ^ 2)
+        bulletDrop = -(Me.BulletDrop * (range ^ 2)) / (2 * (dblBulletVelocity ^ 2))
         Return Math.Round(bulletDrop, presision)
     End Function
 
@@ -77,12 +77,27 @@
         Return Math.Round(bulletDrop, presision)
     End Function
 
-    Public Function correctionAngle(ByVal presision As Integer, ByVal range As Double) As Double
+    Public Overloads Function correctionAngle(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
-        bulletDrop = (Math.Asin((range * -(Me.BulletDrop)) / (Me.BulletVelocity ^ 2)))
-        bulletDrop = (bulletDrop * 0.5)
+        bulletDrop = 0.5 * (Math.Asin((Me.TargetRange * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = bulletDrop * (180 / Math.PI)
         Return Math.Round(bulletDrop, presision)
     End Function
+    Public Overloads Function correctionAngle(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = 0.5 * (Math.Asin((range * Me.BulletDrop) / (Me.BulletVelocity ^ 2)))
+        bulletDrop = bulletDrop * (180 / Math.PI)
+        Return Math.Round(bulletDrop, presision)
+    End Function
+
+    Public Function bulletHeight(ByVal presision As Integer, ByVal range As Double) As Double
+        Dim bulletDrop As Double = 0
+        bulletDrop = (range * Math.Tan(correctionAngle(5))) - (Me.BulletDrop * (range ^ 2) / (2 * (630 * Math.Cos(correctionAngle(5))) ^ 2))
+        bulletDrop = bulletDrop * (180 / Math.PI)
+        Return Math.Round(bulletDrop, presision)
+    End Function
+
+
 
     Public Overloads Function timeOfFlight(ByVal presision As Integer) As Double
         Dim bulletDrop As Double = 0
