@@ -1759,6 +1759,22 @@ ByVal DefaultValue As String) As String
     Private Sub ViewTTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewTTKToolStripMenuItem.Click
         selectView("ttk")
     End Sub
+
+    Private Sub MainToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MainToolStripMenuItem.Click
+        selectView("main")
+    End Sub
+
+    Private Sub MaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MaskToolStripMenuItem.Click
+        selectView("mask")
+    End Sub
+
+    Private Sub HeatMapToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles HeatMapToolStripMenuItem.Click
+        selectView("heat")
+    End Sub
+
+    Private Sub TTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TTKToolStripMenuItem.Click
+        selectView("ttk")
+    End Sub
 End Class
 Public Structure HeatPoint
     Public X As Integer

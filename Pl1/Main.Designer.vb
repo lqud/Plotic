@@ -22,6 +22,7 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.txtInfo = New System.Windows.Forms.TextBox()
         Me.lbfs = New System.Windows.Forms.Label()
@@ -172,6 +173,11 @@ Partial Class Main
         Me.chkDrawDropGrid = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.contextImgRightClick = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.MainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MaskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HeatMapToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -216,6 +222,7 @@ Partial Class Main
         CType(Me.numDropVerticalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.contextImgRightClick.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtInfo
@@ -2086,12 +2093,43 @@ Partial Class Main
         'picPlot
         '
         Me.picPlot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.picPlot.ContextMenuStrip = Me.contextImgRightClick
         Me.picPlot.Location = New System.Drawing.Point(395, 14)
         Me.picPlot.Name = "picPlot"
         Me.picPlot.Size = New System.Drawing.Size(400, 400)
         Me.picPlot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
+        '
+        'contextImgRightClick
+        '
+        Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem})
+        Me.contextImgRightClick.Name = "contextImgRightClick"
+        Me.contextImgRightClick.Size = New System.Drawing.Size(153, 114)
+        '
+        'MainToolStripMenuItem
+        '
+        Me.MainToolStripMenuItem.Name = "MainToolStripMenuItem"
+        Me.MainToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.MainToolStripMenuItem.Text = "Main"
+        '
+        'MaskToolStripMenuItem
+        '
+        Me.MaskToolStripMenuItem.Name = "MaskToolStripMenuItem"
+        Me.MaskToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.MaskToolStripMenuItem.Text = "Mask"
+        '
+        'HeatMapToolStripMenuItem
+        '
+        Me.HeatMapToolStripMenuItem.Name = "HeatMapToolStripMenuItem"
+        Me.HeatMapToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.HeatMapToolStripMenuItem.Text = "Heat Map"
+        '
+        'TTKToolStripMenuItem
+        '
+        Me.TTKToolStripMenuItem.Name = "TTKToolStripMenuItem"
+        Me.TTKToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.TTKToolStripMenuItem.Text = "TTK"
         '
         'Main
         '
@@ -2170,6 +2208,7 @@ Partial Class Main
         CType(Me.numDropVerticalScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.contextImgRightClick.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2323,4 +2362,9 @@ Partial Class Main
     Friend WithEvents numDropHorizontalScale As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkDrawDropGrid As System.Windows.Forms.CheckBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents contextImgRightClick As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents MainToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MaskToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HeatMapToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TTKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
