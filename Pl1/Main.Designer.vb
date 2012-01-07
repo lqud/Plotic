@@ -95,7 +95,6 @@ Partial Class Main
         Me.ViewHeatMapToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewMaskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.ToolStripProgressBar2 = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tabMain = New System.Windows.Forms.TabControl()
@@ -1091,11 +1090,6 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem.Name = "ViewTTKToolStripMenuItem"
         Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ViewTTKToolStripMenuItem.Text = "View: TTK"
-        '
-        'BackgroundWorker2
-        '
-        Me.BackgroundWorker2.WorkerReportsProgress = True
-        Me.BackgroundWorker2.WorkerSupportsCancellation = True
         '
         'ToolStripProgressBar2
         '
@@ -2105,7 +2099,7 @@ Partial Class Main
         '
         Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem})
         Me.contextImgRightClick.Name = "contextImgRightClick"
-        Me.contextImgRightClick.Size = New System.Drawing.Size(153, 114)
+        Me.contextImgRightClick.Size = New System.Drawing.Size(127, 92)
         '
         'MainToolStripMenuItem
         '
@@ -2270,7 +2264,6 @@ Partial Class Main
     Friend WithEvents chkTitles As System.Windows.Forms.CheckBox
     Friend WithEvents txtScale As System.Windows.Forms.TextBox
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolStripProgressBar2 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip

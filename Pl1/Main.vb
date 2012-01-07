@@ -1104,13 +1104,6 @@ Public Class Main
                 BackgroundWorker1.CancelAsync()
             End If
         End If
-        If BackgroundWorker2.IsBusy Then
-            'If it supports cancellation, Cancel It
-            If BackgroundWorker2.WorkerSupportsCancellation Then
-                ' Tell the Background Worker to stop working.
-                BackgroundWorker2.CancelAsync()
-            End If
-        End If
     End Sub
 
     Private Sub createSilentImage()
@@ -1451,23 +1444,87 @@ Public Class Main
         System.Diagnostics.Process.Start("http://symthic.com")
     End Sub
 
-    Private Sub BackgroundWorker2_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker2.DoWork
+    Private Sub CreateTemplateIni()
+        ' Dim sValue As String
+        Dim spath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent_template.ini")
 
+        INIWrite(spath, "Config", "DecimalSymbol", ".")
 
-    End Sub
+        INIWrite(spath, "Recoil", "RecoilUp", "0.55")
+        INIWrite(spath, "Recoil", "RecoilLeft", "0.2")
+        INIWrite(spath, "Recoil", "RecoilRight", "0.3")
+        INIWrite(spath, "Recoil", "FirstShot", "1.3")
 
-    Private Sub BackgroundWorker2_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker2.ProgressChanged
-    End Sub
+        INIWrite(spath, "Spread", "SpreadMin", "0.1")
+        INIWrite(spath, "Spread", "SpreadInc", "0.12")
 
-    Private Sub BackgroundWorker2_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker2.RunWorkerCompleted
-        If e.Cancelled Then
-            mainToolStripStatus.Text = "Cancelled"
-            Debug.WriteLine("Worker 2 Cancelled")
-        Else
-            mainToolStripStatus.Text = "Completed"
-            Debug.WriteLine("Worker 2 Completed")
-        End If
+        INIWrite(spath, "Burst", "BulletsPerBurst", "5")
+        INIWrite(spath, "Burst", "Bursts", "1000")
 
+        INIWrite(spath, "Attach", "RenderAttachText", "0")
+        INIWrite(spath, "Attach", "AttachRecoilV", "0")
+        INIWrite(spath, "Attach", "AttachRecoilH", "0")
+        INIWrite(spath, "Attach", "AttachSpreadMin", "0")
+        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
+        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
+        INIWrite(spath, "Attach", "MultiplyVerticalRecoil", "0")
+        INIWrite(spath, "Attach", "VerticalMultiplier", "0.3")
+
+        INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
+        INIWrite(spath, "Save", "FileName", "<<TitleText>>_bf3_<<SubText>>")
+
+        INIWrite(spath, "Render", "ScaleRadius", "1")
+        INIWrite(spath, "Render", "RenderBars", "1")
+
+        INIWrite(spath, "Title", "RenderTitleText", "1")
+        INIWrite(spath, "Title", "TitleText", "AEK-17")
+        INIWrite(spath, "Title", "InfoText", "Dmg: 25-17")
+        INIWrite(spath, "Title", "SubText", "Stock")
+
+        INIWrite(spath, "Grid", "RenderGrid", "0")
+        INIWrite(spath, "Grid", "Scale", "650")
+        INIWrite(spath, "Grid", "IsDegrees", "0")
+        INIWrite(spath, "Grid", "Distance", "1")
+        INIWrite(spath, "Grid", "GridValue", "1")
+
+        INIWrite(spath, "TTk", "RenderTTK", "0")
+        INIWrite(spath, "TTK", "RenderHitRates", "0")
+        INIWrite(spath, "TTK", "BulletVelocity", "500")
+        INIWrite(spath, "TTK", "RateOfFire", "500")
+        INIWrite(spath, "TTK", "MaxDistance", "0")
+        INIWrite(spath, "TTK", "BulletDrop", "15")
+
+        INIWrite(spath, "HeatMap", "RenderHeatMap", "1")
+        INIWrite(spath, "HeatMap", "Radius", "75")
+        INIWrite(spath, "HeatMap", "IntensityScale", "2.0")
+        INIWrite(spath, "HeatMap", "OverwriteFile", "0")
+
+        'sValue = INIRead(sPath, "section2", "key2-1", "Unknown") ' specify all
+        'MessageBox.Show(sValue, "section2/key2-1/unknown", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section2", "XYZ", "Unknown") ' specify all
+        'MessageBox.Show(sValue, "section2/xyz/unknown", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section2", "XYZ") ' use zero-length string as default
+        'MessageBox.Show(sValue, "section2/XYZ", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath, "section1") ' get all keys in section
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "section1 pre delete", MessageBoxButtons.OK)
+
+        'INIDelete(sPath, "section1", "key1-2") ' delete middle entry in section 1
+        'sValue = INIRead(sPath, "section1") ' get all keys in section again
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "section1 post delete", MessageBoxButtons.OK)
+
+        'sValue = INIRead(sPath) ' get all section names
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "All sections pre delete", MessageBoxButtons.OK)
+
+        'INIDelete(sPath, "section1") ' delete section
+        'sValue = INIRead(spath) ' get all section names
+        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
+        'MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
     End Sub
 
 #Region "Heat Map Creation"
@@ -1611,6 +1668,7 @@ Public Class Main
     ByVal lpReturnedString As String, ByVal nSize As Int32, _
     ByVal lpFileName As String) As Int32
 #End Region
+#Region "INI Read/Write"
 #Region "INIRead Overloads"
     Public Overloads Function INIRead(ByVal INIPath As String, _
 ByVal SectionName As String, ByVal KeyName As String, _
@@ -1659,122 +1717,35 @@ ByVal DefaultValue As String) As String
         ' delete section from INI file
         Call WritePrivateProfileString(SectionName, Nothing, Nothing, INIPath)
     End Sub
-
-
-    Private Sub CreateTemplateIni()
-        ' Dim sValue As String
-        Dim spath As String = Path.Combine(Directory.GetCurrentDirectory, "plotic_silent_template.ini")
-
-        INIWrite(spath, "Config", "DecimalSymbol", ".")
-
-        INIWrite(spath, "Recoil", "RecoilUp", "0.55")
-        INIWrite(spath, "Recoil", "RecoilLeft", "0.2")
-        INIWrite(spath, "Recoil", "RecoilRight", "0.3")
-        INIWrite(spath, "Recoil", "FirstShot", "1.3")
-
-        INIWrite(spath, "Spread", "SpreadMin", "0.1")
-        INIWrite(spath, "Spread", "SpreadInc", "0.12")
-
-        INIWrite(spath, "Burst", "BulletsPerBurst", "5")
-        INIWrite(spath, "Burst", "Bursts", "1000")
-
-        INIWrite(spath, "Attach", "RenderAttachText", "0")
-        INIWrite(spath, "Attach", "AttachRecoilV", "0")
-        INIWrite(spath, "Attach", "AttachRecoilH", "0")
-        INIWrite(spath, "Attach", "AttachSpreadMin", "0")
-        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
-        INIWrite(spath, "Attach", "AttachSpreadInc", "0")
-        INIWrite(spath, "Attach", "MultiplyVerticalRecoil", "0")
-        INIWrite(spath, "Attach", "VerticalMultiplier", "0.3")
-
-        INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
-        INIWrite(spath, "Save", "FileName", "<<TitleText>>_bf3_<<SubText>>")
-
-        INIWrite(spath, "Render", "ScaleRadius", "1")
-        INIWrite(spath, "Render", "RenderBars", "1")
-
-        INIWrite(spath, "Title", "RenderTitleText", "1")
-        INIWrite(spath, "Title", "TitleText", "AEK-17")
-        INIWrite(spath, "Title", "InfoText", "Dmg: 25-17")
-        INIWrite(spath, "Title", "SubText", "Stock")
-
-        INIWrite(spath, "Grid", "RenderGrid", "0")
-        INIWrite(spath, "Grid", "Scale", "650")
-        INIWrite(spath, "Grid", "IsDegrees", "0")
-        INIWrite(spath, "Grid", "Distance", "1")
-        INIWrite(spath, "Grid", "GridValue", "1")
-
-        INIWrite(spath, "TTk", "RenderTTK", "0")
-        INIWrite(spath, "TTK", "RenderHitRates", "0")
-        INIWrite(spath, "TTK", "BulletVelocity", "500")
-        INIWrite(spath, "TTK", "RateOfFire", "500")
-        INIWrite(spath, "TTK", "MaxDistance", "0")
-        INIWrite(spath, "TTK", "BulletDrop", "15")
-
-        INIWrite(spath, "HeatMap", "RenderHeatMap", "1")
-        INIWrite(spath, "HeatMap", "Radius", "75")
-        INIWrite(spath, "HeatMap", "IntensityScale", "2.0")
-        INIWrite(spath, "HeatMap", "OverwriteFile", "0")
-
-        'sValue = INIRead(sPath, "section2", "key2-1", "Unknown") ' specify all
-        'MessageBox.Show(sValue, "section2/key2-1/unknown", MessageBoxButtons.OK)
-
-        'sValue = INIRead(sPath, "section2", "XYZ", "Unknown") ' specify all
-        'MessageBox.Show(sValue, "section2/xyz/unknown", MessageBoxButtons.OK)
-
-        'sValue = INIRead(sPath, "section2", "XYZ") ' use zero-length string as default
-        'MessageBox.Show(sValue, "section2/XYZ", MessageBoxButtons.OK)
-
-        'sValue = INIRead(sPath, "section1") ' get all keys in section
-        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        'MessageBox.Show(sValue, "section1 pre delete", MessageBoxButtons.OK)
-
-        'INIDelete(sPath, "section1", "key1-2") ' delete middle entry in section 1
-        'sValue = INIRead(sPath, "section1") ' get all keys in section again
-        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        'MessageBox.Show(sValue, "section1 post delete", MessageBoxButtons.OK)
-
-        'sValue = INIRead(sPath) ' get all section names
-        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        'MessageBox.Show(sValue, "All sections pre delete", MessageBoxButtons.OK)
-
-        'INIDelete(sPath, "section1") ' delete section
-        'sValue = INIRead(spath) ' get all section names
-        'sValue = sValue.Replace(ControlChars.NullChar, "|"c) ' change embedded NULLs to pipe chars
-        'MessageBox.Show(sValue, "All sections post delete", MessageBoxButtons.OK)
-    End Sub
-
+#End Region
+#Region "Toolstrip Menu Actions"
     Private Sub ViewMainToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMainToolStripMenuItem.Click
         selectView("main")
     End Sub
-
     Private Sub ViewHeatMapToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewHeatMapToolStripMenuItem.Click
         selectView("heat")
     End Sub
-
     Private Sub ViewMaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewMaskToolStripMenuItem.Click
         selectView("mask")
     End Sub
-
     Private Sub ViewTTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles ViewTTKToolStripMenuItem.Click
         selectView("ttk")
     End Sub
-
+#End Region
+#Region "Context Menu Actions"
     Private Sub MainToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MainToolStripMenuItem.Click
         selectView("main")
     End Sub
-
     Private Sub MaskToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles MaskToolStripMenuItem.Click
         selectView("mask")
     End Sub
-
     Private Sub HeatMapToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles HeatMapToolStripMenuItem.Click
         selectView("heat")
     End Sub
-
     Private Sub TTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TTKToolStripMenuItem.Click
         selectView("ttk")
     End Sub
+#End Region
 End Class
 Public Structure HeatPoint
     Public X As Integer
