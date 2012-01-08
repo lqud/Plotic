@@ -177,6 +177,11 @@ Partial Class Main
         Me.MaskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HeatMapToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ZoomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.X500ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.X1000ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.X1000ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -2097,33 +2102,63 @@ Partial Class Main
         '
         'contextImgRightClick
         '
-        Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem})
+        Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem, Me.ToolStripSeparator1, Me.ZoomToolStripMenuItem})
         Me.contextImgRightClick.Name = "contextImgRightClick"
-        Me.contextImgRightClick.Size = New System.Drawing.Size(127, 92)
+        Me.contextImgRightClick.Size = New System.Drawing.Size(153, 142)
         '
         'MainToolStripMenuItem
         '
         Me.MainToolStripMenuItem.Name = "MainToolStripMenuItem"
-        Me.MainToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.MainToolStripMenuItem.Text = "Main"
+        Me.MainToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.MainToolStripMenuItem.Text = "&Main"
         '
         'MaskToolStripMenuItem
         '
         Me.MaskToolStripMenuItem.Name = "MaskToolStripMenuItem"
-        Me.MaskToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.MaskToolStripMenuItem.Text = "Mask"
+        Me.MaskToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.MaskToolStripMenuItem.Text = "Mas&k"
         '
         'HeatMapToolStripMenuItem
         '
         Me.HeatMapToolStripMenuItem.Name = "HeatMapToolStripMenuItem"
-        Me.HeatMapToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.HeatMapToolStripMenuItem.Text = "Heat Map"
+        Me.HeatMapToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.HeatMapToolStripMenuItem.Text = "&Heat Map"
         '
         'TTKToolStripMenuItem
         '
         Me.TTKToolStripMenuItem.Name = "TTKToolStripMenuItem"
-        Me.TTKToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.TTKToolStripMenuItem.Text = "TTK"
+        Me.TTKToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.TTKToolStripMenuItem.Text = "&TTK"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(123, 6)
+        '
+        'ZoomToolStripMenuItem
+        '
+        Me.ZoomToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.X500ToolStripMenuItem, Me.X1000ToolStripMenuItem, Me.X1000ToolStripMenuItem1})
+        Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ZoomToolStripMenuItem.Text = "&Zoom"
+        '
+        'X500ToolStripMenuItem
+        '
+        Me.X500ToolStripMenuItem.Name = "X500ToolStripMenuItem"
+        Me.X500ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.X500ToolStripMenuItem.Text = "500 x 500"
+        '
+        'X1000ToolStripMenuItem
+        '
+        Me.X1000ToolStripMenuItem.Name = "X1000ToolStripMenuItem"
+        Me.X1000ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.X1000ToolStripMenuItem.Text = "800 x 800"
+        '
+        'X1000ToolStripMenuItem1
+        '
+        Me.X1000ToolStripMenuItem1.Name = "X1000ToolStripMenuItem1"
+        Me.X1000ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.X1000ToolStripMenuItem1.Text = "1000 x 1000"
         '
         'Main
         '
@@ -2360,4 +2395,9 @@ Partial Class Main
     Friend WithEvents MaskToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HeatMapToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TTKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ZoomToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents X500ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents X1000ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents X1000ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 End Class

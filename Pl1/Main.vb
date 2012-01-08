@@ -20,6 +20,8 @@ Public Class Main
     Private intBurstCycle As Integer = 0
 
     Public Pl As New Plotic
+
+
     Private Sub exitApplication()
         System.Environment.Exit(1)
     End Sub
@@ -79,7 +81,7 @@ Public Class Main
         Dim topY = 1500
         Dim bottomY = 1950
         Dim rightX = 1950
-        Dim leftX = 10
+        Dim leftX = 50
 
         Dim graphWidth = 1900
         Dim graphHeight = 450
@@ -89,7 +91,7 @@ Public Class Main
         Dim penScale As New System.Drawing.Pen(Color.Yellow, 1)
         penScale.DashStyle = Drawing2D.DashStyle.Dot
 
-        Dim xPixel As Integer = 10
+        Dim xPixel As Integer = leftX
         Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
         g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel - 5), 1960)
@@ -155,6 +157,7 @@ Public Class Main
         Dim peakH = (Pl.BulletVelocity * Math.Sin(Pl.correctionAngle(15) * (Math.PI / 180)) - Pl.BulletDrop * 0) ^ 2 / (2 * Pl.BulletDrop)
 
         Dim verticleDistanceDifference = peakH + Math.Abs(Pl.dropInMeters(15))
+        Dim VmetersperPixel As Double = 1 / (graphHeight / Math.Abs(Pl.dropInMeters(15, Pl.TargetRange)))
 
         Dim peakPercent As Double = peakH / verticleDistanceDifference
         Dim dropPercent As Double = Math.Abs(Pl.dropInMeters(15)) / verticleDistanceDifference
@@ -171,7 +174,7 @@ Public Class Main
         Dim penZeroMark As New System.Drawing.Pen(Color.LightGreen, 1)
         penZeroMark.DashStyle = Drawing2D.DashStyle.DashDotDot
 
-        Dim xPixel As Integer = 10
+        Dim xPixel As Integer = leftX
         Dim pixelsPerNMeters As Integer = Math.Round((numDropHorizontalScale.Value * (graphWidth / numMeters.Value)), 0)
         Dim meterValue As Integer = 0
         g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel + 2), (bottomY + 5))
@@ -203,18 +206,19 @@ Public Class Main
         g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
         g.DrawString(Math.Round(peakH, 2) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel + 15))
 
+
         'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
-        yPixel = yPixel + pixelsPerLine
+        yPixel = yPixel  + pixelsPerLine
         Dim intAltToggle As Integer = 0
         Do While (yPixel < bottomY)
             Dim linePercent As Double = meterYValue / graphHeight
-            Dim lineDamage As Double = Math.Round(numDamageMax.Value - ((numDamageMax.Value - numDamageMin.Value) * linePercent), 1)
+            Dim lineDrop As Double = Math.Round(VmetersperPixel * meterYValue, 2)
             If intAltToggle = 1 Then
                 g.DrawLine(penDamageAlt, leftX, yPixel, rightX, yPixel)
-                'g.DrawString(lineDamage, New Font("Arial", 15), brushLightBlue, (rightX + 1), (yPixel - 10))
+                g.DrawString("-" & lineDrop & "m", New Font("Arial", 15), brushLightBlue, (rightX + 1), (yPixel - 10))
             Else
                 g.DrawLine(penDamage, leftX, yPixel, rightX, yPixel)
-                'g.DrawString(lineDamage, New Font("Arial", 15), brushBlue, (rightX + 1), (yPixel - 10))
+                g.DrawString("-" & lineDrop & "m", New Font("Arial", 15), brushBlue, (rightX + 1), (yPixel - 10))
 
             End If
             yPixel = yPixel + pixelsPerLine
@@ -226,7 +230,7 @@ Public Class Main
             End If
         Loop
         'Draw Bottom Line
-        g.DrawString(Pl.dropInMeters(2), New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel - 25))
+        g.DrawString(Pl.dropInMeters(2, Pl.TargetRange) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel - 35))
         g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
@@ -235,8 +239,8 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim topY = 1500
         Dim bottomY = 1950
-        Dim rightX = 1950
-        Dim leftX = 10
+        Dim rightX = 1925
+        Dim leftX = 50
 
         Dim graphWidth = rightX - leftX
         Dim graphHeight = bottomY - topY
@@ -252,8 +256,8 @@ Public Class Main
         penWhite.DashStyle = Drawing2D.DashStyle.Solid
 
         'Calculate the position of the other points
-        Dim yValue As Integer = 0
-        For i = 10 To graphWidth Step 1
+        Dim yValue As Integer = topY
+        For i = leftX To rightX Step 1
 
             Dim rangeInMeters As Double = i * metersperPixel
 
@@ -298,19 +302,19 @@ Public Class Main
         Dim centerPixel As Integer = topY + Math.Round(peakPercent * graphHeight, 0)
 
         Dim HmetersperPixel As Double = 1 / (graphWidth / Pl.TargetRange)
-        Dim VmetersperPixel As Double = 1 / (graphWidth / verticleDistanceDifference)
+        Dim VmetersperPixel As Double = 1 / (graphHeight / Math.Abs(Pl.dropInMeters(15, Pl.TargetRange)))
 
         Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
         Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
 
-        Dim penRed As New System.Drawing.Pen(Color.Red, 5)
-        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 3)
         penRed.DashStyle = Drawing2D.DashStyle.Solid
         penWhite.DashStyle = Drawing2D.DashStyle.Solid
 
         'Calculate the position of the other points
         Dim yValue As Integer = 0
-        For i = 1 To graphWidth Step 1
+        For i = leftX To rightX Step 1
 
             Dim rangeInMeters As Double = i * HmetersperPixel
 
@@ -338,12 +342,6 @@ Public Class Main
 
     End Sub
 
-
-    Private Function calculateBulletDrop(ByVal velocity As Double, ByVal range As Double, ByVal drop As Double) As Double
-        Dim bulletDrop As Double = 0
-        bulletDrop = (drop * range ^ 2) / (2 * velocity ^ 2)
-        Return Math.Round(bulletDrop, 3)
-    End Function
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim rect As New Rectangle(700, 28, 675, 250)
@@ -702,7 +700,46 @@ Public Class Main
 
 
     End Sub
+    Private Function getView() As String
+        Dim currentView As String = "main"
 
+        If Me.viewToolStrip.Text = "View: Main" Then
+            currentView = "main"
+        ElseIf Me.viewToolStrip.Text = "View: Heat Map" Then
+            currentView = "heat"
+
+        ElseIf Me.viewToolStrip.Text = "View: Mask" Then
+            currentView = "mask"
+
+        ElseIf Me.viewToolStrip.Text = "View: TTK" Then
+            currentView = "ttk"
+
+        End If
+
+        Return currentView
+    End Function
+    Public Sub showImage(ByVal lengthOfSide As Integer)
+        Dim diaTest As New diaImageZoom()
+        'Application.DoEvents()
+        diaTest.Text = lengthOfSide & "x" & lengthOfSide
+        diaTest.Size = New System.Drawing.Size(lengthOfSide + 6, (lengthOfSide + 28))
+        diaTest.ShowInTaskbar = True
+        diaTest.picStatic.Location = New System.Drawing.Point(0, 0)
+        diaTest.picStatic.Name = "Test"
+        diaTest.picStatic.Size = New System.Drawing.Size(lengthOfSide, lengthOfSide)
+        If getView() = "main" Then
+            diaTest.picStatic.Image = Pl.Image
+        ElseIf getView() = "heat" Then
+            diaTest.picStatic.Image = Pl.HeatMap
+        ElseIf getView() = "mask" Then
+            diaTest.picStatic.Image = Pl.Mask
+        ElseIf getView() = "ttk" Then
+            diaTest.picStatic.Image = Pl.TTK
+        End If
+
+        diaTest.Show()
+        'Application.DoEvents()
+    End Sub
     Private Function convertINIValue(ByVal inputValue As String, ByVal decimalSymbol As Char) As Double
         inputValue = inputValue.Replace(decimalSymbol, "."c)
         Return CDbl(Val(inputValue))
@@ -1071,6 +1108,8 @@ Public Class Main
         Dim b As New Bitmap(Pl.Image)
 
         Dim file = saveImagePath
+        Debug.WriteLine("Filename: " & file)
+
 
         b.Save(file)
         b.Dispose()
@@ -1079,6 +1118,7 @@ Public Class Main
             Dim h As New Bitmap(Pl.HeatMap)
 
             Dim heatFileName As String = file.Insert((file.Length - 4), "_heatmap")
+            Debug.WriteLine("Heat Filename: " & file)
             h.Save(heatFileName)
             h.Dispose()
         End If
@@ -1087,6 +1127,7 @@ Public Class Main
             Dim t As New Bitmap(Pl.TTK)
 
             Dim ttkFileName As String = file.Insert((file.Length - 4), "_TTK")
+            Debug.WriteLine("TTK Filename: " & file)
             t.Save(ttkFileName)
             t.Dispose()
         End If
@@ -1471,7 +1512,7 @@ Public Class Main
         INIWrite(spath, "Attach", "VerticalMultiplier", "0.3")
 
         INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
-        INIWrite(spath, "Save", "FileName", "<<TitleText>>_bf3_<<SubText>>")
+        INIWrite(spath, "Save", "FileName", "<<Title>>_bf3_<<SubText>>")
 
         INIWrite(spath, "Render", "ScaleRadius", "1")
         INIWrite(spath, "Render", "RenderBars", "1")
@@ -1654,6 +1695,7 @@ Public Class Main
         Return OutputMap
     End Function
 #End Region
+#Region "INI Read/Write"
 #Region "API Calls"
     ' standard API declarations for INI access
     ' changing only "As Long" to "As Int32" (As Integer would work also)
@@ -1668,7 +1710,7 @@ Public Class Main
     ByVal lpReturnedString As String, ByVal nSize As Int32, _
     ByVal lpFileName As String) As Int32
 #End Region
-#Region "INI Read/Write"
+
 #Region "INIRead Overloads"
     Public Overloads Function INIRead(ByVal INIPath As String, _
 ByVal SectionName As String, ByVal KeyName As String, _
@@ -1746,6 +1788,20 @@ ByVal DefaultValue As String) As String
         selectView("ttk")
     End Sub
 #End Region
+
+    Private Sub X500ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles X500ToolStripMenuItem.Click
+        showImage(500)
+    End Sub
+
+    Private Sub X1000ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles X1000ToolStripMenuItem.Click
+        showImage(800)
+
+    End Sub
+
+    Private Sub X1000ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles X1000ToolStripMenuItem1.Click
+        showImage(1000)
+
+    End Sub
 End Class
 Public Structure HeatPoint
     Public X As Integer

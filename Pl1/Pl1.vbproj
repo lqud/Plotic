@@ -100,6 +100,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="diaImageZoom.Designer.vb">
+      <DependentUpon>diaImageZoom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="diaImageZoom.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Main.Designer.vb">
       <DependentUpon>Main.vb</DependentUpon>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="Plotic.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="diaImageZoom.resx">
+      <DependentUpon>diaImageZoom.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.vb</DependentUpon>
     </EmbeddedResource>
