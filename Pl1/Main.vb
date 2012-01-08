@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v1.01"
+    Private Const VERSION As String = "Plotic v2.00"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
