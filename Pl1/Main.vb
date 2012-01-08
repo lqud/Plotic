@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v1.00"
+    Private Const VERSION As String = "Plotic v1.01"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -365,24 +365,24 @@ Public Class Main
                 pen6.DashStyle = Drawing2D.DashStyle.Dot
                 g.DrawLine(pen6, gridx, 0, gridx, 2000)
                 If direction = 1 Then
-                    gridx = gridx - Val(txtScale.Text) / (1 / numLineSpace.Value)
+                    gridx = gridx - Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                     If gridx < 0 Then
                         direction = 0
                     End If
                 Else
-                    gridx = gridx + Val(txtScale.Text) / (1 / numLineSpace.Value)
+                    gridx = gridx + Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                 End If
             Next
             For i = 0 To 70
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 g.DrawLine(pen6, 0, gridy, 2000, gridy)
                 If direction1 = 1 Then
-                    gridy = gridy - Val(txtScale.Text) / (1 / numLineSpace.Value)
+                    gridy = gridy - Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                     If gridy < 0 Then
                         direction1 = 0
                     End If
                 Else
-                    gridy = gridy + Val(txtScale.Text) / (1 / numLineSpace.Value)
+                    gridy = gridy + Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                 End If
             Next
         Else
@@ -397,12 +397,12 @@ Public Class Main
                 pen6.DashStyle = Drawing2D.DashStyle.Dot
                 g.DrawLine(pen6, gridx, 0, gridx, 2000)
                 If direction = 1 Then
-                    gridx = gridx - Val(txtScale.Text) * (Math.Atan((numLineSpace.Value / numMeters.Value)) * (180 / Math.PI))
+                    gridx = gridx - Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                     If gridx < 0 Then
                         direction = 0
                     End If
                 Else
-                    gridx = gridx + Val(txtScale.Text) * (Math.Atan((numLineSpace.Value / numMeters.Value)) * (180 / Math.PI))
+                    gridx = gridx + Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                 End If
             Next
             For i = 0 To 400
@@ -411,12 +411,12 @@ Public Class Main
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 g.DrawLine(pen6, 0, gridy, 2000, gridy)
                 If direction1 = 1 Then
-                    gridy = gridy - Val(txtScale.Text) * (Math.Atan((numLineSpace.Value / numMeters.Value)) * (180 / Math.PI))
+                    gridy = gridy - Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                     If gridy < 0 Then
                         direction1 = 0
                     End If
                 Else
-                    gridy = gridy + Val(txtScale.Text) * (Math.Atan((numLineSpace.Value / numMeters.Value)) * (180 / Math.PI))
+                    gridy = gridy + Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                 End If
             Next
         End If
@@ -687,6 +687,7 @@ Public Class Main
         Pl.AdjRecoilV = Double.Parse(numRecoilV.Value)
         Pl.AdjSpreadInc = Double.Parse(numInc.Value)
         Pl.AdjSpreadMin = Double.Parse(numMin.Value)
+        Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
         Pl.Title = txtTitle.Text
         Pl.Info = txtInfo.Text
         Pl.SubText = txtSub.Text
@@ -747,18 +748,25 @@ Public Class Main
         Pl.RecoilLeft = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
         Pl.RecoilRight = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
         Pl.FirstShot = convertINIValue(INIRead(silentTemplateFile, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
+
         Pl.SpreadInc = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
         Pl.SpreadMin = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
+
         Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "Unknown")))
         Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "Unknown")))
+
         Pl.AdjRecoilH = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilH", "0"), chrDecimalSymbol)
         Pl.AdjRecoilV = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilV", "0"), chrDecimalSymbol)
         Pl.AdjSpreadInc = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadInc", "0"), chrDecimalSymbol)
         Pl.AdjSpreadMin = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadMin", "0"), chrDecimalSymbol)
+
         Pl.Title = INIRead(silentTemplateFile, "Title", "TitleText", "")
         Pl.Info = INIRead(silentTemplateFile, "Title", "InfoText", "")
         Pl.SubText = INIRead(silentTemplateFile, "Title", "SubText", "")
+
         Pl.Scale = CInt(Val(INIRead(silentTemplateFile, "Grid", "Scale", "650")))
+        Pl.TargetRange = CInt(Val(INIRead(silentTemplateFile, "Grid", "Distance", "30")))
+        Pl.GridLineSpace = convertINIValue(INIRead(silentTemplateFile, "Grid", "GridValue", "1"), chrDecimalSymbol)
 
     End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
@@ -1526,7 +1534,7 @@ Public Class Main
         INIWrite(spath, "Grid", "RenderGrid", "0")
         INIWrite(spath, "Grid", "Scale", "650")
         INIWrite(spath, "Grid", "IsDegrees", "0")
-        INIWrite(spath, "Grid", "Distance", "1")
+        INIWrite(spath, "Grid", "Distance", "30")
         INIWrite(spath, "Grid", "GridValue", "1")
 
         INIWrite(spath, "TTk", "RenderTTK", "0")
