@@ -33,7 +33,8 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-
+        Dim test = GetData("FAMAS", "")
+        Dim test2 = GetValue("FAMAS", "FirstShotRecoilMultiplier")
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
         If File.Exists(palettePath) Then
@@ -436,22 +437,11 @@ Public Class Main
         Dim bulletTargetX = centerx - 25
         Dim bulletTargetY = (centery - Pl.dropInPixels) - 25
 
-        'g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
-        'g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
+        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
         g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
+
         g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
-    End Sub
-    Public Sub drawAdjustments(ByVal g As Graphics)
-        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
-        Dim hPos As Integer = 5
-        Dim rect As New Rectangle(3, 23, 350, 220)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
-        g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
-        g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
-        g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
-        g.DrawString("Spread Min: " + numMin.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
-        g.DrawString("Spread Inc: " + numInc.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
+        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
     End Sub
     Public Sub drawDropInfo(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -475,6 +465,18 @@ Public Class Main
         End If
 
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
+    End Sub
+    Public Sub drawAdjustments(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+        Dim hPos As Integer = 5
+        Dim rect As New Rectangle(3, 23, 350, 220)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
+        g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
+        g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
+        g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
+        g.DrawString("Spread Min: " + numMin.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
+        g.DrawString("Spread Inc: " + numInc.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
     End Sub
     Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -1857,7 +1859,7 @@ ByVal DefaultValue As String) As String
         Return val
     End Function
     Public Function GetData(ByVal weapon As String, ByVal attachment As String)
-        Dim basepath As String = "C:\weapons"
+        Dim basepath As String = System.IO.Path.Combine(Directory.GetCurrentDirectory, "weapons")
         If weapon = "Glock17" Then
             weapon = "Glock18"
         End If
