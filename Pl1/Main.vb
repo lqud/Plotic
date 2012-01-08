@@ -346,9 +346,9 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim rect As New Rectangle(700, 28, 675, 250)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
-        g.DrawString(txtTitle.Text, New Font("Arial", 90), greenBrush1, 800, 30)
-        g.DrawString(txtInfo.Text, New Font("Consolas", 60), greenBrush1, 710, 130)
-        g.DrawString(txtSub.Text, New Font("Consolas", 40), greenBrush1, 710, 220)
+        g.DrawString(Pl.Title, New Font("Arial", 90), greenBrush1, 800, 30)
+        g.DrawString(Pl.Info, New Font("Consolas", 60), greenBrush1, 710, 130)
+        g.DrawString(Pl.SubText, New Font("Consolas", 40), greenBrush1, 710, 220)
 
     End Sub
     Public Sub drawGrid(ByVal g As Graphics)
@@ -702,7 +702,6 @@ Public Class Main
     End Sub
     Private Function getView() As String
         Dim currentView As String = "main"
-
         If Me.viewToolStrip.Text = "View: Main" Then
             currentView = "main"
         ElseIf Me.viewToolStrip.Text = "View: Heat Map" Then
@@ -713,15 +712,12 @@ Public Class Main
 
         ElseIf Me.viewToolStrip.Text = "View: TTK" Then
             currentView = "ttk"
-
         End If
-
         Return currentView
     End Function
     Public Sub showImage(ByVal lengthOfSide As Integer)
         Dim diaTest As New diaImageZoom()
-        'Application.DoEvents()
-        diaTest.Text = lengthOfSide & "x" & lengthOfSide
+        diaTest.Text = lengthOfSide & " x " & lengthOfSide
         diaTest.Size = New System.Drawing.Size(lengthOfSide + 6, (lengthOfSide + 28))
         diaTest.ShowInTaskbar = True
         diaTest.picStatic.Location = New System.Drawing.Point(0, 0)
@@ -736,9 +732,8 @@ Public Class Main
         ElseIf getView() = "ttk" Then
             diaTest.picStatic.Image = Pl.TTK
         End If
-
         diaTest.Show()
-        'Application.DoEvents()
+        diaTest.ShowInTaskbar = True
     End Sub
     Private Function convertINIValue(ByVal inputValue As String, ByVal decimalSymbol As Char) As Double
         inputValue = inputValue.Replace(decimalSymbol, "."c)
@@ -1092,6 +1087,7 @@ Public Class Main
         End If
         If chkHeatMap.Checked Then
             ToggleToolStripHeatMap_ThreadSafe(True)
+            Me.HeatMapToolStripMenuItem.Enabled = True
         End If
         Me.btnStart.Enabled = True
         Me.btnStop.Enabled = False
@@ -1102,6 +1098,11 @@ Public Class Main
         Me.tabMain.Enabled = True
         Me.grpSpread.Enabled = True
         Me.viewToolStrip.Enabled = True
+
+        Me.ZoomToolStripMenuItem.Enabled = True
+        Me.TTKToolStripMenuItem.Enabled = True
+        Me.MaskToolStripMenuItem.Enabled = True
+
     End Sub
     Private Sub SaveImage()
 
@@ -1512,14 +1513,14 @@ Public Class Main
         INIWrite(spath, "Attach", "VerticalMultiplier", "0.3")
 
         INIWrite(spath, "Save", "SavePath", Directory.GetCurrentDirectory)
-        INIWrite(spath, "Save", "FileName", "<<Title>>_bf3_<<SubText>>")
+        INIWrite(spath, "Save", "FileName", "<<Title>>_bf3_<<Sub>>")
 
         INIWrite(spath, "Render", "ScaleRadius", "1")
         INIWrite(spath, "Render", "RenderBars", "1")
 
         INIWrite(spath, "Title", "RenderTitleText", "1")
         INIWrite(spath, "Title", "TitleText", "AEK-17")
-        INIWrite(spath, "Title", "InfoText", "Dmg: 25-17")
+        INIWrite(spath, "Title", "InfoText", "Dmg 25-17")
         INIWrite(spath, "Title", "SubText", "Stock")
 
         INIWrite(spath, "Grid", "RenderGrid", "0")
@@ -1787,21 +1788,17 @@ ByVal DefaultValue As String) As String
     Private Sub TTKToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles TTKToolStripMenuItem.Click
         selectView("ttk")
     End Sub
-#End Region
-
     Private Sub X500ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles X500ToolStripMenuItem.Click
         showImage(500)
     End Sub
-
     Private Sub X1000ToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles X1000ToolStripMenuItem.Click
         showImage(800)
-
     End Sub
-
     Private Sub X1000ToolStripMenuItem1_Click(sender As System.Object, e As System.EventArgs) Handles X1000ToolStripMenuItem1.Click
         showImage(1000)
-
     End Sub
+#End Region
+
 End Class
 Public Structure HeatPoint
     Public X As Integer

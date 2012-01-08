@@ -2104,28 +2104,33 @@ Partial Class Main
         '
         Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem, Me.ToolStripSeparator1, Me.ZoomToolStripMenuItem})
         Me.contextImgRightClick.Name = "contextImgRightClick"
-        Me.contextImgRightClick.Size = New System.Drawing.Size(153, 142)
+        Me.contextImgRightClick.Size = New System.Drawing.Size(127, 120)
         '
         'MainToolStripMenuItem
         '
+        Me.MainToolStripMenuItem.Checked = True
+        Me.MainToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MainToolStripMenuItem.Name = "MainToolStripMenuItem"
         Me.MainToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.MainToolStripMenuItem.Text = "&Main"
         '
         'MaskToolStripMenuItem
         '
+        Me.MaskToolStripMenuItem.Enabled = False
         Me.MaskToolStripMenuItem.Name = "MaskToolStripMenuItem"
         Me.MaskToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.MaskToolStripMenuItem.Text = "Mas&k"
         '
         'HeatMapToolStripMenuItem
         '
+        Me.HeatMapToolStripMenuItem.Enabled = False
         Me.HeatMapToolStripMenuItem.Name = "HeatMapToolStripMenuItem"
         Me.HeatMapToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.HeatMapToolStripMenuItem.Text = "&Heat Map"
         '
         'TTKToolStripMenuItem
         '
+        Me.TTKToolStripMenuItem.Enabled = False
         Me.TTKToolStripMenuItem.Name = "TTKToolStripMenuItem"
         Me.TTKToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.TTKToolStripMenuItem.Text = "&TTK"
@@ -2138,27 +2143,28 @@ Partial Class Main
         'ZoomToolStripMenuItem
         '
         Me.ZoomToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.X500ToolStripMenuItem, Me.X1000ToolStripMenuItem, Me.X1000ToolStripMenuItem1})
+        Me.ZoomToolStripMenuItem.Enabled = False
         Me.ZoomToolStripMenuItem.Name = "ZoomToolStripMenuItem"
-        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ZoomToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.ZoomToolStripMenuItem.Text = "&Zoom"
         '
         'X500ToolStripMenuItem
         '
         Me.X500ToolStripMenuItem.Name = "X500ToolStripMenuItem"
-        Me.X500ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.X500ToolStripMenuItem.Text = "500 x 500"
+        Me.X500ToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.X500ToolStripMenuItem.Text = "500 x 500 (25%)"
         '
         'X1000ToolStripMenuItem
         '
         Me.X1000ToolStripMenuItem.Name = "X1000ToolStripMenuItem"
-        Me.X1000ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.X1000ToolStripMenuItem.Text = "800 x 800"
+        Me.X1000ToolStripMenuItem.Size = New System.Drawing.Size(166, 22)
+        Me.X1000ToolStripMenuItem.Text = "800 x 800 (40%)"
         '
         'X1000ToolStripMenuItem1
         '
         Me.X1000ToolStripMenuItem1.Name = "X1000ToolStripMenuItem1"
-        Me.X1000ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
-        Me.X1000ToolStripMenuItem1.Text = "1000 x 1000"
+        Me.X1000ToolStripMenuItem1.Size = New System.Drawing.Size(166, 22)
+        Me.X1000ToolStripMenuItem1.Text = "1000 x 1000 (50%)"
         '
         'Main
         '

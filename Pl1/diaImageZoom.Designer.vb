@@ -40,7 +40,7 @@ Partial Class diaImageZoom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(994, 972)
+        Me.ClientSize = New System.Drawing.Size(354, 299)
         Me.Controls.Add(Me.picStatic)
         Me.DoubleBuffered = True
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
