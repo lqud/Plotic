@@ -1806,7 +1806,74 @@ ByVal DefaultValue As String) As String
         showImage(1000)
     End Sub
 #End Region
-
+    Public Function GetAttachmentValue(ByVal weapon As String, ByVal attachment As String, ByVal value As String, ByVal stance As String)
+        Dim data = GetData(weapon, attachment)
+        data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, stance))
+        Dim start = InStr(data, value) + (Len(value) + 1)
+        data = Microsoft.VisualBasic.Mid(data, start, 200)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
+        Return val
+    End Function
+    Public Function GetValue(ByVal weapon As String, ByVal value As String)
+        Dim data = GetData(weapon, "")
+        Dim preparsevalues = "-IncreasePerShotMinAngleMaxAngleDecreasePerSecondRecoilAmplitudeMaxRecoilAmplitudeIncPerShotHorizontalRecoilAmplitudeIncPerShotMinHorizontalRecoilAmplitudeIncPerShotMaxHorizontalRecoilAmplitudeMaxRecoilAmplitudeDecreaseFactor-"
+        If InStr(preparsevalues, value) Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "WeaponSwayData"))
+        Else
+            If InStr(value, "MinAngle") Or InStr(value, "MaxAngle") Then
+                data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "WeaponSwayData"))
+            End If
+        End If
+        If InStr(value, "ADS") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "	Zoom"))
+        ElseIf InStr(value, "HIP") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "NoZoom"))
+        End If
+        If InStr(value, "Base") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "BaseValue"))
+        ElseIf InStr(value, "Moving") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Moving"))
+        End If
+        If InStr(value, "MinAngle") Then
+            value = "MinAngle"
+        ElseIf InStr(value, "MaxAngle") Then
+            value = "MaxAngle"
+        End If
+        Dim start = InStr(data, value) + (Len(value) + 1)
+        data = Microsoft.VisualBasic.Mid(data, start, 200)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
+        Return val
+    End Function
+    Public Function GetData(ByVal weapon As String, ByVal attachment As String)
+        Dim basepath As String = "C:\weapons"
+        If weapon = "Glock17" Then
+            weapon = "Glock18"
+        End If
+        Dim weapon1 = weapon
+        If attachment = "" Then
+            If weapon = "M4A1" Or weapon = "M16A4" Then
+                weapon1 = weapon + "_Gunsway"
+            End If
+        End If
+        Dim path = basepath + "\" + weapon + "\" + weapon1
+        If Not attachment = "" Then
+            path += "_" + attachment
+        End If
+        path += ".sym"
+        Return My.Computer.FileSystem.ReadAllText(path)
+    End Function
 End Class
 Public Structure HeatPoint
     Public X As Integer
