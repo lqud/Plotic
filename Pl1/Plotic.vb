@@ -19,6 +19,7 @@
     Private dblAdjRecoilV As Double
     Private dblAdjSpreadMin As Double
     Private dblAdjSpreadInc As Double
+    Private dblGridLineSpace As Double
     Private intBurst As Integer
     Private intBulletsPerBurst As Integer
     Private dblFirstShot As Double
@@ -221,6 +222,15 @@
         End Get
         Set(ByVal Value As Double)
             dblFirstShot = Value
+        End Set
+    End Property
+
+    Property GridLineSpace() As Double
+        Get
+            Return dblGridLineSpace
+        End Get
+        Set(ByVal Value As Double)
+            dblGridLineSpace = Value
         End Set
     End Property
 
