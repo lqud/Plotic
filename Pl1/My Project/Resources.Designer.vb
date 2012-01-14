@@ -60,6 +60,13 @@ Namespace My.Resources
             End Set
         End Property
         
+        Friend ReadOnly Property knife() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("knife", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property pal() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("pal", resourceCulture)

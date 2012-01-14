@@ -28,7 +28,6 @@ Partial Class diaImageZoom
         '
         'picStatic
         '
-        Me.picStatic.Image = Global.P11.My.Resources.Resources.sil_2_fullsize
         Me.picStatic.Location = New System.Drawing.Point(12, 12)
         Me.picStatic.Name = "picStatic"
         Me.picStatic.Size = New System.Drawing.Size(223, 221)

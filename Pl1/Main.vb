@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.00"
+    Private Const VERSION As String = "Plotic v2.03"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -33,8 +33,33 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-        Dim test = GetData("FAMAS", "")
-        Dim test2 = GetValue("FAMAS", "FirstShotRecoilMultiplier")
+        Dim test2 = GetValue("G3A3", "WeaponClass")
+        Dim test2a = GetValue("G3A3", "MagazineCapacity")
+        Dim test2b = GetValue("G3A3", "NumberOfMagazines")
+        Dim test2c = GetValue("G3A3", "TraceFrequency")
+        Dim test2d = GetValue("G3A3", "RateOfFire")
+        Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
+
+        Dim test01 = GetAttachmentValue("G3A3", "HeavyBarrel", "MinAngleModifier", "StandNoZoom")
+        Dim test02 = GetAttachmentValue("G3A3", "HeavyBarrel", "MaxAngleModifier", "StandNoZoom")
+        Dim test03 = GetAttachmentValue("G3A3", "HeavyBarrel", "IncreasePerShot", "StandNoZoom")
+        Dim test04 = GetAttachmentValue("G3A3", "HeavyBarrel", "DecreasePerSecondModifier", "StandNoZoom")
+        Dim test05 = GetAttachmentValue("G3A3", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
+        Dim test06 = GetAttachmentValue("G3A3", "HeavyBarrel", "RecoilAngleMod", "StandNoZoom")
+
+        'right recoil
+        Dim test3 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMin")
+        'left recoil
+        Dim test4 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMax")
+
+        Dim test5 = GetValue("G3A3", "HorizontalRecoilAmplitudeMax")
+        'up recoil
+        Dim test6 = GetValue("G3A3", "RecoilAmplitudeIncPerShot")
+
+        Dim test7 = GetValue("G3A3", "RecoilAmplitudeDecreaseFactor")
+        Dim test8 = GetValue("G3A3", "RecoilAmplitudeMax")
+        'first shot
+        Dim test0 = GetAttachmentValue("G3A3", "TargetPointer", "MinAngleModifier", "StandZoom")
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
         If File.Exists(palettePath) Then
@@ -64,6 +89,29 @@ Public Class Main
             Debug.WriteLine("NOT FOUND: " & silentIniTemplatePath)
             CreateTemplateIni()
         End If
+        picPlot.Image = New Bitmap(My.Resources.knife)
+        picPlot.SizeMode = PictureBoxSizeMode.Zoom
+        comboWeapon1.Items.Add("<<CUSTOM>>")
+        Dim Mypath As String, MyName As String, iCount As Integer
+        iCount = 0
+        Mypath = Directory.GetCurrentDirectory & "\weapons\" ' Set the path.
+        MyName = Dir(Mypath, vbDirectory)   ' Retrieve the first entry.
+        Do While MyName <> ""   ' Start the loop.
+            ' Ignore the current directory and the encompassing directory.
+            If MyName <> "." And MyName <> ".." Then
+                ' Use bitwise comparison to make sure MyName is a directory.
+                If (GetAttr(Mypath & MyName) And vbDirectory) = vbDirectory Then
+                    'Debug.WriteLine(MyName)   ' Display entry only if it
+                    comboWeapon1.Items.Add(MyName)
+                    If iCount = 0 Then
+                        comboWeapon1.Text = MyName
+                    End If
+                    iCount = iCount + 1
+                End If   ' it represents a directory.
+            End If
+            MyName = Dir()   ' Get next entry.
+        Loop
+        Debug.WriteLine("No.of Folders in the weapons path : " & iCount)
     End Sub
 
     Public Sub drawTTKSplit(ByVal g As Graphics)
@@ -89,19 +137,25 @@ Public Class Main
         Dim brushYellow As New SolidBrush(Color.Yellow)
         Dim brushBlue As New SolidBrush(Color.LightBlue)
         Dim brushLightBlue As New SolidBrush(Color.LightCyan)
+        Dim brushGoldenRod As New SolidBrush(Color.Goldenrod)
+
         Dim penScale As New System.Drawing.Pen(Color.Yellow, 1)
         penScale.DashStyle = Drawing2D.DashStyle.Dot
 
         Dim xPixel As Integer = leftX
-        Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (1980 / numTTKRange.Value)), 0)
+        Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (graphWidth / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
-        g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel - 5), 1960)
+
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel - 5), (bottomY + 10))
         g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
         meterValue += numTTKGridSpacing.Value
         xPixel = xPixel + pixelsPerNMeters
         Do While (xPixel < rightX)
             g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
-            g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), 1960)
+            g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), (bottomY + 10))
             xPixel = xPixel + pixelsPerNMeters
             meterValue += numTTKGridSpacing.Value
         Loop
@@ -118,6 +172,17 @@ Public Class Main
         'Draw Top Line
         g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
         g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
+
+        'Draw Top Line
+        Dim rangeInMeters As Double = rightX * metersperPixel
+
+        Dim dblDamageAtMaxRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+        Dim dblDamageAtMinRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (0 - numMinRange.Value))
+
+        Dim TTK As Double = ((Math.Round((100 / dblDamageAtMaxRange), 0) - 1) / (Pl.RateOfFire / 60)) + (numTTKRange.Value / Pl.BulletVelocity)
+        Dim TTKMin As Double = ((Math.Round((100 / numDamageMax.Value), 0) - 1) / (Pl.RateOfFire / 60)) + (numTTKRange.Value / Pl.BulletVelocity)
+        g.DrawString((Math.Round((TTK * 1000), 0)) & "ms", New Font("Arial", 15), brushGoldenRod, (leftX - 45), (yPixel + 5))
+
         'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
         yPixel = yPixel + pixelsPerLine
         Dim intAltToggle As Integer = 0
@@ -140,9 +205,13 @@ Public Class Main
                 intAltToggle = 1
             End If
         Loop
-        'Draw Bottom Line
+        'Draw Right Bottom Line
         g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
         g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
+
+        'Draw Left Bottom Line
+        g.DrawString((Math.Round((TTKMin * 1000), 0)) & "ms", New Font("Arial", 15), brushGoldenRod, (leftX - 45), (yPixel - 25))
+
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
 
@@ -235,54 +304,6 @@ Public Class Main
         g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
-
-    Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
-        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim topY = 1500
-        Dim bottomY = 1950
-        Dim rightX = 1925
-        Dim leftX = 50
-
-        Dim graphWidth = rightX - leftX
-        Dim graphHeight = bottomY - topY
-        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
-        Dim metersperPixel As Double = 1 / pixelsPerMeter
-
-        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
-        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
-
-        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
-        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
-        penRed.DashStyle = Drawing2D.DashStyle.Solid
-        penWhite.DashStyle = Drawing2D.DashStyle.Solid
-
-        'Calculate the position of the other points
-        Dim yValue As Integer = topY
-        For i = leftX To rightX Step 1
-
-            Dim rangeInMeters As Double = i * metersperPixel
-
-            If rangeInMeters <= numMaxRange.Value Then
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-                yValue = topY
-            ElseIf rangeInMeters >= numMinRange.Value Then
-                yValue = bottomY
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-            Else
-                Dim a As Double = rangeInMeters - numMaxRange.Value
-                Dim b As Double = a / distanceDifference
-                Dim c As Double = damageDifference * b
-                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
-                ' Debug.WriteLine(rangeInMeters & "-> " & d)
-                Dim e As Double = Math.Round(graphHeight * b, 2)
-                yValue = Math.Round(topY + e, 0)
-
-            End If
-
-            g.DrawEllipse(penRed, i, yValue, 1, 1)
-        Next
-
-    End Sub
     Public Sub drawTTKBulletDropArc(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
 
@@ -339,6 +360,111 @@ Public Class Main
             End If
 
 
+        Next
+
+    End Sub
+
+    Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1925
+        Dim leftX = 50
+
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+
+        'Calculate the position of the other points
+        Dim yValue As Integer = topY
+        For i = leftX To rightX Step 1
+
+            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = topY
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = bottomY
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = a / distanceDifference
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(graphHeight * b, 2)
+                yValue = Math.Round(topY + e, 0)
+
+            End If
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
+        Next
+
+    End Sub
+    Public Sub drawTTKChart(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1925
+        Dim leftX = 50
+
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+
+        Dim maxRangeInMeters As Double = rightX * metersperPixel
+
+        Dim dblMaxDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+        Dim maxTTK As Double = ((Math.Round((100 / dblMaxDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (maxRangeInMeters / Pl.BulletVelocity)
+
+
+        'Calculate the position of the other points
+        Dim yValue As Integer = topY
+        For i = leftX To rightX Step 1
+            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
+
+            'Dim damageAtDistance As Double = Pl.
+            Dim dblDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+            Dim TTK As Double = ((Math.Round((100 / dblDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (rangeInMeters / Pl.BulletVelocity)
+            Debug.WriteLine(i & ": " & rangeInMeters & "-> " & Math.Round(TTK, 6) & " :: " & Math.Round(TTK / maxTTK, 4))
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = topY
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = bottomY
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = TTK / maxTTK
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(graphHeight * b, 2)
+                yValue = Math.Round(bottomY - e, 0)
+
+            End If
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
         Next
 
     End Sub
@@ -423,6 +549,7 @@ Public Class Main
         End If
 
     End Sub
+
     Private Sub drawBulletDrop(ByVal g As Graphics)
         Dim centerx = 1000
         Dim centery = 1680
@@ -466,6 +593,7 @@ Public Class Main
 
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
+
     Public Sub drawAdjustments(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
@@ -589,10 +717,9 @@ Public Class Main
         btnStart.Enabled = False
 
         Me.grpAttach.Enabled = False
-        Me.grpMisc.Enabled = False
-        Me.grpRecoil.Enabled = False
+        Me.grpWeapon.Enabled = False
         Me.tabMain.Enabled = False
-        Me.grpSpread.Enabled = False
+        Me.grpStance.Enabled = False
 
         ' Enable to stop button
         btnStop.Enabled = True
@@ -611,6 +738,10 @@ Public Class Main
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Image)
+                MainToolStripMenuItem.Checked = True
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
             Case "heat"
                 SetToolStripText_ThreadSafe("View: Heat map")
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Checked)
@@ -619,6 +750,10 @@ Public Class Main
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.HeatMap)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = True
+                TTKToolStripMenuItem.Checked = False
             Case "mask"
                 SetToolStripText_ThreadSafe("View: Mask")
                 CheckToolStripMask_ThreadSafe(CheckState.Checked)
@@ -627,6 +762,10 @@ Public Class Main
                 CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Mask)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = True
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
 
             Case "ttk"
                 SetToolStripText_ThreadSafe("View: TTK")
@@ -636,6 +775,10 @@ Public Class Main
                 CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.TTK)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = True
             Case Else
                 SetToolStripText_ThreadSafe("View: Main")
                 CheckToolStripMain_ThreadSafe(CheckState.Checked)
@@ -644,6 +787,10 @@ Public Class Main
                 CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
                 CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
                 SetImage_ThreadSafe(Pl.Image)
+                MainToolStripMenuItem.Checked = True
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
 
                 SetOutPutText_ThreadSafe("View: '" & view & " NOT FOUND")
         End Select
@@ -656,11 +803,9 @@ Public Class Main
         'Disable all of the input boxes
         btnStart.Enabled = False
 
-        Me.grpAttach.Enabled = False
-        Me.grpMisc.Enabled = False
-        Me.grpRecoil.Enabled = False
+        Me.grpWeapon.Enabled = False
         Me.tabMain.Enabled = False
-        Me.grpSpread.Enabled = False
+        Me.grpStance.Enabled = False
         Me.viewToolStrip.Enabled = False
 
         ' Enable to stop button
@@ -676,30 +821,84 @@ Public Class Main
         BackgroundWorker1.RunWorkerAsync()
         'BackgroundWorker2.RunWorkerAsync()
     End Sub
+
+    Private Function getMinAngle() As Double
+        Dim strStanceBuild As String = ""
+        If chkStanceZoom.Checked Then
+            strStanceBuild = "ADS"
+        Else
+            strStanceBuild = "HIP"
+        End If
+        If chkStanceMoving.Checked Then
+            strStanceBuild += "Moving"
+        Else
+            strStanceBuild += "Base"
+        End If
+        strStanceBuild += "MinAngle"
+        Return GetValue(comboWeapon1.Text, strStanceBuild)
+    End Function
+    Private Function getMaxAngle() As Double
+        Dim strStanceBuild As String = ""
+        If chkStanceZoom.Checked Then
+            strStanceBuild = "ADS"
+        Else
+            strStanceBuild = "HIP"
+        End If
+        If chkStanceMoving.Checked Then
+            strStanceBuild += "Moving"
+        Else
+            strStanceBuild += "Base"
+        End If
+        strStanceBuild += "MaxAngle"
+        Return GetValue(comboWeapon1.Text, strStanceBuild)
+    End Function
+
+    Private Function getAdjustMin() As Double
+        Dim dblSumModifer As Double = 0
+        If radBarrelFlash.Checked Then
+            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance())
+        End If
+        If radBarrelHeavy.Checked Then
+            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance())
+        End If
+        If radBarrelSilencer.Checked Then
+            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance())
+        End If
+        If radBarrelNone.Checked Then
+            dblSumModifer += 1
+        End If
+
+        Return dblSumModifer
+    End Function
     Private Sub loadPlotic()
-        Pl.RecoilUp = Double.Parse(numRecoilUp.Value)
-        Pl.RecoilLeft = Double.Parse(numRecoilLeft.Value)
-        Pl.RecoilRight = Double.Parse(numRecoilRight.Value)
-        Pl.SpreadInc = Double.Parse(numSpreadInc.Value)
-        Pl.SpreadMin = Double.Parse(numSpreadMin.Value)
-        Pl.FirstShot = Double.Parse(numFirstShot.Value)
+
+        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))
+        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))
+        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin")))
+        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot"))
+        Pl.SpreadMin = Double.Parse(getMinAngle())
+        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"))
         Pl.Burst = txtBursts.Text
         Pl.BulletsPerBurst = numBulletsPerBurst.Value
-        Pl.AdjRecoilH = Double.Parse(numRecoilH.Value)
+        Pl.AdjRecoilH = Double.Parse(numRecoilV.Value)
         Pl.AdjRecoilV = Double.Parse(numRecoilV.Value)
         Pl.AdjSpreadInc = Double.Parse(numInc.Value)
-        Pl.AdjSpreadMin = Double.Parse(numMin.Value)
+        Pl.AdjSpreadMin = getAdjustMin() * 100
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
-        Pl.Title = txtTitle.Text
+        If txtTitle.Text = "<<GUN>>" Then
+            Pl.Title = comboWeapon1.Text
+        Else
+            Pl.Title = txtTitle.Text
+        End If
         Pl.Info = txtInfo.Text
         Pl.SubText = txtSub.Text
         Pl.Scale = txtScale.Text
 
-        Pl.BulletVelocity = numBulletVelocity.Value
+        Pl.BulletVelocity = GetSpeed(comboWeapon1.Text)
         Pl.MaxDistance = numMaxDistance.Value
         Pl.BulletDrop = numBulletDrop.Value
         Pl.TargetRange = numMeters.Value
-        Pl.RateOfFire = numRateOfFire.Value
+        Pl.RateOfFire = Double.Parse(GetValue(comboWeapon1.Text, "RateOfFire"))
 
 
     End Sub
@@ -754,8 +953,8 @@ Public Class Main
         Pl.SpreadInc = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
         Pl.SpreadMin = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
 
-        Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "Unknown")))
-        Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "Unknown")))
+        Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "500")))
+        Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "5")))
 
         Pl.AdjRecoilH = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilH", "0"), chrDecimalSymbol)
         Pl.AdjRecoilV = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilV", "0"), chrDecimalSymbol)
@@ -804,12 +1003,12 @@ Public Class Main
     End Sub
 
     Private Sub UpdateAdjustments()
-        lblAdjUp.Text = calculateAdjustment(CDbl(Val(numRecoilUp.Value)), CDbl(Val(numRecoilV.Text))).ToString
-        lblAdjRight.Text = calculateAdjustment(CDbl(Val(numRecoilRight.Value)), CDbl(Val(numRecoilH.Text))).ToString
-        lblAdjLeft.Text = calculateAdjustment(CDbl(Val(numRecoilLeft.Value)), CDbl(Val(numRecoilH.Text))).ToString
+        lblAdjUp.Text = calculateAdjustment(CDbl(Val(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))), CDbl(Val(numRecoilV.Text))).ToString
+        lblAdjRight.Text = calculateAdjustment(CDbl(Val(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin"))), CDbl(Val(numRecoilH.Text))).ToString
+        lblAdjLeft.Text = calculateAdjustment(CDbl(Val(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))), CDbl(Val(numRecoilH.Text))).ToString
 
-        lblAdjMin.Text = calculateAdjustment(CDbl(Val(numSpreadMin.Value)), (numMin.Value)).ToString
-        lblAdjInc.Text = calculateAdjustment(CDbl(Val(numSpreadInc.Value)), (numInc.Value)).ToString
+        lblAdjMin.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numMin.Value)).ToString
+        lblAdjInc.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numInc.Value)).ToString
     End Sub
     Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numInc.ValueChanged, numMin.ValueChanged
         UpdateAdjustments()
@@ -844,7 +1043,7 @@ Public Class Main
 
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
-        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / numMeters.Value) * (180 / Math.PI)) * Pl.Scale, 0)
+        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
         Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
         Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
 
@@ -1070,7 +1269,7 @@ Public Class Main
         End If
         drawTTKBulletDamageArc(Pl.TTKGraphic)
         drawTTKBulletDropArc(Pl.TTKGraphic)
-
+        '       drawTTKChart(Pl.TTKGraphic)
         ToggleToolStripMain_ThreadSafe(True)
         selectView("main")
         ToggleToolStripMask_ThreadSafe(True)
@@ -1102,11 +1301,9 @@ Public Class Main
         Me.btnStart.Enabled = True
         Me.btnStop.Enabled = False
 
-        Me.grpAttach.Enabled = True
-        Me.grpMisc.Enabled = True
-        Me.grpRecoil.Enabled = True
+        Me.grpWeapon.Enabled = True
         Me.tabMain.Enabled = True
-        Me.grpSpread.Enabled = True
+        Me.grpStance.Enabled = True
         Me.viewToolStrip.Enabled = True
 
         Me.ZoomToolStripMenuItem.Enabled = True
@@ -1161,6 +1358,25 @@ Public Class Main
     Private Sub createSilentImage()
         Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
 
+        Dim b As Bitmap = Pl.Image
+        Dim fileDir = INIRead(silentTemplateFile, "Save", "SavePath", "Unknown")
+        Dim fileName = convertFileName(INIRead(silentTemplateFile, "Save", "FileName", "Unknown"))
+        Dim fullPath As String = Path.Combine(fileDir, fileName)
+
+        Dim RenderTitleText As Integer = INIRead(silentTemplateFile, "Title", "RenderTitleText", "0")
+        Dim RenderAttachText As Integer = INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0")
+        Dim RenderGrid As Integer = INIRead(silentTemplateFile, "Grid", "RenderGrid", "0")
+        Dim RenderBars As Integer = INIRead(silentTemplateFile, "Render", "RenderBars", "0")
+        Dim RenderTTK As Integer = INIRead(silentTemplateFile, "TTK", "RenderTTK", "0")
+        Dim ScaleRadius As Integer = INIRead(silentTemplateFile, "Render", "ScaleRadius", "0")
+        Dim IntensityScale As String = INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2")
+        Dim VerticalMultiplier As String = INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1")
+        Dim MultiplyVerticalRecoil As Integer = INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0")
+        Dim RenderHeatMap As Integer = INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0")
+        Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
+        Dim HeatRadius As Integer = INIRead(silentTemplateFile, "HeatMap", "Radius", "0")
+
+
         'TODO: Convert to arrays
         Dim aryHits() As Integer = {0, 0, 0, 0, 0}
         Dim coord1x(Val(Pl.Burst)) As Integer
@@ -1187,7 +1403,7 @@ Public Class Main
 
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
-        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / numMeters.Value) * (180 / Math.PI)) * Pl.Scale, 0)
+        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
         Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
         Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
 
@@ -1215,13 +1431,13 @@ Public Class Main
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
         soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
 
-        If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
+        If RenderTTK = 1 Then
             Pl.ImageGraphic.Clear(Color.Black)
             Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
         Else
             Pl.ImageGraphic.Clear(Color.Black)
         End If
-        If INIRead(silentTemplateFile, "Render", "RenderBars", "0") = 1 Then
+        If RenderBars = 1 Then
             drawBars(Pl.ImageGraphic)
         End If
         Dim scale = Val(Pl.Scale)
@@ -1240,23 +1456,23 @@ Public Class Main
                 Select Case a
                     Case 0
                         pen1.Color = Color.YellowGreen
-                        iIntense = CByte(15 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
+                        iIntense = CByte(15 * convertINIValue(IntensityScale, chrDecimalSymbol))
                     Case 1
                         pen1.Color = Color.Yellow
-                        iIntense = CByte(12 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
+                        iIntense = CByte(12 * convertINIValue(IntensityScale, chrDecimalSymbol))
                     Case 2
                         pen1.Color = Color.Orange
-                        iIntense = CByte(9 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
+                        iIntense = CByte(9 * convertINIValue(IntensityScale, chrDecimalSymbol))
                     Case 3
                         pen1.Color = Color.Red
-                        iIntense = CByte(6 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
+                        iIntense = CByte(6 * convertINIValue(IntensityScale, chrDecimalSymbol))
                     Case 4
                         pen1.Color = Color.DarkRed
-                        iIntense = CByte(3 * convertINIValue(INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2"), chrDecimalSymbol))
+                        iIntense = CByte(3 * convertINIValue(IntensityScale, chrDecimalSymbol))
                 End Select
                 Dim radius
                 Dim mul As Integer = 100000
-                If INIRead(silentTemplateFile, "Render", "ScaleRadius", "0") = 1 Then
+                If ScaleRadius = 1 Then
                     radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
                 Else
                     radius = rndD(spread, 0)
@@ -1268,7 +1484,7 @@ Public Class Main
                 'Add Target to heatpoints
                 HeatPoints.Add(New HeatPoint(x, y, iIntense))
 
-                If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") <> 1 Then
+                If RenderTTK <> 1 Then
                     Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
                 Else
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
@@ -1308,11 +1524,11 @@ Public Class Main
                 End If
 
                 Application.DoEvents()
-                If INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0") = 1 Then
+                If MultiplyVerticalRecoil = 1 Then
                     If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1"))))
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(VerticalMultiplier)))
                     Else
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1"))))
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(VerticalMultiplier)))
                     End If
                 Else
                     If a = 0 Then
@@ -1326,8 +1542,8 @@ Public Class Main
             Next
         Next
         Dim nl = Environment.NewLine
-        Dim intBursts As Integer = Val(INIRead(silentTemplateFile, "Burst", "Bursts", "5"))
-        If INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
+        Dim intBursts As Integer = Val(Pl.Burst)
+        If RenderTTK = 1 Then
             For a = 0 To intBursts - 1
                 Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
                 Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
@@ -1345,33 +1561,29 @@ Public Class Main
             Debug.WriteLine("Hits #1: " & aryHits(0))
 
         End If
-        If INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0") = 1 And INIRead(silentTemplateFile, "TTK", "RenderTTK", "0") = 1 Then
+        If RenderHitRates = 1 And RenderTTK = 1 Then
             drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
-        If INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0") = 1 Then
+        If RenderHeatMap = 1 Then
             Application.DoEvents()
-            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, CInt(Val(INIRead(silentTemplateFile, "HeatMap", "Radius", "75"))))
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, CInt(Val(HeatRadius)))
             ' Colorize the memory bitmap and assign it as the picture boxes image
             Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
         End If
-        If INIRead(silentTemplateFile, "Title", "RenderTitleText", "0") = 1 Then
+        If RenderTitleText = 1 Then
             drawTitle(Pl.ImageGraphic)
         End If
-        If INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0") = 1 Then
+        If RenderAttachText = 1 Then
             drawAdjustments(Pl.ImageGraphic)
         End If
-        If INIRead(silentTemplateFile, "Grid", "RenderGrid", "0") = 1 Then
+        If RenderGrid = 1 Then
             drawGrid(Pl.ImageGraphic)
         End If
 
-        Dim b As Bitmap = Pl.Image
-        Dim fileDir = INIRead(silentTemplateFile, "Save", "SavePath", "Unknown")
-        Dim fileName = convertFileName(INIRead(silentTemplateFile, "Save", "FileName", "Unknown"))
-        Dim fullPath As String = Path.Combine(fileDir, fileName)
 
         b.Save(fullPath)
 
-        If INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0") = 1 Then
+        If RenderHeatMap = 1 Then
             Dim h As Bitmap = Pl.HeatMap
             Dim heatFileName As String = fullPath.Insert((fullPath.Length - 4), "_heatmap")
             h.Save(heatFileName)
@@ -1808,6 +2020,22 @@ ByVal DefaultValue As String) As String
         showImage(1000)
     End Sub
 #End Region
+#Region "Weapon Pull Functions"
+    Public Function GetSpeed(ByVal weapon As String)
+        Dim data = GetData(weapon, "")
+        data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "InitialSpeed"))
+        Dim start = InStr(data, "InitialSpeed")
+        Dim Test = InStr(data, "z") + 2
+        data = Microsoft.VisualBasic.Mid(data, Test, 50)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
+        Return Trim(val)
+    End Function
     Public Function GetAttachmentValue(ByVal weapon As String, ByVal attachment As String, ByVal value As String, ByVal stance As String)
         Dim data = GetData(weapon, attachment)
         data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, stance))
@@ -1874,8 +2102,110 @@ ByVal DefaultValue As String) As String
             path += "_" + attachment
         End If
         path += ".sym"
-        Return My.Computer.FileSystem.ReadAllText(path)
+        If File.Exists(path) Then
+            Return My.Computer.FileSystem.ReadAllText(path)
+        Else
+            Return "FILENOTFOUND"
+        End If
     End Function
+#End Region
+
+    Private Sub comboWeapon1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles comboWeapon1.SelectedIndexChanged
+        If sender.text <> "<<CUSTOM>>" Then
+            grpCustomTTK.Enabled = False
+            grpAttach.Enabled = False
+            grpRecoil.Enabled = False
+            grpSpread.Enabled = False
+
+            updateAttachmentSelection()
+            renderGunImage()
+        Else
+            grpCustomTTK.Enabled = True
+            grpAttach.Enabled = True
+            grpRecoil.Enabled = True
+            grpSpread.Enabled = True
+
+            picPlot.Image = New Bitmap(My.Resources.knife)
+        End If
+
+        'Reset the Attachments
+        radBarrelNone.Checked = True
+        radUnderNone.Checked = True
+
+        Pl.AdjRecoilH = 0
+        Pl.AdjRecoilV = 0
+        Pl.AdjSpreadInc = 0
+        Pl.AdjSpreadMin = 0
+
+    End Sub
+    Private Sub renderGunImage()
+        Dim basepath As String = System.IO.Path.Combine(Directory.GetCurrentDirectory, "gun_images")
+        Dim path = basepath & "\" & comboWeapon1.Text.ToLower & ".png"
+        If File.Exists(path) Then
+            picPlot.Image = DirectCast(Bitmap.FromFile(path), Bitmap)
+            picPlot.SizeMode = PictureBoxSizeMode.Zoom
+            'Debug.WriteLine("Gun Image Found at " & path)
+
+        Else
+            Debug.WriteLine("No Gun Image Found at " & path)
+            picPlot.Image = New Bitmap(My.Resources.knife)
+        End If
+    End Sub
+    Private Sub updateAttachmentSelection()
+        If GetData(comboWeapon1.Text, "HeavyBarrel") = "FILENOTFOUND" Then
+            radBarrelHeavy.Enabled = False
+        Else
+            radBarrelHeavy.Enabled = True
+        End If
+
+        If GetData(comboWeapon1.Text, "Silencer") = "FILENOTFOUND" Then
+            radBarrelSilencer.Enabled = False
+        Else
+            radBarrelSilencer.Enabled = True
+        End If
+
+        If GetData(comboWeapon1.Text, "Flash_Suppressor") = "FILENOTFOUND" Then
+            radBarrelFlash.Enabled = False
+        Else
+            radBarrelFlash.Enabled = True
+        End If
+
+        If GetData(comboWeapon1.Text, "Foregrip") = "FILENOTFOUND" Then
+            radUnderForegrip.Enabled = False
+        Else
+            radUnderForegrip.Enabled = True
+        End If
+
+        If GetData(comboWeapon1.Text, "TargetPointer") = "FILENOTFOUND" Then
+            radUnderLaser.Enabled = False
+        Else
+            radUnderLaser.Enabled = True
+        End If
+
+        If GetData(comboWeapon1.Text, "Bipod") = "FILENOTFOUND" Then
+            radUnderBipod.Enabled = False
+        Else
+            radUnderBipod.Enabled = True
+        End If
+    End Sub
+
+    Private Function getStance() As String
+        Dim stance As String = ""
+        If radStand.Checked Then
+            stance = "Stand"
+        ElseIf radCrouch.Checked Then
+            stance = "Crouch"
+        Else
+            stance = "Prone"
+        End If
+        If chkStanceZoom.Checked Then
+            stance = stance & "Zoom"
+        Else
+            stance = stance & "NoZoom"
+        End If
+        Return stance
+    End Function
+
 End Class
 Public Structure HeatPoint
     Public X As Integer
