@@ -1067,7 +1067,7 @@ Partial Class Main
         Me.txtInfo.Name = "txtInfo"
         Me.txtInfo.Size = New System.Drawing.Size(86, 20)
         Me.txtInfo.TabIndex = 91
-        Me.txtInfo.Text = "Dmg 25 - 17"
+        Me.txtInfo.Text = "<<STANCE>>"
         '
         'Label1
         '

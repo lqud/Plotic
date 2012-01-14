@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.04"
+    Private Const VERSION As String = "Plotic v2.06"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -999,6 +999,31 @@ Public Class Main
         Return dblSumModifer
     End Function
 
+    Private Function buildStanceString() As String
+        Dim attachString As String = ""
+        If radStand.Checked Then
+            attachString += "Stand/"
+        End If
+        If radCrouch.Checked Then
+            attachString += "Crouch/"
+        End If
+        If radProne.Checked Then
+            attachString += "Prone/"
+        End If
+
+        If chkStanceZoom.Checked Then
+            attachString += "ADS"
+        Else
+            attachString += "Hip"
+        End If
+
+        If chkStanceMoving.Checked Then
+            attachString += "/Moving"
+        End If
+        Return Trim(attachString)
+    End Function
+
+
     Private Function buildAttachString() As String
         Dim attachString As String = ""
         Dim attachCount As Integer = 0
@@ -1066,7 +1091,12 @@ Public Class Main
         Else
             Pl.SubText = txtSub.Text
         End If
-        Pl.Info = txtInfo.Text
+        If txtInfo.Text = "<<STANCE>>" Then
+            Pl.Info = buildStanceString()
+        Else
+            Pl.Info = txtInfo.Text
+        End If
+
 
         Pl.Scale = txtScale.Text
 
@@ -2199,6 +2229,7 @@ ByVal DefaultValue As String) As String
 #Region "Weapon Pull Functions"
     Public Function GetSpeed(ByVal weapon As String)
         Dim data = GetData(weapon, "")
+        If data = "FILENOTFOUND" Then Return "ERROR"
         data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "InitialSpeed"))
         Dim start = InStr(data, "InitialSpeed")
         Dim Test = InStr(data, "z") + 2
@@ -2214,6 +2245,7 @@ ByVal DefaultValue As String) As String
     End Function
     Public Function GetAttachmentValue(ByVal weapon As String, ByVal attachment As String, ByVal value As String, ByVal stance As String)
         Dim data = GetData(weapon, attachment)
+        If data = "FILENOTFOUND" Then Return "ERROR"
         data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, stance))
         Dim start = InStr(data, value) + (Len(value) + 1)
         data = Microsoft.VisualBasic.Mid(data, start, 200)
@@ -2228,6 +2260,7 @@ ByVal DefaultValue As String) As String
     End Function
     Public Function GetValue(ByVal weapon As String, ByVal value As String)
         Dim data = GetData(weapon, "")
+        If data = "FILENOTFOUND" Then Return "ERROR"
         Dim preparsevalues = "-IncreasePerShotMinAngleMaxAngleDecreasePerSecondRecoilAmplitudeMaxRecoilAmplitudeIncPerShotHorizontalRecoilAmplitudeIncPerShotMinHorizontalRecoilAmplitudeIncPerShotMaxHorizontalRecoilAmplitudeMaxRecoilAmplitudeDecreaseFactor-"
         If InStr(preparsevalues, value) Then
             data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "WeaponSwayData"))
