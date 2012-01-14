@@ -1793,6 +1793,7 @@ Partial Class Main
         'numDamagePercent
         '
         Me.numDamagePercent.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDamagePercent.Enabled = False
         Me.numDamagePercent.ForeColor = System.Drawing.Color.Red
         Me.numDamagePercent.Location = New System.Drawing.Point(86, 117)
         Me.numDamagePercent.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
@@ -1829,6 +1830,7 @@ Partial Class Main
         'numHealthPercent
         '
         Me.numHealthPercent.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numHealthPercent.Enabled = False
         Me.numHealthPercent.ForeColor = System.Drawing.Color.Red
         Me.numHealthPercent.Location = New System.Drawing.Point(86, 94)
         Me.numHealthPercent.Maximum = New Decimal(New Integer() {300, 0, 0, 0})
