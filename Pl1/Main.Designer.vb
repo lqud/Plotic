@@ -380,8 +380,6 @@ Partial Class Main
         '
         Me.chkPrintAdj.AutoSize = True
         Me.chkPrintAdj.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkPrintAdj.Checked = True
-        Me.chkPrintAdj.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
         Me.chkPrintAdj.Location = New System.Drawing.Point(6, 41)
         Me.chkPrintAdj.Name = "chkPrintAdj"
@@ -1108,8 +1106,6 @@ Partial Class Main
         '
         Me.chkTimeToKill.AutoSize = True
         Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkTimeToKill.Checked = True
-        Me.chkTimeToKill.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
         Me.chkTimeToKill.Location = New System.Drawing.Point(119, 8)
         Me.chkTimeToKill.Name = "chkTimeToKill"
@@ -1122,8 +1118,6 @@ Partial Class Main
         '
         Me.chkDrawTTK.AutoSize = True
         Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkDrawTTK.Checked = True
-        Me.chkDrawTTK.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
         Me.chkDrawTTK.Location = New System.Drawing.Point(119, 25)
         Me.chkDrawTTK.Name = "chkDrawTTK"
@@ -1518,8 +1512,6 @@ Partial Class Main
         '
         Me.chkRenderBulletDrop.AutoSize = True
         Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderBulletDrop.Checked = True
-        Me.chkRenderBulletDrop.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
         Me.chkRenderBulletDrop.Location = New System.Drawing.Point(1, 20)
         Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
@@ -1532,8 +1524,6 @@ Partial Class Main
         '
         Me.chkWriteDropInfo.AutoSize = True
         Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkWriteDropInfo.Checked = True
-        Me.chkWriteDropInfo.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
         Me.chkWriteDropInfo.Location = New System.Drawing.Point(1, 3)
         Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
@@ -1594,7 +1584,7 @@ Partial Class Main
         Me.numDropVerticalScale.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
         Me.numDropVerticalScale.Location = New System.Drawing.Point(93, 88)
         Me.numDropVerticalScale.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
-        Me.numDropVerticalScale.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numDropVerticalScale.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         Me.numDropVerticalScale.Name = "numDropVerticalScale"
         Me.numDropVerticalScale.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numDropVerticalScale.Size = New System.Drawing.Size(43, 20)
