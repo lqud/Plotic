@@ -258,7 +258,7 @@ Public Class Main
             meterValue += numDropHorizontalScale.Value
         Loop
 
-        Dim yPixel As Integer = topY
+        Dim yPixel As Integer = centerPixel
         Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numDropVerticalScale.Value, 0)
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
         Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
@@ -273,8 +273,8 @@ Public Class Main
         g.DrawString(0, New Font("Arial", 15), brushLightGreen, (rightX + 1), centerPixel - 10)
 
         'Draw Top Line
-        g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
-        g.DrawString(Math.Round(peakH, 2) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel + 15))
+        g.DrawLine(penDamageEdge, leftX, topY, rightX, topY)
+        g.DrawString(Math.Round(peakH, 2) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (topY + 15))
 
 
         'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
@@ -855,16 +855,39 @@ Public Class Main
 
     Private Function getAdjustMin() As Double
         Dim dblSumModifer As Double = 0
+
+        Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance()) * 100, 0) - 100
+        Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance()) * 100, 0) - 100
+        Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance()) * 100, 0) - 100
+        Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "MinAngleModifier", getStance()) * 100, 0) - 100
+        Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "MinAngleModifier", getStance()) * 100, 0) - 100
+        Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "MinAngleModifier", getStance()) * 100, 0) - 100
+
         If radBarrelFlash.Checked Then
-            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance())
+            ' If FlashAngle < 1 Then FlashAngle = FlashAngle * -1
+            dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance())
+            'If HeavyBarrelAngle < 1 Then HeavyBarrelAngle = HeavyBarrelAngle * -1
+            dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            dblSumModifer += GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance())
+            '  If SilencerAngle < 1 Then SilencerAngle = SilencerAngle * -1
+            dblSumModifer += SilencerAngle
         End If
-        If radBarrelNone.Checked Then
+        If radUnderBipod.Checked Then
+            '      If BipodAngle < 1 Then BipodAngle = BipodAngle * -1
+            dblSumModifer += BipodAngle
+        End If
+        If radUnderForegrip.Checked Then
+            '     If ForegripAngle < 1 Then ForegripAngle = ForegripAngle * -1
+            dblSumModifer += ForegripAngle
+        End If
+        If radUnderLaser.Checked Then
+            '    If LaserAngle < 1 Then LaserAngle = LaserAngle * -1
+            dblSumModifer += LaserAngle
+        End If
+        If radBarrelNone.Checked And radUnderNone.Checked Then
             dblSumModifer += 1
         End If
 
@@ -883,7 +906,7 @@ Public Class Main
         Pl.AdjRecoilH = Double.Parse(numRecoilV.Value)
         Pl.AdjRecoilV = Double.Parse(numRecoilV.Value)
         Pl.AdjSpreadInc = Double.Parse(numInc.Value)
-        Pl.AdjSpreadMin = getAdjustMin() * 100
+        Pl.AdjSpreadMin = getAdjustMin()
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
         If txtTitle.Text = "<<GUN>>" Then
             Pl.Title = comboWeapon1.Text
