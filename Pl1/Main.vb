@@ -308,7 +308,7 @@ Public Class Main
             End If
         Loop
         'Draw Bottom Line
-        g.DrawString(Pl.dropInMeters(2, Pl.TargetRange) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (yPixel - 35))
+        g.DrawString(Pl.dropInMeters(2, Pl.TargetRange) & "m", New Font("Arial", 20), brushBlue, (rightX - 15), (bottomY - 35))
         g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
@@ -998,6 +998,49 @@ Public Class Main
 
         Return dblSumModifer
     End Function
+
+    Private Function buildAttachString() As String
+        Dim attachString As String = ""
+        Dim attachCount As Integer = 0
+        If radBarrelFlash.Checked Then
+            attachString += "Flash Supp. "
+            attachCount += 1
+        End If
+        If radBarrelHeavy.Checked Then
+            attachString += "H. Barrel "
+            attachCount += 1
+        End If
+        If radBarrelSilencer.Checked Then
+            attachString += "Silencer "
+            attachCount += 1
+        End If
+        If radUnderBipod.Checked Then
+            If attachCount > 0 Then
+                attachString += "- Bipod "
+            Else
+                attachString += "Bipod "
+            End If
+
+            attachCount += 1
+        End If
+            If radUnderForegrip.Checked Then
+            If attachCount > 0 Then
+                attachString += "- Foregrip "
+            Else
+                attachString += "Foregrip "
+            End If
+            attachCount += 1
+            End If
+            If radUnderLaser.Checked Then
+            If attachCount > 0 Then
+                attachString += "- Laser "
+            Else
+                attachString += "Laser "
+            End If
+            attachCount += 1
+            End If
+        Return Trim(attachString)
+    End Function
     Private Sub loadPlotic()
 
         Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))
@@ -1018,8 +1061,13 @@ Public Class Main
         Else
             Pl.Title = txtTitle.Text
         End If
+        If txtSub.Text = "<<ATTACH>>" Then
+            Pl.SubText = buildAttachString()
+        Else
+            Pl.SubText = txtSub.Text
+        End If
         Pl.Info = txtInfo.Text
-        Pl.SubText = txtSub.Text
+
         Pl.Scale = txtScale.Text
 
         Pl.BulletVelocity = GetSpeed(comboWeapon1.Text)
