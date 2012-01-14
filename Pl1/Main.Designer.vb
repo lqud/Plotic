@@ -1582,9 +1582,9 @@ Partial Class Main
         Me.Label53.ForeColor = System.Drawing.Color.SkyBlue
         Me.Label53.Location = New System.Drawing.Point(139, 92)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(21, 13)
+        Me.Label53.Size = New System.Drawing.Size(15, 13)
         Me.Label53.TabIndex = 140
-        Me.Label53.Text = "pts"
+        Me.Label53.Text = "m"
         '
         'numDropVerticalScale
         '

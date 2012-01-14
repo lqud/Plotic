@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.03"
+    Private Const VERSION As String = "Plotic v2.04"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -40,12 +40,17 @@ Public Class Main
         Dim test2d = GetValue("G3A3", "RateOfFire")
         Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
 
-        Dim test01 = GetAttachmentValue("G3A3", "HeavyBarrel", "MinAngleModifier", "StandNoZoom")
-        Dim test02 = GetAttachmentValue("G3A3", "HeavyBarrel", "MaxAngleModifier", "StandNoZoom")
-        Dim test03 = GetAttachmentValue("G3A3", "HeavyBarrel", "IncreasePerShot", "StandNoZoom")
-        Dim test04 = GetAttachmentValue("G3A3", "HeavyBarrel", "DecreasePerSecondModifier", "StandNoZoom")
-        Dim test05 = GetAttachmentValue("G3A3", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
-        Dim test06 = GetAttachmentValue("G3A3", "HeavyBarrel", "RecoilAngleMod", "StandNoZoom")
+        Dim test02 = GetAttachmentValue("FAMAS", "Foregrip", "MaxAngleModifier", "StandNoZoom")
+        Dim test04 = GetAttachmentValue("FAMAS", "Foregrip", "DecreasePerSecondModifier", "StandNoZoom")
+        'Vert Recoil Adjust
+        Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
+        'horizontal recoil adjust
+        Dim test06 = GetAttachmentValue("FAMAS", "Foregrip", "RecoilAngleMod", "StandNoZoom")
+
+        'Min Adjust
+        Dim test01 = GetAttachmentValue("FAMAS", "HeavyBarrel", "MinAngleModifier", "StandNoZoom")
+        'Inc Adjust
+        Dim test03 = GetAttachmentValue("FAMAS", "HeavyBarrel", "IncreasePerShotModifier", "StandNoZoom")
 
         'right recoil
         Dim test3 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMin")
@@ -234,6 +239,8 @@ Public Class Main
 
         Dim centerPixel As Integer = topY + Math.Round(peakPercent * graphHeight, 0)
 
+        Dim adjVmetersperPixel As Double = 1 / ((graphHeight - Math.Round(peakPercent * graphHeight, 0)) / Math.Abs(Pl.dropInMeters(15, Pl.TargetRange)))
+
         Dim brushYellow As New SolidBrush(Color.Yellow)
         Dim brushBlue As New SolidBrush(Color.LightBlue)
         Dim brushLightBlue As New SolidBrush(Color.LightCyan)
@@ -245,7 +252,7 @@ Public Class Main
         penZeroMark.DashStyle = Drawing2D.DashStyle.DashDotDot
 
         Dim xPixel As Integer = leftX
-        Dim pixelsPerNMeters As Integer = Math.Round((numDropHorizontalScale.Value * (graphWidth / numMeters.Value)), 0)
+        Dim pixelsPerNMeters As Integer = Math.Round((numDropHorizontalScale.Value * (graphWidth / Pl.TargetRange)), 0)
         Dim meterValue As Integer = 0
         g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel + 2), (bottomY + 5))
         g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
@@ -259,7 +266,8 @@ Public Class Main
         Loop
 
         Dim yPixel As Integer = centerPixel
-        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numDropVerticalScale.Value, 0)
+        Dim pixelsPerLine As Double = Math.Round((graphHeight - Math.Round(peakPercent * graphHeight, 0)) / Math.Abs(Pl.dropInMeters(15)) * numDropVerticalScale.Value, 0)
+
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
         Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
         Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
@@ -282,7 +290,7 @@ Public Class Main
         Dim intAltToggle As Integer = 0
         Do While (yPixel < bottomY)
             Dim linePercent As Double = meterYValue / graphHeight
-            Dim lineDrop As Double = Math.Round(VmetersperPixel * meterYValue, 2)
+            Dim lineDrop As Double = Math.Round(adjVmetersperPixel * meterYValue, 2)
             If intAltToggle = 1 Then
                 g.DrawLine(penDamageAlt, leftX, yPixel, rightX, yPixel)
                 g.DrawString("-" & lineDrop & "m", New Font("Arial", 15), brushLightBlue, (rightX + 1), (yPixel - 10))
@@ -601,10 +609,10 @@ Public Class Main
         Dim rect As New Rectangle(3, 23, 350, 220)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
         g.DrawString("Adjustments", New Font("Consolas", 35), greenBrush2, hPos, 25)
-        g.DrawString("Recoil V: " + numRecoilV.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
-        g.DrawString("Recoil H: " + numRecoilH.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
-        g.DrawString("Spread Min: " + numMin.Value.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
-        g.DrawString("Spread Inc: " + numInc.Value.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
+        g.DrawString("Recoil V: " + Pl.AdjRecoilV.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
+        g.DrawString("Recoil H: " + Pl.AdjRecoilH.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
+        g.DrawString("Spread Min: " + Pl.AdjSpreadMin.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
+        g.DrawString("Spread Inc: " + Pl.AdjSpreadInc.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
     End Sub
     Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
@@ -856,39 +864,136 @@ Public Class Main
     Private Function getAdjustMin() As Double
         Dim dblSumModifer As Double = 0
 
-        Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance()) * 100, 0) - 100
-        Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance()) * 100, 0) - 100
-        Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance()) * 100, 0) - 100
-        Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "MinAngleModifier", getStance()) * 100, 0) - 100
-        Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "MinAngleModifier", getStance()) * 100, 0) - 100
-        Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "MinAngleModifier", getStance()) * 100, 0) - 100
 
         If radBarrelFlash.Checked Then
-            ' If FlashAngle < 1 Then FlashAngle = FlashAngle * -1
+            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            'If HeavyBarrelAngle < 1 Then HeavyBarrelAngle = HeavyBarrelAngle * -1
+            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            '  If SilencerAngle < 1 Then SilencerAngle = SilencerAngle * -1
+            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += SilencerAngle
         End If
         If radUnderBipod.Checked Then
-            '      If BipodAngle < 1 Then BipodAngle = BipodAngle * -1
+            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += BipodAngle
         End If
         If radUnderForegrip.Checked Then
-            '     If ForegripAngle < 1 Then ForegripAngle = ForegripAngle * -1
+            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += ForegripAngle
         End If
         If radUnderLaser.Checked Then
-            '    If LaserAngle < 1 Then LaserAngle = LaserAngle * -1
+            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "MinAngleModifier", getStance()) * 100, 0) - 100
             dblSumModifer += LaserAngle
         End If
         If radBarrelNone.Checked And radUnderNone.Checked Then
-            dblSumModifer += 1
+            dblSumModifer += 0
+        End If
+
+        Return dblSumModifer
+    End Function
+
+    Private Function getAdjustInc() As Double
+        Dim dblSumModifer As Double = 0
+
+
+        If radBarrelFlash.Checked Then
+            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += FlashAngle
+        End If
+        If radBarrelHeavy.Checked Then
+            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += HeavyBarrelAngle
+        End If
+        If radBarrelSilencer.Checked Then
+            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += SilencerAngle
+        End If
+        If radUnderBipod.Checked Then
+            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += BipodAngle
+        End If
+        If radUnderForegrip.Checked Then
+            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += ForegripAngle
+        End If
+        If radUnderLaser.Checked Then
+            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            dblSumModifer += LaserAngle
+        End If
+        If radBarrelNone.Checked And radUnderNone.Checked Then
+            dblSumModifer += 0
+        End If
+
+        Return dblSumModifer
+    End Function
+    Private Function getAdjustRecoilV() As Double
+        Dim dblSumModifer As Double = 0
+
+
+        If radBarrelFlash.Checked Then
+            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += FlashAngle
+        End If
+        If radBarrelHeavy.Checked Then
+            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += HeavyBarrelAngle
+        End If
+        If radBarrelSilencer.Checked Then
+            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += SilencerAngle
+        End If
+        If radUnderBipod.Checked Then
+            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += BipodAngle
+        End If
+        If radUnderForegrip.Checked Then
+            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += ForegripAngle
+        End If
+        If radUnderLaser.Checked Then
+            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            dblSumModifer += LaserAngle
+        End If
+        If radBarrelNone.Checked And radUnderNone.Checked Then
+            dblSumModifer += 0
+        End If
+
+        Return dblSumModifer
+    End Function
+    Private Function getAdjustRecoilH() As Double
+        Dim dblSumModifer As Double = 0
+
+
+        If radBarrelFlash.Checked Then
+            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += FlashAngle
+        End If
+        If radBarrelHeavy.Checked Then
+            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += HeavyBarrelAngle
+        End If
+        If radBarrelSilencer.Checked Then
+            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += SilencerAngle
+        End If
+        If radUnderBipod.Checked Then
+            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += BipodAngle
+        End If
+        If radUnderForegrip.Checked Then
+            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += ForegripAngle
+        End If
+        If radUnderLaser.Checked Then
+            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            dblSumModifer += LaserAngle
+        End If
+        If radBarrelNone.Checked And radUnderNone.Checked Then
+            dblSumModifer += 0
         End If
 
         Return dblSumModifer
@@ -903,9 +1008,9 @@ Public Class Main
         Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"))
         Pl.Burst = txtBursts.Text
         Pl.BulletsPerBurst = numBulletsPerBurst.Value
-        Pl.AdjRecoilH = Double.Parse(numRecoilV.Value)
-        Pl.AdjRecoilV = Double.Parse(numRecoilV.Value)
-        Pl.AdjSpreadInc = Double.Parse(numInc.Value)
+        Pl.AdjRecoilH = getAdjustRecoilH()
+        Pl.AdjRecoilV = getAdjustRecoilV()
+        Pl.AdjSpreadInc = getAdjustInc()
         Pl.AdjSpreadMin = getAdjustMin()
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
         If txtTitle.Text = "<<GUN>>" Then
