@@ -33,38 +33,38 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-        Dim test2 = GetValue("G3A3", "WeaponClass")
-        Dim test2a = GetValue("G3A3", "MagazineCapacity")
-        Dim test2b = GetValue("G3A3", "NumberOfMagazines")
-        Dim test2c = GetValue("G3A3", "TraceFrequency")
-        Dim test2d = GetValue("G3A3", "RateOfFire")
-        Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
+        'Dim test2 = GetValue("G3A3", "WeaponClass")
+        'Dim test2a = GetValue("G3A3", "MagazineCapacity")
+        'Dim test2b = GetValue("G3A3", "NumberOfMagazines")
+        'Dim test2c = GetValue("G3A3", "TraceFrequency")
+        'Dim test2d = GetValue("G3A3", "RateOfFire")
+        'Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
 
-        Dim test02 = GetAttachmentValue("FAMAS", "Foregrip", "MaxAngleModifier", "StandNoZoom")
-        Dim test04 = GetAttachmentValue("FAMAS", "Foregrip", "DecreasePerSecondModifier", "StandNoZoom")
+        'Dim test02 = GetAttachmentValue("FAMAS", "Foregrip", "MaxAngleModifier", "StandNoZoom")
+        'Dim test04 = GetAttachmentValue("FAMAS", "Foregrip", "DecreasePerSecondModifier", "StandNoZoom")
         'Vert Recoil Adjust
-        Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
+        'Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
         'horizontal recoil adjust
-        Dim test06 = GetAttachmentValue("FAMAS", "Foregrip", "RecoilAngleMod", "StandNoZoom")
+        'Dim test06 = GetAttachmentValue("FAMAS", "Foregrip", "RecoilAngleMod", "StandNoZoom")
 
         'Min Adjust
-        Dim test01 = GetAttachmentValue("FAMAS", "HeavyBarrel", "MinAngleModifier", "StandNoZoom")
+        'Dim test01 = GetAttachmentValue("FAMAS", "HeavyBarrel", "MinAngleModifier", "StandNoZoom")
         'Inc Adjust
-        Dim test03 = GetAttachmentValue("FAMAS", "HeavyBarrel", "IncreasePerShotModifier", "StandNoZoom")
+        'Dim test03 = GetAttachmentValue("FAMAS", "HeavyBarrel", "IncreasePerShotModifier", "StandNoZoom")
 
         'right recoil
-        Dim test3 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMin")
+        'Dim test3 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMin")
         'left recoil
-        Dim test4 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMax")
+        'Dim test4 = GetValue("G3A3", "HorizontalRecoilAmplitudeIncPerShotMax")
 
-        Dim test5 = GetValue("G3A3", "HorizontalRecoilAmplitudeMax")
+        'Dim test5 = GetValue("G3A3", "HorizontalRecoilAmplitudeMax")
         'up recoil
-        Dim test6 = GetValue("G3A3", "RecoilAmplitudeIncPerShot")
+        'Dim test6 = GetValue("G3A3", "RecoilAmplitudeIncPerShot")
 
-        Dim test7 = GetValue("G3A3", "RecoilAmplitudeDecreaseFactor")
-        Dim test8 = GetValue("G3A3", "RecoilAmplitudeMax")
+        'Dim test7 = GetValue("G3A3", "RecoilAmplitudeDecreaseFactor")
+        'Dim test8 = GetValue("G3A3", "RecoilAmplitudeMax")
         'first shot
-        Dim test0 = GetAttachmentValue("G3A3", "TargetPointer", "MinAngleModifier", "StandZoom")
+        'Dim test0 = GetAttachmentValue("G3A3", "TargetPointer", "MinAngleModifier", "StandZoom")
         'Check for a Palette file in the same directory, use if found, otherwise use internal resource
         Dim palettePath As String = Path.Combine(Directory.GetCurrentDirectory, "pal.png")
         If File.Exists(palettePath) Then
@@ -1104,7 +1104,7 @@ Public Class Main
         Pl.MaxDistance = numMaxDistance.Value
         Pl.BulletDrop = numBulletDrop.Value
         Pl.TargetRange = numMeters.Value
-        Pl.RateOfFire = Double.Parse(GetValue(comboWeapon1.Text, "RateOfFire"))
+        Pl.RateOfFire = GetRateOfFire(comboWeapon1.Text)
 
 
     End Sub
@@ -2227,7 +2227,8 @@ ByVal DefaultValue As String) As String
     End Sub
 #End Region
 #Region "Weapon Pull Functions"
-    Public Function GetSpeed(ByVal weapon As String)
+    Public Function GetSpeed(ByVal weapon As String) As Double
+        If weapon = "M16A4" Then weapon = "M16A4_2"
         Dim data = GetData(weapon, "")
         If data = "FILENOTFOUND" Then Return "ERROR"
         data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "InitialSpeed"))
@@ -2243,6 +2244,24 @@ ByVal DefaultValue As String) As String
         val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
         Return Trim(val)
     End Function
+    Public Function GetRateOfFire(ByVal weapon As String) As Double
+        If weapon = "M16A4" Then weapon = "M16A4_2"
+        Dim value As String = "RateOfFire "
+        Dim data = GetData(weapon, "")
+        If data = "FILENOTFOUND" Then Return "ERROR"
+        data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, value))
+        Dim start = InStr(data, value) + (Len(value))
+        data = Microsoft.VisualBasic.Mid(data, start, 200)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
+        Return Trim(val)
+    End Function
+
     Public Function GetAttachmentValue(ByVal weapon As String, ByVal attachment As String, ByVal value As String, ByVal stance As String)
         Dim data = GetData(weapon, attachment)
         If data = "FILENOTFOUND" Then Return "ERROR"
@@ -2302,7 +2321,10 @@ ByVal DefaultValue As String) As String
         End If
         Dim weapon1 = weapon
         If attachment = "" Then
-            If weapon = "M4A1" Or weapon = "M16A4" Then
+            If weapon = "M16A4_2" Then
+                weapon = "M16A4"
+                weapon1 = "M16A4"
+            ElseIf weapon = "M4A1" Or weapon = "M16A4" Then
                 weapon1 = weapon + "_Gunsway"
             End If
         End If
@@ -2311,6 +2333,7 @@ ByVal DefaultValue As String) As String
             path += "_" + attachment
         End If
         path += ".sym"
+        ' Debug.WriteLine(path)
         If File.Exists(path) Then
             Return My.Computer.FileSystem.ReadAllText(path)
         Else
@@ -2415,6 +2438,25 @@ ByVal DefaultValue As String) As String
         Return stance
     End Function
 
+    Public Function RecoilDecrease(ByVal StartX As Integer, ByVal StartY As Integer, ByVal ShootX As Integer, ByVal ShootY As Integer, ByVal DecPerSec As Double, ByVal RoF As Integer, ByVal PxPerDegScale As Integer, ByVal YorX As String)
+        Dim diffX
+        Dim diffY
+        If StartX > ShootX Then diffX = StartX - ShootX Else diffX = ShootX - StartX
+        If StartY > ShootY Then diffY = StartY - ShootY Else diffY = ShootY - StartY
+        Dim hypotenuseBig = Math.Sqrt(diffY ^ 2 + diffX ^ 2)
+        Dim hypotenuseSmall = PxPerDegScale * (DecPerSec / 10) / (RoF / 60)
+        Dim sideScaleRatio = diffY / hypotenuseBig
+        Dim bottomScaleRatio = diffX / hypotenuseBig
+        Dim diffXSmall = bottomScaleRatio * hypotenuseSmall
+        Dim diffYSmall = sideScaleRatio * hypotenuseSmall
+        If YorX = "Y" Or YorX = "y" Then
+            Return diffYSmall + ShootY
+        Else
+            If StartX > ShootX Then Return ShootX + diffXSmall Else Return ShootX - diffXSmall
+            Exit Function
+        End If
+        Return 0
+    End Function
 End Class
 Public Structure HeatPoint
     Public X As Integer
