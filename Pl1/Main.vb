@@ -219,6 +219,123 @@ Public Class Main
 
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
+    Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+        Dim hPos As Integer = 1550
+        Dim rect As New Rectangle(1528, 23, 465, 260)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
+        g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush2, (hPos - 20), 25)
+        g.DrawString("1st Bullet: " + Hit1.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
+        g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
+        g.DrawString("3rd Bullet: " + Hit3.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
+        g.DrawString("4th Bullet: " + Hit4.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
+        g.DrawString("5th Bullet: " + Hit5.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 230)
+    End Sub
+    Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1925
+        Dim leftX = 50
+
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+
+        'Calculate the position of the other points
+        Dim yValue As Integer = topY
+        For i = leftX To rightX Step 1
+
+            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = topY
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = bottomY
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = a / distanceDifference
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(graphHeight * b, 2)
+                yValue = Math.Round(topY + e, 0)
+
+            End If
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
+        Next
+
+    End Sub
+    Public Sub drawTTKChart(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim topY = 1500
+        Dim bottomY = 1950
+        Dim rightX = 1925
+        Dim leftX = 50
+
+        Dim graphWidth = rightX - leftX
+        Dim graphHeight = bottomY - topY
+        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
+        Dim metersperPixel As Double = 1 / pixelsPerMeter
+
+        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
+        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+
+        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
+        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
+        penRed.DashStyle = Drawing2D.DashStyle.Solid
+        penWhite.DashStyle = Drawing2D.DashStyle.Solid
+
+        Dim maxRangeInMeters As Double = rightX * metersperPixel
+
+        Dim dblMaxDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+        Dim maxTTK As Double = ((Math.Round((100 / dblMaxDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (maxRangeInMeters / Pl.BulletVelocity)
+
+
+        'Calculate the position of the other points
+        Dim yValue As Integer = topY
+        For i = leftX To rightX Step 1
+            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
+
+            'Dim damageAtDistance As Double = Pl.
+            Dim dblDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+            Dim TTK As Double = ((Math.Round((100 / dblDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (rangeInMeters / Pl.BulletVelocity)
+            Debug.WriteLine(i & ": " & rangeInMeters & "-> " & Math.Round(TTK, 6) & " :: " & Math.Round(TTK / maxTTK, 4))
+
+            If rangeInMeters <= numMaxRange.Value Then
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+                yValue = topY
+            ElseIf rangeInMeters >= numMinRange.Value Then
+                yValue = bottomY
+                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
+            Else
+                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim b As Double = TTK / maxTTK
+                Dim c As Double = damageDifference * b
+                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                ' Debug.WriteLine(rangeInMeters & "-> " & d)
+                Dim e As Double = Math.Round(graphHeight * b, 2)
+                yValue = Math.Round(bottomY - e, 0)
+
+            End If
+
+            g.DrawEllipse(penRed, i, yValue, 1, 1)
+        Next
+
+    End Sub
 
     Public Sub drawDropGrid(ByVal g As Graphics)
 
@@ -371,110 +488,48 @@ Public Class Main
         Next
 
     End Sub
+    Private Sub drawBulletDrop(ByVal g As Graphics)
+        Dim centerx = 1000
+        Dim centery = 1680
+        Dim penAdjustTarget As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
+        Dim penDropTarget As New System.Drawing.Pen(Color.Red, numDropLineThickness.Value)
+        Dim pen6 As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
+        pen6.DashStyle = Drawing2D.DashStyle.Solid
 
-    Public Sub drawTTKBulletDamageArc(ByVal g As Graphics)
-        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim topY = 1500
-        Dim bottomY = 1950
-        Dim rightX = 1925
-        Dim leftX = 50
+        Dim bulletAdjustX = centerx - 25
+        Dim bulletAdjustY = (centery - Pl.correctionInPixels) - 25
 
-        Dim graphWidth = rightX - leftX
-        Dim graphHeight = bottomY - topY
-        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
-        Dim metersperPixel As Double = 1 / pixelsPerMeter
+        Dim bulletTargetX = centerx - 25
+        Dim bulletTargetY = (centery - Pl.dropInPixels) - 25
 
-        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
-        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
+        g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
 
-        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
-        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
-        penRed.DashStyle = Drawing2D.DashStyle.Solid
-        penWhite.DashStyle = Drawing2D.DashStyle.Solid
-
-        'Calculate the position of the other points
-        Dim yValue As Integer = topY
-        For i = leftX To rightX Step 1
-
-            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
-
-            If rangeInMeters <= numMaxRange.Value Then
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-                yValue = topY
-            ElseIf rangeInMeters >= numMinRange.Value Then
-                yValue = bottomY
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-            Else
-                Dim a As Double = rangeInMeters - numMaxRange.Value
-                Dim b As Double = a / distanceDifference
-                Dim c As Double = damageDifference * b
-                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
-                ' Debug.WriteLine(rangeInMeters & "-> " & d)
-                Dim e As Double = Math.Round(graphHeight * b, 2)
-                yValue = Math.Round(topY + e, 0)
-
-            End If
-
-            g.DrawEllipse(penRed, i, yValue, 1, 1)
-        Next
-
+        g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
+        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
     End Sub
-    Public Sub drawTTKChart(ByVal g As Graphics)
+    Public Sub drawDropInfo(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim topY = 1500
-        Dim bottomY = 1950
-        Dim rightX = 1925
-        Dim leftX = 50
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+        Dim redBrush As New SolidBrush(Color.Red)
+        Dim hPos As Integer = 5
+        Dim rect As New Rectangle(3, 248, 700, 180)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
-        Dim graphWidth = rightX - leftX
-        Dim graphHeight = bottomY - topY
-        Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
-        Dim metersperPixel As Double = 1 / pixelsPerMeter
+        Dim test As Double = Pl.correctionAngle(5, 700)
+        If Pl.TargetRange > Pl.MaxDistance Then
+            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
+            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), redBrush, hPos, 335)
+            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
+        Else
+            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
+            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
+            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
+            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
+        End If
 
-        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
-        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
-
-        Dim penRed As New System.Drawing.Pen(Color.Red, 3)
-        Dim penWhite As New System.Drawing.Pen(Color.White, 1)
-        penRed.DashStyle = Drawing2D.DashStyle.Solid
-        penWhite.DashStyle = Drawing2D.DashStyle.Solid
-
-        Dim maxRangeInMeters As Double = rightX * metersperPixel
-
-        Dim dblMaxDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
-        Dim maxTTK As Double = ((Math.Round((100 / dblMaxDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (maxRangeInMeters / Pl.BulletVelocity)
-
-
-        'Calculate the position of the other points
-        Dim yValue As Integer = topY
-        For i = leftX To rightX Step 1
-            Dim rangeInMeters As Double = (i - leftX) * metersperPixel
-
-            'Dim damageAtDistance As Double = Pl.
-            Dim dblDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
-            Dim TTK As Double = ((Math.Round((100 / dblDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (rangeInMeters / Pl.BulletVelocity)
-            Debug.WriteLine(i & ": " & rangeInMeters & "-> " & Math.Round(TTK, 6) & " :: " & Math.Round(TTK / maxTTK, 4))
-
-            If rangeInMeters <= numMaxRange.Value Then
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-                yValue = topY
-            ElseIf rangeInMeters >= numMinRange.Value Then
-                yValue = bottomY
-                ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
-            Else
-                Dim a As Double = rangeInMeters - numMaxRange.Value
-                Dim b As Double = TTK / maxTTK
-                Dim c As Double = damageDifference * b
-                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
-                ' Debug.WriteLine(rangeInMeters & "-> " & d)
-                Dim e As Double = Math.Round(graphHeight * b, 2)
-                yValue = Math.Round(bottomY - e, 0)
-
-            End If
-
-            g.DrawEllipse(penRed, i, yValue, 1, 1)
-        Next
-
+        'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
 
     Public Sub drawTitle(ByVal g As Graphics)
@@ -558,50 +613,6 @@ Public Class Main
 
     End Sub
 
-    Private Sub drawBulletDrop(ByVal g As Graphics)
-        Dim centerx = 1000
-        Dim centery = 1680
-        Dim penAdjustTarget As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
-        Dim penDropTarget As New System.Drawing.Pen(Color.Red, numDropLineThickness.Value)
-        Dim pen6 As New System.Drawing.Pen(Color.White, numDropLineThickness.Value)
-        pen6.DashStyle = Drawing2D.DashStyle.Solid
-
-        Dim bulletAdjustX = centerx - 25
-        Dim bulletAdjustY = (centery - Pl.correctionInPixels) - 25
-
-        Dim bulletTargetX = centerx - 25
-        Dim bulletTargetY = (centery - Pl.dropInPixels) - 25
-
-        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
-        g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
-
-        g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
-        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
-    End Sub
-    Public Sub drawDropInfo(ByVal g As Graphics)
-        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
-        Dim redBrush As New SolidBrush(Color.Red)
-        Dim hPos As Integer = 5
-        Dim rect As New Rectangle(3, 248, 700, 180)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
-
-        Dim test As Double = Pl.correctionAngle(5, 700)
-        If Pl.TargetRange > Pl.MaxDistance Then
-            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
-            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), redBrush, hPos, 335)
-            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
-        Else
-            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
-            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
-            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
-        End If
-
-        'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
-    End Sub
-
     Public Sub drawAdjustments(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
@@ -613,19 +624,6 @@ Public Class Main
         g.DrawString("Recoil H: " + Pl.AdjRecoilH.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
         g.DrawString("Spread Min: " + Pl.AdjSpreadMin.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
         g.DrawString("Spread Inc: " + Pl.AdjSpreadInc.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
-    End Sub
-    Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
-        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
-        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
-        Dim hPos As Integer = 1550
-        Dim rect As New Rectangle(1528, 23, 465, 260)
-        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
-        g.DrawString("Average Hit Rates", New Font("Consolas", 35), greenBrush2, (hPos - 20), 25)
-        g.DrawString("1st Bullet: " + Hit1.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 70)
-        g.DrawString("2nd Bullet: " + Hit2.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 110)
-        g.DrawString("3rd Bullet: " + Hit3.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 150)
-        g.DrawString("4th Bullet: " + Hit4.ToString + "%", New Font("Consolas", 30), greenBrush2, hPos, 190)
-        g.DrawString("5th Bullet: " + Hit5.ToString + "%", New Font("Consolas", 30), greenBrush1, hPos, 230)
     End Sub
     Public Sub drawBars(ByVal g As Graphics)
         ' prnt("Draw bars")
@@ -736,75 +734,272 @@ Public Class Main
         loadPloticINI()
         createSilentImage()
     End Sub
-    Private Sub selectView(ByVal view As String)
-        Select Case view
-            Case "main"
-                SetToolStripText_ThreadSafe("View: Main")
-                CheckToolStripMain_ThreadSafe(CheckState.Checked)
+    Private Sub loadPloticINI()
+        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
 
-                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
-                SetImage_ThreadSafe(Pl.Image)
-                MainToolStripMenuItem.Checked = True
-                MaskToolStripMenuItem.Checked = False
-                HeatMapToolStripMenuItem.Checked = False
-                TTKToolStripMenuItem.Checked = False
-            Case "heat"
-                SetToolStripText_ThreadSafe("View: Heat map")
-                CheckToolStripHeatMap_ThreadSafe(CheckState.Checked)
+        Pl.RecoilUp = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilUp", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilLeft = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
+        Pl.RecoilRight = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
+        Pl.FirstShot = convertINIValue(INIRead(silentTemplateFile, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
 
-                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
-                SetImage_ThreadSafe(Pl.HeatMap)
-                MainToolStripMenuItem.Checked = False
-                MaskToolStripMenuItem.Checked = False
-                HeatMapToolStripMenuItem.Checked = True
-                TTKToolStripMenuItem.Checked = False
-            Case "mask"
-                SetToolStripText_ThreadSafe("View: Mask")
-                CheckToolStripMask_ThreadSafe(CheckState.Checked)
+        Pl.SpreadInc = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
+        Pl.SpreadMin = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
 
-                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
-                SetImage_ThreadSafe(Pl.Mask)
-                MainToolStripMenuItem.Checked = False
-                MaskToolStripMenuItem.Checked = True
-                HeatMapToolStripMenuItem.Checked = False
-                TTKToolStripMenuItem.Checked = False
+        Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "500")))
+        Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "5")))
 
-            Case "ttk"
-                SetToolStripText_ThreadSafe("View: TTK")
-                CheckToolStripTTK_ThreadSafe(CheckState.Checked)
+        Pl.AdjRecoilH = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilH", "0"), chrDecimalSymbol)
+        Pl.AdjRecoilV = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilV", "0"), chrDecimalSymbol)
+        Pl.AdjSpreadInc = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadInc", "0"), chrDecimalSymbol)
+        Pl.AdjSpreadMin = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadMin", "0"), chrDecimalSymbol)
 
-                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
-                SetImage_ThreadSafe(Pl.TTK)
-                MainToolStripMenuItem.Checked = False
-                MaskToolStripMenuItem.Checked = False
-                HeatMapToolStripMenuItem.Checked = False
-                TTKToolStripMenuItem.Checked = True
-            Case Else
-                SetToolStripText_ThreadSafe("View: Main")
-                CheckToolStripMain_ThreadSafe(CheckState.Checked)
+        Pl.Title = INIRead(silentTemplateFile, "Title", "TitleText", "")
+        Pl.Info = INIRead(silentTemplateFile, "Title", "InfoText", "")
+        Pl.SubText = INIRead(silentTemplateFile, "Title", "SubText", "")
 
-                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
-                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
-                SetImage_ThreadSafe(Pl.Image)
-                MainToolStripMenuItem.Checked = True
-                MaskToolStripMenuItem.Checked = False
-                HeatMapToolStripMenuItem.Checked = False
-                TTKToolStripMenuItem.Checked = False
-
-                SetOutPutText_ThreadSafe("View: '" & view & " NOT FOUND")
-        End Select
-
+        Pl.Scale = CInt(Val(INIRead(silentTemplateFile, "Grid", "Scale", "650")))
+        Pl.TargetRange = CInt(Val(INIRead(silentTemplateFile, "Grid", "Distance", "30")))
+        Pl.GridLineSpace = convertINIValue(INIRead(silentTemplateFile, "Grid", "GridValue", "1"), chrDecimalSymbol)
 
     End Sub
+    Private Sub createSilentImage()
+        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
+
+        Dim b As Bitmap = Pl.Image
+        Dim fileDir = INIRead(silentTemplateFile, "Save", "SavePath", "Unknown")
+        Dim fileName = convertFileName(INIRead(silentTemplateFile, "Save", "FileName", "Unknown"))
+        Dim fullPath As String = Path.Combine(fileDir, fileName)
+
+        Dim RenderTitleText As Integer = INIRead(silentTemplateFile, "Title", "RenderTitleText", "0")
+        Dim RenderAttachText As Integer = INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0")
+        Dim RenderGrid As Integer = INIRead(silentTemplateFile, "Grid", "RenderGrid", "0")
+        Dim RenderBars As Integer = INIRead(silentTemplateFile, "Render", "RenderBars", "0")
+        Dim RenderTTK As Integer = INIRead(silentTemplateFile, "TTK", "RenderTTK", "0")
+        Dim ScaleRadius As Integer = INIRead(silentTemplateFile, "Render", "ScaleRadius", "0")
+        Dim IntensityScale As String = INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2")
+        Dim VerticalMultiplier As String = INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1")
+        Dim MultiplyVerticalRecoil As Integer = INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0")
+        Dim RenderHeatMap As Integer = INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0")
+        Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
+        Dim HeatRadius As Integer = INIRead(silentTemplateFile, "HeatMap", "Radius", "0")
+
+
+        'TODO: Convert to arrays
+        Dim aryHits() As Integer = {0, 0, 0, 0, 0}
+        Dim coord1x(Val(Pl.Burst)) As Integer
+        Dim coord1y(Val(Pl.Burst)) As Integer
+        Dim coord2x(Val(Pl.Burst)) As Integer
+        Dim coord2y(Val(Pl.Burst)) As Integer
+        Dim coord3x(Val(Pl.Burst)) As Integer
+        Dim coord3y(Val(Pl.Burst)) As Integer
+        Dim coord4x(Val(Pl.Burst)) As Integer
+        Dim coord4y(Val(Pl.Burst)) As Integer
+        Dim coord5x(Val(Pl.Burst)) As Integer
+        Dim coord5y(Val(Pl.Burst)) As Integer
+        Dim coord6x(Val(Pl.Burst)) As Integer
+        Dim coord6y(Val(Pl.Burst)) As Integer
+
+        'Make Adjustments to values
+        Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
+        Dim dblRecoilR As Double = calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH)
+        Dim dblRecoilL As Double = calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH)
+
+        Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
+        Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
+
+
+        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
+
+        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
+        Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
+        Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
+
+        Dim picVCenter As Integer = Math.Round((silhouetteHeight * IMAGE_V_CENTER_PERCENT), 0)
+        Dim picHCenter As Integer = Math.Round((silhouetteWidth * IMAGE_H_CENTER_PERCENT), 0)
+
+        Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
+
+        Dim sil_centerY As Integer = 1680 - picVCenter
+        Dim sil_centerX As Integer = 1000 - picHCenter
+
+        Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
+
+        If silhouetteHeight > 9800 Then
+            Pl.MaskGraphic.Clear(Color.White)
+        Else
+            soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
+            Pl.MaskGraphic.Clear(Color.Black)
+            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, sil_centerY)
+        End If
+
+        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
+
+        Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
+        Dim soldest As Graphics = Graphics.FromImage(solscaled)
+        soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
+
+        If RenderTTK = 1 Then
+            Pl.ImageGraphic.Clear(Color.Black)
+            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
+        Else
+            Pl.ImageGraphic.Clear(Color.Black)
+        End If
+        If RenderBars = 1 Then
+            drawBars(Pl.ImageGraphic)
+        End If
+        Dim scale = Val(Pl.Scale)
+        Dim montako = 0
+        Dim upd = 0
+        For ee = 0 To Pl.Burst
+            Dim uprecoil = 0
+            montako += 1
+            Dim multiplier = 10
+            Dim spread = dblSpreadMin * scale
+            Dim centerx = 1000
+            Dim centy = 1680
+            Dim iIntense As Byte
+            For a = 0 To Int(Pl.BulletsPerBurst) - 1
+                Dim pen1 As New System.Drawing.Pen(Color.DarkRed, 4)
+                Select Case a
+                    Case 0
+                        pen1.Color = Color.YellowGreen
+                        iIntense = CByte(15 * convertINIValue(IntensityScale, chrDecimalSymbol))
+                    Case 1
+                        pen1.Color = Color.Yellow
+                        iIntense = CByte(12 * convertINIValue(IntensityScale, chrDecimalSymbol))
+                    Case 2
+                        pen1.Color = Color.Orange
+                        iIntense = CByte(9 * convertINIValue(IntensityScale, chrDecimalSymbol))
+                    Case 3
+                        pen1.Color = Color.Red
+                        iIntense = CByte(6 * convertINIValue(IntensityScale, chrDecimalSymbol))
+                    Case 4
+                        pen1.Color = Color.DarkRed
+                        iIntense = CByte(3 * convertINIValue(IntensityScale, chrDecimalSymbol))
+                End Select
+                Dim radius
+                Dim mul As Integer = 100000
+                If ScaleRadius = 1 Then
+                    radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
+                Else
+                    radius = rndD(spread, 0)
+                End If
+                Dim angle = rndD(360, 0)
+                Dim x As Integer = centerx + radius * Math.Cos(angle)
+                Dim y As Integer = centy + radius * Math.Sin(angle)
+
+                'Add Target to heatpoints
+                HeatPoints.Add(New HeatPoint(x, y, iIntense))
+
+                If RenderTTK <> 1 Then
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
+                Else
+                    'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
+                    Select Case a
+                        Case 0
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(0) += 1
+                            End If
+                            coord1x(ee) = x
+                            coord1y(ee) = y
+                        Case 1
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(1) += 1
+                            End If
+                            coord2x(ee) = x
+                            coord2y(ee) = y
+                        Case 2
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(2) += 1
+                            End If
+                            coord3x(ee) = x
+                            coord3y(ee) = y
+                        Case 3
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(3) += 1
+                            End If
+                            coord4x(ee) = x
+                            coord4y(ee) = y
+                        Case 4
+                            If Pl.bulletHit(x, y) Then
+                                aryHits(4) += 1
+                            End If
+                            coord5x(ee) = x
+                            coord5y(ee) = y
+                    End Select
+                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
+                End If
+
+                Application.DoEvents()
+                If MultiplyVerticalRecoil = 1 Then
+                    If a = 0 Then
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(VerticalMultiplier)))
+                    Else
+                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(VerticalMultiplier)))
+                    End If
+                Else
+                    If a = 0 Then
+                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
+                    Else
+                        centy -= CDbl(Val(dblRecoilH)) * scale
+                    End If
+                End If
+                centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
+                spread += CDbl(dblSpreadInc) * scale
+            Next
+        Next
+        Dim nl = Environment.NewLine
+        Dim intBursts As Integer = Val(Pl.Burst)
+        If RenderTTK = 1 Then
+            For a = 0 To intBursts - 1
+                Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
+                Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
+                Dim pen3 As New System.Drawing.Pen(Color.Orange, 4)
+                Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
+                Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
+
+                Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+            Next
+            Debug.WriteLine("Bursts: " & intBursts)
+            Debug.WriteLine("Hits #1: " & aryHits(0))
+
+        End If
+        If RenderHitRates = 1 And RenderTTK = 1 Then
+            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
+        End If
+        If RenderHeatMap = 1 Then
+            Application.DoEvents()
+            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, CInt(Val(HeatRadius)))
+            ' Colorize the memory bitmap and assign it as the picture boxes image
+            Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
+        End If
+        If RenderTitleText = 1 Then
+            drawTitle(Pl.ImageGraphic)
+        End If
+        If RenderAttachText = 1 Then
+            drawAdjustments(Pl.ImageGraphic)
+        End If
+        If RenderGrid = 1 Then
+            drawGrid(Pl.ImageGraphic)
+        End If
+
+
+        b.Save(fullPath)
+
+        If RenderHeatMap = 1 Then
+            Dim h As Bitmap = Pl.HeatMap
+            Dim heatFileName As String = fullPath.Insert((fullPath.Length - 4), "_heatmap")
+            h.Save(heatFileName)
+        End If
+        Debug.WriteLine("Image Saved: " & fullPath)
+        Debug.WriteLine("Shutting Down")
+        exitApplication()
+    End Sub
+
     Private Sub btnStart_Click() Handles btnStart.Click
         intBurstCycle = 0
 
@@ -828,6 +1023,48 @@ Public Class Main
         loadPlotic()
         BackgroundWorker1.RunWorkerAsync()
         'BackgroundWorker2.RunWorkerAsync()
+    End Sub
+    Private Sub loadPlotic()
+
+        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))
+        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))
+        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin")))
+        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot"))
+        Pl.SpreadMin = Double.Parse(getMinAngle())
+        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"))
+        Pl.Burst = Integer.Parse(txtBursts.Text)
+        Pl.BulletsPerBurst = Integer.Parse(numBulletsPerBurst.Value)
+        Pl.AdjRecoilH = getAdjustRecoilH()
+        Pl.AdjRecoilV = getAdjustRecoilV()
+        Pl.AdjSpreadInc = getAdjustInc()
+        Pl.AdjSpreadMin = getAdjustMin()
+        Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
+        If txtTitle.Text = "<<GUN>>" Then
+            Pl.Title = comboWeapon1.Text
+        Else
+            Pl.Title = txtTitle.Text
+        End If
+        If txtSub.Text = "<<ATTACH>>" Then
+            Pl.SubText = buildAttachString()
+        Else
+            Pl.SubText = txtSub.Text
+        End If
+        If txtInfo.Text = "<<STANCE>>" Then
+            Pl.Info = buildStanceString()
+        Else
+            Pl.Info = txtInfo.Text
+        End If
+
+
+        Pl.Scale = txtScale.Text
+
+        Pl.BulletVelocity = GetSpeed(comboWeapon1.Text)
+        Pl.MaxDistance = numMaxDistance.Value
+        Pl.BulletDrop = numBulletDrop.Value
+        Pl.TargetRange = numMeters.Value
+        Pl.RateOfFire = GetRateOfFire(comboWeapon1.Text)
+
+
     End Sub
 
     Private Function getMinAngle() As Double
@@ -895,7 +1132,6 @@ Public Class Main
 
         Return dblSumModifer
     End Function
-
     Private Function getAdjustInc() As Double
         Dim dblSumModifer As Double = 0
 
@@ -1022,8 +1258,6 @@ Public Class Main
         End If
         Return Trim(attachString)
     End Function
-
-
     Private Function buildAttachString() As String
         Dim attachString As String = ""
         Dim attachCount As Integer = 0
@@ -1066,48 +1300,24 @@ Public Class Main
             End If
         Return Trim(attachString)
     End Function
-    Private Sub loadPlotic()
 
-        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))
-        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))
-        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin")))
-        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot"))
-        Pl.SpreadMin = Double.Parse(getMinAngle())
-        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"))
-        Pl.Burst = txtBursts.Text
-        Pl.BulletsPerBurst = numBulletsPerBurst.Value
-        Pl.AdjRecoilH = getAdjustRecoilH()
-        Pl.AdjRecoilV = getAdjustRecoilV()
-        Pl.AdjSpreadInc = getAdjustInc()
-        Pl.AdjSpreadMin = getAdjustMin()
-        Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
-        If txtTitle.Text = "<<GUN>>" Then
-            Pl.Title = comboWeapon1.Text
+    Private Function getStance() As String
+        Dim stance As String = ""
+        If radStand.Checked Then
+            stance = "Stand"
+        ElseIf radCrouch.Checked Then
+            stance = "Crouch"
         Else
-            Pl.Title = txtTitle.Text
+            stance = "Prone"
         End If
-        If txtSub.Text = "<<ATTACH>>" Then
-            Pl.SubText = buildAttachString()
+        If chkStanceZoom.Checked Then
+            stance = stance & "Zoom"
         Else
-            Pl.SubText = txtSub.Text
+            stance = stance & "NoZoom"
         End If
-        If txtInfo.Text = "<<STANCE>>" Then
-            Pl.Info = buildStanceString()
-        Else
-            Pl.Info = txtInfo.Text
-        End If
+        Return stance
+    End Function
 
-
-        Pl.Scale = txtScale.Text
-
-        Pl.BulletVelocity = GetSpeed(comboWeapon1.Text)
-        Pl.MaxDistance = numMaxDistance.Value
-        Pl.BulletDrop = numBulletDrop.Value
-        Pl.TargetRange = numMeters.Value
-        Pl.RateOfFire = GetRateOfFire(comboWeapon1.Text)
-
-
-    End Sub
     Private Function getView() As String
         Dim currentView As String = "main"
         If Me.viewToolStrip.Text = "View: Main" Then
@@ -1123,6 +1333,76 @@ Public Class Main
         End If
         Return currentView
     End Function
+    Private Sub selectView(ByVal view As String)
+        Select Case view
+            Case "main"
+                SetToolStripText_ThreadSafe("View: Main")
+                CheckToolStripMain_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Image)
+                MainToolStripMenuItem.Checked = True
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
+            Case "heat"
+                SetToolStripText_ThreadSafe("View: Heat map")
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.HeatMap)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = True
+                TTKToolStripMenuItem.Checked = False
+            Case "mask"
+                SetToolStripText_ThreadSafe("View: Mask")
+                CheckToolStripMask_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Mask)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = True
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
+
+            Case "ttk"
+                SetToolStripText_ThreadSafe("View: TTK")
+                CheckToolStripTTK_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.TTK)
+                MainToolStripMenuItem.Checked = False
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = True
+            Case Else
+                SetToolStripText_ThreadSafe("View: Main")
+                CheckToolStripMain_ThreadSafe(CheckState.Checked)
+
+                CheckToolStripHeatMap_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripMask_ThreadSafe(CheckState.Unchecked)
+                CheckToolStripTTK_ThreadSafe(CheckState.Unchecked)
+                SetImage_ThreadSafe(Pl.Image)
+                MainToolStripMenuItem.Checked = True
+                MaskToolStripMenuItem.Checked = False
+                HeatMapToolStripMenuItem.Checked = False
+                TTKToolStripMenuItem.Checked = False
+
+                SetOutPutText_ThreadSafe("View: '" & view & " NOT FOUND")
+        End Select
+
+
+    End Sub
+
     Public Sub showImage(ByVal lengthOfSide As Integer)
         Dim diaTest As New diaImageZoom()
         diaTest.Text = lengthOfSide & " x " & lengthOfSide
@@ -1143,39 +1423,12 @@ Public Class Main
         diaTest.Show()
         diaTest.ShowInTaskbar = True
     End Sub
+    
     Private Function convertINIValue(ByVal inputValue As String, ByVal decimalSymbol As Char) As Double
         inputValue = inputValue.Replace(decimalSymbol, "."c)
         Return CDbl(Val(inputValue))
     End Function
 
-    Private Sub loadPloticINI()
-        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
-
-        Pl.RecoilUp = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilUp", "Unknown"), chrDecimalSymbol)
-        Pl.RecoilLeft = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilLeft", "Unknown"), chrDecimalSymbol)
-        Pl.RecoilRight = convertINIValue(INIRead(silentTemplateFile, "Recoil", "RecoilRight", "Unknown"), chrDecimalSymbol)
-        Pl.FirstShot = convertINIValue(INIRead(silentTemplateFile, "Recoil", "FirstShot", "Unknown"), chrDecimalSymbol)
-
-        Pl.SpreadInc = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadInc", "Unknown"), chrDecimalSymbol)
-        Pl.SpreadMin = convertINIValue(INIRead(silentTemplateFile, "Spread", "SpreadMin", "Unknown"), chrDecimalSymbol)
-
-        Pl.Burst = CInt(Val(INIRead(silentTemplateFile, "Burst", "Bursts", "500")))
-        Pl.BulletsPerBurst = CInt(Val(INIRead(silentTemplateFile, "Burst", "BulletsPerBurst", "5")))
-
-        Pl.AdjRecoilH = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilH", "0"), chrDecimalSymbol)
-        Pl.AdjRecoilV = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachRecoilV", "0"), chrDecimalSymbol)
-        Pl.AdjSpreadInc = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadInc", "0"), chrDecimalSymbol)
-        Pl.AdjSpreadMin = convertINIValue(INIRead(silentTemplateFile, "Attach", "AttachSpreadMin", "0"), chrDecimalSymbol)
-
-        Pl.Title = INIRead(silentTemplateFile, "Title", "TitleText", "")
-        Pl.Info = INIRead(silentTemplateFile, "Title", "InfoText", "")
-        Pl.SubText = INIRead(silentTemplateFile, "Title", "SubText", "")
-
-        Pl.Scale = CInt(Val(INIRead(silentTemplateFile, "Grid", "Scale", "650")))
-        Pl.TargetRange = CInt(Val(INIRead(silentTemplateFile, "Grid", "Distance", "30")))
-        Pl.GridLineSpace = convertINIValue(INIRead(silentTemplateFile, "Grid", "GridValue", "1"), chrDecimalSymbol)
-
-    End Sub
     Public Function rndD(ByRef upper As Integer, ByRef lower As Integer) As Integer
         'TODO:Add error logic for zero division
         Dim Random As Long
@@ -1561,243 +1814,6 @@ Public Class Main
         End If
     End Sub
 
-    Private Sub createSilentImage()
-        Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
-
-        Dim b As Bitmap = Pl.Image
-        Dim fileDir = INIRead(silentTemplateFile, "Save", "SavePath", "Unknown")
-        Dim fileName = convertFileName(INIRead(silentTemplateFile, "Save", "FileName", "Unknown"))
-        Dim fullPath As String = Path.Combine(fileDir, fileName)
-
-        Dim RenderTitleText As Integer = INIRead(silentTemplateFile, "Title", "RenderTitleText", "0")
-        Dim RenderAttachText As Integer = INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0")
-        Dim RenderGrid As Integer = INIRead(silentTemplateFile, "Grid", "RenderGrid", "0")
-        Dim RenderBars As Integer = INIRead(silentTemplateFile, "Render", "RenderBars", "0")
-        Dim RenderTTK As Integer = INIRead(silentTemplateFile, "TTK", "RenderTTK", "0")
-        Dim ScaleRadius As Integer = INIRead(silentTemplateFile, "Render", "ScaleRadius", "0")
-        Dim IntensityScale As String = INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2")
-        Dim VerticalMultiplier As String = INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1")
-        Dim MultiplyVerticalRecoil As Integer = INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0")
-        Dim RenderHeatMap As Integer = INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0")
-        Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
-        Dim HeatRadius As Integer = INIRead(silentTemplateFile, "HeatMap", "Radius", "0")
-
-
-        'TODO: Convert to arrays
-        Dim aryHits() As Integer = {0, 0, 0, 0, 0}
-        Dim coord1x(Val(Pl.Burst)) As Integer
-        Dim coord1y(Val(Pl.Burst)) As Integer
-        Dim coord2x(Val(Pl.Burst)) As Integer
-        Dim coord2y(Val(Pl.Burst)) As Integer
-        Dim coord3x(Val(Pl.Burst)) As Integer
-        Dim coord3y(Val(Pl.Burst)) As Integer
-        Dim coord4x(Val(Pl.Burst)) As Integer
-        Dim coord4y(Val(Pl.Burst)) As Integer
-        Dim coord5x(Val(Pl.Burst)) As Integer
-        Dim coord5y(Val(Pl.Burst)) As Integer
-        Dim coord6x(Val(Pl.Burst)) As Integer
-        Dim coord6y(Val(Pl.Burst)) As Integer
-
-        'Make Adjustments to values
-        Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
-        Dim dblRecoilR As Double = calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH)
-        Dim dblRecoilL As Double = calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH)
-
-        Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
-        Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
-
-
-        Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
-
-        Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
-        Dim silhouetteDiff As Double = silhouetteHeight / solMask.Height
-        Dim silhouetteWidth As Integer = Math.Round((silhouetteDiff * solMask.Width), 0)
-
-        Dim picVCenter As Integer = Math.Round((silhouetteHeight * IMAGE_V_CENTER_PERCENT), 0)
-        Dim picHCenter As Integer = Math.Round((silhouetteWidth * IMAGE_H_CENTER_PERCENT), 0)
-
-        Dim solscaledMask As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
-
-        Dim sil_centerY As Integer = 1680 - picVCenter
-        Dim sil_centerX As Integer = 1000 - picHCenter
-
-        Dim soldestMask As Graphics = Graphics.FromImage(solscaledMask)
-
-        If silhouetteHeight > 9800 Then
-            Pl.MaskGraphic.Clear(Color.White)
-        Else
-            soldestMask.DrawImage(solMask, 0, 0, solscaledMask.Width + 1, solscaledMask.Height + 1)
-            Pl.MaskGraphic.Clear(Color.Black)
-            Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, sil_centerY)
-        End If
-
-        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
-
-        Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
-        Dim soldest As Graphics = Graphics.FromImage(solscaled)
-        soldest.DrawImage(sol, 0, 0, solscaled.Width + 1, solscaled.Height + 1)
-
-        If RenderTTK = 1 Then
-            Pl.ImageGraphic.Clear(Color.Black)
-            Pl.ImageGraphic.DrawImage(solscaled, sil_centerX, sil_centerY)
-        Else
-            Pl.ImageGraphic.Clear(Color.Black)
-        End If
-        If RenderBars = 1 Then
-            drawBars(Pl.ImageGraphic)
-        End If
-        Dim scale = Val(Pl.Scale)
-        Dim montako = 0
-        Dim upd = 0
-        For ee = 0 To Pl.Burst
-            Dim uprecoil = 0
-            montako += 1
-            Dim multiplier = 10
-            Dim spread = dblSpreadMin * scale
-            Dim centerx = 1000
-            Dim centy = 1680
-            Dim iIntense As Byte
-            For a = 0 To Int(Pl.BulletsPerBurst) - 1
-                Dim pen1 As New System.Drawing.Pen(Color.DarkRed, 4)
-                Select Case a
-                    Case 0
-                        pen1.Color = Color.YellowGreen
-                        iIntense = CByte(15 * convertINIValue(IntensityScale, chrDecimalSymbol))
-                    Case 1
-                        pen1.Color = Color.Yellow
-                        iIntense = CByte(12 * convertINIValue(IntensityScale, chrDecimalSymbol))
-                    Case 2
-                        pen1.Color = Color.Orange
-                        iIntense = CByte(9 * convertINIValue(IntensityScale, chrDecimalSymbol))
-                    Case 3
-                        pen1.Color = Color.Red
-                        iIntense = CByte(6 * convertINIValue(IntensityScale, chrDecimalSymbol))
-                    Case 4
-                        pen1.Color = Color.DarkRed
-                        iIntense = CByte(3 * convertINIValue(IntensityScale, chrDecimalSymbol))
-                End Select
-                Dim radius
-                Dim mul As Integer = 100000
-                If ScaleRadius = 1 Then
-                    radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
-                Else
-                    radius = rndD(spread, 0)
-                End If
-                Dim angle = rndD(360, 0)
-                Dim x As Integer = centerx + radius * Math.Cos(angle)
-                Dim y As Integer = centy + radius * Math.Sin(angle)
-
-                'Add Target to heatpoints
-                HeatPoints.Add(New HeatPoint(x, y, iIntense))
-
-                If RenderTTK <> 1 Then
-                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
-                Else
-                    'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
-                    Select Case a
-                        Case 0
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(0) += 1
-                            End If
-                            coord1x(ee) = x
-                            coord1y(ee) = y
-                        Case 1
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(1) += 1
-                            End If
-                            coord2x(ee) = x
-                            coord2y(ee) = y
-                        Case 2
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(2) += 1
-                            End If
-                            coord3x(ee) = x
-                            coord3y(ee) = y
-                        Case 3
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(3) += 1
-                            End If
-                            coord4x(ee) = x
-                            coord4y(ee) = y
-                        Case 4
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(4) += 1
-                            End If
-                            coord5x(ee) = x
-                            coord5y(ee) = y
-                    End Select
-                    Pl.ImageGraphic.DrawEllipse(pen1, x, y, 7, 7)
-                End If
-
-                Application.DoEvents()
-                If MultiplyVerticalRecoil = 1 Then
-                    If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(VerticalMultiplier)))
-                    Else
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(VerticalMultiplier)))
-                    End If
-                Else
-                    If a = 0 Then
-                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
-                    Else
-                        centy -= CDbl(Val(dblRecoilH)) * scale
-                    End If
-                End If
-                centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
-                spread += CDbl(dblSpreadInc) * scale
-            Next
-        Next
-        Dim nl = Environment.NewLine
-        Dim intBursts As Integer = Val(Pl.Burst)
-        If RenderTTK = 1 Then
-            For a = 0 To intBursts - 1
-                Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
-                Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
-                Dim pen3 As New System.Drawing.Pen(Color.Orange, 4)
-                Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
-                Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
-
-                Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
-            Next
-            Debug.WriteLine("Bursts: " & intBursts)
-            Debug.WriteLine("Hits #1: " & aryHits(0))
-
-        End If
-        If RenderHitRates = 1 And RenderTTK = 1 Then
-            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
-        End If
-        If RenderHeatMap = 1 Then
-            Application.DoEvents()
-            Pl.HeatMap = CreateIntensityMask(Pl.HeatMap, HeatPoints, CInt(Val(HeatRadius)))
-            ' Colorize the memory bitmap and assign it as the picture boxes image
-            Pl.HeatMap = Colorize(Pl.HeatMap, 255, paletteOverride)
-        End If
-        If RenderTitleText = 1 Then
-            drawTitle(Pl.ImageGraphic)
-        End If
-        If RenderAttachText = 1 Then
-            drawAdjustments(Pl.ImageGraphic)
-        End If
-        If RenderGrid = 1 Then
-            drawGrid(Pl.ImageGraphic)
-        End If
-
-
-        b.Save(fullPath)
-
-        If RenderHeatMap = 1 Then
-            Dim h As Bitmap = Pl.HeatMap
-            Dim heatFileName As String = fullPath.Insert((fullPath.Length - 4), "_heatmap")
-            h.Save(heatFileName)
-        End If
-        Debug.WriteLine("Image Saved: " & fullPath)
-        Debug.WriteLine("Shutting Down")
-        exitApplication()
-    End Sub
     Private Function convertFileName(ByVal inputString As String) As String
 
         inputString = inputString.Replace("<<Title>>", Pl.Title)
@@ -2420,23 +2436,6 @@ ByVal DefaultValue As String) As String
             radUnderBipod.Enabled = True
         End If
     End Sub
-
-    Private Function getStance() As String
-        Dim stance As String = ""
-        If radStand.Checked Then
-            stance = "Stand"
-        ElseIf radCrouch.Checked Then
-            stance = "Crouch"
-        Else
-            stance = "Prone"
-        End If
-        If chkStanceZoom.Checked Then
-            stance = stance & "Zoom"
-        Else
-            stance = stance & "NoZoom"
-        End If
-        Return stance
-    End Function
 
     Public Function RecoilDecrease(ByVal StartX As Integer, ByVal StartY As Integer, ByVal ShootX As Integer, ByVal ShootY As Integer, ByVal DecPerSec As Double, ByVal RoF As Integer, ByVal PxPerDegScale As Integer, ByVal YorX As String)
         Dim diffX
