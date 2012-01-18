@@ -41,7 +41,7 @@ Public Class Main
         'Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
 
         'Dim test02 = GetAttachmentValue("FAMAS", "Foregrip", "MaxAngleModifier", "StandNoZoom")
-        'Dim test04 = GetAttachmentValue("FAMAS", "Foregrip", "DecreasePerSecondModifier", "StandNoZoom")
+        'Dim test04 = GetValue("FAMAS", "DecreasePerSecond")
         'Vert Recoil Adjust
         'Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
         'horizontal recoil adjust
@@ -1039,6 +1039,7 @@ Public Class Main
         Pl.AdjSpreadInc = getAdjustInc()
         Pl.AdjSpreadMin = getAdjustMin()
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
+        Pl.Gun = comboWeapon1.Text
         If txtTitle.Text = "<<GUN>>" Then
             Pl.Title = comboWeapon1.Text
         Else
@@ -1544,6 +1545,10 @@ Public Class Main
         Dim scale = Val(Pl.Scale)
         Dim montako = 0
         Dim upd = 0
+
+        Dim startX = 1000
+        Dim startY = 1680
+
         For ee = 0 To Pl.Burst
             If BackgroundWorker1.CancellationPending Then
                 ' Set Cancel to True
@@ -1558,14 +1563,18 @@ Public Class Main
                 SetImage_ThreadSafe(Pl.Image)
             End If
             addBurstCount_ThreadSafe()
-            Dim uprecoil = 0
+            'Dim uprecoil = 0
             montako += 1
-            Dim multiplier = 10
+            'Set the spread
             Dim spread = dblSpreadMin * scale
+
+            'Set the center and first fire point (center mass)
             Dim centerx = 1000
             Dim centy = 1680
             Dim iIntense As Byte
-            For a = 0 To Int(Pl.BulletsPerBurst) - 1
+            For a = 0 To Int(Pl.BulletsPerBurst) - 1 ' Loop through bullet bursts
+
+                'Set pen color based on bullet number, anything past 5 will show up as darkred
                 Dim pen1 As New System.Drawing.Pen(Color.DarkRed, 4)
                 Select Case a
                     Case 0
@@ -1585,13 +1594,17 @@ Public Class Main
                         iIntense = CByte(3 * numIntensityScale.Value)
                 End Select
                 Dim radius
-                Dim mul As Integer = 100000
+                'Dim mul As Integer = 100000
                 If chkScaleRadius.Checked = True Then
                     radius = spread * Math.Sqrt(rndD(1000, 0) / 1000)
                 Else
                     radius = rndD(spread, 0)
                 End If
                 Dim angle = rndD(360, 0)
+
+                Dim RateOfFire As Double = Pl.RateOfFire
+
+                'Calculate X and Y values with spread
                 Dim x As Integer = centerx + radius * Math.Cos(angle)
                 Dim y As Integer = centy + radius * Math.Sin(angle)
 
@@ -1604,33 +1617,23 @@ Public Class Main
                     'Debug.WriteLine((Val(colo.R) + Val(colo.G) + Val(colo.B)).ToString())
                     Select Case a
                         Case 0
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(0) += 1
-                            End If
+                            If Pl.bulletHit(x, y) Then aryHits(0) += 1
                             coord1x(ee) = x
                             coord1y(ee) = y
                         Case 1
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(1) += 1
-                            End If
+                            If Pl.bulletHit(x, y) Then aryHits(1) += 1
                             coord2x(ee) = x
                             coord2y(ee) = y
                         Case 2
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(2) += 1
-                            End If
+                            If Pl.bulletHit(x, y) Then aryHits(2) += 1
                             coord3x(ee) = x
                             coord3y(ee) = y
                         Case 3
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(3) += 1
-                            End If
+                            If Pl.bulletHit(x, y) Then aryHits(3) += 1
                             coord4x(ee) = x
                             coord4y(ee) = y
                         Case 4
-                            If Pl.bulletHit(x, y) Then
-                                aryHits(4) += 1
-                            End If
+                            If Pl.bulletHit(x, y) Then aryHits(4) += 1
                             coord5x(ee) = x
                             coord5y(ee) = y
                     End Select
@@ -1638,6 +1641,7 @@ Public Class Main
                 End If
 
                 Application.DoEvents()
+                'Calculate the new Y position
                 If chkMultiplyRecoil.Checked = True Then
                     If a = 0 Then
                         centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * numRecoilMultiplier.Value)
@@ -1651,12 +1655,20 @@ Public Class Main
                         centy -= CDbl(Val(dblRecoilH)) * scale
                     End If
                 End If
+                'Calculate the new X position
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
+                'Calculate the new spread value
                 spread += CDbl(dblSpreadInc) * scale
-            Next
+
+                Dim decX As Double = RecoilDecrease(startX, startY, centerx, (centy - CDbl(Val(dblRecoilH)) * scale), GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x")
+                Dim decY As Double = RecoilDecrease(startX, startY, centerx, (centy - CDbl(Val(dblRecoilH)) * scale), GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y")
+
+            Next ' Next Bullet Burst
+
             'Update the Progress bar
             BackgroundWorker1.ReportProgress(Math.Round(CInt((ee / Pl.Burst) * 100), 0))
-        Next
+        Next 'Next BURST
+
         Dim nl = Environment.NewLine
         Dim intBursts As Integer = Val(txtBursts.Text)
         If chkTimeToKill.Checked = True Then
@@ -2438,10 +2450,10 @@ ByVal DefaultValue As String) As String
     End Sub
 
     Public Function RecoilDecrease(ByVal StartX As Integer, ByVal StartY As Integer, ByVal ShootX As Integer, ByVal ShootY As Integer, ByVal DecPerSec As Double, ByVal RoF As Integer, ByVal PxPerDegScale As Integer, ByVal YorX As String)
-        Dim diffX
-        Dim diffY
-        If StartX > ShootX Then diffX = StartX - ShootX Else diffX = ShootX - StartX
-        If StartY > ShootY Then diffY = StartY - ShootY Else diffY = ShootY - StartY
+        Dim diffX, diffY As Integer
+
+        diffX = Math.Abs(StartX - ShootX)
+        diffY = Math.Abs(StartY - ShootY)
         Dim hypotenuseBig = Math.Sqrt(diffY ^ 2 + diffX ^ 2)
         Dim hypotenuseSmall = PxPerDegScale * (DecPerSec / 10) / (RoF / 60)
         Dim sideScaleRatio = diffY / hypotenuseBig
