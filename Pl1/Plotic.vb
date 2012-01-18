@@ -1,4 +1,5 @@
 ﻿Public Class Plotic
+    Private strGunName As String
     Private strTitle As String
     Private strInfo As String
     Private strSubText As String
@@ -173,6 +174,14 @@
         End Get
         Set(ByVal Value As String)
             strTitle = Value
+        End Set
+    End Property
+    Property Gun() As String
+        Get
+            Return strGunName
+        End Get
+        Set(ByVal Value As String)
+            strGunName = Value
         End Set
     End Property
     Property Info() As String
