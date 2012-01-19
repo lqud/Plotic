@@ -788,7 +788,7 @@ Partial Class Main
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(429, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(398, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "version()"
         '
@@ -943,27 +943,28 @@ Partial Class Main
         Me.ViewMainToolStripMenuItem.Checked = True
         Me.ViewMainToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ViewMainToolStripMenuItem.Name = "ViewMainToolStripMenuItem"
-        Me.ViewMainToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.ViewMainToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.ViewMainToolStripMenuItem.Text = "View: &Main"
         '
         'ViewHeatMapToolStripMenuItem
         '
         Me.ViewHeatMapToolStripMenuItem.Enabled = False
         Me.ViewHeatMapToolStripMenuItem.Name = "ViewHeatMapToolStripMenuItem"
-        Me.ViewHeatMapToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
-        Me.ViewHeatMapToolStripMenuItem.Text = "View: &Heat Map"
+        Me.ViewHeatMapToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.ViewHeatMapToolStripMenuItem.Text = "View: &Heatmap"
         '
         'ViewMaskToolStripMenuItem
         '
         Me.ViewMaskToolStripMenuItem.Enabled = False
         Me.ViewMaskToolStripMenuItem.Name = "ViewMaskToolStripMenuItem"
-        Me.ViewMaskToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.ViewMaskToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.ViewMaskToolStripMenuItem.Text = "View: Ma&sk"
         '
         'ViewTTKToolStripMenuItem
         '
+        Me.ViewTTKToolStripMenuItem.Enabled = False
         Me.ViewTTKToolStripMenuItem.Name = "ViewTTKToolStripMenuItem"
-        Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
         Me.ViewTTKToolStripMenuItem.Text = "View: TTK"
         '
         'ToolStripProgressBar2

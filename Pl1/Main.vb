@@ -39,9 +39,9 @@ Public Class Main
         'Dim test2c = GetValue("G3A3", "TraceFrequency")
         'Dim test2d = GetValue("G3A3", "RateOfFire")
         'Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
-
-        'Dim test02 = GetAttachmentValue("FAMAS", "Foregrip", "MaxAngleModifier", "StandNoZoom")
-        'Dim test04 = GetValue("FAMAS", "DecreasePerSecond")
+        Dim test02 = GetAttachmentValue("FAMAS", "HeavyBarrel", "DecreasePerSecondModifier", "StandZoom")
+        Dim test02a = GetAttachmentValue("FAMAS", "Silencer", "DecreasePerSecondModifier", "StandZoom")
+        Dim test04 = GetValue("FAMAS", "RecoilAmplitudeMax")
         'Vert Recoil Adjust
         'Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
         'horizontal recoil adjust
@@ -850,6 +850,10 @@ Public Class Main
         Dim scale = Val(Pl.Scale)
         Dim montako = 0
         Dim upd = 0
+
+        Dim startX = 1000
+        Dim startY = 1680
+        Dim RateOfFire As Double = Pl.RateOfFire
         For ee = 0 To Pl.Burst
             Dim uprecoil = 0
             montako += 1
@@ -946,6 +950,9 @@ Public Class Main
                 End If
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 spread += CDbl(dblSpreadInc) * scale
+                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x"), 0)
+                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y"), 0)
+
             Next
         Next
         Dim nl = Environment.NewLine
@@ -1349,7 +1356,7 @@ Public Class Main
                 HeatMapToolStripMenuItem.Checked = False
                 TTKToolStripMenuItem.Checked = False
             Case "heat"
-                SetToolStripText_ThreadSafe("View: Heat map")
+                SetToolStripText_ThreadSafe("View: Heat Map")
                 CheckToolStripHeatMap_ThreadSafe(CheckState.Checked)
 
                 CheckToolStripMain_ThreadSafe(CheckState.Unchecked)
@@ -1549,7 +1556,7 @@ Public Class Main
         Dim startX = 1000
         Dim startY = 1680
 
-        For ee = 0 To Pl.Burst
+        For ee = 0 To Pl.Burst ' Burst Loop
             If BackgroundWorker1.CancellationPending Then
                 ' Set Cancel to True
                 SetImage_ThreadSafe(Pl.Image)
@@ -1660,8 +1667,11 @@ Public Class Main
                 'Calculate the new spread value
                 spread += CDbl(dblSpreadInc) * scale
 
-                Dim decX As Double = RecoilDecrease(startX, startY, centerx, (centy - CDbl(Val(dblRecoilH)) * scale), GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x")
-                Dim decY As Double = RecoilDecrease(startX, startY, centerx, (centy - CDbl(Val(dblRecoilH)) * scale), GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y")
+                'Dim decX As Double = RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x")
+                'Dim decY As Double = RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y")
+
+                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "x"), 0)
+                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "y"), 0)
 
             Next ' Next Bullet Burst
 
