@@ -783,6 +783,8 @@ Public Class Main
         Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
         Dim HeatRadius As Integer = INIRead(silentTemplateFile, "HeatMap", "Radius", "0")
 
+        Dim RecoilDecreaseAmount As Double = INIRead(silentTemplateFile, "Recoil", "RecoilDecrease", "15")
+
 
         'TODO: Convert to arrays
         Dim aryHits() As Integer = {0, 0, 0, 0, 0}
@@ -950,8 +952,9 @@ Public Class Main
                 End If
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 spread += CDbl(dblSpreadInc) * scale
-                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x"), 0)
-                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y"), 0)
+
+                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "x"), 0)
+                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "y"), 0)
 
             Next
         Next
@@ -1960,6 +1963,7 @@ Public Class Main
         INIWrite(spath, "Recoil", "RecoilLeft", "0.2")
         INIWrite(spath, "Recoil", "RecoilRight", "0.3")
         INIWrite(spath, "Recoil", "FirstShot", "1.3")
+        INIWrite(spath, "Recoil", "RecoilDecrease", "15")
 
         INIWrite(spath, "Spread", "SpreadMin", "0.1")
         INIWrite(spath, "Spread", "SpreadInc", "0.12")
