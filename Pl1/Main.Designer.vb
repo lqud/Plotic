@@ -943,28 +943,28 @@ Partial Class Main
         Me.ViewMainToolStripMenuItem.Checked = True
         Me.ViewMainToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ViewMainToolStripMenuItem.Name = "ViewMainToolStripMenuItem"
-        Me.ViewMainToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.ViewMainToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ViewMainToolStripMenuItem.Text = "View: &Main"
         '
         'ViewHeatMapToolStripMenuItem
         '
         Me.ViewHeatMapToolStripMenuItem.Enabled = False
         Me.ViewHeatMapToolStripMenuItem.Name = "ViewHeatMapToolStripMenuItem"
-        Me.ViewHeatMapToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
-        Me.ViewHeatMapToolStripMenuItem.Text = "View: &Heatmap"
+        Me.ViewHeatMapToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.ViewHeatMapToolStripMenuItem.Text = "View: &Heat Map"
         '
         'ViewMaskToolStripMenuItem
         '
         Me.ViewMaskToolStripMenuItem.Enabled = False
         Me.ViewMaskToolStripMenuItem.Name = "ViewMaskToolStripMenuItem"
-        Me.ViewMaskToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.ViewMaskToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ViewMaskToolStripMenuItem.Text = "View: Ma&sk"
         '
         'ViewTTKToolStripMenuItem
         '
         Me.ViewTTKToolStripMenuItem.Enabled = False
         Me.ViewTTKToolStripMenuItem.Name = "ViewTTKToolStripMenuItem"
-        Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.ViewTTKToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
         Me.ViewTTKToolStripMenuItem.Text = "View: TTK"
         '
         'ToolStripProgressBar2
@@ -2305,6 +2305,7 @@ Partial Class Main
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.GroupBox1.Controls.Add(Me.radBarrelNone)
+        Me.GroupBox1.Controls.Add(Me.radUnderLaser)
         Me.GroupBox1.Controls.Add(Me.radBarrelFlash)
         Me.GroupBox1.Controls.Add(Me.radBarrelSilencer)
         Me.GroupBox1.Controls.Add(Me.radBarrelHeavy)
@@ -2312,7 +2313,7 @@ Partial Class Main
         Me.GroupBox1.ForeColor = System.Drawing.Color.FloralWhite
         Me.GroupBox1.Location = New System.Drawing.Point(17, 100)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(227, 46)
+        Me.GroupBox1.Size = New System.Drawing.Size(146, 94)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Barrel Attachments"
@@ -2321,17 +2322,18 @@ Partial Class Main
         '
         Me.radBarrelNone.AutoSize = True
         Me.radBarrelNone.Checked = True
-        Me.radBarrelNone.Location = New System.Drawing.Point(4, 21)
+        Me.radBarrelNone.Location = New System.Drawing.Point(7, 14)
         Me.radBarrelNone.Name = "radBarrelNone"
-        Me.radBarrelNone.Size = New System.Drawing.Size(14, 13)
+        Me.radBarrelNone.Size = New System.Drawing.Size(51, 17)
         Me.radBarrelNone.TabIndex = 7
         Me.radBarrelNone.TabStop = True
+        Me.radBarrelNone.Text = "None"
         Me.radBarrelNone.UseVisualStyleBackColor = True
         '
         'radBarrelFlash
         '
         Me.radBarrelFlash.AutoSize = True
-        Me.radBarrelFlash.Location = New System.Drawing.Point(163, 19)
+        Me.radBarrelFlash.Location = New System.Drawing.Point(75, 42)
         Me.radBarrelFlash.Name = "radBarrelFlash"
         Me.radBarrelFlash.Size = New System.Drawing.Size(59, 17)
         Me.radBarrelFlash.TabIndex = 6
@@ -2341,7 +2343,7 @@ Partial Class Main
         'radBarrelSilencer
         '
         Me.radBarrelSilencer.AutoSize = True
-        Me.radBarrelSilencer.Location = New System.Drawing.Point(98, 19)
+        Me.radBarrelSilencer.Location = New System.Drawing.Point(75, 14)
         Me.radBarrelSilencer.Name = "radBarrelSilencer"
         Me.radBarrelSilencer.Size = New System.Drawing.Size(63, 17)
         Me.radBarrelSilencer.TabIndex = 5
@@ -2351,7 +2353,7 @@ Partial Class Main
         'radBarrelHeavy
         '
         Me.radBarrelHeavy.AutoSize = True
-        Me.radBarrelHeavy.Location = New System.Drawing.Point(34, 19)
+        Me.radBarrelHeavy.Location = New System.Drawing.Point(6, 42)
         Me.radBarrelHeavy.Name = "radBarrelHeavy"
         Me.radBarrelHeavy.Size = New System.Drawing.Size(63, 17)
         Me.radBarrelHeavy.TabIndex = 4
@@ -2362,34 +2364,34 @@ Partial Class Main
         '
         Me.GroupBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.GroupBox2.Controls.Add(Me.radUnderNone)
-        Me.GroupBox2.Controls.Add(Me.radUnderLaser)
         Me.GroupBox2.Controls.Add(Me.radUnderBipod)
         Me.GroupBox2.Controls.Add(Me.radUnderForegrip)
         Me.GroupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.GroupBox2.ForeColor = System.Drawing.Color.FloralWhite
-        Me.GroupBox2.Location = New System.Drawing.Point(17, 148)
+        Me.GroupBox2.Location = New System.Drawing.Point(169, 100)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(227, 46)
+        Me.GroupBox2.Size = New System.Drawing.Size(84, 94)
         Me.GroupBox2.TabIndex = 44
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Under Barrel Attachments"
+        Me.GroupBox2.Text = "Under Barrel"
         '
         'radUnderNone
         '
         Me.radUnderNone.AccessibleDescription = " "
         Me.radUnderNone.AutoSize = True
         Me.radUnderNone.Checked = True
-        Me.radUnderNone.Location = New System.Drawing.Point(5, 21)
+        Me.radUnderNone.Location = New System.Drawing.Point(9, 17)
         Me.radUnderNone.Name = "radUnderNone"
-        Me.radUnderNone.Size = New System.Drawing.Size(14, 13)
+        Me.radUnderNone.Size = New System.Drawing.Size(51, 17)
         Me.radUnderNone.TabIndex = 8
         Me.radUnderNone.TabStop = True
+        Me.radUnderNone.Text = "None"
         Me.radUnderNone.UseVisualStyleBackColor = True
         '
         'radUnderLaser
         '
         Me.radUnderLaser.AutoSize = True
-        Me.radUnderLaser.Location = New System.Drawing.Point(144, 19)
+        Me.radUnderLaser.Location = New System.Drawing.Point(6, 68)
         Me.radUnderLaser.Name = "radUnderLaser"
         Me.radUnderLaser.Size = New System.Drawing.Size(78, 17)
         Me.radUnderLaser.TabIndex = 6
@@ -2399,7 +2401,7 @@ Partial Class Main
         'radUnderBipod
         '
         Me.radUnderBipod.AutoSize = True
-        Me.radUnderBipod.Location = New System.Drawing.Point(93, 19)
+        Me.radUnderBipod.Location = New System.Drawing.Point(9, 68)
         Me.radUnderBipod.Name = "radUnderBipod"
         Me.radUnderBipod.Size = New System.Drawing.Size(52, 17)
         Me.radUnderBipod.TabIndex = 5
@@ -2409,7 +2411,7 @@ Partial Class Main
         'radUnderForegrip
         '
         Me.radUnderForegrip.AutoSize = True
-        Me.radUnderForegrip.Location = New System.Drawing.Point(31, 19)
+        Me.radUnderForegrip.Location = New System.Drawing.Point(9, 42)
         Me.radUnderForegrip.Name = "radUnderForegrip"
         Me.radUnderForegrip.Size = New System.Drawing.Size(63, 17)
         Me.radUnderForegrip.TabIndex = 4
@@ -2435,10 +2437,10 @@ Partial Class Main
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.CancelButton = Me.btnStop
         Me.ClientSize = New System.Drawing.Size(810, 439)
-        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.tabMain)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnStop)
         Me.Controls.Add(Me.lblBurstCounter)
         Me.Controls.Add(Me.grpStance)
