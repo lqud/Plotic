@@ -39,9 +39,9 @@ Public Class Main
         'Dim test2c = GetValue("G3A3", "TraceFrequency")
         'Dim test2d = GetValue("G3A3", "RateOfFire")
         'Dim test2e = GetValue("G3A3", "RateOfFireForBurst")
-        Dim test02 = GetAttachmentValue("FAMAS", "HeavyBarrel", "DecreasePerSecondModifier", "StandZoom")
-        Dim test02a = GetAttachmentValue("FAMAS", "Silencer", "DecreasePerSecondModifier", "StandZoom")
-        Dim test04 = GetValue("FAMAS", "RecoilAmplitudeMax")
+        'Dim test02 = GetAttachmentValue("FAMAS", "HeavyBarrel", "DecreasePerSecondModifier", "StandZoom")
+        'Dim test02a = GetAttachmentValue("FAMAS", "Silencer", "DecreasePerSecondModifier", "StandZoom")
+        'Dim test04 = GetValue("FAMAS", "RecoilAmplitudeMax")
         'Vert Recoil Adjust
         'Dim test05 = GetAttachmentValue("FAMAS", "HeavyBarrel", "RecoilMagnitudeMod", "StandNoZoom")
         'horizontal recoil adjust
@@ -1667,9 +1667,7 @@ Public Class Main
                 'Calculate the new spread value
                 spread += CDbl(dblSpreadInc) * scale
 
-                'Dim decX As Double = RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "x")
-                'Dim decY As Double = RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "DecreasePerSecond"), RateOfFire, scale, "y")
-
+                'Calculate the recoil decrease
                 centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "x"), 0)
                 centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "y"), 0)
 
