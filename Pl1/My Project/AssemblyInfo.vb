@@ -8,14 +8,14 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("P11")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("P11")> 
+<Assembly: AssemblyTitle("Plotic")> 
+<Assembly: AssemblyDescription("Create plots for Battlefield 3 weapons.")> 
+<Assembly: AssemblyCompany("symthic / endofzero")> 
+<Assembly: AssemblyProduct("Plotic")> 
 <Assembly: AssemblyCopyright("Copyright ©  2011")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTrademark("http://symthic.com -  https://github.com/endofzero/Plotic/")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(True)> 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
 <Assembly: Guid("a9244bfe-3ea5-47b9-9d74-7af8da5b1985")> 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("2.0.9.1")> 
+<Assembly: AssemblyFileVersion("2.0.9.1")> 
