@@ -1036,12 +1036,14 @@ Public Class Main
     End Sub
     Private Sub loadPlotic()
 
-        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"))
-        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))
-        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin")))
-        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot"))
+
+        Dim test = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot"), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin"), System.Globalization.CultureInfo.InvariantCulture))
+        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot"), System.Globalization.CultureInfo.InvariantCulture)
         Pl.SpreadMin = Double.Parse(getMinAngle())
-        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"))
+        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier"), System.Globalization.CultureInfo.InvariantCulture)
         Pl.Burst = Integer.Parse(txtBursts.Text)
         Pl.BulletsPerBurst = Integer.Parse(numBulletsPerBurst.Value)
         Pl.AdjRecoilH = getAdjustRecoilH()
@@ -1091,7 +1093,7 @@ Public Class Main
             strStanceBuild += "Base"
         End If
         strStanceBuild += "MinAngle"
-        Return GetValue(comboWeapon1.Text, strStanceBuild)
+        Return Double.Parse(GetValue(comboWeapon1.Text, strStanceBuild), System.Globalization.CultureInfo.InvariantCulture)
     End Function
     Private Function getMaxAngle() As Double
         Dim strStanceBuild As String = ""
@@ -1510,7 +1512,7 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-
+        Dim dblRecoilDeceasePerSecond As Double = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), System.Globalization.CultureInfo.InvariantCulture)
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
         Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
@@ -1671,8 +1673,8 @@ Public Class Main
                 spread += CDbl(dblSpreadInc) * scale
 
                 'Calculate the recoil decrease
-                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "x"), 0)
-                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor"), RateOfFire, scale, "y"), 0)
+                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "x"), 0)
+                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "y"), 0)
 
             Next ' Next Bullet Burst
 
@@ -2282,7 +2284,7 @@ ByVal DefaultValue As String) As String
             leni += 1
         Loop
         val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
-        Return Trim(val)
+        Return Double.Parse(Trim(val), System.Globalization.CultureInfo.InvariantCulture)
     End Function
     Public Function GetRateOfFire(ByVal weapon As String) As Double
         If weapon = "M16A4" Then weapon = "M16A4_2"
@@ -2299,7 +2301,7 @@ ByVal DefaultValue As String) As String
             leni += 1
         Loop
         val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
-        Return Trim(val)
+        Return Double.Parse(Trim(val), System.Globalization.CultureInfo.InvariantCulture)
     End Function
 
     Public Function GetAttachmentValue(ByVal weapon As String, ByVal attachment As String, ByVal value As String, ByVal stance As String)
