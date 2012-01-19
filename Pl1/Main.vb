@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.08"
+    Private Const VERSION As String = "Plotic v2.09"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -1108,7 +1108,7 @@ Public Class Main
             strStanceBuild += "Base"
         End If
         strStanceBuild += "MaxAngle"
-        Return GetValue(comboWeapon1.Text, strStanceBuild)
+        Return Double.Parse(GetValue(comboWeapon1.Text, strStanceBuild), System.Globalization.CultureInfo.InvariantCulture)
     End Function
 
     Private Function getAdjustMin() As Double
@@ -1116,27 +1116,27 @@ Public Class Main
 
 
         If radBarrelFlash.Checked Then
-            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim FlashAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim HeavyBarrelAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim SilencerAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Silencer", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += SilencerAngle
         End If
         If radUnderBipod.Checked Then
-            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim BipodAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Bipod", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += BipodAngle
         End If
         If radUnderForegrip.Checked Then
-            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim ForegripAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += ForegripAngle
         End If
         If radUnderLaser.Checked Then
-            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "MinAngleModifier", getStance()) * 100, 0) - 100
+            Dim LaserAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "MinAngleModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += LaserAngle
         End If
         If radBarrelNone.Checked And radUnderNone.Checked Then
@@ -1150,27 +1150,27 @@ Public Class Main
 
 
         If radBarrelFlash.Checked Then
-            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim FlashAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim HeavyBarrelAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim SilencerAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Silencer", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += SilencerAngle
         End If
         If radUnderBipod.Checked Then
-            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim BipodAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Bipod", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += BipodAngle
         End If
         If radUnderForegrip.Checked Then
-            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim ForegripAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += ForegripAngle
         End If
         If radUnderLaser.Checked Then
-            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "IncreasePerShotModifier", getStance()) * 100, 0) - 100
+            Dim LaserAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "IncreasePerShotModifier", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += LaserAngle
         End If
         If radBarrelNone.Checked And radUnderNone.Checked Then
@@ -1184,27 +1184,27 @@ Public Class Main
 
 
         If radBarrelFlash.Checked Then
-            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim FlashAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim HeavyBarrelAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim SilencerAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += SilencerAngle
         End If
         If radUnderBipod.Checked Then
-            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim BipodAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += BipodAngle
         End If
         If radUnderForegrip.Checked Then
-            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim ForegripAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += ForegripAngle
         End If
         If radUnderLaser.Checked Then
-            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilMagnitudeMod", getStance()) * 100, 0) - 100
+            Dim LaserAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilMagnitudeMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += LaserAngle
         End If
         If radBarrelNone.Checked And radUnderNone.Checked Then
@@ -1218,27 +1218,27 @@ Public Class Main
 
 
         If radBarrelFlash.Checked Then
-            Dim FlashAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim FlashAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Flash_Suppressor", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += FlashAngle
         End If
         If radBarrelHeavy.Checked Then
-            Dim HeavyBarrelAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim HeavyBarrelAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "HeavyBarrel", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += HeavyBarrelAngle
         End If
         If radBarrelSilencer.Checked Then
-            Dim SilencerAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim SilencerAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Silencer", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += SilencerAngle
         End If
         If radUnderBipod.Checked Then
-            Dim BipodAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim BipodAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Bipod", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += BipodAngle
         End If
         If radUnderForegrip.Checked Then
-            Dim ForegripAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim ForegripAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "Foregrip", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += ForegripAngle
         End If
         If radUnderLaser.Checked Then
-            Dim LaserAngle As Double = Math.Round(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilAngleMod", getStance()) * 100, 0) - 100
+            Dim LaserAngle As Double = Math.Round(Double.Parse(GetAttachmentValue(comboWeapon1.Text, "TargetPointer", "RecoilAngleMod", getStance()), System.Globalization.CultureInfo.InvariantCulture) * 100, 0) - 100
             dblSumModifer += LaserAngle
         End If
         If radBarrelNone.Checked And radUnderNone.Checked Then
