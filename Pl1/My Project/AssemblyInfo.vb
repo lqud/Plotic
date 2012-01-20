@@ -9,11 +9,11 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Plotic")> 
-<Assembly: AssemblyDescription("Create plots for Battlefield 3 weapons.")> 
+<Assembly: AssemblyDescription("Create plots for Battlefield 3 weapons. Further information can be found at http://symthic.com -  and for the latest version and to download the source yourself,  you can you go https://github.com/endofzero/Plotic/")> 
 <Assembly: AssemblyCompany("symthic / endofzero")> 
 <Assembly: AssemblyProduct("Plotic")> 
 <Assembly: AssemblyCopyright("Copyright ©  2011")> 
-<Assembly: AssemblyTrademark("http://symthic.com -  https://github.com/endofzero/Plotic/")> 
+<Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(True)> 
 
