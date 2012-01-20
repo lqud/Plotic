@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.091"
+    Private Const VERSION As String = "Plotic v2.092"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -545,7 +545,7 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim centerx = 1000
         Dim centy = 1680
-        If radMeters.Checked = True Then
+        If Not radMeters.Checked Then
             Dim gridx = centerx
             Dim gridy = centy
             Dim direction = 1

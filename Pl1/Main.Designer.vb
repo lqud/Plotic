@@ -194,12 +194,12 @@ Partial Class Main
         Me.X1000ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.radBarrelNone = New System.Windows.Forms.RadioButton()
+        Me.radUnderLaser = New System.Windows.Forms.RadioButton()
         Me.radBarrelFlash = New System.Windows.Forms.RadioButton()
         Me.radBarrelSilencer = New System.Windows.Forms.RadioButton()
         Me.radBarrelHeavy = New System.Windows.Forms.RadioButton()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.radUnderNone = New System.Windows.Forms.RadioButton()
-        Me.radUnderLaser = New System.Windows.Forms.RadioButton()
         Me.radUnderBipod = New System.Windows.Forms.RadioButton()
         Me.radUnderForegrip = New System.Windows.Forms.RadioButton()
         Me.picPlot = New System.Windows.Forms.PictureBox()
@@ -788,7 +788,7 @@ Partial Class Main
         Me.mainToolStripStatus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.mainToolStripStatus.ForeColor = System.Drawing.Color.Silver
         Me.mainToolStripStatus.Name = "mainToolStripStatus"
-        Me.mainToolStripStatus.Size = New System.Drawing.Size(398, 17)
+        Me.mainToolStripStatus.Size = New System.Drawing.Size(429, 17)
         Me.mainToolStripStatus.Spring = True
         Me.mainToolStripStatus.Text = "version()"
         '
@@ -868,24 +868,24 @@ Partial Class Main
         'radDegrees
         '
         Me.radDegrees.AutoSize = True
+        Me.radDegrees.Checked = True
         Me.radDegrees.ForeColor = System.Drawing.Color.White
         Me.radDegrees.Location = New System.Drawing.Point(149, 105)
         Me.radDegrees.Name = "radDegrees"
         Me.radDegrees.Size = New System.Drawing.Size(65, 17)
         Me.radDegrees.TabIndex = 51
+        Me.radDegrees.TabStop = True
         Me.radDegrees.Text = "Degrees"
         Me.radDegrees.UseVisualStyleBackColor = True
         '
         'radMeters
         '
         Me.radMeters.AutoSize = True
-        Me.radMeters.Checked = True
         Me.radMeters.ForeColor = System.Drawing.Color.White
         Me.radMeters.Location = New System.Drawing.Point(149, 90)
         Me.radMeters.Name = "radMeters"
         Me.radMeters.Size = New System.Drawing.Size(57, 17)
         Me.radMeters.TabIndex = 50
-        Me.radMeters.TabStop = True
         Me.radMeters.Text = "Meters"
         Me.radMeters.UseVisualStyleBackColor = True
         '
@@ -2330,6 +2330,16 @@ Partial Class Main
         Me.radBarrelNone.Text = "None"
         Me.radBarrelNone.UseVisualStyleBackColor = True
         '
+        'radUnderLaser
+        '
+        Me.radUnderLaser.AutoSize = True
+        Me.radUnderLaser.Location = New System.Drawing.Point(6, 68)
+        Me.radUnderLaser.Name = "radUnderLaser"
+        Me.radUnderLaser.Size = New System.Drawing.Size(78, 17)
+        Me.radUnderLaser.TabIndex = 6
+        Me.radUnderLaser.Text = "Laser Sight"
+        Me.radUnderLaser.UseVisualStyleBackColor = True
+        '
         'radBarrelFlash
         '
         Me.radBarrelFlash.AutoSize = True
@@ -2387,16 +2397,6 @@ Partial Class Main
         Me.radUnderNone.TabStop = True
         Me.radUnderNone.Text = "None"
         Me.radUnderNone.UseVisualStyleBackColor = True
-        '
-        'radUnderLaser
-        '
-        Me.radUnderLaser.AutoSize = True
-        Me.radUnderLaser.Location = New System.Drawing.Point(6, 68)
-        Me.radUnderLaser.Name = "radUnderLaser"
-        Me.radUnderLaser.Size = New System.Drawing.Size(78, 17)
-        Me.radUnderLaser.TabIndex = 6
-        Me.radUnderLaser.Text = "Laser Sight"
-        Me.radUnderLaser.UseVisualStyleBackColor = True
         '
         'radUnderBipod
         '
