@@ -2482,6 +2482,10 @@ ByVal DefaultValue As String) As String
         End If
         Return 0
     End Function
+
+    Private Sub LinkLabel1_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        frmAbout.Show()
+    End Sub
 End Class
 Public Structure HeatPoint
     Public X As Integer
