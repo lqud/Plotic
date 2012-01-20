@@ -203,6 +203,7 @@ Partial Class Main
         Me.radUnderBipod = New System.Windows.Forms.RadioButton()
         Me.radUnderForegrip = New System.Windows.Forms.RadioButton()
         Me.picPlot = New System.Windows.Forms.PictureBox()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -2429,6 +2430,18 @@ Partial Class Main
         Me.picPlot.TabIndex = 29
         Me.picPlot.TabStop = False
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline
+        Me.LinkLabel1.LinkColor = System.Drawing.Color.White
+        Me.LinkLabel1.Location = New System.Drawing.Point(798, -4)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(10, 13)
+        Me.LinkLabel1.TabIndex = 45
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "."
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2437,6 +2450,7 @@ Partial Class Main
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.CancelButton = Me.btnStop
         Me.ClientSize = New System.Drawing.Size(810, 439)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.tabMain)
         Me.Controls.Add(Me.StatusStrip1)
@@ -2701,4 +2715,5 @@ Partial Class Main
     Friend WithEvents NumericUpDown8 As System.Windows.Forms.NumericUpDown
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents grpCustomTTK As System.Windows.Forms.GroupBox
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
 End Class
