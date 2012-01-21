@@ -1686,17 +1686,11 @@ Public Class Main
         Dim intBursts As Integer = Val(txtBursts.Text)
         If chkTimeToKill.Checked = True Then
             For a = 0 To intBursts - 1
-                Dim pen1 As New System.Drawing.Pen(Color.YellowGreen, 4)
-                Dim pen2 As New System.Drawing.Pen(Color.Yellow, 4)
-                Dim pen3 As New System.Drawing.Pen(Color.Orange, 4)
-                Dim pen4 As New System.Drawing.Pen(Color.Red, 4)
-                Dim pen5 As New System.Drawing.Pen(Color.DarkRed, 4)
-
-                Pl.ImageGraphic.DrawEllipse(pen1, coord1x(a), coord1y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen2, coord2x(a), coord2y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen3, coord3x(a), coord3y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen4, coord4x(a), coord4y(a), 7, 7)
-                Pl.ImageGraphic.DrawEllipse(pen5, coord5x(a), coord5y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(New System.Drawing.Pen(Color.YellowGreen, 4), coord1x(a), coord1y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(New System.Drawing.Pen(Color.Yellow, 4), coord2x(a), coord2y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(New System.Drawing.Pen(Color.Orange, 4), coord3x(a), coord3y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(New System.Drawing.Pen(Color.Red, 4), coord4x(a), coord4y(a), 7, 7)
+                Pl.ImageGraphic.DrawEllipse(New System.Drawing.Pen(Color.DarkRed, 4), coord5x(a), coord5y(a), 7, 7)
             Next
             SetImage_ThreadSafe(Pl.Image)
             Application.DoEvents()
@@ -1757,6 +1751,8 @@ Public Class Main
         ToggleToolStripMain_ThreadSafe(True)
         selectView("main")
         ToggleToolStripMask_ThreadSafe(True)
+
+
     End Sub
 
     Private Sub BackgroundWorker1_ProgressChanged(sender As Object, e As System.ComponentModel.ProgressChangedEventArgs) Handles BackgroundWorker1.ProgressChanged
