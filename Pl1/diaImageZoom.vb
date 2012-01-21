@@ -19,4 +19,8 @@ Public Class diaImageZoom
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
+
+    Private Sub CopyToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CopyToolStripMenuItem.Click
+        My.Computer.Clipboard.SetImage(picStatic.Image)
+    End Sub
 End Class
