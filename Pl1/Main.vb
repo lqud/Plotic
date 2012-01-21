@@ -2,8 +2,8 @@
 Imports System.Drawing
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
-Imports System.Windows.Forms
 Imports System.IO
+Imports System.Windows.Forms
 
 Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
