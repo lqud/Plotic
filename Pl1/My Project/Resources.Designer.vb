@@ -95,23 +95,9 @@ Namespace My.Resources
             End Get
         End Property
         
-        Friend ReadOnly Property sil_1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("sil_1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
         Friend ReadOnly Property sil_1_fullsize() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_1_fullsize", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property sil_2() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("sil_2", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -123,23 +109,9 @@ Namespace My.Resources
             End Get
         End Property
         
-        Friend ReadOnly Property sil_3() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("sil_3", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
         Friend ReadOnly Property sil_3_fullsize() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sil_3_fullsize", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property sil_mask() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("sil_mask", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
