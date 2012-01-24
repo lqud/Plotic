@@ -204,6 +204,8 @@ Partial Class Main
         Me.radUnderForegrip = New System.Windows.Forms.RadioButton()
         Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -996,6 +998,8 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.comboSilhouetteStyle)
+        Me.tabRender.Controls.Add(Me.Label48)
         Me.tabRender.Controls.Add(Me.CheckBox1)
         Me.tabRender.Controls.Add(Me.txtSub)
         Me.tabRender.Controls.Add(Me.Label24)
@@ -1111,9 +1115,9 @@ Partial Class Main
         Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
         Me.chkTimeToKill.Location = New System.Drawing.Point(119, 8)
         Me.chkTimeToKill.Name = "chkTimeToKill"
-        Me.chkTimeToKill.Size = New System.Drawing.Size(246, 17)
+        Me.chkTimeToKill.Size = New System.Drawing.Size(109, 17)
         Me.chkTimeToKill.TabIndex = 88
-        Me.chkTimeToKill.Text = "Draw scale target at distance and get hit rates."
+        Me.chkTimeToKill.Text = "Draw scale target"
         Me.chkTimeToKill.UseVisualStyleBackColor = False
         '
         'chkDrawTTK
@@ -2442,6 +2446,29 @@ Partial Class Main
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "."
         '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.ForeColor = System.Drawing.Color.White
+        Me.Label48.Location = New System.Drawing.Point(236, 9)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(30, 13)
+        Me.Label48.TabIndex = 97
+        Me.Label48.Text = "Style"
+        '
+        'comboSilhouetteStyle
+        '
+        Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.comboSilhouetteStyle.Enabled = False
+        Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
+        Me.comboSilhouetteStyle.FormattingEnabled = True
+        Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
+        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(267, 6)
+        Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
+        Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
+        Me.comboSilhouetteStyle.TabIndex = 98
+        Me.comboSilhouetteStyle.Text = "1"
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2716,4 +2743,6 @@ Partial Class Main
     Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
     Friend WithEvents grpCustomTTK As System.Windows.Forms.GroupBox
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents comboSilhouetteStyle As System.Windows.Forms.ComboBox
+    Friend WithEvents Label48 As System.Windows.Forms.Label
 End Class

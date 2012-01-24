@@ -1540,6 +1540,14 @@ Public Class Main
         End If
 
         Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
+        'If GetSilStyle_ThreadSafe() = "1" Then
+        'sol = New Bitmap(My.Resources.sil_1_fullsize)
+        'ElseIf comboSilhouetteStyle.Text = "2" Then
+        'sol = New Bitmap(My.Resources.sil_2_fullsize)
+        'ElseIf comboSilhouetteStyle.Text = "3" Then
+        'sol = New Bitmap(My.Resources.sil_3_fullsize)
+        'End If
+
 
         Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
         Dim soldest As Graphics = Graphics.FromImage(solscaled)
@@ -1938,7 +1946,6 @@ Public Class Main
             picPlot.Image = [image]
         End If
     End Sub
-
 #End Region
 
     Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSaveImage.CheckedChanged
