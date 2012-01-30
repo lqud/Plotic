@@ -88,6 +88,8 @@ Partial Class Main
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
+        Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
+        Me.Label48 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.txtSub = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
@@ -204,8 +206,6 @@ Partial Class Main
         Me.radUnderForegrip = New System.Windows.Forms.RadioButton()
         Me.picPlot = New System.Windows.Forms.PictureBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.Label48 = New System.Windows.Forms.Label()
-        Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -1028,6 +1028,28 @@ Partial Class Main
         Me.tabRender.Size = New System.Drawing.Size(362, 185)
         Me.tabRender.TabIndex = 0
         Me.tabRender.Text = "Render Options"
+        '
+        'comboSilhouetteStyle
+        '
+        Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
+        Me.comboSilhouetteStyle.FormattingEnabled = True
+        Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
+        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(267, 6)
+        Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
+        Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
+        Me.comboSilhouetteStyle.TabIndex = 98
+        Me.comboSilhouetteStyle.Text = "1"
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.ForeColor = System.Drawing.Color.White
+        Me.Label48.Location = New System.Drawing.Point(236, 9)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(30, 13)
+        Me.Label48.TabIndex = 97
+        Me.Label48.Text = "Style"
         '
         'CheckBox1
         '
@@ -2445,29 +2467,6 @@ Partial Class Main
         Me.LinkLabel1.TabIndex = 45
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "."
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.ForeColor = System.Drawing.Color.White
-        Me.Label48.Location = New System.Drawing.Point(236, 9)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(30, 13)
-        Me.Label48.TabIndex = 97
-        Me.Label48.Text = "Style"
-        '
-        'comboSilhouetteStyle
-        '
-        Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.comboSilhouetteStyle.Enabled = False
-        Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
-        Me.comboSilhouetteStyle.FormattingEnabled = True
-        Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(267, 6)
-        Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
-        Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
-        Me.comboSilhouetteStyle.TabIndex = 98
-        Me.comboSilhouetteStyle.Text = "1"
         '
         'Main
         '

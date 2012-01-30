@@ -1077,6 +1077,13 @@ Public Class Main
         Pl.TargetRange = numMeters.Value
         Pl.RateOfFire = GetRateOfFire(comboWeapon1.Text)
 
+        If comboSilhouetteStyle.Text = "1" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_1_fullsize)
+        ElseIf comboSilhouetteStyle.Text = "2" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_2_fullsize)
+        ElseIf comboSilhouetteStyle.Text = "3" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_3_fullsize)
+        End If
 
     End Sub
 
@@ -1539,14 +1546,8 @@ Public Class Main
             Pl.MaskGraphic.DrawImage(solscaledMask, sil_centerX, sil_centerY)
         End If
 
-        Dim sol As Bitmap = New Bitmap(My.Resources.sil_1_fullsize)
-        'If GetSilStyle_ThreadSafe() = "1" Then
-        'sol = New Bitmap(My.Resources.sil_1_fullsize)
-        'ElseIf comboSilhouetteStyle.Text = "2" Then
-        'sol = New Bitmap(My.Resources.sil_2_fullsize)
-        'ElseIf comboSilhouetteStyle.Text = "3" Then
-        'sol = New Bitmap(My.Resources.sil_3_fullsize)
-        'End If
+        Dim sol As Bitmap = New Bitmap(Pl.Silh)
+
 
 
         Dim solscaled As New Bitmap(CInt(silhouetteWidth), CInt(silhouetteHeight))
