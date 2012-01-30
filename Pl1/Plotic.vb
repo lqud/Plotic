@@ -4,6 +4,7 @@
     Private strInfo As String
     Private strSubText As String
     Private bmpImage As Bitmap = New Bitmap(2000, 2000)
+    Private bmpSilh As Bitmap = New Bitmap(2000, 2000)
     Private bmpMask As Bitmap = New Bitmap(2000, 2000)
     Private bmpHeatMap As Bitmap = New Bitmap(2000, 2000)
     Private bmpTTK As Bitmap = New Bitmap(2000, 2000)
@@ -347,6 +348,14 @@
         End Get
         Set(ByVal Value As Bitmap)
             bmpTTK = Value
+        End Set
+    End Property
+    Property Silh() As Bitmap
+        Get
+            Return bmpSilh
+        End Get
+        Set(ByVal Value As Bitmap)
+            bmpSilh = Value
         End Set
     End Property
 
