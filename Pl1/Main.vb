@@ -1486,10 +1486,10 @@ Public Class Main
         lblAdjRight.Text = calculateAdjustment(CDbl(Val(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin"))), CDbl(Val(numRecoilH.Text))).ToString
         lblAdjLeft.Text = calculateAdjustment(CDbl(Val(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax"))), CDbl(Val(numRecoilH.Text))).ToString
 
-        lblAdjMin.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numMin.Value)).ToString
-        lblAdjInc.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numInc.Value)).ToString
+        lblAdjMin.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numAdjMin.Value)).ToString
+        lblAdjInc.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numAdjInc.Value)).ToString
     End Sub
-    Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numInc.ValueChanged, numMin.ValueChanged
+    Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numAdjInc.ValueChanged, numAdjMin.ValueChanged
         UpdateAdjustments()
     End Sub
     Private Function calculateAdjustment(ByVal actor As Double, ByVal action As Double) As Double
@@ -1663,18 +1663,10 @@ Public Class Main
 
                 Application.DoEvents()
                 'Calculate the new Y position
-                If chkMultiplyRecoil.Checked = True Then
-                    If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * numRecoilMultiplier.Value)
-                    Else
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * numRecoilMultiplier.Value)
-                    End If
+                If a = 0 Then
+                    centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
                 Else
-                    If a = 0 Then
-                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
-                    Else
-                        centy -= CDbl(Val(dblRecoilH)) * scale
-                    End If
+                    centy -= CDbl(Val(dblRecoilH)) * scale
                 End If
                 'Calculate the new X position
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
@@ -2395,6 +2387,10 @@ ByVal DefaultValue As String) As String
             grpRecoil.Enabled = False
             grpSpread.Enabled = False
 
+            grpStance.Enabled = True
+            grpBarrel.Enabled = True
+            grpUnderBarrel.Enabled = True
+
             updateAttachmentSelection()
             renderGunImage()
         Else
@@ -2402,6 +2398,10 @@ ByVal DefaultValue As String) As String
             grpAttach.Enabled = True
             grpRecoil.Enabled = True
             grpSpread.Enabled = True
+
+            grpStance.Enabled = False
+            grpBarrel.Enabled = False
+            grpUnderBarrel.Enabled = False
 
             picPlot.Image = New Bitmap(My.Resources.knife)
         End If
