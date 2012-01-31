@@ -502,16 +502,27 @@ Public Class Main
         Dim bulletTargetX = centerx - 25
         Dim bulletTargetY = (centery - Pl.dropInPixels) - 25
 
-        g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
-        g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
+        If radBulletDropRenderType1.Checked Then
+            g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
+            g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
 
-        g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
-        g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
+        ElseIf radBulletDropRenderType2.Checked Then
+            g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
+            g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
+
+        ElseIf radBulletDropRenderType3.Checked Then
+            g.DrawEllipse(penAdjustTarget, bulletAdjustX, bulletAdjustY, 50, 50)
+            g.DrawLine(penAdjustTarget, centerx - 25, bulletAdjustY + 25, centerx + 25, bulletAdjustY + 25)
+
+            g.DrawLine(penDropTarget, centerx - 25, bulletTargetY + 25, centerx + 25, bulletTargetY + 25)
+            g.DrawEllipse(penDropTarget, bulletTargetX, bulletTargetY, 50, 50)
+        End If
     End Sub
     Public Sub drawDropInfo(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim redBrush As New SolidBrush(Color.Red)
+        Dim whiteBrush As New SolidBrush(Color.White)
         Dim hPos As Integer = 5
         Dim rect As New Rectangle(3, 248, 700, 180)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
@@ -524,8 +535,14 @@ Public Class Main
             g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
         Else
             g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
-            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
+            If chkRenderBulletDrop.Checked Then
+                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
+                g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), whiteBrush, hPos, 335)
+            Else
+                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
+                g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
+
+            End If
             g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
         End If
 

@@ -115,15 +115,21 @@ Partial Class Main
         Me.tabAdvanced = New System.Windows.Forms.TabPage()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabAdvBulletDrop = New System.Windows.Forms.TabPage()
+        Me.grpBulletGeneral = New System.Windows.Forms.GroupBox()
+        Me.grpStyle = New System.Windows.Forms.GroupBox()
+        Me.radBulletDropRenderType1 = New System.Windows.Forms.RadioButton()
+        Me.radBulletDropRenderType3 = New System.Windows.Forms.RadioButton()
+        Me.radBulletDropRenderType2 = New System.Windows.Forms.RadioButton()
+        Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
+        Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.numMaxDistance = New System.Windows.Forms.NumericUpDown()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.numBulletDrop = New System.Windows.Forms.NumericUpDown()
-        Me.numDropLineThickness = New System.Windows.Forms.NumericUpDown()
-        Me.chkRenderBulletDrop = New System.Windows.Forms.CheckBox()
-        Me.chkWriteDropInfo = New System.Windows.Forms.CheckBox()
-        Me.Label39 = New System.Windows.Forms.Label()
         Me.Label51 = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.Label53 = New System.Windows.Forms.Label()
@@ -172,6 +178,11 @@ Partial Class Main
         Me.numSpreadInc = New System.Windows.Forms.NumericUpDown()
         Me.numSpreadMin = New System.Windows.Forms.NumericUpDown()
         Me.grpRecoil = New System.Windows.Forms.GroupBox()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label49 = New System.Windows.Forms.Label()
         Me.numFirstShot = New System.Windows.Forms.NumericUpDown()
         Me.numRecoilRight = New System.Windows.Forms.NumericUpDown()
         Me.numRecoilLeft = New System.Windows.Forms.NumericUpDown()
@@ -206,17 +217,6 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label49 = New System.Windows.Forms.Label()
-        Me.Label50 = New System.Windows.Forms.Label()
-        Me.Label55 = New System.Windows.Forms.Label()
-        Me.Label56 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.Label57 = New System.Windows.Forms.Label()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.grpBulletGeneral = New System.Windows.Forms.GroupBox()
-        Me.grpStyle = New System.Windows.Forms.GroupBox()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -237,9 +237,11 @@ Partial Class Main
         Me.tabAdvanced.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.tabAdvBulletDrop.SuspendLayout()
+        Me.grpBulletGeneral.SuspendLayout()
+        Me.grpStyle.SuspendLayout()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMaxDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numBulletDrop, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDropVerticalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAdvTTK.SuspendLayout()
@@ -260,6 +262,7 @@ Partial Class Main
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRecoil.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -270,9 +273,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpBulletGeneral.SuspendLayout()
-        Me.grpStyle.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpStance
@@ -1403,6 +1403,126 @@ Partial Class Main
         Me.tabAdvBulletDrop.TabIndex = 0
         Me.tabAdvBulletDrop.Text = "Bullet Drop"
         '
+        'grpBulletGeneral
+        '
+        Me.grpBulletGeneral.Controls.Add(Me.grpStyle)
+        Me.grpBulletGeneral.Controls.Add(Me.chkWriteDropInfo)
+        Me.grpBulletGeneral.Controls.Add(Me.Label57)
+        Me.grpBulletGeneral.Controls.Add(Me.Label39)
+        Me.grpBulletGeneral.Controls.Add(Me.numDropLineThickness)
+        Me.grpBulletGeneral.Controls.Add(Me.chkRenderBulletDrop)
+        Me.grpBulletGeneral.ForeColor = System.Drawing.Color.White
+        Me.grpBulletGeneral.Location = New System.Drawing.Point(6, 0)
+        Me.grpBulletGeneral.Name = "grpBulletGeneral"
+        Me.grpBulletGeneral.Size = New System.Drawing.Size(121, 153)
+        Me.grpBulletGeneral.TabIndex = 157
+        Me.grpBulletGeneral.TabStop = False
+        '
+        'grpStyle
+        '
+        Me.grpStyle.Controls.Add(Me.radBulletDropRenderType1)
+        Me.grpStyle.Controls.Add(Me.radBulletDropRenderType3)
+        Me.grpStyle.Controls.Add(Me.radBulletDropRenderType2)
+        Me.grpStyle.ForeColor = System.Drawing.Color.White
+        Me.grpStyle.Location = New System.Drawing.Point(10, 71)
+        Me.grpStyle.Name = "grpStyle"
+        Me.grpStyle.Size = New System.Drawing.Size(100, 77)
+        Me.grpStyle.TabIndex = 158
+        Me.grpStyle.TabStop = False
+        Me.grpStyle.Text = "Render Style"
+        '
+        'radBulletDropRenderType1
+        '
+        Me.radBulletDropRenderType1.AutoSize = True
+        Me.radBulletDropRenderType1.Location = New System.Drawing.Point(13, 14)
+        Me.radBulletDropRenderType1.Name = "radBulletDropRenderType1"
+        Me.radBulletDropRenderType1.Size = New System.Drawing.Size(58, 17)
+        Me.radBulletDropRenderType1.TabIndex = 154
+        Me.radBulletDropRenderType1.Text = "Type 1"
+        Me.radBulletDropRenderType1.UseVisualStyleBackColor = True
+        '
+        'radBulletDropRenderType3
+        '
+        Me.radBulletDropRenderType3.AutoSize = True
+        Me.radBulletDropRenderType3.Checked = True
+        Me.radBulletDropRenderType3.Location = New System.Drawing.Point(13, 55)
+        Me.radBulletDropRenderType3.Name = "radBulletDropRenderType3"
+        Me.radBulletDropRenderType3.Size = New System.Drawing.Size(63, 17)
+        Me.radBulletDropRenderType3.TabIndex = 156
+        Me.radBulletDropRenderType3.TabStop = True
+        Me.radBulletDropRenderType3.Text = "T1 + T2"
+        Me.radBulletDropRenderType3.UseVisualStyleBackColor = True
+        '
+        'radBulletDropRenderType2
+        '
+        Me.radBulletDropRenderType2.AutoSize = True
+        Me.radBulletDropRenderType2.Location = New System.Drawing.Point(13, 34)
+        Me.radBulletDropRenderType2.Name = "radBulletDropRenderType2"
+        Me.radBulletDropRenderType2.Size = New System.Drawing.Size(58, 17)
+        Me.radBulletDropRenderType2.TabIndex = 155
+        Me.radBulletDropRenderType2.Text = "Type 2"
+        Me.radBulletDropRenderType2.UseVisualStyleBackColor = True
+        '
+        'chkWriteDropInfo
+        '
+        Me.chkWriteDropInfo.AutoSize = True
+        Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
+        Me.chkWriteDropInfo.Location = New System.Drawing.Point(6, 11)
+        Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
+        Me.chkWriteDropInfo.Size = New System.Drawing.Size(98, 17)
+        Me.chkWriteDropInfo.TabIndex = 143
+        Me.chkWriteDropInfo.Text = "Write Drop Info"
+        Me.chkWriteDropInfo.UseVisualStyleBackColor = False
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label57.ForeColor = System.Drawing.Color.White
+        Me.Label57.Location = New System.Drawing.Point(9, 52)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(35, 13)
+        Me.Label57.TabIndex = 153
+        Me.Label57.Text = "Width"
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label39.ForeColor = System.Drawing.Color.White
+        Me.Label39.Location = New System.Drawing.Point(86, 51)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(18, 13)
+        Me.Label39.TabIndex = 146
+        Me.Label39.Text = "px"
+        '
+        'numDropLineThickness
+        '
+        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
+        Me.numDropLineThickness.Location = New System.Drawing.Point(46, 48)
+        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
+        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numDropLineThickness.Name = "numDropLineThickness"
+        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
+        Me.numDropLineThickness.TabIndex = 145
+        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        '
+        'chkRenderBulletDrop
+        '
+        Me.chkRenderBulletDrop.AutoSize = True
+        Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
+        Me.chkRenderBulletDrop.Location = New System.Drawing.Point(6, 28)
+        Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
+        Me.chkRenderBulletDrop.Size = New System.Drawing.Size(105, 17)
+        Me.chkRenderBulletDrop.TabIndex = 144
+        Me.chkRenderBulletDrop.Text = "Bullet Drop Mark"
+        Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
+        '
         'Label20
         '
         Me.Label20.AutoSize = True
@@ -1465,55 +1585,6 @@ Partial Class Main
         Me.numBulletDrop.TabIndex = 148
         Me.numBulletDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.numBulletDrop.Value = New Decimal(New Integer() {15, 0, 0, 0})
-        '
-        'numDropLineThickness
-        '
-        Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
-        Me.numDropLineThickness.Location = New System.Drawing.Point(46, 48)
-        Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
-        Me.numDropLineThickness.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numDropLineThickness.Name = "numDropLineThickness"
-        Me.numDropLineThickness.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numDropLineThickness.Size = New System.Drawing.Size(36, 20)
-        Me.numDropLineThickness.TabIndex = 145
-        Me.numDropLineThickness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numDropLineThickness.Value = New Decimal(New Integer() {5, 0, 0, 0})
-        '
-        'chkRenderBulletDrop
-        '
-        Me.chkRenderBulletDrop.AutoSize = True
-        Me.chkRenderBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderBulletDrop.ForeColor = System.Drawing.Color.White
-        Me.chkRenderBulletDrop.Location = New System.Drawing.Point(6, 28)
-        Me.chkRenderBulletDrop.Name = "chkRenderBulletDrop"
-        Me.chkRenderBulletDrop.Size = New System.Drawing.Size(105, 17)
-        Me.chkRenderBulletDrop.TabIndex = 144
-        Me.chkRenderBulletDrop.Text = "Bullet Drop Mark"
-        Me.chkRenderBulletDrop.UseVisualStyleBackColor = False
-        '
-        'chkWriteDropInfo
-        '
-        Me.chkWriteDropInfo.AutoSize = True
-        Me.chkWriteDropInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkWriteDropInfo.ForeColor = System.Drawing.Color.White
-        Me.chkWriteDropInfo.Location = New System.Drawing.Point(6, 11)
-        Me.chkWriteDropInfo.Name = "chkWriteDropInfo"
-        Me.chkWriteDropInfo.Size = New System.Drawing.Size(98, 17)
-        Me.chkWriteDropInfo.TabIndex = 143
-        Me.chkWriteDropInfo.Text = "Write Drop Info"
-        Me.chkWriteDropInfo.UseVisualStyleBackColor = False
-        '
-        'Label39
-        '
-        Me.Label39.AutoSize = True
-        Me.Label39.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label39.ForeColor = System.Drawing.Color.White
-        Me.Label39.Location = New System.Drawing.Point(86, 51)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(18, 13)
-        Me.Label39.TabIndex = 146
-        Me.Label39.Text = "px"
         '
         'Label51
         '
@@ -2148,6 +2219,64 @@ Partial Class Main
         Me.grpRecoil.TabStop = False
         Me.grpRecoil.Text = "Recoil"
         '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label56.ForeColor = System.Drawing.Color.White
+        Me.Label56.Location = New System.Drawing.Point(18, 105)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(27, 13)
+        Me.Label56.TabIndex = 51
+        Me.Label56.Text = "Dec"
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown1.DecimalPlaces = 2
+        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
+        Me.NumericUpDown1.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.NumericUpDown1.Location = New System.Drawing.Point(51, 102)
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown1.Size = New System.Drawing.Size(60, 20)
+        Me.NumericUpDown1.TabIndex = 50
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {18, 0, 0, 0})
+        '
+        'Label55
+        '
+        Me.Label55.AutoSize = True
+        Me.Label55.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label55.ForeColor = System.Drawing.Color.White
+        Me.Label55.Location = New System.Drawing.Point(103, 46)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(15, 13)
+        Me.Label55.TabIndex = 49
+        Me.Label55.Text = "R"
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label50.ForeColor = System.Drawing.Color.White
+        Me.Label50.Location = New System.Drawing.Point(6, 46)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(13, 13)
+        Me.Label50.TabIndex = 48
+        Me.Label50.Text = "L"
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label49.ForeColor = System.Drawing.Color.White
+        Me.Label49.Location = New System.Drawing.Point(49, 13)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(21, 13)
+        Me.Label49.TabIndex = 47
+        Me.Label49.Text = "Up"
+        '
         'numFirstShot
         '
         Me.numFirstShot.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -2483,135 +2612,6 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label49.ForeColor = System.Drawing.Color.White
-        Me.Label49.Location = New System.Drawing.Point(49, 13)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(21, 13)
-        Me.Label49.TabIndex = 47
-        Me.Label49.Text = "Up"
-        '
-        'Label50
-        '
-        Me.Label50.AutoSize = True
-        Me.Label50.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label50.ForeColor = System.Drawing.Color.White
-        Me.Label50.Location = New System.Drawing.Point(6, 46)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(13, 13)
-        Me.Label50.TabIndex = 48
-        Me.Label50.Text = "L"
-        '
-        'Label55
-        '
-        Me.Label55.AutoSize = True
-        Me.Label55.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label55.ForeColor = System.Drawing.Color.White
-        Me.Label55.Location = New System.Drawing.Point(103, 46)
-        Me.Label55.Name = "Label55"
-        Me.Label55.Size = New System.Drawing.Size(15, 13)
-        Me.Label55.TabIndex = 49
-        Me.Label55.Text = "R"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label56.ForeColor = System.Drawing.Color.White
-        Me.Label56.Location = New System.Drawing.Point(18, 105)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(27, 13)
-        Me.Label56.TabIndex = 51
-        Me.Label56.Text = "Dec"
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown1.DecimalPlaces = 2
-        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
-        Me.NumericUpDown1.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.NumericUpDown1.Location = New System.Drawing.Point(51, 102)
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown1.Size = New System.Drawing.Size(60, 20)
-        Me.NumericUpDown1.TabIndex = 50
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {18, 0, 0, 0})
-        '
-        'Label57
-        '
-        Me.Label57.AutoSize = True
-        Me.Label57.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label57.ForeColor = System.Drawing.Color.White
-        Me.Label57.Location = New System.Drawing.Point(9, 52)
-        Me.Label57.Name = "Label57"
-        Me.Label57.Size = New System.Drawing.Size(35, 13)
-        Me.Label57.TabIndex = 153
-        Me.Label57.Text = "Width"
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Checked = True
-        Me.RadioButton1.Location = New System.Drawing.Point(13, 14)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton1.TabIndex = 154
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Type 1"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(13, 33)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton2.TabIndex = 155
-        Me.RadioButton2.Text = "Type 2"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(13, 53)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(63, 17)
-        Me.RadioButton3.TabIndex = 156
-        Me.RadioButton3.Text = "T1 + T2"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'grpBulletGeneral
-        '
-        Me.grpBulletGeneral.Controls.Add(Me.grpStyle)
-        Me.grpBulletGeneral.Controls.Add(Me.chkWriteDropInfo)
-        Me.grpBulletGeneral.Controls.Add(Me.Label57)
-        Me.grpBulletGeneral.Controls.Add(Me.Label39)
-        Me.grpBulletGeneral.Controls.Add(Me.numDropLineThickness)
-        Me.grpBulletGeneral.Controls.Add(Me.chkRenderBulletDrop)
-        Me.grpBulletGeneral.ForeColor = System.Drawing.Color.White
-        Me.grpBulletGeneral.Location = New System.Drawing.Point(6, 0)
-        Me.grpBulletGeneral.Name = "grpBulletGeneral"
-        Me.grpBulletGeneral.Size = New System.Drawing.Size(121, 153)
-        Me.grpBulletGeneral.TabIndex = 157
-        Me.grpBulletGeneral.TabStop = False
-        '
-        'grpStyle
-        '
-        Me.grpStyle.Controls.Add(Me.RadioButton1)
-        Me.grpStyle.Controls.Add(Me.RadioButton3)
-        Me.grpStyle.Controls.Add(Me.RadioButton2)
-        Me.grpStyle.ForeColor = System.Drawing.Color.White
-        Me.grpStyle.Location = New System.Drawing.Point(10, 71)
-        Me.grpStyle.Name = "grpStyle"
-        Me.grpStyle.Size = New System.Drawing.Size(100, 77)
-        Me.grpStyle.TabIndex = 158
-        Me.grpStyle.TabStop = False
-        Me.grpStyle.Text = "Render Style"
-        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2664,9 +2664,13 @@ Partial Class Main
         Me.TabControl1.ResumeLayout(False)
         Me.tabAdvBulletDrop.ResumeLayout(False)
         Me.tabAdvBulletDrop.PerformLayout()
+        Me.grpBulletGeneral.ResumeLayout(False)
+        Me.grpBulletGeneral.PerformLayout()
+        Me.grpStyle.ResumeLayout(False)
+        Me.grpStyle.PerformLayout()
+        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMaxDistance, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numBulletDrop, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numDropLineThickness, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDropVerticalScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAdvTTK.ResumeLayout(False)
@@ -2691,6 +2695,7 @@ Partial Class Main
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRecoil.ResumeLayout(False)
         Me.grpRecoil.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2703,11 +2708,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpBulletGeneral.ResumeLayout(False)
-        Me.grpBulletGeneral.PerformLayout()
-        Me.grpStyle.ResumeLayout(False)
-        Me.grpStyle.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2901,8 +2901,8 @@ Partial Class Main
     Private WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents grpBulletGeneral As System.Windows.Forms.GroupBox
     Friend WithEvents grpStyle As System.Windows.Forms.GroupBox
-    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton3 As System.Windows.Forms.RadioButton
-    Friend WithEvents RadioButton2 As System.Windows.Forms.RadioButton
+    Friend WithEvents radBulletDropRenderType1 As System.Windows.Forms.RadioButton
+    Friend WithEvents radBulletDropRenderType3 As System.Windows.Forms.RadioButton
+    Friend WithEvents radBulletDropRenderType2 As System.Windows.Forms.RadioButton
     Friend WithEvents Label57 As System.Windows.Forms.Label
 End Class
