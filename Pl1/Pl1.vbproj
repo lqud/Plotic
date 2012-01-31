@@ -199,6 +199,7 @@
     <None Include="Resources\sil_mask_fullsize.png" />
     <None Include="Resources\aks74u.png" />
     <None Include="bin\Debug\gun_images\knife.png" />
+    <None Include="Resources\knife.png" />
     <Content Include="Silent_install_INI_help.txt" />
   </ItemGroup>
   <ItemGroup>
