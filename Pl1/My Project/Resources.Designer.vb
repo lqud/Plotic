@@ -60,6 +60,34 @@ Namespace My.Resources
             End Set
         End Property
         
+        Friend ReadOnly Property bullet_grpof5() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bullet_grpof5", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property bullet_tracer() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bullet_tracer", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property bullet_white() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("bullet_white", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property clip() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("clip", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property knife() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("knife", resourceCulture)

@@ -200,6 +200,10 @@
     <None Include="Resources\aks74u.png" />
     <None Include="bin\Debug\gun_images\knife.png" />
     <None Include="Resources\knife.png" />
+    <None Include="Resources\bullet_grpof5.png" />
+    <None Include="Resources\bullet_tracer.png" />
+    <None Include="Resources\bullet_white.png" />
+    <None Include="Resources\clip.png" />
     <Content Include="Silent_install_INI_help.txt" />
   </ItemGroup>
   <ItemGroup>
