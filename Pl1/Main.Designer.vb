@@ -83,7 +83,7 @@ Partial Class Main
         Me.tabRender = New System.Windows.Forms.TabPage()
         Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.chkRenderAmmoInfo = New System.Windows.Forms.CheckBox()
         Me.txtSub = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.txtInfo = New System.Windows.Forms.TextBox()
@@ -217,6 +217,9 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.grpAmmo = New System.Windows.Forms.GroupBox()
+        Me.radAmmoImage = New System.Windows.Forms.RadioButton()
+        Me.radAmmoText = New System.Windows.Forms.RadioButton()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -273,6 +276,7 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpAmmo.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpStance
@@ -945,9 +949,9 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.grpAmmo)
         Me.tabRender.Controls.Add(Me.comboSilhouetteStyle)
         Me.tabRender.Controls.Add(Me.Label48)
-        Me.tabRender.Controls.Add(Me.CheckBox1)
         Me.tabRender.Controls.Add(Me.txtSub)
         Me.tabRender.Controls.Add(Me.Label24)
         Me.tabRender.Controls.Add(Me.txtInfo)
@@ -979,10 +983,11 @@ Partial Class Main
         'comboSilhouetteStyle
         '
         Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.comboSilhouetteStyle.Enabled = False
         Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
         Me.comboSilhouetteStyle.FormattingEnabled = True
         Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(267, 6)
+        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(299, 6)
         Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
         Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
         Me.comboSilhouetteStyle.TabIndex = 98
@@ -994,22 +999,21 @@ Partial Class Main
         Me.Label48.ForeColor = System.Drawing.Color.White
         Me.Label48.Location = New System.Drawing.Point(236, 9)
         Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(30, 13)
+        Me.Label48.Size = New System.Drawing.Size(64, 13)
         Me.Label48.TabIndex = 97
-        Me.Label48.Text = "Style"
+        Me.Label48.Text = "Target Style"
         '
-        'CheckBox1
+        'chkRenderAmmoInfo
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.ForeColor = System.Drawing.Color.White
-        Me.CheckBox1.Location = New System.Drawing.Point(119, 41)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(76, 17)
-        Me.CheckBox1.TabIndex = 96
-        Me.CheckBox1.Text = "Ammo Info"
-        Me.CheckBox1.UseVisualStyleBackColor = False
+        Me.chkRenderAmmoInfo.AutoSize = True
+        Me.chkRenderAmmoInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderAmmoInfo.ForeColor = System.Drawing.Color.White
+        Me.chkRenderAmmoInfo.Location = New System.Drawing.Point(6, 12)
+        Me.chkRenderAmmoInfo.Name = "chkRenderAmmoInfo"
+        Me.chkRenderAmmoInfo.Size = New System.Drawing.Size(76, 17)
+        Me.chkRenderAmmoInfo.TabIndex = 96
+        Me.chkRenderAmmoInfo.Text = "Ammo Info"
+        Me.chkRenderAmmoInfo.UseVisualStyleBackColor = False
         '
         'txtSub
         '
@@ -1423,6 +1427,7 @@ Partial Class Main
         Me.grpStyle.Controls.Add(Me.radBulletDropRenderType1)
         Me.grpStyle.Controls.Add(Me.radBulletDropRenderType3)
         Me.grpStyle.Controls.Add(Me.radBulletDropRenderType2)
+        Me.grpStyle.Enabled = False
         Me.grpStyle.ForeColor = System.Drawing.Color.White
         Me.grpStyle.Location = New System.Drawing.Point(10, 71)
         Me.grpStyle.Name = "grpStyle"
@@ -1500,6 +1505,7 @@ Partial Class Main
         'numDropLineThickness
         '
         Me.numDropLineThickness.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numDropLineThickness.Enabled = False
         Me.numDropLineThickness.ForeColor = System.Drawing.Color.White
         Me.numDropLineThickness.Location = New System.Drawing.Point(46, 48)
         Me.numDropLineThickness.Maximum = New Decimal(New Integer() {25, 0, 0, 0})
@@ -2612,6 +2618,43 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
+        'grpAmmo
+        '
+        Me.grpAmmo.Controls.Add(Me.radAmmoText)
+        Me.grpAmmo.Controls.Add(Me.radAmmoImage)
+        Me.grpAmmo.Controls.Add(Me.chkRenderAmmoInfo)
+        Me.grpAmmo.Location = New System.Drawing.Point(163, 58)
+        Me.grpAmmo.Name = "grpAmmo"
+        Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
+        Me.grpAmmo.TabIndex = 99
+        Me.grpAmmo.TabStop = False
+        '
+        'radAmmoImage
+        '
+        Me.radAmmoImage.AutoSize = True
+        Me.radAmmoImage.Checked = True
+        Me.radAmmoImage.Enabled = False
+        Me.radAmmoImage.ForeColor = System.Drawing.Color.White
+        Me.radAmmoImage.Location = New System.Drawing.Point(80, 11)
+        Me.radAmmoImage.Name = "radAmmoImage"
+        Me.radAmmoImage.Size = New System.Drawing.Size(62, 17)
+        Me.radAmmoImage.TabIndex = 97
+        Me.radAmmoImage.TabStop = True
+        Me.radAmmoImage.Text = "Graphic"
+        Me.radAmmoImage.UseVisualStyleBackColor = True
+        '
+        'radAmmoText
+        '
+        Me.radAmmoText.AutoSize = True
+        Me.radAmmoText.Enabled = False
+        Me.radAmmoText.ForeColor = System.Drawing.Color.White
+        Me.radAmmoText.Location = New System.Drawing.Point(140, 11)
+        Me.radAmmoText.Name = "radAmmoText"
+        Me.radAmmoText.Size = New System.Drawing.Size(46, 17)
+        Me.radAmmoText.TabIndex = 98
+        Me.radAmmoText.Text = "Text"
+        Me.radAmmoText.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2708,6 +2751,8 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpAmmo.ResumeLayout(False)
+        Me.grpAmmo.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2887,7 +2932,7 @@ Partial Class Main
     Friend WithEvents Label33 As System.Windows.Forms.Label
     Friend WithEvents numSpreadInc As System.Windows.Forms.NumericUpDown
     Friend WithEvents numSpreadMin As System.Windows.Forms.NumericUpDown
-    Friend WithEvents CheckBox1 As System.Windows.Forms.CheckBox
+    Friend WithEvents chkRenderAmmoInfo As System.Windows.Forms.CheckBox
     Friend WithEvents grpCustomTTK As System.Windows.Forms.GroupBox
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents comboSilhouetteStyle As System.Windows.Forms.ComboBox
@@ -2905,4 +2950,7 @@ Partial Class Main
     Friend WithEvents radBulletDropRenderType3 As System.Windows.Forms.RadioButton
     Friend WithEvents radBulletDropRenderType2 As System.Windows.Forms.RadioButton
     Friend WithEvents Label57 As System.Windows.Forms.Label
+    Friend WithEvents grpAmmo As System.Windows.Forms.GroupBox
+    Friend WithEvents radAmmoText As System.Windows.Forms.RadioButton
+    Friend WithEvents radAmmoImage As System.Windows.Forms.RadioButton
 End Class

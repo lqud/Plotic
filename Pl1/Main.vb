@@ -1045,6 +1045,12 @@ Public Class Main
 
         SetImage_ThreadSafe(Pl.Image)
 
+        Dim test2 = GetValue(comboWeapon1.Text, "WeaponClass")
+        Dim test2a = GetValue(comboWeapon1.Text, "MagazineCapacity")
+        Dim test2b = GetValue(comboWeapon1.Text, "NumberOfMagazines")
+        Dim test2c = GetValue(comboWeapon1.Text, "TraceFrequency")
+
+
         ' Start the Background Worker working
         HeatPoints.Clear()
         loadPlotic()
@@ -2506,6 +2512,48 @@ ByVal DefaultValue As String) As String
 
     Private Sub LinkLabel1_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
         frmAbout.Show()
+    End Sub
+
+    Private Sub chkRenderAmmoInfo_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkRenderAmmoInfo.CheckedChanged
+        If sender.checked Then
+            radAmmoImage.Enabled = True
+            radAmmoText.Enabled = True
+
+        Else
+            radAmmoImage.Enabled = False
+            radAmmoText.Enabled = False
+
+        End If
+    End Sub
+
+    Private Sub chkDrawGrid_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDrawGrid.CheckedChanged
+        If sender.checked Then
+            radMeters.Enabled = True
+            radDegrees.Enabled = True
+            numLineSpace.Enabled = True
+        Else
+            radMeters.Enabled = False
+            radDegrees.Enabled = False
+            numLineSpace.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkTimeToKill_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkTimeToKill.CheckedChanged
+        If sender.checked Then
+            comboSilhouetteStyle.Enabled = True
+        Else
+            comboSilhouetteStyle.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkRenderBulletDrop_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkRenderBulletDrop.CheckedChanged
+        If sender.checked Then
+            grpStyle.Enabled = True
+            numDropLineThickness.Enabled = True
+        Else
+            grpStyle.Enabled = False
+            numDropLineThickness.Enabled = False
+        End If
     End Sub
 End Class
 Public Structure HeatPoint
