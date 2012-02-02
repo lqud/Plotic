@@ -148,7 +148,7 @@ Public Class Main
         penScale.DashStyle = Drawing2D.DashStyle.Dot
 
         Dim xPixel As Integer = leftX
-        Dim pixelsPerNMeters As Integer = Math.Round((numTTKGridSpacing.Value * (graphWidth / numTTKRange.Value)), 0)
+        Dim pixelsPerNMeters As Integer = Math.Round((numTTKHorizontalScale.Value * (graphWidth / numTTKRange.Value)), 0)
         Dim meterValue As Integer = 0
 
         Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
@@ -156,17 +156,17 @@ Public Class Main
 
         g.DrawString("0", New Font("Arial", 25), brushYellow, (xPixel - 5), (bottomY + 10))
         g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
-        meterValue += numTTKGridSpacing.Value
+        meterValue += numTTKHorizontalScale.Value
         xPixel = xPixel + pixelsPerNMeters
         Do While (xPixel < rightX)
             g.DrawLine(penScale, xPixel, topY, xPixel, bottomY)
             g.DrawString(meterValue & "m", New Font("Arial", 25), brushYellow, (xPixel - 50), (bottomY + 10))
             xPixel = xPixel + pixelsPerNMeters
-            meterValue += numTTKGridSpacing.Value
+            meterValue += numTTKHorizontalScale.Value
         Loop
 
         Dim yPixel As Integer = topY
-        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numDamageSplitter.Value, 0)
+        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numTTKVerticalScale.Value, 0)
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
         Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
         Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
@@ -1281,13 +1281,13 @@ Public Class Main
     Private Function buildStanceString() As String
         Dim attachString As String = ""
         If radStand.Checked Then
-            attachString += "Stand/"
+            attachString += "Stand-"
         End If
         If radCrouch.Checked Then
-            attachString += "Crouch/"
+            attachString += "Crouch-"
         End If
         If radProne.Checked Then
-            attachString += "Prone/"
+            attachString += "Prone-"
         End If
 
         If chkStanceZoom.Checked Then
@@ -1297,7 +1297,7 @@ Public Class Main
         End If
 
         If chkStanceMoving.Checked Then
-            attachString += "/Moving"
+            attachString += "-Moving"
         End If
         Return Trim(attachString)
     End Function
@@ -1488,20 +1488,32 @@ Public Class Main
     End Function
 
     Private Sub btnSaveImage_Click() Handles btnSaveImage.Click
-        Pl.Title = txtTitle.Text
-        Pl.Info = txtInfo.Text
-        Pl.SubText = txtSub.Text
-        Dim saveFileDialog1 As New SaveFileDialog()
-        saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*"
-        saveFileDialog1.FileName = convertFileName(txtFilename.Text)
-        saveFileDialog1.FilterIndex = 1
-        saveFileDialog1.RestoreDirectory = True
+        'Pl.Title = txtTitle.Text
+        'Pl.Info = txtInfo.Text
+        'Pl.SubText = txtSub.Text
+        'Dim saveFileDialog1 As New SaveFileDialog()
+        Dim folderSelectDialog As New FolderBrowserDialog
 
-        If saveFileDialog1.ShowDialog() = DialogResult.OK Then
-            saveImagePath = saveFileDialog1.FileName
-            lblPath.Text = saveFileDialog1.FileName
+        'saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*"
+        'saveFileDialog1.FileName = convertFileName(txtFilename.Text)
+        'saveFileDialog1.FilterIndex = 1
+        'saveFileDialog1.RestoreDirectory = True
+        '
+        '        folderSelectDialog.RootFolder = Environment.SpecialFolder.MyPictures
+        If folderSelectDialog.ShowDialog() = DialogResult.OK Then
+            saveImagePath = folderSelectDialog.SelectedPath
+            lblPath.Text = folderSelectDialog.SelectedPath
             chkSaveImage.Checked = True
         End If
+
+        Dim fileName As String
+        fileName = convertFileName(txtFilename.Text)
+        saveImagePath = saveImagePath & "\" & fileName
+        'If saveFileDialog1.ShowDialog() = DialogResult.OK Then
+        'saveImagePath = saveFileDialog1.FileName
+        'lblPath.Text = saveFileDialog1.FileName
+        'chkSaveImage.Checked = True
+        'End If
     End Sub
 
     Private Sub UpdateAdjustments()
@@ -1865,6 +1877,7 @@ Public Class Main
         inputString = inputString.Replace("<<Info>>", Pl.Info)
         inputString = inputString.Replace("<<Sub>>", Pl.SubText)
         inputString = inputString & ".png"
+
         Return inputString
     End Function
 
@@ -2553,6 +2566,26 @@ ByVal DefaultValue As String) As String
         Else
             grpStyle.Enabled = False
             numDropLineThickness.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkDrawDropGrid_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDrawDropGrid.CheckedChanged
+        If sender.checked Then
+            numDropHorizontalScale.Enabled = True
+            numDropVerticalScale.Enabled = True
+        Else
+            numDropHorizontalScale.Enabled = False
+            numDropVerticalScale.Enabled = False
+        End If
+    End Sub
+
+    Private Sub chkDrawTTKGrid_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDrawTTKGrid.CheckedChanged
+        If sender.checked Then
+            numTTKHorizontalScale.Enabled = True
+            numTTKVerticalScale.Enabled = True
+        Else
+            numTTKHorizontalScale.Enabled = False
+            numTTKVerticalScale.Enabled = False
         End If
     End Sub
 End Class

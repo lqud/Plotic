@@ -81,9 +81,12 @@ Partial Class Main
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
+        Me.grpAmmo = New System.Windows.Forms.GroupBox()
+        Me.radAmmoText = New System.Windows.Forms.RadioButton()
+        Me.radAmmoImage = New System.Windows.Forms.RadioButton()
+        Me.chkRenderAmmoInfo = New System.Windows.Forms.CheckBox()
         Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.chkRenderAmmoInfo = New System.Windows.Forms.CheckBox()
         Me.txtSub = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.txtInfo = New System.Windows.Forms.TextBox()
@@ -153,7 +156,7 @@ Partial Class Main
         Me.Label43 = New System.Windows.Forms.Label()
         Me.numHealthPercent = New System.Windows.Forms.NumericUpDown()
         Me.Label42 = New System.Windows.Forms.Label()
-        Me.numDamageSplitter = New System.Windows.Forms.NumericUpDown()
+        Me.numTTKVerticalScale = New System.Windows.Forms.NumericUpDown()
         Me.Label41 = New System.Windows.Forms.Label()
         Me.Label40 = New System.Windows.Forms.Label()
         Me.Label38 = New System.Windows.Forms.Label()
@@ -161,7 +164,7 @@ Partial Class Main
         Me.numMinRange = New System.Windows.Forms.NumericUpDown()
         Me.numMaxRange = New System.Windows.Forms.NumericUpDown()
         Me.Label35 = New System.Windows.Forms.Label()
-        Me.numTTKGridSpacing = New System.Windows.Forms.NumericUpDown()
+        Me.numTTKHorizontalScale = New System.Windows.Forms.NumericUpDown()
         Me.chkDrawTTKGrid = New System.Windows.Forms.CheckBox()
         Me.numTTKRange = New System.Windows.Forms.NumericUpDown()
         Me.numDamageMin = New System.Windows.Forms.NumericUpDown()
@@ -217,9 +220,6 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.grpAmmo = New System.Windows.Forms.GroupBox()
-        Me.radAmmoImage = New System.Windows.Forms.RadioButton()
-        Me.radAmmoText = New System.Windows.Forms.RadioButton()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -233,6 +233,7 @@ Partial Class Main
         Me.StatusStrip1.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
+        Me.grpAmmo.SuspendLayout()
         Me.tabSaveOptions.SuspendLayout()
         Me.tabHeatMap.SuspendLayout()
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -253,10 +254,10 @@ Partial Class Main
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numDamageSplitter, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numTTKVerticalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMinRange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numMaxRange, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numTTKGridSpacing, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numTTKHorizontalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -276,7 +277,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpAmmo.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpStance
@@ -980,6 +980,55 @@ Partial Class Main
         Me.tabRender.TabIndex = 0
         Me.tabRender.Text = "Render Options"
         '
+        'grpAmmo
+        '
+        Me.grpAmmo.Controls.Add(Me.radAmmoText)
+        Me.grpAmmo.Controls.Add(Me.radAmmoImage)
+        Me.grpAmmo.Controls.Add(Me.chkRenderAmmoInfo)
+        Me.grpAmmo.Location = New System.Drawing.Point(163, 58)
+        Me.grpAmmo.Name = "grpAmmo"
+        Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
+        Me.grpAmmo.TabIndex = 99
+        Me.grpAmmo.TabStop = False
+        '
+        'radAmmoText
+        '
+        Me.radAmmoText.AutoSize = True
+        Me.radAmmoText.Enabled = False
+        Me.radAmmoText.ForeColor = System.Drawing.Color.White
+        Me.radAmmoText.Location = New System.Drawing.Point(140, 11)
+        Me.radAmmoText.Name = "radAmmoText"
+        Me.radAmmoText.Size = New System.Drawing.Size(46, 17)
+        Me.radAmmoText.TabIndex = 98
+        Me.radAmmoText.Text = "Text"
+        Me.radAmmoText.UseVisualStyleBackColor = True
+        '
+        'radAmmoImage
+        '
+        Me.radAmmoImage.AutoSize = True
+        Me.radAmmoImage.Checked = True
+        Me.radAmmoImage.Enabled = False
+        Me.radAmmoImage.ForeColor = System.Drawing.Color.White
+        Me.radAmmoImage.Location = New System.Drawing.Point(80, 11)
+        Me.radAmmoImage.Name = "radAmmoImage"
+        Me.radAmmoImage.Size = New System.Drawing.Size(62, 17)
+        Me.radAmmoImage.TabIndex = 97
+        Me.radAmmoImage.TabStop = True
+        Me.radAmmoImage.Text = "Graphic"
+        Me.radAmmoImage.UseVisualStyleBackColor = True
+        '
+        'chkRenderAmmoInfo
+        '
+        Me.chkRenderAmmoInfo.AutoSize = True
+        Me.chkRenderAmmoInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderAmmoInfo.ForeColor = System.Drawing.Color.White
+        Me.chkRenderAmmoInfo.Location = New System.Drawing.Point(6, 12)
+        Me.chkRenderAmmoInfo.Name = "chkRenderAmmoInfo"
+        Me.chkRenderAmmoInfo.Size = New System.Drawing.Size(76, 17)
+        Me.chkRenderAmmoInfo.TabIndex = 96
+        Me.chkRenderAmmoInfo.Text = "Ammo Info"
+        Me.chkRenderAmmoInfo.UseVisualStyleBackColor = False
+        '
         'comboSilhouetteStyle
         '
         Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -1002,18 +1051,6 @@ Partial Class Main
         Me.Label48.Size = New System.Drawing.Size(64, 13)
         Me.Label48.TabIndex = 97
         Me.Label48.Text = "Target Style"
-        '
-        'chkRenderAmmoInfo
-        '
-        Me.chkRenderAmmoInfo.AutoSize = True
-        Me.chkRenderAmmoInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderAmmoInfo.ForeColor = System.Drawing.Color.White
-        Me.chkRenderAmmoInfo.Location = New System.Drawing.Point(6, 12)
-        Me.chkRenderAmmoInfo.Name = "chkRenderAmmoInfo"
-        Me.chkRenderAmmoInfo.Size = New System.Drawing.Size(76, 17)
-        Me.chkRenderAmmoInfo.TabIndex = 96
-        Me.chkRenderAmmoInfo.Text = "Ammo Info"
-        Me.chkRenderAmmoInfo.UseVisualStyleBackColor = False
         '
         'txtSub
         '
@@ -1139,6 +1176,7 @@ Partial Class Main
         '
         Me.chkSaveTTKChart.AutoSize = True
         Me.chkSaveTTKChart.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkSaveTTKChart.Enabled = False
         Me.chkSaveTTKChart.ForeColor = System.Drawing.Color.White
         Me.chkSaveTTKChart.Location = New System.Drawing.Point(256, 117)
         Me.chkSaveTTKChart.Name = "chkSaveTTKChart"
@@ -1151,6 +1189,7 @@ Partial Class Main
         '
         Me.chkSaveHeatMap.AutoSize = True
         Me.chkSaveHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkSaveHeatMap.Enabled = False
         Me.chkSaveHeatMap.ForeColor = System.Drawing.Color.White
         Me.chkSaveHeatMap.Location = New System.Drawing.Point(256, 94)
         Me.chkSaveHeatMap.Name = "chkSaveHeatMap"
@@ -1219,6 +1258,7 @@ Partial Class Main
         '
         Me.txtFilename.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtFilename.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtFilename.Enabled = False
         Me.txtFilename.ForeColor = System.Drawing.Color.White
         Me.txtFilename.Location = New System.Drawing.Point(63, 58)
         Me.txtFilename.Name = "txtFilename"
@@ -1702,7 +1742,7 @@ Partial Class Main
         Me.tabAdvTTK.Controls.Add(Me.Label43)
         Me.tabAdvTTK.Controls.Add(Me.numHealthPercent)
         Me.tabAdvTTK.Controls.Add(Me.Label42)
-        Me.tabAdvTTK.Controls.Add(Me.numDamageSplitter)
+        Me.tabAdvTTK.Controls.Add(Me.numTTKVerticalScale)
         Me.tabAdvTTK.Controls.Add(Me.Label41)
         Me.tabAdvTTK.Controls.Add(Me.Label40)
         Me.tabAdvTTK.Controls.Add(Me.Label38)
@@ -1710,7 +1750,7 @@ Partial Class Main
         Me.tabAdvTTK.Controls.Add(Me.numMinRange)
         Me.tabAdvTTK.Controls.Add(Me.numMaxRange)
         Me.tabAdvTTK.Controls.Add(Me.Label35)
-        Me.tabAdvTTK.Controls.Add(Me.numTTKGridSpacing)
+        Me.tabAdvTTK.Controls.Add(Me.numTTKHorizontalScale)
         Me.tabAdvTTK.Controls.Add(Me.chkDrawTTKGrid)
         Me.tabAdvTTK.Controls.Add(Me.numTTKRange)
         Me.tabAdvTTK.Controls.Add(Me.numDamageMin)
@@ -1902,21 +1942,21 @@ Partial Class Main
         Me.Label42.TabIndex = 134
         Me.Label42.Text = "pts"
         '
-        'numDamageSplitter
+        'numTTKVerticalScale
         '
-        Me.numDamageSplitter.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numDamageSplitter.DecimalPlaces = 2
-        Me.numDamageSplitter.ForeColor = System.Drawing.Color.White
-        Me.numDamageSplitter.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
-        Me.numDamageSplitter.Location = New System.Drawing.Point(288, 51)
-        Me.numDamageSplitter.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
-        Me.numDamageSplitter.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numDamageSplitter.Name = "numDamageSplitter"
-        Me.numDamageSplitter.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numDamageSplitter.Size = New System.Drawing.Size(43, 20)
-        Me.numDamageSplitter.TabIndex = 133
-        Me.numDamageSplitter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numDamageSplitter.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numTTKVerticalScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numTTKVerticalScale.DecimalPlaces = 2
+        Me.numTTKVerticalScale.ForeColor = System.Drawing.Color.White
+        Me.numTTKVerticalScale.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
+        Me.numTTKVerticalScale.Location = New System.Drawing.Point(288, 51)
+        Me.numTTKVerticalScale.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.numTTKVerticalScale.Minimum = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numTTKVerticalScale.Name = "numTTKVerticalScale"
+        Me.numTTKVerticalScale.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numTTKVerticalScale.Size = New System.Drawing.Size(43, 20)
+        Me.numTTKVerticalScale.TabIndex = 133
+        Me.numTTKVerticalScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numTTKVerticalScale.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label41
         '
@@ -1997,19 +2037,19 @@ Partial Class Main
         Me.Label35.TabIndex = 123
         Me.Label35.Text = "m"
         '
-        'numTTKGridSpacing
+        'numTTKHorizontalScale
         '
-        Me.numTTKGridSpacing.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numTTKGridSpacing.ForeColor = System.Drawing.Color.White
-        Me.numTTKGridSpacing.Location = New System.Drawing.Point(213, 51)
-        Me.numTTKGridSpacing.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
-        Me.numTTKGridSpacing.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numTTKGridSpacing.Name = "numTTKGridSpacing"
-        Me.numTTKGridSpacing.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numTTKGridSpacing.Size = New System.Drawing.Size(43, 20)
-        Me.numTTKGridSpacing.TabIndex = 122
-        Me.numTTKGridSpacing.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numTTKGridSpacing.Value = New Decimal(New Integer() {5, 0, 0, 0})
+        Me.numTTKHorizontalScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numTTKHorizontalScale.ForeColor = System.Drawing.Color.White
+        Me.numTTKHorizontalScale.Location = New System.Drawing.Point(213, 51)
+        Me.numTTKHorizontalScale.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.numTTKHorizontalScale.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numTTKHorizontalScale.Name = "numTTKHorizontalScale"
+        Me.numTTKHorizontalScale.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numTTKHorizontalScale.Size = New System.Drawing.Size(43, 20)
+        Me.numTTKHorizontalScale.TabIndex = 122
+        Me.numTTKHorizontalScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numTTKHorizontalScale.Value = New Decimal(New Integer() {5, 0, 0, 0})
         '
         'chkDrawTTKGrid
         '
@@ -2618,43 +2658,6 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
-        'grpAmmo
-        '
-        Me.grpAmmo.Controls.Add(Me.radAmmoText)
-        Me.grpAmmo.Controls.Add(Me.radAmmoImage)
-        Me.grpAmmo.Controls.Add(Me.chkRenderAmmoInfo)
-        Me.grpAmmo.Location = New System.Drawing.Point(163, 58)
-        Me.grpAmmo.Name = "grpAmmo"
-        Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
-        Me.grpAmmo.TabIndex = 99
-        Me.grpAmmo.TabStop = False
-        '
-        'radAmmoImage
-        '
-        Me.radAmmoImage.AutoSize = True
-        Me.radAmmoImage.Checked = True
-        Me.radAmmoImage.Enabled = False
-        Me.radAmmoImage.ForeColor = System.Drawing.Color.White
-        Me.radAmmoImage.Location = New System.Drawing.Point(80, 11)
-        Me.radAmmoImage.Name = "radAmmoImage"
-        Me.radAmmoImage.Size = New System.Drawing.Size(62, 17)
-        Me.radAmmoImage.TabIndex = 97
-        Me.radAmmoImage.TabStop = True
-        Me.radAmmoImage.Text = "Graphic"
-        Me.radAmmoImage.UseVisualStyleBackColor = True
-        '
-        'radAmmoText
-        '
-        Me.radAmmoText.AutoSize = True
-        Me.radAmmoText.Enabled = False
-        Me.radAmmoText.ForeColor = System.Drawing.Color.White
-        Me.radAmmoText.Location = New System.Drawing.Point(140, 11)
-        Me.radAmmoText.Name = "radAmmoText"
-        Me.radAmmoText.Size = New System.Drawing.Size(46, 17)
-        Me.radAmmoText.TabIndex = 98
-        Me.radAmmoText.Text = "Text"
-        Me.radAmmoText.UseVisualStyleBackColor = True
-        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2697,6 +2700,8 @@ Partial Class Main
         Me.tabMain.ResumeLayout(False)
         Me.tabRender.ResumeLayout(False)
         Me.tabRender.PerformLayout()
+        Me.grpAmmo.ResumeLayout(False)
+        Me.grpAmmo.PerformLayout()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
         Me.tabHeatMap.ResumeLayout(False)
@@ -2724,10 +2729,10 @@ Partial Class Main
         CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numDamageSplitter, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numTTKVerticalScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMinRange, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numMaxRange, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numTTKGridSpacing, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numTTKHorizontalScale, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2751,8 +2756,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpAmmo.ResumeLayout(False)
-        Me.grpAmmo.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2874,7 +2877,7 @@ Partial Class Main
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents numHealthPercent As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label42 As System.Windows.Forms.Label
-    Friend WithEvents numDamageSplitter As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numTTKVerticalScale As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label41 As System.Windows.Forms.Label
     Friend WithEvents Label40 As System.Windows.Forms.Label
     Friend WithEvents Label38 As System.Windows.Forms.Label
@@ -2882,7 +2885,7 @@ Partial Class Main
     Friend WithEvents numMinRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents numMaxRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents numTTKGridSpacing As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numTTKHorizontalScale As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkDrawTTKGrid As System.Windows.Forms.CheckBox
     Friend WithEvents numTTKRange As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label27 As System.Windows.Forms.Label
