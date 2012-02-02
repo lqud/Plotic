@@ -9,11 +9,12 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.092"
+    Private Const VERSION As String = "Plotic v2.093"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
     Private saveImagePath As String = ""
+    Private saveImageFileName As String = ""
     Private silentTemplateFile As String = ""
     Private paletteOverride As Boolean = False
     Private silentRun As Boolean = False
@@ -1488,32 +1489,13 @@ Public Class Main
     End Function
 
     Private Sub btnSaveImage_Click() Handles btnSaveImage.Click
-        'Pl.Title = txtTitle.Text
-        'Pl.Info = txtInfo.Text
-        'Pl.SubText = txtSub.Text
-        'Dim saveFileDialog1 As New SaveFileDialog()
         Dim folderSelectDialog As New FolderBrowserDialog
 
-        'saveFileDialog1.Filter = "png files (*.png)|*.png|All files (*.*)|*.*"
-        'saveFileDialog1.FileName = convertFileName(txtFilename.Text)
-        'saveFileDialog1.FilterIndex = 1
-        'saveFileDialog1.RestoreDirectory = True
-        '
-        '        folderSelectDialog.RootFolder = Environment.SpecialFolder.MyPictures
         If folderSelectDialog.ShowDialog() = DialogResult.OK Then
             saveImagePath = folderSelectDialog.SelectedPath
             lblPath.Text = folderSelectDialog.SelectedPath
-            chkSaveImage.Checked = True
         End If
 
-        Dim fileName As String
-        fileName = convertFileName(txtFilename.Text)
-        saveImagePath = saveImagePath & "\" & fileName
-        'If saveFileDialog1.ShowDialog() = DialogResult.OK Then
-        'saveImagePath = saveFileDialog1.FileName
-        'lblPath.Text = saveFileDialog1.FileName
-        'chkSaveImage.Checked = True
-        'End If
     End Sub
 
     Private Sub UpdateAdjustments()
@@ -1795,6 +1777,9 @@ Public Class Main
         Me.ToolStripProgressBar1.Value = e.ProgressPercentage
     End Sub
 
+    Private Sub buildFileName()
+        saveImageFileName = convertFileName(txtFilename.Text)
+    End Sub
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
         If e.Cancelled Then
             mainToolStripStatus.Text = "Cancelled"
@@ -1807,6 +1792,7 @@ Public Class Main
                 Debug.WriteLine("Saving Image")
                 SetOutPutText_ThreadSafe("Please wait... Saving Image")
                 Application.DoEvents()
+                buildFileName()
                 SaveImage()
             End If
         End If
@@ -1831,7 +1817,7 @@ Public Class Main
 
         Dim b As New Bitmap(Pl.Image)
 
-        Dim file = saveImagePath
+        Dim file = saveImagePath & "\" & saveImageFileName
         Debug.WriteLine("Filename: " & file)
 
 
@@ -1856,7 +1842,7 @@ Public Class Main
             t.Dispose()
         End If
 
-        mainToolStripStatus.Text = "Image Saved: " & saveImagePath
+        mainToolStripStatus.Text = "Image Saved: " & file
         'Dispose of the images
     End Sub
 
@@ -1978,8 +1964,20 @@ Public Class Main
 #End Region
 
     Private Sub chkSaveImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkSaveImage.CheckedChanged
-        If chkSaveImage.Checked And saveImagePath = "" Then
-            btnSaveImage_Click()
+        If sender.checked Then
+            txtFilename.Enabled = True
+            chkSaveTTKChart.Enabled = True
+            chkSaveHeatMap.Enabled = True
+            btnSaveImage.Enabled = True
+
+            If saveImagePath = "" Then
+                btnSaveImage_Click()
+            End If
+        Else
+            txtFilename.Enabled = False
+            chkSaveTTKChart.Enabled = False
+            chkSaveHeatMap.Enabled = False
+            btnSaveImage.Enabled = False
         End If
     End Sub
 

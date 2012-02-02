@@ -220,6 +220,7 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label58 = New System.Windows.Forms.Label()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -1281,6 +1282,7 @@ Partial Class Main
         'btnSaveImage
         '
         Me.btnSaveImage.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.btnSaveImage.Enabled = False
         Me.btnSaveImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSaveImage.ForeColor = System.Drawing.Color.LightGray
         Me.btnSaveImage.Location = New System.Drawing.Point(110, 13)
@@ -1293,6 +1295,7 @@ Partial Class Main
         'tabHeatMap
         '
         Me.tabHeatMap.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabHeatMap.Controls.Add(Me.Label58)
         Me.tabHeatMap.Controls.Add(Me.chkRenderHeatBars)
         Me.tabHeatMap.Controls.Add(Me.chkRenderHeatTitle)
         Me.tabHeatMap.Controls.Add(Me.chkRenderHeatAdjust)
@@ -1314,7 +1317,7 @@ Partial Class Main
         Me.chkRenderHeatBars.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkRenderHeatBars.Enabled = False
         Me.chkRenderHeatBars.ForeColor = System.Drawing.Color.White
-        Me.chkRenderHeatBars.Location = New System.Drawing.Point(271, 42)
+        Me.chkRenderHeatBars.Location = New System.Drawing.Point(271, 44)
         Me.chkRenderHeatBars.Name = "chkRenderHeatBars"
         Me.chkRenderHeatBars.Size = New System.Drawing.Size(47, 17)
         Me.chkRenderHeatBars.TabIndex = 72
@@ -1327,7 +1330,7 @@ Partial Class Main
         Me.chkRenderHeatTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkRenderHeatTitle.Enabled = False
         Me.chkRenderHeatTitle.ForeColor = System.Drawing.Color.White
-        Me.chkRenderHeatTitle.Location = New System.Drawing.Point(271, 25)
+        Me.chkRenderHeatTitle.Location = New System.Drawing.Point(271, 27)
         Me.chkRenderHeatTitle.Name = "chkRenderHeatTitle"
         Me.chkRenderHeatTitle.Size = New System.Drawing.Size(51, 17)
         Me.chkRenderHeatTitle.TabIndex = 73
@@ -1340,7 +1343,7 @@ Partial Class Main
         Me.chkRenderHeatAdjust.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkRenderHeatAdjust.Enabled = False
         Me.chkRenderHeatAdjust.ForeColor = System.Drawing.Color.White
-        Me.chkRenderHeatAdjust.Location = New System.Drawing.Point(271, 8)
+        Me.chkRenderHeatAdjust.Location = New System.Drawing.Point(271, 10)
         Me.chkRenderHeatAdjust.Name = "chkRenderHeatAdjust"
         Me.chkRenderHeatAdjust.Size = New System.Drawing.Size(83, 17)
         Me.chkRenderHeatAdjust.TabIndex = 71
@@ -1353,7 +1356,7 @@ Partial Class Main
         Me.numIntensityScale.DecimalPlaces = 2
         Me.numIntensityScale.ForeColor = System.Drawing.Color.White
         Me.numIntensityScale.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.numIntensityScale.Location = New System.Drawing.Point(108, 29)
+        Me.numIntensityScale.Location = New System.Drawing.Point(82, 63)
         Me.numIntensityScale.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
         Me.numIntensityScale.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         Me.numIntensityScale.Name = "numIntensityScale"
@@ -1367,7 +1370,7 @@ Partial Class Main
         '
         Me.numHeatRadius.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numHeatRadius.ForeColor = System.Drawing.Color.White
-        Me.numHeatRadius.Location = New System.Drawing.Point(107, 5)
+        Me.numHeatRadius.Location = New System.Drawing.Point(82, 31)
         Me.numHeatRadius.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.numHeatRadius.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numHeatRadius.Name = "numHeatRadius"
@@ -1384,16 +1387,16 @@ Partial Class Main
         Me.chkHeatMap.ForeColor = System.Drawing.Color.White
         Me.chkHeatMap.Location = New System.Drawing.Point(8, 8)
         Me.chkHeatMap.Name = "chkHeatMap"
-        Me.chkHeatMap.Size = New System.Drawing.Size(104, 17)
+        Me.chkHeatMap.Size = New System.Drawing.Size(107, 17)
         Me.chkHeatMap.TabIndex = 67
-        Me.chkHeatMap.Text = "Heat Map radius"
+        Me.chkHeatMap.Text = "Create Heat Map"
         Me.chkHeatMap.UseVisualStyleBackColor = False
         '
         'Label13
         '
         Me.Label13.AutoSize = True
         Me.Label13.ForeColor = System.Drawing.Color.White
-        Me.Label13.Location = New System.Drawing.Point(34, 31)
+        Me.Label13.Location = New System.Drawing.Point(4, 65)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(76, 13)
         Me.Label13.TabIndex = 70
@@ -2658,6 +2661,16 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
+        'Label58
+        '
+        Me.Label58.AutoSize = True
+        Me.Label58.ForeColor = System.Drawing.Color.White
+        Me.Label58.Location = New System.Drawing.Point(14, 34)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(67, 13)
+        Me.Label58.TabIndex = 74
+        Me.Label58.Text = "Point Radius"
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2956,4 +2969,5 @@ Partial Class Main
     Friend WithEvents grpAmmo As System.Windows.Forms.GroupBox
     Friend WithEvents radAmmoText As System.Windows.Forms.RadioButton
     Friend WithEvents radAmmoImage As System.Windows.Forms.RadioButton
+    Friend WithEvents Label58 As System.Windows.Forms.Label
 End Class
