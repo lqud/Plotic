@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.093"
+    Private Const VERSION As String = "Plotic v2.094"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -779,6 +779,7 @@ Public Class Main
         Pl.TargetRange = CInt(Val(INIRead(silentTemplateFile, "Grid", "Distance", "30")))
         Pl.GridLineSpace = convertINIValue(INIRead(silentTemplateFile, "Grid", "GridValue", "1"), chrDecimalSymbol)
 
+        Pl.RateOfFire = CInt(Val(INIRead(silentTemplateFile, "TTK", "RateOfFire", "650")))
     End Sub
     Private Sub createSilentImage()
         Dim chrDecimalSymbol As Char = INIRead(silentTemplateFile, "Config", "DecimalSymbol", ".")
@@ -789,17 +790,21 @@ Public Class Main
         Dim fullPath As String = Path.Combine(fileDir, fileName)
 
         Dim RenderTitleText As Integer = INIRead(silentTemplateFile, "Title", "RenderTitleText", "0")
-        Dim RenderAttachText As Integer = INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0")
         Dim RenderGrid As Integer = INIRead(silentTemplateFile, "Grid", "RenderGrid", "0")
+
         Dim RenderBars As Integer = INIRead(silentTemplateFile, "Render", "RenderBars", "0")
-        Dim RenderTTK As Integer = INIRead(silentTemplateFile, "TTK", "RenderTTK", "0")
         Dim ScaleRadius As Integer = INIRead(silentTemplateFile, "Render", "ScaleRadius", "0")
-        Dim IntensityScale As String = INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2")
+
+        Dim RenderAttachText As Integer = INIRead(silentTemplateFile, "Attach", "RenderAttachText", "0")
         Dim VerticalMultiplier As String = INIRead(silentTemplateFile, "Attach", "VerticalMultiplier", "1")
         Dim MultiplyVerticalRecoil As Integer = INIRead(silentTemplateFile, "Attach", "MultiplyVerticalRecoil", "0")
+
+        Dim IntensityScale As String = INIRead(silentTemplateFile, "HeatMap", "IntensityScale", "2")
         Dim RenderHeatMap As Integer = INIRead(silentTemplateFile, "HeatMap", "RenderHeatMap", "0")
-        Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
         Dim HeatRadius As Integer = INIRead(silentTemplateFile, "HeatMap", "Radius", "0")
+
+        Dim RenderTTK As Integer = INIRead(silentTemplateFile, "TTK", "RenderTTK", "0")
+        Dim RenderHitRates As Integer = INIRead(silentTemplateFile, "TTK", "RenderHitRates", "0")
 
         Dim RecoilDecreaseAmount As Double = INIRead(silentTemplateFile, "Recoil", "RecoilDecrease", "15")
 
@@ -877,7 +882,6 @@ Public Class Main
         For ee = 0 To Pl.Burst
             Dim uprecoil = 0
             montako += 1
-            Dim multiplier = 10
             Dim spread = dblSpreadMin * scale
             Dim centerx = 1000
             Dim centy = 1680
@@ -955,18 +959,10 @@ Public Class Main
                 End If
 
                 Application.DoEvents()
-                If MultiplyVerticalRecoil = 1 Then
-                    If a = 0 Then
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot)) * CDbl(Val(VerticalMultiplier)))
-                    Else
-                        centy -= ((CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(VerticalMultiplier)))
-                    End If
+                If a = 0 Then
+                    centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
                 Else
-                    If a = 0 Then
-                        centy -= (CDbl(Val(dblRecoilH)) * scale) * CDbl(Val(Pl.FirstShot))
-                    Else
-                        centy -= CDbl(Val(dblRecoilH)) * scale
-                    End If
+                    centy -= CDbl(Val(dblRecoilH)) * scale
                 End If
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 spread += CDbl(dblSpreadInc) * scale
