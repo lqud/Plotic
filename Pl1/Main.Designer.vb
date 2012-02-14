@@ -108,6 +108,7 @@ Partial Class Main
         Me.chkSaveImage = New System.Windows.Forms.CheckBox()
         Me.btnSaveImage = New System.Windows.Forms.Button()
         Me.tabHeatMap = New System.Windows.Forms.TabPage()
+        Me.Label58 = New System.Windows.Forms.Label()
         Me.chkRenderHeatBars = New System.Windows.Forms.CheckBox()
         Me.chkRenderHeatTitle = New System.Windows.Forms.CheckBox()
         Me.chkRenderHeatAdjust = New System.Windows.Forms.CheckBox()
@@ -220,7 +221,6 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label58 = New System.Windows.Forms.Label()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -1022,6 +1022,7 @@ Partial Class Main
         '
         Me.chkRenderAmmoInfo.AutoSize = True
         Me.chkRenderAmmoInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkRenderAmmoInfo.Enabled = False
         Me.chkRenderAmmoInfo.ForeColor = System.Drawing.Color.White
         Me.chkRenderAmmoInfo.Location = New System.Drawing.Point(6, 12)
         Me.chkRenderAmmoInfo.Name = "chkRenderAmmoInfo"
@@ -1310,6 +1311,16 @@ Partial Class Main
         Me.tabHeatMap.Size = New System.Drawing.Size(362, 185)
         Me.tabHeatMap.TabIndex = 3
         Me.tabHeatMap.Text = "Heat Map"
+        '
+        'Label58
+        '
+        Me.Label58.AutoSize = True
+        Me.Label58.ForeColor = System.Drawing.Color.White
+        Me.Label58.Location = New System.Drawing.Point(14, 34)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(67, 13)
+        Me.Label58.TabIndex = 74
+        Me.Label58.Text = "Point Radius"
         '
         'chkRenderHeatBars
         '
@@ -2660,16 +2671,6 @@ Partial Class Main
         Me.NumericUpDown2.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
-        '
-        'Label58
-        '
-        Me.Label58.AutoSize = True
-        Me.Label58.ForeColor = System.Drawing.Color.White
-        Me.Label58.Location = New System.Drawing.Point(14, 34)
-        Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(67, 13)
-        Me.Label58.TabIndex = 74
-        Me.Label58.Text = "Point Radius"
         '
         'Main
         '
