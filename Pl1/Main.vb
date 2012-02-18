@@ -966,9 +966,11 @@ Public Class Main
                 End If
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 spread += CDbl(dblSpreadInc) * scale
-
-                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "x"), 0)
-                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "y"), 0)
+                Try
+                    centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "x"), 0)
+                    centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, RecoilDecreaseAmount, RateOfFire, scale, "y"), 0)
+                Catch ex As Exception
+                End Try
 
             Next
         Next
