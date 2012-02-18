@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.095"
+    Private Const VERSION As String = "Plotic v2.096"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -1701,10 +1701,13 @@ Public Class Main
                 centerx += rndD(1000 + CDbl(dblRecoilR * scale), 1000 - Int(CDbl(dblRecoilL) * scale)) - 1000
                 'Calculate the new spread value
                 spread += CDbl(dblSpreadInc) * scale
+                Try
+                    'Calculate the recoil decrease
+                    centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "x"), 0)
+                    centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "y"), 0)
+                Catch
 
-                'Calculate the recoil decrease
-                centerx = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "x"), 0)
-                centy = Math.Round(RecoilDecrease(startX, startY, centerx, centy, dblRecoilDeceasePerSecond, RateOfFire, scale, "y"), 0)
+                End Try
 
             Next ' Next Bullet Burst
 
