@@ -169,18 +169,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\sil_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sil_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sil_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sil_mask.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\pal.png" />
   </ItemGroup>
   <ItemGroup>
