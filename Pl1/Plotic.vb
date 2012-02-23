@@ -15,6 +15,7 @@
     Private dblRecoilUp As Double
     Private dblRecoilRight As Double
     Private dblRecoilLeft As Double
+    Private dblRecoilDecrease As Double
     Private dblSpreadMin As Double
     Private dblSpreadInc As Double
     Private dblAdjRecoilH As Double
@@ -224,6 +225,14 @@
         End Get
         Set(ByVal Value As Double)
             dblRecoilLeft = Value
+        End Set
+    End Property
+    Property RecoilDecrease() As Double
+        Get
+            Return dblRecoilDecrease
+        End Get
+        Set(ByVal Value As Double)
+            dblRecoilDecrease = Value
         End Set
     End Property
     Property FirstShot() As Double
