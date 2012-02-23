@@ -1044,17 +1044,57 @@ Public Class Main
 
         SetImage_ThreadSafe(Pl.Image)
 
-        Dim test2 = GetValue(comboWeapon1.Text, "WeaponClass", getStance())
-        Dim test2a = GetValue(comboWeapon1.Text, "MagazineCapacity", getStance())
-        Dim test2b = GetValue(comboWeapon1.Text, "NumberOfMagazines", getStance())
-        Dim test2c = GetValue(comboWeapon1.Text, "TraceFrequency", getStance())
-
-
         ' Start the Background Worker working
         HeatPoints.Clear()
-        loadPlotic()
+
+        If comboWeapon1.Text = "<<CUSTOM>>" Then
+            loadCustomPlotic()
+        Else
+            loadPlotic()
+        End If
+
         BackgroundWorker1.RunWorkerAsync()
-        'BackgroundWorker2.RunWorkerAsync()
+
+    End Sub
+    Private Sub loadCustomPlotic()
+        Pl.RecoilUp = Double.Parse(numRecoilUp.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilLeft = Double.Parse(numRecoilLeft.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilRight = Double.Parse(numRecoilRight.Value, System.Globalization.CultureInfo.InvariantCulture)
+
+        Pl.RecoilDecrease = Double.Parse(numRecoilDecrease.Value, System.Globalization.CultureInfo.InvariantCulture)
+
+        Pl.SpreadInc = Double.Parse(numSpreadInc.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.SpreadMin = Double.Parse(numSpreadMin.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.FirstShot = Double.Parse(numFirstShot.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.Burst = Integer.Parse(txtBursts.Text)
+        Pl.BulletsPerBurst = Integer.Parse(numBulletsPerBurst.Value)
+        Pl.AdjRecoilH = numRecoilH.Value
+        Pl.AdjRecoilV = numRecoilV.Value
+        Pl.AdjSpreadInc = numAdjInc.Value
+        Pl.AdjSpreadMin = numAdjMin.Value
+        Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
+        Pl.Gun = comboWeapon1.Text
+        Pl.Title = txtTitle.Text
+        Pl.SubText = txtSub.Text
+        Pl.Info = txtInfo.Text
+
+
+        Pl.Scale = txtScale.Text
+
+        Pl.BulletVelocity = numBulletVelocity.Value
+        Pl.MaxDistance = numMaxDistance.Value
+        Pl.BulletDrop = numBulletDrop.Value
+        Pl.TargetRange = numMeters.Value
+        Pl.RateOfFire = numRateOfFire.Value
+
+        If comboSilhouetteStyle.Text = "1" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_1_fullsize)
+        ElseIf comboSilhouetteStyle.Text = "2" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_2_fullsize)
+        ElseIf comboSilhouetteStyle.Text = "3" Then
+            Pl.Silh = New Bitmap(My.Resources.sil_3_fullsize)
+        End If
+
     End Sub
     Private Sub loadPlotic()
 
@@ -1063,6 +1103,8 @@ Public Class Main
         Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin", getStance()), System.Globalization.CultureInfo.InvariantCulture))
+        Pl.RecoilDecrease = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeDecreaseFactor", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+
         Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.SpreadMin = Double.Parse(getMinAngle())
         Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier", getStance()), System.Globalization.CultureInfo.InvariantCulture)
@@ -1521,7 +1563,7 @@ Public Class Main
         lblAdjInc.Text = calculateAdjustment(CDbl(Val(numRecoilH.Value)), (numAdjInc.Value)).ToString
     End Sub
     Private Sub Adjustment_ValueChanged(sender As System.Object, e As System.EventArgs) Handles numRecoilH.ValueChanged, numRecoilV.ValueChanged, numAdjInc.ValueChanged, numAdjMin.ValueChanged
-        UpdateAdjustments()
+        'UpdateAdjustments()
     End Sub
     Private Function calculateAdjustment(ByVal actor As Double, ByVal action As Double) As Double
         Return Math.Round((actor * (action / 100)) + (actor), 3)
@@ -1550,7 +1592,7 @@ Public Class Main
         Dim dblSpreadMin As Double = calculateAdjustment(Pl.SpreadMin, Pl.AdjSpreadMin)
         Dim dblSpreadInc As Double = calculateAdjustment(Pl.SpreadInc, Pl.AdjSpreadInc)
 
-        Dim dblRecoilDeceasePerSecond As Double = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Dim dblRecoilDeceasePerSecond As Double = Double.Parse(Pl.RecoilDecrease, System.Globalization.CultureInfo.InvariantCulture)
         Dim solMask As Bitmap = New Bitmap(My.Resources.sil_mask_fullsize)
 
         Dim silhouetteHeight As Integer = Math.Round((Math.Atan(1.85 / Pl.TargetRange) * (180 / Math.PI)) * Pl.Scale, 0)
