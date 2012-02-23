@@ -2318,6 +2318,7 @@ ByVal DefaultValue As String) As String
 #Region "Weapon Pull Functions"
     Public Function GetSpeed(ByVal weapon As String) As Double
         If weapon = "M16A4" Then weapon = "M16A4_2"
+        If weapon = "M4A1" Then weapon = "M4A1_2"
         Dim data = GetData(weapon, "")
         If data = "FILENOTFOUND" Then Return "ERROR"
         data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "InitialSpeed"))
@@ -2335,6 +2336,7 @@ ByVal DefaultValue As String) As String
     End Function
     Public Function GetRateOfFire(ByVal weapon As String) As Double
         If weapon = "M16A4" Then weapon = "M16A4_2"
+        If weapon = "M4A1" Then weapon = "M4A1_2"
         Dim value As String = "RateOfFire "
         Dim data = GetData(weapon, "")
         If data = "FILENOTFOUND" Then Return "ERROR"
@@ -2425,6 +2427,9 @@ ByVal DefaultValue As String) As String
             If weapon = "M16A4_2" Then
                 weapon = "M16A4"
                 weapon1 = "M16A4"
+            ElseIf weapon = "M4A1_2" Then
+                weapon = "M4A1"
+                weapon1 = "M4A1"
             ElseIf weapon = "M4A1" Or weapon = "M16A4" Then
                 weapon1 = weapon + "_Gunsway"
             End If
