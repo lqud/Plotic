@@ -143,13 +143,6 @@ Partial Class Main
         Me.chkDrawDropGrid = New System.Windows.Forms.CheckBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.tabAdvTTK = New System.Windows.Forms.TabPage()
-        Me.grpCustomTTK = New System.Windows.Forms.GroupBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.numBulletVelocity = New System.Windows.Forms.NumericUpDown()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.numDamagePercent = New System.Windows.Forms.NumericUpDown()
@@ -183,7 +176,7 @@ Partial Class Main
         Me.numSpreadMin = New System.Windows.Forms.NumericUpDown()
         Me.grpRecoil = New System.Windows.Forms.GroupBox()
         Me.Label56 = New System.Windows.Forms.Label()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.numRecoilDecrease = New System.Windows.Forms.NumericUpDown()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.Label49 = New System.Windows.Forms.Label()
@@ -221,6 +214,13 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.grpCustomTTK = New System.Windows.Forms.GroupBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.numBulletVelocity = New System.Windows.Forms.NumericUpDown()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -250,9 +250,6 @@ Partial Class Main
         CType(Me.numDropVerticalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabAdvTTK.SuspendLayout()
-        Me.grpCustomTTK.SuspendLayout()
-        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numTTKVerticalScale, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -267,7 +264,7 @@ Partial Class Main
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpRecoil.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRecoilDecrease, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -278,6 +275,9 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpCustomTTK.SuspendLayout()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpStance
@@ -991,6 +991,7 @@ Partial Class Main
         Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
         Me.grpAmmo.TabIndex = 99
         Me.grpAmmo.TabStop = False
+        Me.grpAmmo.Visible = False
         '
         'radAmmoText
         '
@@ -1748,7 +1749,6 @@ Partial Class Main
         'tabAdvTTK
         '
         Me.tabAdvTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.tabAdvTTK.Controls.Add(Me.grpCustomTTK)
         Me.tabAdvTTK.Controls.Add(Me.Label46)
         Me.tabAdvTTK.Controls.Add(Me.Label45)
         Me.tabAdvTTK.Controls.Add(Me.numDamagePercent)
@@ -1780,96 +1780,6 @@ Partial Class Main
         Me.tabAdvTTK.Size = New System.Drawing.Size(354, 156)
         Me.tabAdvTTK.TabIndex = 1
         Me.tabAdvTTK.Text = "Time to Kill"
-        '
-        'grpCustomTTK
-        '
-        Me.grpCustomTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.grpCustomTTK.Controls.Add(Me.Label25)
-        Me.grpCustomTTK.Controls.Add(Me.numBulletVelocity)
-        Me.grpCustomTTK.Controls.Add(Me.Label26)
-        Me.grpCustomTTK.Controls.Add(Me.numRateOfFire)
-        Me.grpCustomTTK.Controls.Add(Me.Label28)
-        Me.grpCustomTTK.Controls.Add(Me.Label27)
-        Me.grpCustomTTK.ForeColor = System.Drawing.Color.White
-        Me.grpCustomTTK.Location = New System.Drawing.Point(179, 76)
-        Me.grpCustomTTK.Name = "grpCustomTTK"
-        Me.grpCustomTTK.Size = New System.Drawing.Size(168, 74)
-        Me.grpCustomTTK.TabIndex = 141
-        Me.grpCustomTTK.TabStop = False
-        Me.grpCustomTTK.Text = "Custom"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label25.Location = New System.Drawing.Point(11, 51)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(67, 13)
-        Me.Label25.TabIndex = 117
-        Me.Label25.Text = "Bullet Speed"
-        '
-        'numBulletVelocity
-        '
-        Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
-        Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.numBulletVelocity.Location = New System.Drawing.Point(78, 48)
-        Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
-        Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numBulletVelocity.Name = "numBulletVelocity"
-        Me.numBulletVelocity.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numBulletVelocity.Size = New System.Drawing.Size(48, 20)
-        Me.numBulletVelocity.TabIndex = 116
-        Me.numBulletVelocity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numBulletVelocity.Value = New Decimal(New Integer() {630, 0, 0, 0})
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label26.Location = New System.Drawing.Point(126, 52)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(25, 13)
-        Me.Label26.TabIndex = 115
-        Me.Label26.Text = "m/s"
-        '
-        'numRateOfFire
-        '
-        Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRateOfFire.ForeColor = System.Drawing.Color.Lime
-        Me.numRateOfFire.Location = New System.Drawing.Point(78, 18)
-        Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numRateOfFire.Name = "numRateOfFire"
-        Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
-        Me.numRateOfFire.TabIndex = 118
-        Me.numRateOfFire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRateOfFire.Value = New Decimal(New Integer() {1000, 0, 0, 0})
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label28.ForeColor = System.Drawing.Color.Lime
-        Me.Label28.Location = New System.Drawing.Point(49, 21)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(29, 13)
-        Me.Label28.TabIndex = 119
-        Me.Label28.Text = "ROF"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label27.ForeColor = System.Drawing.Color.Lime
-        Me.Label27.Location = New System.Drawing.Point(128, 21)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(24, 13)
-        Me.Label27.TabIndex = 120
-        Me.Label27.Text = "rpm"
         '
         'Label46
         '
@@ -2183,6 +2093,7 @@ Partial Class Main
         Me.tabCustom.Controls.Add(Me.grpSpread)
         Me.tabCustom.Controls.Add(Me.grpRecoil)
         Me.tabCustom.Controls.Add(Me.grpAttach)
+        Me.tabCustom.Controls.Add(Me.grpCustomTTK)
         Me.tabCustom.ForeColor = System.Drawing.Color.White
         Me.tabCustom.Location = New System.Drawing.Point(4, 25)
         Me.tabCustom.Name = "tabCustom"
@@ -2242,6 +2153,7 @@ Partial Class Main
         Me.numSpreadInc.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numSpreadInc.Size = New System.Drawing.Size(48, 20)
         Me.numSpreadInc.TabIndex = 41
+        Me.numSpreadInc.Value = New Decimal(New Integer() {1, 0, 0, 65536})
         '
         'numSpreadMin
         '
@@ -2255,12 +2167,13 @@ Partial Class Main
         Me.numSpreadMin.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numSpreadMin.Size = New System.Drawing.Size(48, 20)
         Me.numSpreadMin.TabIndex = 43
+        Me.numSpreadMin.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
         'grpRecoil
         '
         Me.grpRecoil.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.grpRecoil.Controls.Add(Me.Label56)
-        Me.grpRecoil.Controls.Add(Me.NumericUpDown1)
+        Me.grpRecoil.Controls.Add(Me.numRecoilDecrease)
         Me.grpRecoil.Controls.Add(Me.Label55)
         Me.grpRecoil.Controls.Add(Me.Label50)
         Me.grpRecoil.Controls.Add(Me.Label49)
@@ -2274,7 +2187,7 @@ Partial Class Main
         Me.grpRecoil.ForeColor = System.Drawing.Color.White
         Me.grpRecoil.Location = New System.Drawing.Point(11, 6)
         Me.grpRecoil.Name = "grpRecoil"
-        Me.grpRecoil.Size = New System.Drawing.Size(124, 171)
+        Me.grpRecoil.Size = New System.Drawing.Size(124, 118)
         Me.grpRecoil.TabIndex = 57
         Me.grpRecoil.TabStop = False
         Me.grpRecoil.Text = "Recoil"
@@ -2284,32 +2197,32 @@ Partial Class Main
         Me.Label56.AutoSize = True
         Me.Label56.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label56.ForeColor = System.Drawing.Color.White
-        Me.Label56.Location = New System.Drawing.Point(18, 105)
+        Me.Label56.Location = New System.Drawing.Point(18, 71)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(27, 13)
         Me.Label56.TabIndex = 51
         Me.Label56.Text = "Dec"
         '
-        'NumericUpDown1
+        'numRecoilDecrease
         '
-        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown1.DecimalPlaces = 2
-        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
-        Me.NumericUpDown1.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.NumericUpDown1.Location = New System.Drawing.Point(51, 102)
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown1.Size = New System.Drawing.Size(60, 20)
-        Me.NumericUpDown1.TabIndex = 50
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {18, 0, 0, 0})
+        Me.numRecoilDecrease.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRecoilDecrease.DecimalPlaces = 2
+        Me.numRecoilDecrease.ForeColor = System.Drawing.Color.White
+        Me.numRecoilDecrease.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
+        Me.numRecoilDecrease.Location = New System.Drawing.Point(51, 68)
+        Me.numRecoilDecrease.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.numRecoilDecrease.Name = "numRecoilDecrease"
+        Me.numRecoilDecrease.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRecoilDecrease.Size = New System.Drawing.Size(60, 20)
+        Me.numRecoilDecrease.TabIndex = 50
+        Me.numRecoilDecrease.Value = New Decimal(New Integer() {15, 0, 0, 0})
         '
         'Label55
         '
         Me.Label55.AutoSize = True
         Me.Label55.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label55.ForeColor = System.Drawing.Color.White
-        Me.Label55.Location = New System.Drawing.Point(103, 46)
+        Me.Label55.Location = New System.Drawing.Point(103, 28)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(15, 13)
         Me.Label55.TabIndex = 49
@@ -2320,7 +2233,7 @@ Partial Class Main
         Me.Label50.AutoSize = True
         Me.Label50.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label50.ForeColor = System.Drawing.Color.White
-        Me.Label50.Location = New System.Drawing.Point(6, 46)
+        Me.Label50.Location = New System.Drawing.Point(6, 28)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(13, 13)
         Me.Label50.TabIndex = 48
@@ -2331,7 +2244,7 @@ Partial Class Main
         Me.Label49.AutoSize = True
         Me.Label49.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label49.ForeColor = System.Drawing.Color.White
-        Me.Label49.Location = New System.Drawing.Point(49, 13)
+        Me.Label49.Location = New System.Drawing.Point(49, 9)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(21, 13)
         Me.Label49.TabIndex = 47
@@ -2343,12 +2256,13 @@ Partial Class Main
         Me.numFirstShot.DecimalPlaces = 2
         Me.numFirstShot.ForeColor = System.Drawing.Color.White
         Me.numFirstShot.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numFirstShot.Location = New System.Drawing.Point(63, 141)
+        Me.numFirstShot.Location = New System.Drawing.Point(63, 91)
         Me.numFirstShot.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numFirstShot.Name = "numFirstShot"
         Me.numFirstShot.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numFirstShot.Size = New System.Drawing.Size(48, 20)
         Me.numFirstShot.TabIndex = 45
+        Me.numFirstShot.Value = New Decimal(New Integer() {2, 0, 0, 0})
         '
         'numRecoilRight
         '
@@ -2356,12 +2270,13 @@ Partial Class Main
         Me.numRecoilRight.DecimalPlaces = 2
         Me.numRecoilRight.ForeColor = System.Drawing.Color.White
         Me.numRecoilRight.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilRight.Location = New System.Drawing.Point(70, 66)
+        Me.numRecoilRight.Location = New System.Drawing.Point(70, 46)
         Me.numRecoilRight.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numRecoilRight.Name = "numRecoilRight"
         Me.numRecoilRight.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numRecoilRight.Size = New System.Drawing.Size(48, 20)
         Me.numRecoilRight.TabIndex = 44
+        Me.numRecoilRight.Value = New Decimal(New Integer() {6, 0, 0, 65536})
         '
         'numRecoilLeft
         '
@@ -2369,12 +2284,13 @@ Partial Class Main
         Me.numRecoilLeft.DecimalPlaces = 2
         Me.numRecoilLeft.ForeColor = System.Drawing.Color.White
         Me.numRecoilLeft.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilLeft.Location = New System.Drawing.Point(6, 66)
+        Me.numRecoilLeft.Location = New System.Drawing.Point(6, 46)
         Me.numRecoilLeft.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numRecoilLeft.Name = "numRecoilLeft"
         Me.numRecoilLeft.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numRecoilLeft.Size = New System.Drawing.Size(48, 20)
         Me.numRecoilLeft.TabIndex = 41
+        Me.numRecoilLeft.Value = New Decimal(New Integer() {6, 0, 0, 65536})
         '
         'numRecoilUp
         '
@@ -2382,19 +2298,20 @@ Partial Class Main
         Me.numRecoilUp.DecimalPlaces = 2
         Me.numRecoilUp.ForeColor = System.Drawing.Color.White
         Me.numRecoilUp.Increment = New Decimal(New Integer() {1, 0, 0, 65536})
-        Me.numRecoilUp.Location = New System.Drawing.Point(37, 31)
+        Me.numRecoilUp.Location = New System.Drawing.Point(37, 24)
         Me.numRecoilUp.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.numRecoilUp.Name = "numRecoilUp"
         Me.numRecoilUp.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.numRecoilUp.Size = New System.Drawing.Size(48, 20)
         Me.numRecoilUp.TabIndex = 43
+        Me.numRecoilUp.Value = New Decimal(New Integer() {3, 0, 0, 65536})
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(11, 144)
+        Me.Label2.Location = New System.Drawing.Point(11, 94)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 13)
         Me.Label2.TabIndex = 46
@@ -2672,6 +2589,96 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
+        'grpCustomTTK
+        '
+        Me.grpCustomTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpCustomTTK.Controls.Add(Me.Label25)
+        Me.grpCustomTTK.Controls.Add(Me.numBulletVelocity)
+        Me.grpCustomTTK.Controls.Add(Me.Label26)
+        Me.grpCustomTTK.Controls.Add(Me.numRateOfFire)
+        Me.grpCustomTTK.Controls.Add(Me.Label28)
+        Me.grpCustomTTK.Controls.Add(Me.Label27)
+        Me.grpCustomTTK.ForeColor = System.Drawing.Color.White
+        Me.grpCustomTTK.Location = New System.Drawing.Point(11, 123)
+        Me.grpCustomTTK.Name = "grpCustomTTK"
+        Me.grpCustomTTK.Size = New System.Drawing.Size(124, 57)
+        Me.grpCustomTTK.TabIndex = 142
+        Me.grpCustomTTK.TabStop = False
+        Me.grpCustomTTK.Text = "TTK"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label25.Location = New System.Drawing.Point(6, 34)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(38, 13)
+        Me.Label25.TabIndex = 117
+        Me.Label25.Text = "Speed"
+        '
+        'numBulletVelocity
+        '
+        Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
+        Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.numBulletVelocity.Location = New System.Drawing.Point(45, 31)
+        Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
+        Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBulletVelocity.Name = "numBulletVelocity"
+        Me.numBulletVelocity.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numBulletVelocity.Size = New System.Drawing.Size(48, 20)
+        Me.numBulletVelocity.TabIndex = 116
+        Me.numBulletVelocity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBulletVelocity.Value = New Decimal(New Integer() {630, 0, 0, 0})
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label26.Location = New System.Drawing.Point(93, 35)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(25, 13)
+        Me.Label26.TabIndex = 115
+        Me.Label26.Text = "m/s"
+        '
+        'numRateOfFire
+        '
+        Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRateOfFire.ForeColor = System.Drawing.Color.Lime
+        Me.numRateOfFire.Location = New System.Drawing.Point(45, 10)
+        Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numRateOfFire.Name = "numRateOfFire"
+        Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
+        Me.numRateOfFire.TabIndex = 118
+        Me.numRateOfFire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRateOfFire.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label28.ForeColor = System.Drawing.Color.Lime
+        Me.Label28.Location = New System.Drawing.Point(16, 13)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(29, 13)
+        Me.Label28.TabIndex = 119
+        Me.Label28.Text = "ROF"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label27.ForeColor = System.Drawing.Color.Lime
+        Me.Label27.Location = New System.Drawing.Point(95, 13)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(24, 13)
+        Me.Label27.TabIndex = 120
+        Me.Label27.Text = "rpm"
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2737,10 +2744,6 @@ Partial Class Main
         CType(Me.numDropHorizontalScale, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabAdvTTK.ResumeLayout(False)
         Me.tabAdvTTK.PerformLayout()
-        Me.grpCustomTTK.ResumeLayout(False)
-        Me.grpCustomTTK.PerformLayout()
-        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamagePercent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numHealthPercent, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numTTKVerticalScale, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2757,7 +2760,7 @@ Partial Class Main
         CType(Me.numSpreadMin, System.ComponentModel.ISupportInitialize).EndInit()
         Me.grpRecoil.ResumeLayout(False)
         Me.grpRecoil.PerformLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRecoilDecrease, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numFirstShot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2770,6 +2773,10 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpCustomTTK.ResumeLayout(False)
+        Me.grpCustomTTK.PerformLayout()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2902,12 +2909,6 @@ Partial Class Main
     Friend WithEvents numTTKHorizontalScale As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkDrawTTKGrid As System.Windows.Forms.CheckBox
     Friend WithEvents numTTKRange As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents Label28 As System.Windows.Forms.Label
-    Friend WithEvents numRateOfFire As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents Label26 As System.Windows.Forms.Label
-    Friend WithEvents numBulletVelocity As System.Windows.Forms.NumericUpDown
     Friend WithEvents numDamageMin As System.Windows.Forms.NumericUpDown
     Friend WithEvents numDamageMax As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label23 As System.Windows.Forms.Label
@@ -2950,14 +2951,13 @@ Partial Class Main
     Friend WithEvents numSpreadInc As System.Windows.Forms.NumericUpDown
     Friend WithEvents numSpreadMin As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkRenderAmmoInfo As System.Windows.Forms.CheckBox
-    Friend WithEvents grpCustomTTK As System.Windows.Forms.GroupBox
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
     Friend WithEvents comboSilhouetteStyle As System.Windows.Forms.ComboBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
     Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
     Private WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents numRecoilDecrease As System.Windows.Forms.NumericUpDown
     Private WithEvents Label55 As System.Windows.Forms.Label
     Private WithEvents Label50 As System.Windows.Forms.Label
     Private WithEvents Label49 As System.Windows.Forms.Label
@@ -2971,4 +2971,11 @@ Partial Class Main
     Friend WithEvents radAmmoText As System.Windows.Forms.RadioButton
     Friend WithEvents radAmmoImage As System.Windows.Forms.RadioButton
     Friend WithEvents Label58 As System.Windows.Forms.Label
+    Friend WithEvents grpCustomTTK As System.Windows.Forms.GroupBox
+    Friend WithEvents Label25 As System.Windows.Forms.Label
+    Friend WithEvents numBulletVelocity As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents numRateOfFire As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label28 As System.Windows.Forms.Label
+    Friend WithEvents Label27 As System.Windows.Forms.Label
 End Class
