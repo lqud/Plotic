@@ -563,12 +563,15 @@ Public Class Main
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim centerx = 1000
         Dim centy = 1680
+        Dim imageEdgeReached As Boolean = False
+
         If Not radMeters.Checked Then
             Dim gridx = centerx
             Dim gridy = centy
             Dim direction = 1
             Dim direction1 = 1
-            For a = 0 To 70
+
+            Do Until imageEdgeReached
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 pen6.DashStyle = Drawing2D.DashStyle.Dot
                 g.DrawLine(pen6, gridx, 0, gridx, 2000)
@@ -580,8 +583,13 @@ Public Class Main
                 Else
                     gridx = gridx + Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                 End If
-            Next
-            For i = 0 To 70
+                If gridx > 2000 Then
+                    imageEdgeReached = True
+                End If
+            Loop
+
+            imageEdgeReached = False
+            Do Until imageEdgeReached
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 g.DrawLine(pen6, 0, gridy, 2000, gridy)
                 If direction1 = 1 Then
@@ -592,14 +600,20 @@ Public Class Main
                 Else
                     gridy = gridy + Val(Pl.Scale) / (1 / Pl.GridLineSpace)
                 End If
-            Next
+                If gridy > 2000 Then
+                    imageEdgeReached = True
+                End If
+            Loop
         Else
             Dim gridx = centerx
             Dim gridy = centy
             Dim direction = 1
             Dim direction1 = 1
-            For a = 0 To 400
-                mainToolStripStatus.Text = "Drawing vertical grid, convert degrees->radians->meters " + a.ToString + "/400"
+            Dim pixelMovement = Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
+            Dim cycles = Math.Floor(((2000 - centerx) / pixelMovement) * 2) * 2
+            Dim currentCycle As Integer = 1
+            Do Until imageEdgeReached
+                mainToolStripStatus.Text = "Drawing vertical grid, convert degrees->radians->meters " + currentCycle.ToString + "/" + cycles.ToString
                 Application.DoEvents()
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 pen6.DashStyle = Drawing2D.DashStyle.Dot
@@ -612,9 +626,16 @@ Public Class Main
                 Else
                     gridx = gridx + Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                 End If
-            Next
-            For i = 0 To 400
-                mainToolStripStatus.Text = "Drawing horizontal grid, convert degrees->radians->meters " + i.ToString + "/400"
+                If gridx > 2000 Then
+                    imageEdgeReached = True
+                End If
+                currentCycle += 1
+            Loop
+
+            imageEdgeReached = False
+            currentCycle = 1
+            Do Until imageEdgeReached
+                mainToolStripStatus.Text = "Drawing horizontal grid, convert degrees->radians->meters " + currentCycle.ToString + "/" + cycles.ToString
                 Application.DoEvents()
                 Dim pen6 As New System.Drawing.Pen(Color.YellowGreen, 1)
                 g.DrawLine(pen6, 0, gridy, 2000, gridy)
@@ -626,7 +647,11 @@ Public Class Main
                 Else
                     gridy = gridy + Val(Pl.Scale) * (Math.Atan((Pl.GridLineSpace / Pl.TargetRange)) * (180 / Math.PI))
                 End If
-            Next
+                If gridy > 2000 Then
+                    imageEdgeReached = True
+                End If
+                currentCycle += 1
+            Loop
         End If
 
     End Sub
