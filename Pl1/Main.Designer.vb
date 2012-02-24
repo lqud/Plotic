@@ -185,6 +185,13 @@ Partial Class Main
         Me.numRecoilLeft = New System.Windows.Forms.NumericUpDown()
         Me.numRecoilUp = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.grpCustomTTK = New System.Windows.Forms.GroupBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.numBulletVelocity = New System.Windows.Forms.NumericUpDown()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.contextImgRightClick = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.MainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MaskToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -214,13 +221,8 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.grpCustomTTK = New System.Windows.Forms.GroupBox()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.numBulletVelocity = New System.Windows.Forms.NumericUpDown()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.numRateOfFire = New System.Windows.Forms.NumericUpDown()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.Label27 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -269,15 +271,17 @@ Partial Class Main
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpCustomTTK.SuspendLayout()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.contextImgRightClick.SuspendLayout()
         Me.grpBarrel.SuspendLayout()
         Me.grpUnderBarrel.SuspendLayout()
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpCustomTTK.SuspendLayout()
-        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'grpStance
@@ -417,8 +421,8 @@ Partial Class Main
         Me.chkDrawGrid.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkDrawGrid.Checked = True
         Me.chkDrawGrid.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkDrawGrid.ForeColor = System.Drawing.Color.White
-        Me.chkDrawGrid.Location = New System.Drawing.Point(6, 99)
+        Me.chkDrawGrid.ForeColor = System.Drawing.Color.YellowGreen
+        Me.chkDrawGrid.Location = New System.Drawing.Point(6, 17)
         Me.chkDrawGrid.Name = "chkDrawGrid"
         Me.chkDrawGrid.Size = New System.Drawing.Size(93, 17)
         Me.chkDrawGrid.TabIndex = 42
@@ -802,8 +806,8 @@ Partial Class Main
         'txtScale
         '
         Me.txtScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtScale.ForeColor = System.Drawing.Color.White
-        Me.txtScale.Location = New System.Drawing.Point(78, 122)
+        Me.txtScale.ForeColor = System.Drawing.Color.YellowGreen
+        Me.txtScale.Location = New System.Drawing.Point(78, 43)
         Me.txtScale.Name = "txtScale"
         Me.txtScale.Size = New System.Drawing.Size(30, 20)
         Me.txtScale.TabIndex = 59
@@ -813,8 +817,8 @@ Partial Class Main
         '
         Me.Label15.AutoSize = True
         Me.Label15.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(4, 126)
+        Me.Label15.ForeColor = System.Drawing.Color.YellowGreen
+        Me.Label15.Location = New System.Drawing.Point(4, 47)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(71, 13)
         Me.Label15.TabIndex = 58
@@ -837,8 +841,8 @@ Partial Class Main
         'numMeters
         '
         Me.numMeters.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numMeters.ForeColor = System.Drawing.Color.White
-        Me.numMeters.Location = New System.Drawing.Point(87, 145)
+        Me.numMeters.ForeColor = System.Drawing.Color.YellowGreen
+        Me.numMeters.Location = New System.Drawing.Point(95, 69)
         Me.numMeters.Maximum = New Decimal(New Integer() {4000, 0, 0, 0})
         Me.numMeters.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.numMeters.Name = "numMeters"
@@ -852,8 +856,8 @@ Partial Class Main
         '
         Me.Label14.AutoSize = True
         Me.Label14.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(143, 148)
+        Me.Label14.ForeColor = System.Drawing.Color.YellowGreen
+        Me.Label14.Location = New System.Drawing.Point(152, 72)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(15, 13)
         Me.Label14.TabIndex = 52
@@ -863,8 +867,8 @@ Partial Class Main
         '
         Me.radDegrees.AutoSize = True
         Me.radDegrees.Checked = True
-        Me.radDegrees.ForeColor = System.Drawing.Color.White
-        Me.radDegrees.Location = New System.Drawing.Point(149, 105)
+        Me.radDegrees.ForeColor = System.Drawing.Color.YellowGreen
+        Me.radDegrees.Location = New System.Drawing.Point(156, 24)
         Me.radDegrees.Name = "radDegrees"
         Me.radDegrees.Size = New System.Drawing.Size(65, 17)
         Me.radDegrees.TabIndex = 51
@@ -875,8 +879,8 @@ Partial Class Main
         'radMeters
         '
         Me.radMeters.AutoSize = True
-        Me.radMeters.ForeColor = System.Drawing.Color.White
-        Me.radMeters.Location = New System.Drawing.Point(149, 90)
+        Me.radMeters.ForeColor = System.Drawing.Color.YellowGreen
+        Me.radMeters.Location = New System.Drawing.Point(156, 9)
         Me.radMeters.Name = "radMeters"
         Me.radMeters.Size = New System.Drawing.Size(57, 17)
         Me.radMeters.TabIndex = 50
@@ -887,9 +891,9 @@ Partial Class Main
         '
         Me.numLineSpace.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numLineSpace.DecimalPlaces = 2
-        Me.numLineSpace.ForeColor = System.Drawing.Color.White
+        Me.numLineSpace.ForeColor = System.Drawing.Color.YellowGreen
         Me.numLineSpace.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
-        Me.numLineSpace.Location = New System.Drawing.Point(97, 97)
+        Me.numLineSpace.Location = New System.Drawing.Point(102, 16)
         Me.numLineSpace.Minimum = New Decimal(New Integer() {1, 0, 0, 131072})
         Me.numLineSpace.Name = "numLineSpace"
         Me.numLineSpace.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -950,30 +954,17 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.GroupBox2)
         Me.tabRender.Controls.Add(Me.grpAmmo)
+        Me.tabRender.Controls.Add(Me.GroupBox1)
         Me.tabRender.Controls.Add(Me.comboSilhouetteStyle)
         Me.tabRender.Controls.Add(Me.Label48)
-        Me.tabRender.Controls.Add(Me.txtSub)
-        Me.tabRender.Controls.Add(Me.Label24)
-        Me.tabRender.Controls.Add(Me.txtInfo)
-        Me.tabRender.Controls.Add(Me.Label1)
-        Me.tabRender.Controls.Add(Me.txtTitle)
-        Me.tabRender.Controls.Add(Me.Label3)
         Me.tabRender.Controls.Add(Me.chkTimeToKill)
         Me.tabRender.Controls.Add(Me.chkDrawTTK)
-        Me.tabRender.Controls.Add(Me.numLineSpace)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
-        Me.tabRender.Controls.Add(Me.chkDrawGrid)
         Me.tabRender.Controls.Add(Me.chkBars)
-        Me.tabRender.Controls.Add(Me.txtScale)
-        Me.tabRender.Controls.Add(Me.Label15)
         Me.tabRender.Controls.Add(Me.chkTitles)
         Me.tabRender.Controls.Add(Me.chkPrintAdj)
-        Me.tabRender.Controls.Add(Me.numMeters)
-        Me.tabRender.Controls.Add(Me.Label14)
-        Me.tabRender.Controls.Add(Me.radMeters)
-        Me.tabRender.Controls.Add(Me.radDegrees)
-        Me.tabRender.Controls.Add(Me.Label16)
         Me.tabRender.Location = New System.Drawing.Point(4, 25)
         Me.tabRender.Name = "tabRender"
         Me.tabRender.Padding = New System.Windows.Forms.Padding(3)
@@ -986,7 +977,7 @@ Partial Class Main
         Me.grpAmmo.Controls.Add(Me.radAmmoText)
         Me.grpAmmo.Controls.Add(Me.radAmmoImage)
         Me.grpAmmo.Controls.Add(Me.chkRenderAmmoInfo)
-        Me.grpAmmo.Location = New System.Drawing.Point(163, 58)
+        Me.grpAmmo.Location = New System.Drawing.Point(167, 55)
         Me.grpAmmo.Name = "grpAmmo"
         Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
         Me.grpAmmo.TabIndex = 99
@@ -996,26 +987,25 @@ Partial Class Main
         'radAmmoText
         '
         Me.radAmmoText.AutoSize = True
-        Me.radAmmoText.Enabled = False
+        Me.radAmmoText.Checked = True
         Me.radAmmoText.ForeColor = System.Drawing.Color.White
         Me.radAmmoText.Location = New System.Drawing.Point(140, 11)
         Me.radAmmoText.Name = "radAmmoText"
         Me.radAmmoText.Size = New System.Drawing.Size(46, 17)
         Me.radAmmoText.TabIndex = 98
+        Me.radAmmoText.TabStop = True
         Me.radAmmoText.Text = "Text"
         Me.radAmmoText.UseVisualStyleBackColor = True
         '
         'radAmmoImage
         '
         Me.radAmmoImage.AutoSize = True
-        Me.radAmmoImage.Checked = True
         Me.radAmmoImage.Enabled = False
         Me.radAmmoImage.ForeColor = System.Drawing.Color.White
         Me.radAmmoImage.Location = New System.Drawing.Point(80, 11)
         Me.radAmmoImage.Name = "radAmmoImage"
         Me.radAmmoImage.Size = New System.Drawing.Size(62, 17)
         Me.radAmmoImage.TabIndex = 97
-        Me.radAmmoImage.TabStop = True
         Me.radAmmoImage.Text = "Graphic"
         Me.radAmmoImage.UseVisualStyleBackColor = True
         '
@@ -1023,7 +1013,6 @@ Partial Class Main
         '
         Me.chkRenderAmmoInfo.AutoSize = True
         Me.chkRenderAmmoInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkRenderAmmoInfo.Enabled = False
         Me.chkRenderAmmoInfo.ForeColor = System.Drawing.Color.White
         Me.chkRenderAmmoInfo.Location = New System.Drawing.Point(6, 12)
         Me.chkRenderAmmoInfo.Name = "chkRenderAmmoInfo"
@@ -1059,8 +1048,8 @@ Partial Class Main
         '
         Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSub.ForeColor = System.Drawing.Color.White
-        Me.txtSub.Location = New System.Drawing.Point(269, 161)
+        Me.txtSub.ForeColor = System.Drawing.Color.Orange
+        Me.txtSub.Location = New System.Drawing.Point(35, 68)
         Me.txtSub.Name = "txtSub"
         Me.txtSub.Size = New System.Drawing.Size(86, 20)
         Me.txtSub.TabIndex = 94
@@ -1070,8 +1059,8 @@ Partial Class Main
         '
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label24.ForeColor = System.Drawing.Color.White
-        Me.Label24.Location = New System.Drawing.Point(231, 165)
+        Me.Label24.ForeColor = System.Drawing.Color.Orange
+        Me.Label24.Location = New System.Drawing.Point(5, 72)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(26, 13)
         Me.Label24.TabIndex = 95
@@ -1081,8 +1070,8 @@ Partial Class Main
         '
         Me.txtInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtInfo.ForeColor = System.Drawing.Color.White
-        Me.txtInfo.Location = New System.Drawing.Point(269, 132)
+        Me.txtInfo.ForeColor = System.Drawing.Color.Orange
+        Me.txtInfo.Location = New System.Drawing.Point(35, 39)
         Me.txtInfo.Name = "txtInfo"
         Me.txtInfo.Size = New System.Drawing.Size(86, 20)
         Me.txtInfo.TabIndex = 91
@@ -1092,8 +1081,8 @@ Partial Class Main
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(230, 107)
+        Me.Label1.ForeColor = System.Drawing.Color.Orange
+        Me.Label1.Location = New System.Drawing.Point(4, 14)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(27, 13)
         Me.Label1.TabIndex = 92
@@ -1103,8 +1092,8 @@ Partial Class Main
         '
         Me.txtTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtTitle.ForeColor = System.Drawing.Color.White
-        Me.txtTitle.Location = New System.Drawing.Point(269, 104)
+        Me.txtTitle.ForeColor = System.Drawing.Color.Orange
+        Me.txtTitle.Location = New System.Drawing.Point(35, 11)
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(87, 20)
         Me.txtTitle.TabIndex = 90
@@ -1114,8 +1103,8 @@ Partial Class Main
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(232, 136)
+        Me.Label3.ForeColor = System.Drawing.Color.Orange
+        Me.Label3.Location = New System.Drawing.Point(6, 43)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(25, 13)
         Me.Label3.TabIndex = 93
@@ -1148,8 +1137,8 @@ Partial Class Main
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.ForeColor = System.Drawing.Color.White
-        Me.Label16.Location = New System.Drawing.Point(6, 148)
+        Me.Label16.ForeColor = System.Drawing.Color.YellowGreen
+        Me.Label16.Location = New System.Drawing.Point(6, 72)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(83, 13)
         Me.Label16.TabIndex = 65
@@ -2317,6 +2306,96 @@ Partial Class Main
         Me.Label2.TabIndex = 46
         Me.Label2.Text = "First Shot"
         '
+        'grpCustomTTK
+        '
+        Me.grpCustomTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.grpCustomTTK.Controls.Add(Me.Label25)
+        Me.grpCustomTTK.Controls.Add(Me.numBulletVelocity)
+        Me.grpCustomTTK.Controls.Add(Me.Label26)
+        Me.grpCustomTTK.Controls.Add(Me.numRateOfFire)
+        Me.grpCustomTTK.Controls.Add(Me.Label28)
+        Me.grpCustomTTK.Controls.Add(Me.Label27)
+        Me.grpCustomTTK.ForeColor = System.Drawing.Color.White
+        Me.grpCustomTTK.Location = New System.Drawing.Point(11, 123)
+        Me.grpCustomTTK.Name = "grpCustomTTK"
+        Me.grpCustomTTK.Size = New System.Drawing.Size(124, 57)
+        Me.grpCustomTTK.TabIndex = 142
+        Me.grpCustomTTK.TabStop = False
+        Me.grpCustomTTK.Text = "TTK"
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label25.Location = New System.Drawing.Point(6, 34)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(38, 13)
+        Me.Label25.TabIndex = 117
+        Me.Label25.Text = "Speed"
+        '
+        'numBulletVelocity
+        '
+        Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
+        Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.numBulletVelocity.Location = New System.Drawing.Point(45, 31)
+        Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
+        Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numBulletVelocity.Name = "numBulletVelocity"
+        Me.numBulletVelocity.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numBulletVelocity.Size = New System.Drawing.Size(48, 20)
+        Me.numBulletVelocity.TabIndex = 116
+        Me.numBulletVelocity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numBulletVelocity.Value = New Decimal(New Integer() {630, 0, 0, 0})
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
+        Me.Label26.Location = New System.Drawing.Point(93, 35)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(25, 13)
+        Me.Label26.TabIndex = 115
+        Me.Label26.Text = "m/s"
+        '
+        'numRateOfFire
+        '
+        Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.numRateOfFire.ForeColor = System.Drawing.Color.Lime
+        Me.numRateOfFire.Location = New System.Drawing.Point(45, 10)
+        Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
+        Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.numRateOfFire.Name = "numRateOfFire"
+        Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
+        Me.numRateOfFire.TabIndex = 118
+        Me.numRateOfFire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.numRateOfFire.Value = New Decimal(New Integer() {1000, 0, 0, 0})
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label28.ForeColor = System.Drawing.Color.Lime
+        Me.Label28.Location = New System.Drawing.Point(16, 13)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(29, 13)
+        Me.Label28.TabIndex = 119
+        Me.Label28.Text = "ROF"
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label27.ForeColor = System.Drawing.Color.Lime
+        Me.Label27.Location = New System.Drawing.Point(95, 13)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(24, 13)
+        Me.Label27.TabIndex = 120
+        Me.Label27.Text = "rpm"
+        '
         'contextImgRightClick
         '
         Me.contextImgRightClick.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MainToolStripMenuItem, Me.MaskToolStripMenuItem, Me.HeatMapToolStripMenuItem, Me.TTKToolStripMenuItem, Me.ToolStripSeparator1, Me.ZoomToolStripMenuItem})
@@ -2589,95 +2668,36 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
-        'grpCustomTTK
+        'GroupBox1
         '
-        Me.grpCustomTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.grpCustomTTK.Controls.Add(Me.Label25)
-        Me.grpCustomTTK.Controls.Add(Me.numBulletVelocity)
-        Me.grpCustomTTK.Controls.Add(Me.Label26)
-        Me.grpCustomTTK.Controls.Add(Me.numRateOfFire)
-        Me.grpCustomTTK.Controls.Add(Me.Label28)
-        Me.grpCustomTTK.Controls.Add(Me.Label27)
-        Me.grpCustomTTK.ForeColor = System.Drawing.Color.White
-        Me.grpCustomTTK.Location = New System.Drawing.Point(11, 123)
-        Me.grpCustomTTK.Name = "grpCustomTTK"
-        Me.grpCustomTTK.Size = New System.Drawing.Size(124, 57)
-        Me.grpCustomTTK.TabIndex = 142
-        Me.grpCustomTTK.TabStop = False
-        Me.grpCustomTTK.Text = "TTK"
+        Me.GroupBox1.Controls.Add(Me.txtTitle)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.txtInfo)
+        Me.GroupBox1.Controls.Add(Me.txtSub)
+        Me.GroupBox1.Controls.Add(Me.Label24)
+        Me.GroupBox1.Location = New System.Drawing.Point(232, 88)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(127, 93)
+        Me.GroupBox1.TabIndex = 100
+        Me.GroupBox1.TabStop = False
         '
-        'Label25
+        'GroupBox2
         '
-        Me.Label25.AutoSize = True
-        Me.Label25.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label25.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label25.Location = New System.Drawing.Point(6, 34)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(38, 13)
-        Me.Label25.TabIndex = 117
-        Me.Label25.Text = "Speed"
-        '
-        'numBulletVelocity
-        '
-        Me.numBulletVelocity.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numBulletVelocity.ForeColor = System.Drawing.Color.LightGreen
-        Me.numBulletVelocity.Increment = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.numBulletVelocity.Location = New System.Drawing.Point(45, 31)
-        Me.numBulletVelocity.Maximum = New Decimal(New Integer() {800, 0, 0, 0})
-        Me.numBulletVelocity.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numBulletVelocity.Name = "numBulletVelocity"
-        Me.numBulletVelocity.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numBulletVelocity.Size = New System.Drawing.Size(48, 20)
-        Me.numBulletVelocity.TabIndex = 116
-        Me.numBulletVelocity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numBulletVelocity.Value = New Decimal(New Integer() {630, 0, 0, 0})
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label26.ForeColor = System.Drawing.Color.LightGreen
-        Me.Label26.Location = New System.Drawing.Point(93, 35)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(25, 13)
-        Me.Label26.TabIndex = 115
-        Me.Label26.Text = "m/s"
-        '
-        'numRateOfFire
-        '
-        Me.numRateOfFire.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numRateOfFire.ForeColor = System.Drawing.Color.Lime
-        Me.numRateOfFire.Location = New System.Drawing.Point(45, 10)
-        Me.numRateOfFire.Maximum = New Decimal(New Integer() {3000, 0, 0, 0})
-        Me.numRateOfFire.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.numRateOfFire.Name = "numRateOfFire"
-        Me.numRateOfFire.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.numRateOfFire.Size = New System.Drawing.Size(48, 20)
-        Me.numRateOfFire.TabIndex = 118
-        Me.numRateOfFire.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.numRateOfFire.Value = New Decimal(New Integer() {1000, 0, 0, 0})
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label28.ForeColor = System.Drawing.Color.Lime
-        Me.Label28.Location = New System.Drawing.Point(16, 13)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(29, 13)
-        Me.Label28.TabIndex = 119
-        Me.Label28.Text = "ROF"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label27.ForeColor = System.Drawing.Color.Lime
-        Me.Label27.Location = New System.Drawing.Point(95, 13)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(24, 13)
-        Me.Label27.TabIndex = 120
-        Me.Label27.Text = "rpm"
+        Me.GroupBox2.Controls.Add(Me.radDegrees)
+        Me.GroupBox2.Controls.Add(Me.radMeters)
+        Me.GroupBox2.Controls.Add(Me.Label14)
+        Me.GroupBox2.Controls.Add(Me.numMeters)
+        Me.GroupBox2.Controls.Add(Me.numLineSpace)
+        Me.GroupBox2.Controls.Add(Me.Label15)
+        Me.GroupBox2.Controls.Add(Me.txtScale)
+        Me.GroupBox2.Controls.Add(Me.Label16)
+        Me.GroupBox2.Controls.Add(Me.chkDrawGrid)
+        Me.GroupBox2.Location = New System.Drawing.Point(4, 88)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(224, 94)
+        Me.GroupBox2.TabIndex = 46
+        Me.GroupBox2.TabStop = False
         '
         'Main
         '
@@ -2765,6 +2785,10 @@ Partial Class Main
         CType(Me.numRecoilRight, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilLeft, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numRecoilUp, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpCustomTTK.ResumeLayout(False)
+        Me.grpCustomTTK.PerformLayout()
+        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
         Me.contextImgRightClick.ResumeLayout(False)
         Me.grpBarrel.ResumeLayout(False)
         Me.grpBarrel.PerformLayout()
@@ -2773,10 +2797,10 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpCustomTTK.ResumeLayout(False)
-        Me.grpCustomTTK.PerformLayout()
-        CType(Me.numBulletVelocity, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.numRateOfFire, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2978,4 +3002,6 @@ Partial Class Main
     Friend WithEvents numRateOfFire As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents Label27 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
 End Class
