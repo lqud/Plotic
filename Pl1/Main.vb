@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.097"
+    Private Const VERSION As String = "Plotic v2.098"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -1057,15 +1057,15 @@ Public Class Main
 
     End Sub
     Private Sub loadCustomPlotic()
-        Pl.RecoilUp = Double.Parse(numRecoilUp.Value, System.Globalization.CultureInfo.InvariantCulture)
-        Pl.RecoilLeft = Double.Parse(numRecoilLeft.Value, System.Globalization.CultureInfo.InvariantCulture)
-        Pl.RecoilRight = Double.Parse(numRecoilRight.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilUp = Double.Parse(numRecoilUp.Value)
+        Pl.RecoilLeft = Double.Parse(numRecoilLeft.Value)
+        Pl.RecoilRight = Double.Parse(numRecoilRight.Value)
 
-        Pl.RecoilDecrease = Double.Parse(numRecoilDecrease.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilDecrease = Double.Parse(numRecoilDecrease.Value)
 
-        Pl.SpreadInc = Double.Parse(numSpreadInc.Value, System.Globalization.CultureInfo.InvariantCulture)
-        Pl.SpreadMin = Double.Parse(numSpreadMin.Value, System.Globalization.CultureInfo.InvariantCulture)
-        Pl.FirstShot = Double.Parse(numFirstShot.Value, System.Globalization.CultureInfo.InvariantCulture)
+        Pl.SpreadInc = Double.Parse(numSpreadInc.Value)
+        Pl.SpreadMin = Double.Parse(numSpreadMin.Value)
+        Pl.FirstShot = Double.Parse(numFirstShot.Value)
         Pl.Burst = Integer.Parse(txtBursts.Text)
         Pl.BulletsPerBurst = Integer.Parse(numBulletsPerBurst.Value)
         Pl.AdjRecoilH = numRecoilH.Value
