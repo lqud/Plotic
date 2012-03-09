@@ -167,6 +167,15 @@ Partial Class Main
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.grpTargetAdjustments = New System.Windows.Forms.GroupBox()
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.radTargetAdjustPixel = New System.Windows.Forms.RadioButton()
+        Me.radTargetAdjustMeter = New System.Windows.Forms.RadioButton()
+        Me.radTargetAdjustDegree = New System.Windows.Forms.RadioButton()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
         Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
@@ -223,15 +232,6 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.Label59 = New System.Windows.Forms.Label()
-        Me.grpTargetAdjustments = New System.Windows.Forms.GroupBox()
-        Me.radTargetAdjustDegree = New System.Windows.Forms.RadioButton()
-        Me.radTargetAdjustMeter = New System.Windows.Forms.RadioButton()
-        Me.radTargetAdjustPixel = New System.Windows.Forms.RadioButton()
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
-        Me.Label60 = New System.Windows.Forms.Label()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -273,6 +273,9 @@ Partial Class Main
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage1.SuspendLayout()
+        Me.grpTargetAdjustments.SuspendLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCustom.SuspendLayout()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -292,9 +295,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.grpTargetAdjustments.SuspendLayout()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpStance
@@ -421,7 +421,7 @@ Partial Class Main
         Me.chkPrintAdj.AutoSize = True
         Me.chkPrintAdj.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
-        Me.chkPrintAdj.Location = New System.Drawing.Point(120, 24)
+        Me.chkPrintAdj.Location = New System.Drawing.Point(88, 7)
         Me.chkPrintAdj.Name = "chkPrintAdj"
         Me.chkPrintAdj.Size = New System.Drawing.Size(83, 17)
         Me.chkPrintAdj.TabIndex = 43
@@ -843,8 +843,8 @@ Partial Class Main
         Me.chkTitles.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkTitles.Checked = True
         Me.chkTitles.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkTitles.ForeColor = System.Drawing.Color.White
-        Me.chkTitles.Location = New System.Drawing.Point(120, 7)
+        Me.chkTitles.ForeColor = System.Drawing.Color.Orange
+        Me.chkTitles.Location = New System.Drawing.Point(39, 12)
         Me.chkTitles.Name = "chkTitles"
         Me.chkTitles.Size = New System.Drawing.Size(51, 17)
         Me.chkTitles.TabIndex = 57
@@ -972,7 +972,6 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.GroupBox1)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
         Me.tabRender.Controls.Add(Me.chkBars)
-        Me.tabRender.Controls.Add(Me.chkTitles)
         Me.tabRender.Controls.Add(Me.chkPrintAdj)
         Me.tabRender.Location = New System.Drawing.Point(4, 25)
         Me.tabRender.Name = "tabRender"
@@ -1013,7 +1012,7 @@ Partial Class Main
         Me.grpAmmo.Controls.Add(Me.radAmmoText)
         Me.grpAmmo.Controls.Add(Me.radAmmoImage)
         Me.grpAmmo.Controls.Add(Me.chkRenderAmmoInfo)
-        Me.grpAmmo.Location = New System.Drawing.Point(167, 55)
+        Me.grpAmmo.Location = New System.Drawing.Point(36, 55)
         Me.grpAmmo.Name = "grpAmmo"
         Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
         Me.grpAmmo.TabIndex = 99
@@ -1023,6 +1022,7 @@ Partial Class Main
         '
         Me.radAmmoText.AutoSize = True
         Me.radAmmoText.Checked = True
+        Me.radAmmoText.Enabled = False
         Me.radAmmoText.ForeColor = System.Drawing.Color.White
         Me.radAmmoText.Location = New System.Drawing.Point(140, 11)
         Me.radAmmoText.Name = "radAmmoText"
@@ -1064,10 +1064,11 @@ Partial Class Main
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.txtInfo)
         Me.GroupBox1.Controls.Add(Me.txtSub)
+        Me.GroupBox1.Controls.Add(Me.chkTitles)
         Me.GroupBox1.Controls.Add(Me.Label24)
-        Me.GroupBox1.Location = New System.Drawing.Point(232, 88)
+        Me.GroupBox1.Location = New System.Drawing.Point(232, 55)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(127, 93)
+        Me.GroupBox1.Size = New System.Drawing.Size(127, 126)
         Me.GroupBox1.TabIndex = 100
         Me.GroupBox1.TabStop = False
         '
@@ -1076,7 +1077,7 @@ Partial Class Main
         Me.txtTitle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtTitle.ForeColor = System.Drawing.Color.Orange
-        Me.txtTitle.Location = New System.Drawing.Point(35, 11)
+        Me.txtTitle.Location = New System.Drawing.Point(35, 35)
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(87, 20)
         Me.txtTitle.TabIndex = 90
@@ -1087,7 +1088,7 @@ Partial Class Main
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label3.ForeColor = System.Drawing.Color.Orange
-        Me.Label3.Location = New System.Drawing.Point(6, 43)
+        Me.Label3.Location = New System.Drawing.Point(6, 67)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(25, 13)
         Me.Label3.TabIndex = 93
@@ -1098,7 +1099,7 @@ Partial Class Main
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label1.ForeColor = System.Drawing.Color.Orange
-        Me.Label1.Location = New System.Drawing.Point(4, 14)
+        Me.Label1.Location = New System.Drawing.Point(4, 38)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(27, 13)
         Me.Label1.TabIndex = 92
@@ -1109,7 +1110,7 @@ Partial Class Main
         Me.txtInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtInfo.ForeColor = System.Drawing.Color.Orange
-        Me.txtInfo.Location = New System.Drawing.Point(35, 39)
+        Me.txtInfo.Location = New System.Drawing.Point(35, 63)
         Me.txtInfo.Name = "txtInfo"
         Me.txtInfo.Size = New System.Drawing.Size(86, 20)
         Me.txtInfo.TabIndex = 91
@@ -1120,7 +1121,7 @@ Partial Class Main
         Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSub.ForeColor = System.Drawing.Color.Orange
-        Me.txtSub.Location = New System.Drawing.Point(35, 68)
+        Me.txtSub.Location = New System.Drawing.Point(35, 92)
         Me.txtSub.Name = "txtSub"
         Me.txtSub.Size = New System.Drawing.Size(86, 20)
         Me.txtSub.TabIndex = 94
@@ -1131,7 +1132,7 @@ Partial Class Main
         Me.Label24.AutoSize = True
         Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label24.ForeColor = System.Drawing.Color.Orange
-        Me.Label24.Location = New System.Drawing.Point(5, 72)
+        Me.Label24.Location = New System.Drawing.Point(5, 96)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(26, 13)
         Me.Label24.TabIndex = 95
@@ -2085,6 +2086,114 @@ Partial Class Main
         Me.TabPage1.TabIndex = 2
         Me.TabPage1.Text = "Target"
         '
+        'grpTargetAdjustments
+        '
+        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown3)
+        Me.grpTargetAdjustments.Controls.Add(Me.Label60)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustPixel)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustMeter)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustDegree)
+        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown1)
+        Me.grpTargetAdjustments.Controls.Add(Me.Label59)
+        Me.grpTargetAdjustments.ForeColor = System.Drawing.Color.White
+        Me.grpTargetAdjustments.Location = New System.Drawing.Point(68, 67)
+        Me.grpTargetAdjustments.Name = "grpTargetAdjustments"
+        Me.grpTargetAdjustments.Size = New System.Drawing.Size(284, 86)
+        Me.grpTargetAdjustments.TabIndex = 105
+        Me.grpTargetAdjustments.TabStop = False
+        Me.grpTargetAdjustments.Text = "Target Offset"
+        Me.grpTargetAdjustments.Visible = False
+        '
+        'NumericUpDown3
+        '
+        Me.NumericUpDown3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown3.DecimalPlaces = 5
+        Me.NumericUpDown3.ForeColor = System.Drawing.Color.White
+        Me.NumericUpDown3.Location = New System.Drawing.Point(89, 60)
+        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        Me.NumericUpDown3.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown3.Size = New System.Drawing.Size(72, 20)
+        Me.NumericUpDown3.TabIndex = 109
+        '
+        'Label60
+        '
+        Me.Label60.AutoSize = True
+        Me.Label60.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label60.ForeColor = System.Drawing.Color.White
+        Me.Label60.Location = New System.Drawing.Point(33, 63)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(54, 13)
+        Me.Label60.TabIndex = 108
+        Me.Label60.Text = "Horizontal"
+        '
+        'radTargetAdjustPixel
+        '
+        Me.radTargetAdjustPixel.AutoSize = True
+        Me.radTargetAdjustPixel.Location = New System.Drawing.Point(167, 64)
+        Me.radTargetAdjustPixel.Name = "radTargetAdjustPixel"
+        Me.radTargetAdjustPixel.Size = New System.Drawing.Size(52, 17)
+        Me.radTargetAdjustPixel.TabIndex = 107
+        Me.radTargetAdjustPixel.Text = "Pixels"
+        Me.radTargetAdjustPixel.UseVisualStyleBackColor = True
+        '
+        'radTargetAdjustMeter
+        '
+        Me.radTargetAdjustMeter.AutoSize = True
+        Me.radTargetAdjustMeter.Checked = True
+        Me.radTargetAdjustMeter.Location = New System.Drawing.Point(167, 48)
+        Me.radTargetAdjustMeter.Name = "radTargetAdjustMeter"
+        Me.radTargetAdjustMeter.Size = New System.Drawing.Size(57, 17)
+        Me.radTargetAdjustMeter.TabIndex = 106
+        Me.radTargetAdjustMeter.TabStop = True
+        Me.radTargetAdjustMeter.Text = "Meters"
+        Me.radTargetAdjustMeter.UseVisualStyleBackColor = True
+        '
+        'radTargetAdjustDegree
+        '
+        Me.radTargetAdjustDegree.AutoSize = True
+        Me.radTargetAdjustDegree.Location = New System.Drawing.Point(167, 32)
+        Me.radTargetAdjustDegree.Name = "radTargetAdjustDegree"
+        Me.radTargetAdjustDegree.Size = New System.Drawing.Size(65, 17)
+        Me.radTargetAdjustDegree.TabIndex = 105
+        Me.radTargetAdjustDegree.Text = "Degrees"
+        Me.radTargetAdjustDegree.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown1.DecimalPlaces = 5
+        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
+        Me.NumericUpDown1.Location = New System.Drawing.Point(90, 34)
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown1.Size = New System.Drawing.Size(71, 20)
+        Me.NumericUpDown1.TabIndex = 104
+        '
+        'Label59
+        '
+        Me.Label59.AutoSize = True
+        Me.Label59.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label59.ForeColor = System.Drawing.Color.White
+        Me.Label59.Location = New System.Drawing.Point(45, 37)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(42, 13)
+        Me.Label59.TabIndex = 103
+        Me.Label59.Text = "Vertical"
+        '
+        'chkDrawTTK
+        '
+        Me.chkDrawTTK.AutoSize = True
+        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
+        Me.chkDrawTTK.Location = New System.Drawing.Point(8, 26)
+        Me.chkDrawTTK.Name = "chkDrawTTK"
+        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
+        Me.chkDrawTTK.TabIndex = 102
+        Me.chkDrawTTK.Text = "Write hit rates"
+        Me.chkDrawTTK.UseVisualStyleBackColor = False
+        '
         'comboSilhouetteStyle
         '
         Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
@@ -2712,113 +2821,6 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
-        'chkDrawTTK
-        '
-        Me.chkDrawTTK.AutoSize = True
-        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(8, 26)
-        Me.chkDrawTTK.Name = "chkDrawTTK"
-        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
-        Me.chkDrawTTK.TabIndex = 102
-        Me.chkDrawTTK.Text = "Write hit rates"
-        Me.chkDrawTTK.UseVisualStyleBackColor = False
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown1.DecimalPlaces = 5
-        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
-        Me.NumericUpDown1.Location = New System.Drawing.Point(90, 34)
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown1.Size = New System.Drawing.Size(71, 20)
-        Me.NumericUpDown1.TabIndex = 104
-        '
-        'Label59
-        '
-        Me.Label59.AutoSize = True
-        Me.Label59.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label59.ForeColor = System.Drawing.Color.White
-        Me.Label59.Location = New System.Drawing.Point(45, 37)
-        Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(42, 13)
-        Me.Label59.TabIndex = 103
-        Me.Label59.Text = "Vertical"
-        '
-        'grpTargetAdjustments
-        '
-        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown3)
-        Me.grpTargetAdjustments.Controls.Add(Me.Label60)
-        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustPixel)
-        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustMeter)
-        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustDegree)
-        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown1)
-        Me.grpTargetAdjustments.Controls.Add(Me.Label59)
-        Me.grpTargetAdjustments.ForeColor = System.Drawing.Color.White
-        Me.grpTargetAdjustments.Location = New System.Drawing.Point(68, 67)
-        Me.grpTargetAdjustments.Name = "grpTargetAdjustments"
-        Me.grpTargetAdjustments.Size = New System.Drawing.Size(284, 86)
-        Me.grpTargetAdjustments.TabIndex = 105
-        Me.grpTargetAdjustments.TabStop = False
-        Me.grpTargetAdjustments.Text = "Target Offset"
-        '
-        'radTargetAdjustDegree
-        '
-        Me.radTargetAdjustDegree.AutoSize = True
-        Me.radTargetAdjustDegree.Location = New System.Drawing.Point(167, 32)
-        Me.radTargetAdjustDegree.Name = "radTargetAdjustDegree"
-        Me.radTargetAdjustDegree.Size = New System.Drawing.Size(65, 17)
-        Me.radTargetAdjustDegree.TabIndex = 105
-        Me.radTargetAdjustDegree.Text = "Degrees"
-        Me.radTargetAdjustDegree.UseVisualStyleBackColor = True
-        '
-        'radTargetAdjustMeter
-        '
-        Me.radTargetAdjustMeter.AutoSize = True
-        Me.radTargetAdjustMeter.Checked = True
-        Me.radTargetAdjustMeter.Location = New System.Drawing.Point(167, 48)
-        Me.radTargetAdjustMeter.Name = "radTargetAdjustMeter"
-        Me.radTargetAdjustMeter.Size = New System.Drawing.Size(57, 17)
-        Me.radTargetAdjustMeter.TabIndex = 106
-        Me.radTargetAdjustMeter.TabStop = True
-        Me.radTargetAdjustMeter.Text = "Meters"
-        Me.radTargetAdjustMeter.UseVisualStyleBackColor = True
-        '
-        'radTargetAdjustPixel
-        '
-        Me.radTargetAdjustPixel.AutoSize = True
-        Me.radTargetAdjustPixel.Location = New System.Drawing.Point(167, 64)
-        Me.radTargetAdjustPixel.Name = "radTargetAdjustPixel"
-        Me.radTargetAdjustPixel.Size = New System.Drawing.Size(52, 17)
-        Me.radTargetAdjustPixel.TabIndex = 107
-        Me.radTargetAdjustPixel.Text = "Pixels"
-        Me.radTargetAdjustPixel.UseVisualStyleBackColor = True
-        '
-        'NumericUpDown3
-        '
-        Me.NumericUpDown3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.NumericUpDown3.DecimalPlaces = 5
-        Me.NumericUpDown3.ForeColor = System.Drawing.Color.White
-        Me.NumericUpDown3.Location = New System.Drawing.Point(89, 60)
-        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.NumericUpDown3.Size = New System.Drawing.Size(72, 20)
-        Me.NumericUpDown3.TabIndex = 109
-        '
-        'Label60
-        '
-        Me.Label60.AutoSize = True
-        Me.Label60.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label60.ForeColor = System.Drawing.Color.White
-        Me.Label60.Location = New System.Drawing.Point(33, 63)
-        Me.Label60.Name = "Label60"
-        Me.Label60.Size = New System.Drawing.Size(54, 13)
-        Me.Label60.TabIndex = 108
-        Me.Label60.Text = "Horizontal"
-        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -2899,6 +2901,10 @@ Partial Class Main
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.grpTargetAdjustments.ResumeLayout(False)
+        Me.grpTargetAdjustments.PerformLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabCustom.ResumeLayout(False)
         Me.grpSpread.ResumeLayout(False)
         Me.grpSpread.PerformLayout()
@@ -2923,10 +2929,6 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.grpTargetAdjustments.ResumeLayout(False)
-        Me.grpTargetAdjustments.PerformLayout()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
