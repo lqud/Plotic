@@ -549,7 +549,24 @@ Public Class Main
 
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
+    Public Sub drawBulletInfo(ByVal g As Graphics)
+        Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
+        Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
+        Dim redBrush As New SolidBrush(Color.Red)
+        Dim whiteBrush As New SolidBrush(Color.White)
+        Dim hPos As Integer = 1500
+        Dim rect As New Rectangle(1498, 288, 500, 140)
+        g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
+        Dim bulletType = GetValue(Pl.Gun, "WeaponClass").ToString.Substring(2)
+        Dim bulletRounds = GetValue(Pl.Gun, "MagazineCapacity")
+        Dim bulletMagazines = GetValue(Pl.Gun, "NumberOfMagazines")
+        g.DrawString("Ammo: " & bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
+        g.DrawString("Rounds: " + bulletRounds.ToString, New Font("Consolas", 30), greenBrush1, hPos, 330)
+        g.DrawString("Magazines: " + bulletMagazines.ToString, New Font("Consolas", 30), greenBrush2, hPos, 370)
+ 
+        'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
+    End Sub
     Public Sub drawTitle(ByVal g As Graphics)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim rect As New Rectangle(700, 28, 675, 250)
@@ -1827,6 +1844,9 @@ Public Class Main
         If chkWriteDropInfo.Checked Then
             drawDropInfo(Pl.ImageGraphic)
         End If
+        If chkRenderAmmoInfo.Checked Then
+            drawBulletInfo(Pl.ImageGraphic)
+        End If
         If chkDrawGrid.Checked Then
             drawGrid(Pl.ImageGraphic)
         End If
@@ -2686,6 +2706,15 @@ ByVal DefaultValue As String) As String
             numTTKHorizontalScale.Enabled = False
             numTTKVerticalScale.Enabled = False
         End If
+    End Sub
+
+    Private Sub picPlot_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles picPlot.MouseDown
+        ' Retrieve current mouse coordinates.
+        Dim newX As Double = e.X
+        Dim newY As Double = e.Y
+        Dim myPoint As Point = New Point
+        ' Convert to meters or pixels?
+        Debug.WriteLine("X: " & newX & " Y: " & newY)
     End Sub
 End Class
 Public Structure HeatPoint
