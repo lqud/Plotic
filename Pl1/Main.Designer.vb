@@ -81,21 +81,19 @@ Partial Class Main
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.tabMain = New System.Windows.Forms.TabControl()
         Me.tabRender = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.grpAmmo = New System.Windows.Forms.GroupBox()
         Me.radAmmoText = New System.Windows.Forms.RadioButton()
         Me.radAmmoImage = New System.Windows.Forms.RadioButton()
         Me.chkRenderAmmoInfo = New System.Windows.Forms.CheckBox()
-        Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
-        Me.Label48 = New System.Windows.Forms.Label()
-        Me.txtSub = New System.Windows.Forms.TextBox()
-        Me.Label24 = New System.Windows.Forms.Label()
-        Me.txtInfo = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
-        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtInfo = New System.Windows.Forms.TextBox()
+        Me.txtSub = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.tabSaveOptions = New System.Windows.Forms.TabPage()
         Me.chkSaveTTKChart = New System.Windows.Forms.CheckBox()
         Me.chkSaveHeatMap = New System.Windows.Forms.CheckBox()
@@ -168,6 +166,10 @@ Partial Class Main
         Me.Label21 = New System.Windows.Forms.Label()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.Label36 = New System.Windows.Forms.Label()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.comboSilhouetteStyle = New System.Windows.Forms.ComboBox()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.chkTimeToKill = New System.Windows.Forms.CheckBox()
         Me.tabCustom = New System.Windows.Forms.TabPage()
         Me.grpSpread = New System.Windows.Forms.GroupBox()
         Me.Label47 = New System.Windows.Forms.Label()
@@ -221,8 +223,15 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chkDrawTTK = New System.Windows.Forms.CheckBox()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.grpTargetAdjustments = New System.Windows.Forms.GroupBox()
+        Me.radTargetAdjustDegree = New System.Windows.Forms.RadioButton()
+        Me.radTargetAdjustMeter = New System.Windows.Forms.RadioButton()
+        Me.radTargetAdjustPixel = New System.Windows.Forms.RadioButton()
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.Label60 = New System.Windows.Forms.Label()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -236,7 +245,9 @@ Partial Class Main
         Me.StatusStrip1.SuspendLayout()
         Me.tabMain.SuspendLayout()
         Me.tabRender.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.grpAmmo.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.tabSaveOptions.SuspendLayout()
         Me.tabHeatMap.SuspendLayout()
         CType(Me.numIntensityScale, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -261,6 +272,7 @@ Partial Class Main
         CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage1.SuspendLayout()
         Me.tabCustom.SuspendLayout()
         Me.grpSpread.SuspendLayout()
         CType(Me.numSpreadInc, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -280,8 +292,9 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.grpTargetAdjustments.SuspendLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'grpStance
@@ -408,7 +421,7 @@ Partial Class Main
         Me.chkPrintAdj.AutoSize = True
         Me.chkPrintAdj.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
-        Me.chkPrintAdj.Location = New System.Drawing.Point(6, 41)
+        Me.chkPrintAdj.Location = New System.Drawing.Point(120, 24)
         Me.chkPrintAdj.Name = "chkPrintAdj"
         Me.chkPrintAdj.Size = New System.Drawing.Size(83, 17)
         Me.chkPrintAdj.TabIndex = 43
@@ -831,7 +844,7 @@ Partial Class Main
         Me.chkTitles.Checked = True
         Me.chkTitles.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkTitles.ForeColor = System.Drawing.Color.White
-        Me.chkTitles.Location = New System.Drawing.Point(6, 58)
+        Me.chkTitles.Location = New System.Drawing.Point(120, 7)
         Me.chkTitles.Name = "chkTitles"
         Me.chkTitles.Size = New System.Drawing.Size(51, 17)
         Me.chkTitles.TabIndex = 57
@@ -957,10 +970,6 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.GroupBox2)
         Me.tabRender.Controls.Add(Me.grpAmmo)
         Me.tabRender.Controls.Add(Me.GroupBox1)
-        Me.tabRender.Controls.Add(Me.comboSilhouetteStyle)
-        Me.tabRender.Controls.Add(Me.Label48)
-        Me.tabRender.Controls.Add(Me.chkTimeToKill)
-        Me.tabRender.Controls.Add(Me.chkDrawTTK)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
         Me.tabRender.Controls.Add(Me.chkBars)
         Me.tabRender.Controls.Add(Me.chkTitles)
@@ -972,6 +981,33 @@ Partial Class Main
         Me.tabRender.TabIndex = 0
         Me.tabRender.Text = "Render Options"
         '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.radDegrees)
+        Me.GroupBox2.Controls.Add(Me.radMeters)
+        Me.GroupBox2.Controls.Add(Me.Label14)
+        Me.GroupBox2.Controls.Add(Me.numMeters)
+        Me.GroupBox2.Controls.Add(Me.numLineSpace)
+        Me.GroupBox2.Controls.Add(Me.Label15)
+        Me.GroupBox2.Controls.Add(Me.txtScale)
+        Me.GroupBox2.Controls.Add(Me.Label16)
+        Me.GroupBox2.Controls.Add(Me.chkDrawGrid)
+        Me.GroupBox2.Location = New System.Drawing.Point(4, 88)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(224, 94)
+        Me.GroupBox2.TabIndex = 46
+        Me.GroupBox2.TabStop = False
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.ForeColor = System.Drawing.Color.YellowGreen
+        Me.Label16.Location = New System.Drawing.Point(6, 72)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(83, 13)
+        Me.Label16.TabIndex = 65
+        Me.Label16.Text = "Target Distance"
+        '
         'grpAmmo
         '
         Me.grpAmmo.Controls.Add(Me.radAmmoText)
@@ -982,7 +1018,6 @@ Partial Class Main
         Me.grpAmmo.Size = New System.Drawing.Size(192, 33)
         Me.grpAmmo.TabIndex = 99
         Me.grpAmmo.TabStop = False
-        Me.grpAmmo.Visible = False
         '
         'radAmmoText
         '
@@ -1008,6 +1043,7 @@ Partial Class Main
         Me.radAmmoImage.TabIndex = 97
         Me.radAmmoImage.Text = "Graphic"
         Me.radAmmoImage.UseVisualStyleBackColor = True
+        Me.radAmmoImage.Visible = False
         '
         'chkRenderAmmoInfo
         '
@@ -1021,72 +1057,19 @@ Partial Class Main
         Me.chkRenderAmmoInfo.Text = "Ammo Info"
         Me.chkRenderAmmoInfo.UseVisualStyleBackColor = False
         '
-        'comboSilhouetteStyle
+        'GroupBox1
         '
-        Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.comboSilhouetteStyle.Enabled = False
-        Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
-        Me.comboSilhouetteStyle.FormattingEnabled = True
-        Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(299, 6)
-        Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
-        Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
-        Me.comboSilhouetteStyle.TabIndex = 98
-        Me.comboSilhouetteStyle.Text = "1"
-        '
-        'Label48
-        '
-        Me.Label48.AutoSize = True
-        Me.Label48.ForeColor = System.Drawing.Color.White
-        Me.Label48.Location = New System.Drawing.Point(236, 9)
-        Me.Label48.Name = "Label48"
-        Me.Label48.Size = New System.Drawing.Size(64, 13)
-        Me.Label48.TabIndex = 97
-        Me.Label48.Text = "Target Style"
-        '
-        'txtSub
-        '
-        Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSub.ForeColor = System.Drawing.Color.Orange
-        Me.txtSub.Location = New System.Drawing.Point(35, 68)
-        Me.txtSub.Name = "txtSub"
-        Me.txtSub.Size = New System.Drawing.Size(86, 20)
-        Me.txtSub.TabIndex = 94
-        Me.txtSub.Text = "<<ATTACH>>"
-        '
-        'Label24
-        '
-        Me.Label24.AutoSize = True
-        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label24.ForeColor = System.Drawing.Color.Orange
-        Me.Label24.Location = New System.Drawing.Point(5, 72)
-        Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(26, 13)
-        Me.Label24.TabIndex = 95
-        Me.Label24.Text = "Sub"
-        '
-        'txtInfo
-        '
-        Me.txtInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtInfo.ForeColor = System.Drawing.Color.Orange
-        Me.txtInfo.Location = New System.Drawing.Point(35, 39)
-        Me.txtInfo.Name = "txtInfo"
-        Me.txtInfo.Size = New System.Drawing.Size(86, 20)
-        Me.txtInfo.TabIndex = 91
-        Me.txtInfo.Text = "<<STANCE>>"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.Label1.ForeColor = System.Drawing.Color.Orange
-        Me.Label1.Location = New System.Drawing.Point(4, 14)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(27, 13)
-        Me.Label1.TabIndex = 92
-        Me.Label1.Text = "Title"
+        Me.GroupBox1.Controls.Add(Me.txtTitle)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.txtInfo)
+        Me.GroupBox1.Controls.Add(Me.txtSub)
+        Me.GroupBox1.Controls.Add(Me.Label24)
+        Me.GroupBox1.Location = New System.Drawing.Point(232, 88)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(127, 93)
+        Me.GroupBox1.TabIndex = 100
+        Me.GroupBox1.TabStop = False
         '
         'txtTitle
         '
@@ -1110,39 +1093,49 @@ Partial Class Main
         Me.Label3.TabIndex = 93
         Me.Label3.Text = "Info"
         '
-        'chkTimeToKill
+        'Label1
         '
-        Me.chkTimeToKill.AutoSize = True
-        Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
-        Me.chkTimeToKill.Location = New System.Drawing.Point(119, 8)
-        Me.chkTimeToKill.Name = "chkTimeToKill"
-        Me.chkTimeToKill.Size = New System.Drawing.Size(109, 17)
-        Me.chkTimeToKill.TabIndex = 88
-        Me.chkTimeToKill.Text = "Draw scale target"
-        Me.chkTimeToKill.UseVisualStyleBackColor = False
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label1.ForeColor = System.Drawing.Color.Orange
+        Me.Label1.Location = New System.Drawing.Point(4, 14)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(27, 13)
+        Me.Label1.TabIndex = 92
+        Me.Label1.Text = "Title"
         '
-        'chkDrawTTK
+        'txtInfo
         '
-        Me.chkDrawTTK.AutoSize = True
-        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
-        Me.chkDrawTTK.Location = New System.Drawing.Point(119, 25)
-        Me.chkDrawTTK.Name = "chkDrawTTK"
-        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
-        Me.chkDrawTTK.TabIndex = 89
-        Me.chkDrawTTK.Text = "Write hit rates"
-        Me.chkDrawTTK.UseVisualStyleBackColor = False
+        Me.txtInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtInfo.ForeColor = System.Drawing.Color.Orange
+        Me.txtInfo.Location = New System.Drawing.Point(35, 39)
+        Me.txtInfo.Name = "txtInfo"
+        Me.txtInfo.Size = New System.Drawing.Size(86, 20)
+        Me.txtInfo.TabIndex = 91
+        Me.txtInfo.Text = "<<STANCE>>"
         '
-        'Label16
+        'txtSub
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.ForeColor = System.Drawing.Color.YellowGreen
-        Me.Label16.Location = New System.Drawing.Point(6, 72)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(83, 13)
-        Me.Label16.TabIndex = 65
-        Me.Label16.Text = "Target Distance"
+        Me.txtSub.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.txtSub.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSub.ForeColor = System.Drawing.Color.Orange
+        Me.txtSub.Location = New System.Drawing.Point(35, 68)
+        Me.txtSub.Name = "txtSub"
+        Me.txtSub.Size = New System.Drawing.Size(86, 20)
+        Me.txtSub.TabIndex = 94
+        Me.txtSub.Text = "<<ATTACH>>"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label24.ForeColor = System.Drawing.Color.Orange
+        Me.Label24.Location = New System.Drawing.Point(5, 72)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(26, 13)
+        Me.Label24.TabIndex = 95
+        Me.Label24.Text = "Sub"
         '
         'tabSaveOptions
         '
@@ -1206,7 +1199,7 @@ Partial Class Main
         Me.Label31.AutoSize = True
         Me.Label31.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.Label31.ForeColor = System.Drawing.Color.White
-        Me.Label31.Location = New System.Drawing.Point(28, 94)
+        Me.Label31.Location = New System.Drawing.Point(29, 94)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(79, 13)
         Me.Label31.TabIndex = 49
@@ -1420,6 +1413,7 @@ Partial Class Main
         Me.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons
         Me.TabControl1.Controls.Add(Me.tabAdvBulletDrop)
         Me.TabControl1.Controls.Add(Me.tabAdvTTK)
+        Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -1673,7 +1667,7 @@ Partial Class Main
         '
         Me.numDropVerticalScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numDropVerticalScale.DecimalPlaces = 2
-        Me.numDropVerticalScale.ForeColor = System.Drawing.Color.White
+        Me.numDropVerticalScale.ForeColor = System.Drawing.Color.SkyBlue
         Me.numDropVerticalScale.Increment = New Decimal(New Integer() {5, 0, 0, 131072})
         Me.numDropVerticalScale.Location = New System.Drawing.Point(284, 129)
         Me.numDropVerticalScale.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
@@ -1699,7 +1693,7 @@ Partial Class Main
         'numDropHorizontalScale
         '
         Me.numDropHorizontalScale.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numDropHorizontalScale.ForeColor = System.Drawing.Color.White
+        Me.numDropHorizontalScale.ForeColor = System.Drawing.Color.SkyBlue
         Me.numDropHorizontalScale.Location = New System.Drawing.Point(209, 129)
         Me.numDropHorizontalScale.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
         Me.numDropHorizontalScale.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
@@ -2075,6 +2069,56 @@ Partial Class Main
         Me.Label36.Size = New System.Drawing.Size(18, 13)
         Me.Label36.TabIndex = 126
         Me.Label36.Text = "@"
+        '
+        'TabPage1
+        '
+        Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.TabPage1.Controls.Add(Me.grpTargetAdjustments)
+        Me.TabPage1.Controls.Add(Me.chkDrawTTK)
+        Me.TabPage1.Controls.Add(Me.comboSilhouetteStyle)
+        Me.TabPage1.Controls.Add(Me.Label48)
+        Me.TabPage1.Controls.Add(Me.chkTimeToKill)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(354, 156)
+        Me.TabPage1.TabIndex = 2
+        Me.TabPage1.Text = "Target"
+        '
+        'comboSilhouetteStyle
+        '
+        Me.comboSilhouetteStyle.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.comboSilhouetteStyle.Enabled = False
+        Me.comboSilhouetteStyle.ForeColor = System.Drawing.Color.White
+        Me.comboSilhouetteStyle.FormattingEnabled = True
+        Me.comboSilhouetteStyle.Items.AddRange(New Object() {"1", "2", "3"})
+        Me.comboSilhouetteStyle.Location = New System.Drawing.Point(188, 6)
+        Me.comboSilhouetteStyle.Name = "comboSilhouetteStyle"
+        Me.comboSilhouetteStyle.Size = New System.Drawing.Size(44, 21)
+        Me.comboSilhouetteStyle.TabIndex = 101
+        Me.comboSilhouetteStyle.Text = "1"
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.ForeColor = System.Drawing.Color.White
+        Me.Label48.Location = New System.Drawing.Point(125, 9)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(64, 13)
+        Me.Label48.TabIndex = 100
+        Me.Label48.Text = "Target Style"
+        '
+        'chkTimeToKill
+        '
+        Me.chkTimeToKill.AutoSize = True
+        Me.chkTimeToKill.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkTimeToKill.ForeColor = System.Drawing.Color.White
+        Me.chkTimeToKill.Location = New System.Drawing.Point(8, 8)
+        Me.chkTimeToKill.Name = "chkTimeToKill"
+        Me.chkTimeToKill.Size = New System.Drawing.Size(109, 17)
+        Me.chkTimeToKill.TabIndex = 99
+        Me.chkTimeToKill.Text = "Draw scale target"
+        Me.chkTimeToKill.UseVisualStyleBackColor = False
         '
         'tabCustom
         '
@@ -2668,36 +2712,112 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
-        'GroupBox1
+        'chkDrawTTK
         '
-        Me.GroupBox1.Controls.Add(Me.txtTitle)
-        Me.GroupBox1.Controls.Add(Me.Label3)
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtInfo)
-        Me.GroupBox1.Controls.Add(Me.txtSub)
-        Me.GroupBox1.Controls.Add(Me.Label24)
-        Me.GroupBox1.Location = New System.Drawing.Point(232, 88)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(127, 93)
-        Me.GroupBox1.TabIndex = 100
-        Me.GroupBox1.TabStop = False
+        Me.chkDrawTTK.AutoSize = True
+        Me.chkDrawTTK.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkDrawTTK.ForeColor = System.Drawing.Color.White
+        Me.chkDrawTTK.Location = New System.Drawing.Point(8, 26)
+        Me.chkDrawTTK.Name = "chkDrawTTK"
+        Me.chkDrawTTK.Size = New System.Drawing.Size(91, 17)
+        Me.chkDrawTTK.TabIndex = 102
+        Me.chkDrawTTK.Text = "Write hit rates"
+        Me.chkDrawTTK.UseVisualStyleBackColor = False
         '
-        'GroupBox2
+        'NumericUpDown1
         '
-        Me.GroupBox2.Controls.Add(Me.radDegrees)
-        Me.GroupBox2.Controls.Add(Me.radMeters)
-        Me.GroupBox2.Controls.Add(Me.Label14)
-        Me.GroupBox2.Controls.Add(Me.numMeters)
-        Me.GroupBox2.Controls.Add(Me.numLineSpace)
-        Me.GroupBox2.Controls.Add(Me.Label15)
-        Me.GroupBox2.Controls.Add(Me.txtScale)
-        Me.GroupBox2.Controls.Add(Me.Label16)
-        Me.GroupBox2.Controls.Add(Me.chkDrawGrid)
-        Me.GroupBox2.Location = New System.Drawing.Point(4, 88)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(224, 94)
-        Me.GroupBox2.TabIndex = 46
-        Me.GroupBox2.TabStop = False
+        Me.NumericUpDown1.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown1.DecimalPlaces = 5
+        Me.NumericUpDown1.ForeColor = System.Drawing.Color.White
+        Me.NumericUpDown1.Location = New System.Drawing.Point(90, 34)
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown1.Size = New System.Drawing.Size(71, 20)
+        Me.NumericUpDown1.TabIndex = 104
+        '
+        'Label59
+        '
+        Me.Label59.AutoSize = True
+        Me.Label59.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label59.ForeColor = System.Drawing.Color.White
+        Me.Label59.Location = New System.Drawing.Point(45, 37)
+        Me.Label59.Name = "Label59"
+        Me.Label59.Size = New System.Drawing.Size(42, 13)
+        Me.Label59.TabIndex = 103
+        Me.Label59.Text = "Vertical"
+        '
+        'grpTargetAdjustments
+        '
+        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown3)
+        Me.grpTargetAdjustments.Controls.Add(Me.Label60)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustPixel)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustMeter)
+        Me.grpTargetAdjustments.Controls.Add(Me.radTargetAdjustDegree)
+        Me.grpTargetAdjustments.Controls.Add(Me.NumericUpDown1)
+        Me.grpTargetAdjustments.Controls.Add(Me.Label59)
+        Me.grpTargetAdjustments.ForeColor = System.Drawing.Color.White
+        Me.grpTargetAdjustments.Location = New System.Drawing.Point(68, 67)
+        Me.grpTargetAdjustments.Name = "grpTargetAdjustments"
+        Me.grpTargetAdjustments.Size = New System.Drawing.Size(284, 86)
+        Me.grpTargetAdjustments.TabIndex = 105
+        Me.grpTargetAdjustments.TabStop = False
+        Me.grpTargetAdjustments.Text = "Target Offset"
+        '
+        'radTargetAdjustDegree
+        '
+        Me.radTargetAdjustDegree.AutoSize = True
+        Me.radTargetAdjustDegree.Location = New System.Drawing.Point(167, 32)
+        Me.radTargetAdjustDegree.Name = "radTargetAdjustDegree"
+        Me.radTargetAdjustDegree.Size = New System.Drawing.Size(65, 17)
+        Me.radTargetAdjustDegree.TabIndex = 105
+        Me.radTargetAdjustDegree.Text = "Degrees"
+        Me.radTargetAdjustDegree.UseVisualStyleBackColor = True
+        '
+        'radTargetAdjustMeter
+        '
+        Me.radTargetAdjustMeter.AutoSize = True
+        Me.radTargetAdjustMeter.Checked = True
+        Me.radTargetAdjustMeter.Location = New System.Drawing.Point(167, 48)
+        Me.radTargetAdjustMeter.Name = "radTargetAdjustMeter"
+        Me.radTargetAdjustMeter.Size = New System.Drawing.Size(57, 17)
+        Me.radTargetAdjustMeter.TabIndex = 106
+        Me.radTargetAdjustMeter.TabStop = True
+        Me.radTargetAdjustMeter.Text = "Meters"
+        Me.radTargetAdjustMeter.UseVisualStyleBackColor = True
+        '
+        'radTargetAdjustPixel
+        '
+        Me.radTargetAdjustPixel.AutoSize = True
+        Me.radTargetAdjustPixel.Location = New System.Drawing.Point(167, 64)
+        Me.radTargetAdjustPixel.Name = "radTargetAdjustPixel"
+        Me.radTargetAdjustPixel.Size = New System.Drawing.Size(52, 17)
+        Me.radTargetAdjustPixel.TabIndex = 107
+        Me.radTargetAdjustPixel.Text = "Pixels"
+        Me.radTargetAdjustPixel.UseVisualStyleBackColor = True
+        '
+        'NumericUpDown3
+        '
+        Me.NumericUpDown3.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.NumericUpDown3.DecimalPlaces = 5
+        Me.NumericUpDown3.ForeColor = System.Drawing.Color.White
+        Me.NumericUpDown3.Location = New System.Drawing.Point(89, 60)
+        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        Me.NumericUpDown3.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.NumericUpDown3.Size = New System.Drawing.Size(72, 20)
+        Me.NumericUpDown3.TabIndex = 109
+        '
+        'Label60
+        '
+        Me.Label60.AutoSize = True
+        Me.Label60.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.Label60.ForeColor = System.Drawing.Color.White
+        Me.Label60.Location = New System.Drawing.Point(33, 63)
+        Me.Label60.Name = "Label60"
+        Me.Label60.Size = New System.Drawing.Size(54, 13)
+        Me.Label60.TabIndex = 108
+        Me.Label60.Text = "Horizontal"
         '
         'Main
         '
@@ -2741,8 +2861,12 @@ Partial Class Main
         Me.tabMain.ResumeLayout(False)
         Me.tabRender.ResumeLayout(False)
         Me.tabRender.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.grpAmmo.ResumeLayout(False)
         Me.grpAmmo.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.tabSaveOptions.ResumeLayout(False)
         Me.tabSaveOptions.PerformLayout()
         Me.tabHeatMap.ResumeLayout(False)
@@ -2773,6 +2897,8 @@ Partial Class Main
         CType(Me.numTTKRange, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMin, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.numDamageMax, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         Me.tabCustom.ResumeLayout(False)
         Me.grpSpread.ResumeLayout(False)
         Me.grpSpread.PerformLayout()
@@ -2797,10 +2923,10 @@ Partial Class Main
         CType(Me.picPlot, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.grpTargetAdjustments.ResumeLayout(False)
+        Me.grpTargetAdjustments.PerformLayout()
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2882,8 +3008,6 @@ Partial Class Main
     Friend WithEvents ViewTTKToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents chkSaveTTKChart As System.Windows.Forms.CheckBox
     Friend WithEvents chkSaveHeatMap As System.Windows.Forms.CheckBox
-    Friend WithEvents chkTimeToKill As System.Windows.Forms.CheckBox
-    Friend WithEvents chkDrawTTK As System.Windows.Forms.CheckBox
     Friend WithEvents contextImgRightClick As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents MainToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents MaskToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -2976,8 +3100,6 @@ Partial Class Main
     Friend WithEvents numSpreadMin As System.Windows.Forms.NumericUpDown
     Friend WithEvents chkRenderAmmoInfo As System.Windows.Forms.CheckBox
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
-    Friend WithEvents comboSilhouetteStyle As System.Windows.Forms.ComboBox
-    Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents NumericUpDown5 As System.Windows.Forms.NumericUpDown
     Friend WithEvents NumericUpDown2 As System.Windows.Forms.NumericUpDown
     Private WithEvents Label56 As System.Windows.Forms.Label
@@ -3004,4 +3126,17 @@ Partial Class Main
     Friend WithEvents Label27 As System.Windows.Forms.Label
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
+    Friend WithEvents comboSilhouetteStyle As System.Windows.Forms.ComboBox
+    Friend WithEvents Label48 As System.Windows.Forms.Label
+    Friend WithEvents chkTimeToKill As System.Windows.Forms.CheckBox
+    Friend WithEvents chkDrawTTK As System.Windows.Forms.CheckBox
+    Friend WithEvents grpTargetAdjustments As System.Windows.Forms.GroupBox
+    Friend WithEvents NumericUpDown3 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label60 As System.Windows.Forms.Label
+    Friend WithEvents radTargetAdjustPixel As System.Windows.Forms.RadioButton
+    Friend WithEvents radTargetAdjustMeter As System.Windows.Forms.RadioButton
+    Friend WithEvents radTargetAdjustDegree As System.Windows.Forms.RadioButton
+    Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
+    Friend WithEvents Label59 As System.Windows.Forms.Label
 End Class
