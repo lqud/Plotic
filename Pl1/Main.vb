@@ -9,7 +9,7 @@ Public Class Main
     Private Const UPDATE_PERIOD As Integer = 100
     Private Const IMAGE_V_CENTER_PERCENT As Double = 224 / 667
     Private Const IMAGE_H_CENTER_PERCENT As Double = 108 / 223
-    Private Const VERSION As String = "Plotic v2.1"
+    Private Const VERSION As String = "Plotic v2.2"
 
     Private HeatPoints As New List(Of HeatPoint)()
 
@@ -2673,8 +2673,10 @@ ByVal DefaultValue As String) As String
     Private Sub chkTimeToKill_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkTimeToKill.CheckedChanged
         If sender.checked Then
             comboSilhouetteStyle.Enabled = True
+            chkDrawTarget.Checked = True
         Else
             comboSilhouetteStyle.Enabled = False
+            chkDrawTarget.Checked = False
         End If
     End Sub
 
@@ -2715,6 +2717,30 @@ ByVal DefaultValue As String) As String
         Dim myPoint As Point = New Point
         ' Convert to meters or pixels?
         Debug.WriteLine("X: " & newX & " Y: " & newY)
+    End Sub
+
+    Private Sub chkDrawTarget_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDrawTarget.CheckedChanged
+        If sender.checked Then
+            chkTimeToKill.Checked = True
+        Else
+            chkTimeToKill.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkWriteHitRates_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkWriteHitRates.CheckedChanged
+        If sender.checked Then
+            chkDrawTTK.Checked = True
+        Else
+            chkDrawTTK.Checked = False
+        End If
+    End Sub
+
+    Private Sub chkDrawTTK_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chkDrawTTK.CheckedChanged
+        If sender.checked Then
+            chkWriteHitRates.Checked = True
+        Else
+            chkWriteHitRates.Checked = False
+        End If
     End Sub
 End Class
 Public Structure HeatPoint

@@ -232,6 +232,8 @@ Partial Class Main
         Me.ViewTTKToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
         Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.chkWriteHitRates = New System.Windows.Forms.CheckBox()
+        Me.chkDrawTarget = New System.Windows.Forms.CheckBox()
         Me.grpStance.SuspendLayout()
         CType(Me.numBulletsPerBurst, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.grpWeapon.SuspendLayout()
@@ -967,6 +969,8 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.chkWriteHitRates)
+        Me.tabRender.Controls.Add(Me.chkDrawTarget)
         Me.tabRender.Controls.Add(Me.GroupBox2)
         Me.tabRender.Controls.Add(Me.grpAmmo)
         Me.tabRender.Controls.Add(Me.GroupBox1)
@@ -2821,6 +2825,30 @@ Partial Class Main
         Me.NumericUpDown2.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown2.TabIndex = 44
         '
+        'chkWriteHitRates
+        '
+        Me.chkWriteHitRates.AutoSize = True
+        Me.chkWriteHitRates.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkWriteHitRates.ForeColor = System.Drawing.Color.White
+        Me.chkWriteHitRates.Location = New System.Drawing.Point(176, 25)
+        Me.chkWriteHitRates.Name = "chkWriteHitRates"
+        Me.chkWriteHitRates.Size = New System.Drawing.Size(91, 17)
+        Me.chkWriteHitRates.TabIndex = 104
+        Me.chkWriteHitRates.Text = "Write hit rates"
+        Me.chkWriteHitRates.UseVisualStyleBackColor = False
+        '
+        'chkDrawTarget
+        '
+        Me.chkDrawTarget.AutoSize = True
+        Me.chkDrawTarget.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.chkDrawTarget.ForeColor = System.Drawing.Color.White
+        Me.chkDrawTarget.Location = New System.Drawing.Point(176, 7)
+        Me.chkDrawTarget.Name = "chkDrawTarget"
+        Me.chkDrawTarget.Size = New System.Drawing.Size(109, 17)
+        Me.chkDrawTarget.TabIndex = 103
+        Me.chkDrawTarget.Text = "Draw scale target"
+        Me.chkDrawTarget.UseVisualStyleBackColor = False
+        '
         'Main
         '
         Me.AcceptButton = Me.btnStart
@@ -3141,4 +3169,6 @@ Partial Class Main
     Friend WithEvents radTargetAdjustDegree As System.Windows.Forms.RadioButton
     Friend WithEvents NumericUpDown1 As System.Windows.Forms.NumericUpDown
     Friend WithEvents Label59 As System.Windows.Forms.Label
+    Friend WithEvents chkWriteHitRates As System.Windows.Forms.CheckBox
+    Friend WithEvents chkDrawTarget As System.Windows.Forms.CheckBox
 End Class
