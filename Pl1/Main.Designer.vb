@@ -423,7 +423,7 @@ Partial Class Main
         Me.chkPrintAdj.AutoSize = True
         Me.chkPrintAdj.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.chkPrintAdj.ForeColor = System.Drawing.Color.White
-        Me.chkPrintAdj.Location = New System.Drawing.Point(88, 7)
+        Me.chkPrintAdj.Location = New System.Drawing.Point(90, 7)
         Me.chkPrintAdj.Name = "chkPrintAdj"
         Me.chkPrintAdj.Size = New System.Drawing.Size(83, 17)
         Me.chkPrintAdj.TabIndex = 43
@@ -969,6 +969,7 @@ Partial Class Main
         'tabRender
         '
         Me.tabRender.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
+        Me.tabRender.Controls.Add(Me.chkPrintAdj)
         Me.tabRender.Controls.Add(Me.chkWriteHitRates)
         Me.tabRender.Controls.Add(Me.chkDrawTarget)
         Me.tabRender.Controls.Add(Me.GroupBox2)
@@ -976,7 +977,6 @@ Partial Class Main
         Me.tabRender.Controls.Add(Me.GroupBox1)
         Me.tabRender.Controls.Add(Me.chkScaleRadius)
         Me.tabRender.Controls.Add(Me.chkBars)
-        Me.tabRender.Controls.Add(Me.chkPrintAdj)
         Me.tabRender.Location = New System.Drawing.Point(4, 25)
         Me.tabRender.Name = "tabRender"
         Me.tabRender.Padding = New System.Windows.Forms.Padding(3)

@@ -1,6 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Drawing
-Imports System.Drawing.Drawing2D
+﻿Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Windows.Forms
@@ -34,8 +32,16 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-        'Dim test2 = GetValue("G3A3", "WeaponClass")
-        'Dim test2a = GetValue("G3A3", "MagazineCapacity")
+        Dim Test1 = GetValue("l96", "ProjectileData")
+        Dim test2 = getbulletdata(Test1, "StartDamage")
+        Dim test3 = getbulletdata(Test1, "EndDamage")
+        Dim test4 = getbulletdata(Test1, "DamageFalloffEndDistance")
+        Dim test5 = getbulletdata(Test1, "DamageFalloffStartDistance")
+        Dim test6 = getbulletdata(Test1, "Gravity")
+        Dim test7 = getbulletdata(Test1, "MaxDistance")
+        Dim test8 = getbulletdata(Test1, "AmmunitionType")
+
+        Dim test2a = GetValue("G3A3", "MagazineCapacity")
         'Dim test2b = GetValue("G3A3", "NumberOfMagazines")
         'Dim test2c = GetValue("G3A3", "TraceFrequency")
         'Dim test2d = GetValue("G3A3", "RateOfFire")
@@ -108,16 +114,20 @@ Public Class Main
                 ' Use bitwise comparison to make sure MyName is a directory.
                 If (GetAttr(Mypath & MyName) And vbDirectory) = vbDirectory Then
                     'Debug.WriteLine(MyName)   ' Display entry only if it
-                    comboWeapon1.Items.Add(MyName)
-                    If iCount = 0 Then
-                        comboWeapon1.Text = MyName
+                    If (MyName <> "Common") Then
+                        comboWeapon1.Items.Add(MyName)
+                        If iCount = 0 Then
+                            comboWeapon1.Text = MyName
+                        End If
+                        iCount = iCount + 1
                     End If
-                    iCount = iCount + 1
+
                 End If   ' it represents a directory.
             End If
             MyName = Dir()   ' Get next entry.
         Loop
         Debug.WriteLine("No.of Folders in the weapons path : " & iCount)
+
     End Sub
 
     Public Sub drawTTKSplit(ByVal g As Graphics)
@@ -557,6 +567,8 @@ Public Class Main
         Dim hPos As Integer = 1500
         Dim rect As New Rectangle(1498, 288, 500, 140)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
+
+
 
         Dim bulletType = GetValue(Pl.Gun, "WeaponClass").ToString.Substring(2)
         Dim bulletRounds = GetValue(Pl.Gun, "MagazineCapacity")
@@ -1323,7 +1335,11 @@ Public Class Main
         If radBarrelNone.Checked And radUnderNone.Checked Then
             dblSumModifer += 0
         End If
-
+        If dblSumModifer < 0 Then
+            If dblSumModifer < -100 Then dblSumModifer = -100
+        Else
+            If dblSumModifer > 100 Then dblSumModifer = 100
+        End If
         Return dblSumModifer
     End Function
     Private Function getAdjustRecoilH() As Double
@@ -1628,6 +1644,7 @@ Public Class Main
 
         'Make Adjustments to values
         Dim dblRecoilH As Double = calculateAdjustment(Pl.RecoilUp, Pl.AdjRecoilV)
+
         Dim dblRecoilR As Double = calculateAdjustment(Pl.RecoilRight, Pl.AdjRecoilH)
         Dim dblRecoilL As Double = calculateAdjustment(Pl.RecoilLeft, Pl.AdjRecoilH)
 
@@ -2455,7 +2472,7 @@ ByVal DefaultValue As String) As String
         val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
         Return val
     End Function
-    Public Function GetValue(ByVal weapon As String, ByVal value As String, Optional ByVal stance As String = "Stand")
+    Public Function GetValueOld(ByVal weapon As String, ByVal value As String, Optional ByVal stance As String = "Stand")
         Dim data = GetData(weapon, "")
         Dim preparsevalues = "-IncreasePerShotMinAngleMaxAngleDecreasePerSecondRecoilAmplitudeMaxRecoilAmplitudeIncPerShotHorizontalRecoilAmplitudeIncPerShotMinHorizontalRecoilAmplitudeIncPerShotMaxHorizontalRecoilAmplitudeMaxRecoilAmplitudeDecreaseFactor-"
         If InStr(preparsevalues, value) Then
@@ -2504,6 +2521,58 @@ ByVal DefaultValue As String) As String
         val = Microsoft.VisualBasic.Left(val, Len(val) - 1)
         Return val
     End Function
+
+    Public Function GetValue(ByVal weapon As String, ByVal value As String, Optional ByVal stance As String = "Stand")
+        Dim data = GetData(weapon, "")
+        Dim preparsevalues = "-IncreasePerShotMinAngleMaxAngleDecreasePerSecondRecoilAmplitudeMaxRecoilAmplitudeIncPerShotHorizo" + _
+"ntalRecoilAmplitudeIncPerShotMinHorizontalRecoilAmplitudeIncPerShotMaxHorizontalRecoilAmplitudeMaxRe" + _
+"coilAmplitudeDecreaseFactor-"
+        If InStr(preparsevalues, value) Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "WeaponSwayData"))
+        Else
+            If InStr(value, "MinAngle") Or InStr(value, "MaxAngle") Then
+                data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "WeaponSwayData"))
+            End If
+        End If
+        stance = "-" + stance + "-"
+        If InStr(stance, "Stand") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Stand"))
+        ElseIf InStr(stance, "Crouch") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Crouch"))
+        ElseIf InStr(stance, "Prone") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Prone") - 1)
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Prone") - 1)
+        End If
+        If InStr(value, "ADS") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, ControlChars.Tab & "Zoom"))
+        ElseIf InStr(value, "HIP") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "NoZoom"))
+        End If
+        If InStr(value, "Base") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "BaseValue"))
+        ElseIf InStr(value, "Moving") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "Moving"))
+        End If
+        If InStr(value, "MinAngle") Then
+            value = "MinAngle"
+        ElseIf InStr(value, "MaxAngle") Then
+            value = "MaxAngle"
+        End If
+        If InStr(value, "Speed") Then
+            data = Microsoft.VisualBasic.Right(data, Len(data) - InStr(data, "InitialSpeed"))
+            value = "z"
+        End If
+        Dim start = InStr(data, value) + (Len(value) + 1)
+        data = Microsoft.VisualBasic.Mid(data, start, 200)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 2)
+        Return val
+    End Function
     Public Function GetData(ByVal weapon As String, ByVal attachment As String)
         Dim basepath As String = System.IO.Path.Combine(Directory.GetCurrentDirectory, "weapons")
         If weapon = "Glock17" Then
@@ -2532,6 +2601,42 @@ ByVal DefaultValue As String) As String
         Else
             Return "FILENOTFOUND"
         End If
+    End Function
+    Public Function GetFiles(ByVal folder As String) As List(Of String)
+        Dim fileList As New List(Of String)
+        Dim di As New IO.DirectoryInfo(folder)
+        Dim diar1 As IO.FileInfo() = di.GetFiles()
+        Dim dra As IO.FileInfo
+        'list the names of all files in the specified directory
+        For Each dra In diar1
+            fileList.Add(Path.Combine(Directory.GetCurrentDirectory, "weapons\Common\Bullets", dra.ToString))
+        Next
+        Return fileList
+    End Function
+
+    Public Function getbulletdata(ByVal projectilehash As String, ByVal value As String)
+        Dim viiva = InStr(projectilehash, "-")
+        projectilehash = Microsoft.VisualBasic.Mid(projectilehash, viiva + 1, Len(projectilehash) - viiva - 1)
+        Dim projectileList As List(Of String) = GetFiles(Path.Combine(Directory.GetCurrentDirectory, "weapons\Common\Bullets"))
+        '        Dim basepath As String = System.IO.Path.Combine(Directory.GetCurrentDirectory, "weapons")
+
+        Dim data = Nothing
+        For Each path In projectileList
+            data = My.Computer.FileSystem.ReadAllText(path)
+            If InStr(data, projectilehash) Then
+                Exit For
+            End If
+        Next
+        Dim start = InStr(data, value) + (Len(value) + 1)
+        data = Microsoft.VisualBasic.Mid(data, start, 200)
+        Dim val As String = ""
+        Dim leni As Integer = 1
+        Do Until InStr(val, Environment.NewLine)
+            val = Microsoft.VisualBasic.Left(data, leni)
+            leni += 1
+        Loop
+        val = Microsoft.VisualBasic.Left(val, Len(val) - 2)
+        Return val
     End Function
 #End Region
 
@@ -2634,8 +2739,10 @@ ByVal DefaultValue As String) As String
         Dim diffXSmall = bottomScaleRatio * hypotenuseSmall
         Dim diffYSmall = sideScaleRatio * hypotenuseSmall
         If YorX = "Y" Or YorX = "y" Then
+            If diffYSmall > Math.Abs(ShootY - StartY) Then Return StartY Else 
             Return Math.Round(diffYSmall + ShootY, 0)
         Else
+            If diffXSmall > Math.Abs(StartX - ShootX) Then Return StartX Else 
             If StartX > ShootX Then Return Math.Round(ShootX + diffXSmall, 0) Else Return Math.Round(ShootX - diffXSmall, 0)
             Exit Function
         End If
