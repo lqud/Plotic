@@ -2651,6 +2651,10 @@ ByVal DefaultValue As String) As String
             grpBarrel.Enabled = True
             grpUnderBarrel.Enabled = True
 
+            grpBulletDropCustom.Enabled = False
+
+            grpTTKCustom.Enabled = False
+
             updateAttachmentSelection()
             renderGunImage()
         Else
@@ -2662,6 +2666,10 @@ ByVal DefaultValue As String) As String
             grpStance.Enabled = False
             grpBarrel.Enabled = False
             grpUnderBarrel.Enabled = False
+
+            grpBulletDropCustom.Enabled = True
+
+            grpTTKCustom.Enabled = True
 
             picPlot.Image = New Bitmap(My.Resources.knife)
         End If
