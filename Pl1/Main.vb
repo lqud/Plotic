@@ -230,7 +230,7 @@ Public Class Main
 
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
-    Public Sub drawTTK(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
+    Public Sub drawHitRate(ByVal g As Graphics, ByVal Hit1 As Integer, ByVal Hit2 As Integer, ByVal Hit3 As Integer, ByVal Hit4 As Integer, ByVal Hit5 As Integer)
         Dim greenBrush1 As New SolidBrush(Color.YellowGreen)
         Dim greenBrush2 As New SolidBrush(Color.Goldenrod)
         Dim hPos As Integer = 1550
@@ -568,12 +568,13 @@ Public Class Main
         Dim rect As New Rectangle(1498, 288, 500, 140)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
+        Dim bulletType = getbulletdata(GetValue(Pl.Gun, "ProjectileData"), "AmmunitionType")
 
-
-        Dim bulletType = GetValue(Pl.Gun, "WeaponClass").ToString.Substring(2)
+        '        Dim bulletType = GetValue(Pl.Gun, "WeaponClass").ToString.Substring(2)
         Dim bulletRounds = GetValue(Pl.Gun, "MagazineCapacity")
         Dim bulletMagazines = GetValue(Pl.Gun, "NumberOfMagazines")
-        g.DrawString("Ammo: " & bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
+        '        g.DrawString("Ammo: " & bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
+        g.DrawString(bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
         g.DrawString("Rounds: " + bulletRounds.ToString, New Font("Consolas", 30), greenBrush1, hPos, 330)
         g.DrawString("Magazines: " + bulletMagazines.ToString, New Font("Consolas", 30), greenBrush2, hPos, 370)
  
@@ -1049,7 +1050,7 @@ Public Class Main
 
         End If
         If RenderHitRates = 1 And RenderTTK = 1 Then
-            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
+            drawHitRate(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
         If RenderHeatMap = 1 Then
             Application.DoEvents()
@@ -1101,6 +1102,10 @@ Public Class Main
         ' Start the Background Worker working
         HeatPoints.Clear()
 
+
+        'Set the gun name and make any nessasary conversions
+        Pl.Gun = comboWeapon1.Text
+
         If comboWeapon1.Text = "<<CUSTOM>>" Then
             loadCustomPlotic()
         Else
@@ -1127,7 +1132,6 @@ Public Class Main
         Pl.AdjSpreadInc = numAdjInc.Value
         Pl.AdjSpreadMin = numAdjMin.Value
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
-        Pl.Gun = comboWeapon1.Text
         Pl.Title = txtTitle.Text
         Pl.SubText = txtSub.Text
         Pl.Info = txtInfo.Text
@@ -1153,15 +1157,15 @@ Public Class Main
     Private Sub loadPlotic()
 
 
-        Dim test = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
-        Pl.RecoilUp = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
-        Pl.RecoilLeft = Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMax", getStance()), System.Globalization.CultureInfo.InvariantCulture)
-        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(comboWeapon1.Text, "HorizontalRecoilAmplitudeIncPerShotMin", getStance()), System.Globalization.CultureInfo.InvariantCulture))
-        Pl.RecoilDecrease = Double.Parse(GetValue(comboWeapon1.Text, "RecoilAmplitudeDecreaseFactor", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Dim test = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilUp = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilLeft = Double.Parse(GetValue(Pl.Gun, "HorizontalRecoilAmplitudeIncPerShotMax", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(Pl.Gun, "HorizontalRecoilAmplitudeIncPerShotMin", getStance()), System.Globalization.CultureInfo.InvariantCulture))
+        Pl.RecoilDecrease = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeDecreaseFactor", getStance()), System.Globalization.CultureInfo.InvariantCulture)
 
-        Pl.SpreadInc = Double.Parse(GetValue(comboWeapon1.Text, "IncreasePerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.SpreadInc = Double.Parse(GetValue(Pl.Gun, "IncreasePerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.SpreadMin = Double.Parse(getMinAngle())
-        Pl.FirstShot = Double.Parse(GetValue(comboWeapon1.Text, "FirstShotRecoilMultiplier", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.FirstShot = Double.Parse(GetValue(Pl.Gun, "FirstShotRecoilMultiplier", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.Burst = Integer.Parse(txtBursts.Text)
         Pl.BulletsPerBurst = Integer.Parse(numBulletsPerBurst.Value)
         Pl.AdjRecoilH = getAdjustRecoilH()
@@ -1169,9 +1173,8 @@ Public Class Main
         Pl.AdjSpreadInc = getAdjustInc()
         Pl.AdjSpreadMin = getAdjustMin()
         Pl.GridLineSpace = Double.Parse(numLineSpace.Value)
-        Pl.Gun = comboWeapon1.Text
         If txtTitle.Text = "<<GUN>>" Then
-            Pl.Title = comboWeapon1.Text
+            Pl.Title = Pl.Gun
         Else
             Pl.Title = txtTitle.Text
         End If
@@ -1189,11 +1192,16 @@ Public Class Main
 
         Pl.Scale = txtScale.Text
 
-        Pl.BulletVelocity = GetSpeed(comboWeapon1.Text)
-        Pl.MaxDistance = numMaxDistance.Value
-        Pl.BulletDrop = numBulletDrop.Value
+        Dim projectileHash = GetValue(Pl.Gun, "ProjectileData")
+        Dim timeToLive = Double.Parse(getbulletdata(projectileHash, "TimeToLive"), System.Globalization.CultureInfo.InvariantCulture)
+
+        Pl.BulletVelocity = GetSpeed(Pl.Gun)
+        Pl.MaxDistance = Pl.BulletVelocity * timeToLive
+
+        Pl.BulletDrop = Double.Parse(getbulletdata(projectileHash, "Gravity"), System.Globalization.CultureInfo.InvariantCulture)
+
         Pl.TargetRange = numMeters.Value
-        Pl.RateOfFire = GetRateOfFire(comboWeapon1.Text)
+        Pl.RateOfFire = GetRateOfFire(Pl.Gun)
 
         If comboSilhouetteStyle.Text = "1" Then
             Pl.Silh = New Bitmap(My.Resources.sil_1_fullsize)
@@ -1840,7 +1848,7 @@ Public Class Main
 
         End If
         If chkDrawTTK.Checked And chkTimeToKill.Checked Then
-            drawTTK(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
+            drawHitRate(Pl.ImageGraphic, Math.Round((aryHits(0) / (intBursts + 1) * 100), 2), Math.Round((aryHits(1) / (intBursts + 1) * 100), 2), Math.Round((aryHits(2) / (intBursts + 1) * 100), 2), Math.Round((aryHits(3) / (intBursts + 1) * 100), 2), Math.Round((aryHits(4) / (intBursts + 1) * 100), 2))
         End If
         If chkHeatMap.Checked Then
             SetOutPutText_ThreadSafe("Please wait... Creating heat map")

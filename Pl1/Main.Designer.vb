@@ -1620,7 +1620,6 @@ Partial Class Main
         'numMaxDistance
         '
         Me.numMaxDistance.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numMaxDistance.Enabled = False
         Me.numMaxDistance.ForeColor = System.Drawing.Color.LightGreen
         Me.numMaxDistance.Location = New System.Drawing.Point(72, 36)
         Me.numMaxDistance.Maximum = New Decimal(New Integer() {5000, 0, 0, 0})
@@ -1647,7 +1646,6 @@ Partial Class Main
         '
         Me.numBulletDrop.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numBulletDrop.DecimalPlaces = 2
-        Me.numBulletDrop.Enabled = False
         Me.numBulletDrop.ForeColor = System.Drawing.Color.LightGreen
         Me.numBulletDrop.Increment = New Decimal(New Integer() {25, 0, 0, 131072})
         Me.numBulletDrop.Location = New System.Drawing.Point(72, 13)
@@ -1932,7 +1930,6 @@ Partial Class Main
         'numMinRange
         '
         Me.numMinRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numMinRange.Enabled = False
         Me.numMinRange.ForeColor = System.Drawing.Color.SkyBlue
         Me.numMinRange.Location = New System.Drawing.Point(144, 38)
         Me.numMinRange.Name = "numMinRange"
@@ -1945,7 +1942,6 @@ Partial Class Main
         'numMaxRange
         '
         Me.numMaxRange.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
-        Me.numMaxRange.Enabled = False
         Me.numMaxRange.ForeColor = System.Drawing.Color.SkyBlue
         Me.numMaxRange.Location = New System.Drawing.Point(144, 15)
         Me.numMaxRange.Name = "numMaxRange"
@@ -2013,7 +2009,6 @@ Partial Class Main
         '
         Me.numDamageMin.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numDamageMin.DecimalPlaces = 1
-        Me.numDamageMin.Enabled = False
         Me.numDamageMin.ForeColor = System.Drawing.Color.SkyBlue
         Me.numDamageMin.Location = New System.Drawing.Point(76, 38)
         Me.numDamageMin.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
@@ -2028,7 +2023,6 @@ Partial Class Main
         '
         Me.numDamageMax.BackColor = System.Drawing.Color.FromArgb(CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer), CType(CType(34, Byte), Integer))
         Me.numDamageMax.DecimalPlaces = 1
-        Me.numDamageMax.Enabled = False
         Me.numDamageMax.ForeColor = System.Drawing.Color.SkyBlue
         Me.numDamageMax.Location = New System.Drawing.Point(76, 15)
         Me.numDamageMax.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
