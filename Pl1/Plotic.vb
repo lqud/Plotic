@@ -34,6 +34,12 @@
     Private dblTargetRange As Double
     Private dblRateOfFire As Double
 
+    Private dblTTKDamageMax As Double
+    Private dblTTKDamageMin As Double
+    Private dblTTKRangeMax As Double
+    Private dblTTKRangeMin As Double
+
+
     Public Sub New()
 
     End Sub
@@ -129,6 +135,39 @@
     End Function
 #End Region
 #Region "Properties"
+    Property DamageMax() As Double
+        Get
+            Return dblTTKDamageMax
+        End Get
+        Set(ByVal Value As Double)
+            dblTTKDamageMax = Value
+        End Set
+    End Property
+    Property DamageMin() As Double
+        Get
+            Return dblTTKDamageMin
+        End Get
+        Set(ByVal Value As Double)
+            dblTTKDamageMin = Value
+        End Set
+    End Property
+    Property RangeMax() As Double
+        Get
+            Return dblTTKRangeMax
+        End Get
+        Set(ByVal Value As Double)
+            dblTTKRangeMax = Value
+        End Set
+    End Property
+    Property RangeMin() As Double
+        Get
+            Return dblTTKRangeMin
+        End Get
+        Set(ByVal Value As Double)
+            dblTTKRangeMin = Value
+        End Set
+    End Property
+
     Property BulletDrop() As Double
         Get
             Return dblBulletDrop
