@@ -301,8 +301,8 @@ Public Class Main
         Dim pixelsPerMeter As Integer = Math.Round(((graphWidth / numTTKRange.Value)), 0)
         Dim metersperPixel As Double = 1 / pixelsPerMeter
 
-        Dim damageDifference As Double = numDamageMax.Value - numDamageMin.Value
-        Dim distanceDifference As Double = numMinRange.Value - numMaxRange.Value
+        Dim damageDifference As Double = Pl.DamageMax - Pl.DamageMin
+        Dim distanceDifference As Double = Pl.RangeMin - Pl.RangeMax
 
         Dim penRed As New System.Drawing.Pen(Color.Red, 3)
         Dim penWhite As New System.Drawing.Pen(Color.White, 1)
@@ -311,7 +311,7 @@ Public Class Main
 
         Dim maxRangeInMeters As Double = rightX * metersperPixel
 
-        Dim dblMaxDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+        Dim dblMaxDamageAtRange As Double = numDamageMin.Value + (((Pl.DamageMax - Pl.DamageMin) / (Pl.RangeMax - Pl.RangeMin)) * (numTTKRange.Value - Pl.RangeMin))
         Dim maxTTK As Double = ((Math.Round((100 / dblMaxDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (maxRangeInMeters / Pl.BulletVelocity)
 
 
@@ -321,21 +321,21 @@ Public Class Main
             Dim rangeInMeters As Double = (i - leftX) * metersperPixel
 
             'Dim damageAtDistance As Double = Pl.
-            Dim dblDamageAtRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
+            Dim dblDamageAtRange As Double = Pl.DamageMin + (((Pl.DamageMax - Pl.DamageMin) / (Pl.RangeMax - Pl.RangeMin)) * (numTTKRange.Value - Pl.RangeMin))
             Dim TTK As Double = ((Math.Round((100 / dblDamageAtRange), 0) - 1) / (Pl.RateOfFire / 60)) + (rangeInMeters / Pl.BulletVelocity)
             Debug.WriteLine(i & ": " & rangeInMeters & "-> " & Math.Round(TTK, 6) & " :: " & Math.Round(TTK / maxTTK, 4))
 
-            If rangeInMeters <= numMaxRange.Value Then
+            If rangeInMeters <= Pl.RangeMax Then
                 ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
                 yValue = topY
-            ElseIf rangeInMeters >= numMinRange.Value Then
+            ElseIf rangeInMeters >= Pl.RangeMin Then
                 yValue = bottomY
                 ' Debug.WriteLine(rangeInMeters & "-> " & yValue)
             Else
-                Dim a As Double = rangeInMeters - numMaxRange.Value
+                Dim a As Double = rangeInMeters - Pl.RangeMax 
                 Dim b As Double = TTK / maxTTK
                 Dim c As Double = damageDifference * b
-                Dim d As Double = Math.Round(numDamageMax.Value - c, 2)
+                Dim d As Double = Math.Round(Pl.DamageMax - c, 2)
                 ' Debug.WriteLine(rangeInMeters & "-> " & d)
                 Dim e As Double = Math.Round(graphHeight * b, 2)
                 yValue = Math.Round(bottomY - e, 0)
@@ -1157,7 +1157,7 @@ Public Class Main
     Private Sub loadPlotic()
 
 
-        Dim test = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
+        'Dim test = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.RecoilUp = Double.Parse(GetValue(Pl.Gun, "RecoilAmplitudeIncPerShot", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.RecoilLeft = Double.Parse(GetValue(Pl.Gun, "HorizontalRecoilAmplitudeIncPerShotMax", getStance()), System.Globalization.CultureInfo.InvariantCulture)
         Pl.RecoilRight = Math.Abs(Double.Parse(GetValue(Pl.Gun, "HorizontalRecoilAmplitudeIncPerShotMin", getStance()), System.Globalization.CultureInfo.InvariantCulture))
@@ -1195,10 +1195,15 @@ Public Class Main
         Dim projectileHash = GetValue(Pl.Gun, "ProjectileData")
         Dim timeToLive = Double.Parse(getbulletdata(projectileHash, "TimeToLive"), System.Globalization.CultureInfo.InvariantCulture)
 
+        Pl.BulletDrop = Math.Abs(Double.Parse(getbulletdata(projectileHash, "Gravity"), System.Globalization.CultureInfo.InvariantCulture))
+
+        Pl.DamageMax = getbulletdata(projectileHash, "StartDamage")
+        Pl.DamageMin = getbulletdata(projectileHash, "EndDamage")
+        Pl.RangeMax = getbulletdata(projectileHash, "DamageFalloffEndDistance")
+        Pl.RangeMin = getbulletdata(projectileHash, "DamageFalloffStartDistance")
+
         Pl.BulletVelocity = GetSpeed(Pl.Gun)
         Pl.MaxDistance = Pl.BulletVelocity * timeToLive
-
-        Pl.BulletDrop = Math.Abs(Double.Parse(getbulletdata(projectileHash, "Gravity"), System.Globalization.CultureInfo.InvariantCulture))
 
         Pl.TargetRange = numMeters.Value
         Pl.RateOfFire = GetRateOfFire(Pl.Gun)
