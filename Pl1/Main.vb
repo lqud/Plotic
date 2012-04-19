@@ -32,16 +32,15 @@ Public Class Main
         ' Add any initialization after the InitializeComponent() call.
         mainToolStripStatus.Text = VERSION
         Me.Text = VERSION
-        Dim Test1 = GetValue("l96", "ProjectileData")
-        Dim test2 = getbulletdata(Test1, "StartDamage")
-        Dim test3 = getbulletdata(Test1, "EndDamage")
-        Dim test4 = getbulletdata(Test1, "DamageFalloffEndDistance")
-        Dim test5 = getbulletdata(Test1, "DamageFalloffStartDistance")
-        Dim test6 = getbulletdata(Test1, "Gravity")
-        Dim test7 = getbulletdata(Test1, "MaxDistance")
-        Dim test8 = getbulletdata(Test1, "AmmunitionType")
+        'Dim Test1 = GetValue("l96", "ProjectileData")
+        'Dim test2 = getbulletdata(Test1, "StartDamage")
+        'Dim test3 = getbulletdata(Test1, "EndDamage")
+        'Dim test4 = getbulletdata(Test1, "DamageFalloffEndDistance")
+        'Dim test5 = getbulletdata(Test1, "DamageFalloffStartDistance")
+        'Dim test6 = getbulletdata(Test1, "Gravity")
+        'Dim test8 = getbulletdata(Test1, "AmmunitionType")
 
-        Dim test2a = GetValue("G3A3", "MagazineCapacity")
+        'Dim test2a = GetValue("G3A3", "MagazineCapacity")
         'Dim test2b = GetValue("G3A3", "NumberOfMagazines")
         'Dim test2c = GetValue("G3A3", "TraceFrequency")
         'Dim test2d = GetValue("G3A3", "RateOfFire")
@@ -114,7 +113,7 @@ Public Class Main
                 ' Use bitwise comparison to make sure MyName is a directory.
                 If (GetAttr(Mypath & MyName) And vbDirectory) = vbDirectory Then
                     'Debug.WriteLine(MyName)   ' Display entry only if it
-                    If (MyName <> "Common") Then
+                    If (MyName <> "Common") Then ' Ignore the Common Folder
                         comboWeapon1.Items.Add(MyName)
                         If iCount = 0 Then
                             comboWeapon1.Text = MyName
@@ -538,23 +537,25 @@ Public Class Main
         Dim rect As New Rectangle(3, 248, 700, 180)
         g.FillRectangle(New SolidBrush(Color.FromArgb(127, 0, 0, 0)), rect)
 
-        Dim test As Double = Pl.correctionAngle(5, 700)
+        Dim gravity As String = getbulletdata(GetValue(Pl.Gun, "ProjectileData"), "Gravity")
+
+        'Dim test As Double = Pl.correctionAngle(5, 700)
         If Pl.TargetRange > Pl.MaxDistance Then
-            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), redBrush, hPos, 250)
-            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
-            g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), redBrush, hPos, 335)
-            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), redBrush, hPos, 375)
+            g.DrawString("Drop @ " & numMeters.Value.ToString & "m (" & Pl.MaxDistance & "m max)", New Font("Consolas", 35), redBrush, hPos, 250)
+            g.DrawString("Down: " + Pl.dropInMeters(4).ToString + "m @ " & gravity & " m/s", New Font("Consolas", 30), redBrush, hPos, 295)
+            g.DrawString("Adj: " + Pl.correctionInMeters(4).ToString + "m @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), redBrush, hPos, 335)
+            g.DrawString("ToF: " + Pl.timeOfFlight(4).ToString + " sec", New Font("Consolas", 30), redBrush, hPos, 375)
         Else
-            g.DrawString("Bullet Drop @ " & numMeters.Value.ToString & " meters", New Font("Consolas", 35), greenBrush2, hPos, 250)
+            g.DrawString("Drop @ " & numMeters.Value.ToString & "m (" & Pl.MaxDistance & "m max)", New Font("Consolas", 35), greenBrush2, hPos, 250)
             If chkRenderBulletDrop.Checked Then
-                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), redBrush, hPos, 295)
-                g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), whiteBrush, hPos, 335)
+                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + "m @ " & gravity & " m/s", New Font("Consolas", 30), redBrush, hPos, 295)
+                g.DrawString("Adj: " + Pl.correctionInMeters(4).ToString + "m @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), whiteBrush, hPos, 335)
             Else
-                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + " meters", New Font("Consolas", 30), greenBrush1, hPos, 295)
-                g.DrawString("Adjustment: " + Pl.correctionInMeters(4).ToString + " meters @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
+                g.DrawString("Down: " + Pl.dropInMeters(4).ToString + "m", New Font("Consolas", 30), greenBrush1, hPos, 295)
+                g.DrawString("Adj: " + Pl.correctionInMeters(4).ToString + "m @ " & Pl.correctionAngle(5).ToString & Chr(176), New Font("Consolas", 30), greenBrush2, hPos, 335)
 
             End If
-            g.DrawString("Time of Flight: " + Pl.timeOfFlight(4).ToString + " seconds", New Font("Consolas", 30), greenBrush1, hPos, 375)
+            g.DrawString("ToF: " + Pl.timeOfFlight(4).ToString + " sec", New Font("Consolas", 30), greenBrush1, hPos, 375)
         End If
 
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
@@ -570,13 +571,12 @@ Public Class Main
 
         Dim bulletType = getbulletdata(GetValue(Pl.Gun, "ProjectileData"), "AmmunitionType")
 
-        '        Dim bulletType = GetValue(Pl.Gun, "WeaponClass").ToString.Substring(2)
         Dim bulletRounds = GetValue(Pl.Gun, "MagazineCapacity")
         Dim bulletMagazines = GetValue(Pl.Gun, "NumberOfMagazines")
         '        g.DrawString("Ammo: " & bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
         g.DrawString(bulletType.ToString, New Font("Consolas", 35), greenBrush2, hPos, 290)
         g.DrawString("Rounds: " + bulletRounds.ToString, New Font("Consolas", 30), greenBrush1, hPos, 330)
-        g.DrawString("Magazines: " + bulletMagazines.ToString, New Font("Consolas", 30), greenBrush2, hPos, 370)
+        g.DrawString("Mags: " + bulletMagazines.ToString, New Font("Consolas", 30), greenBrush2, hPos, 370)
  
         'g.DrawString("Correction: " + Pl. + "%", New Font("Consolas", 30), greenBrush1, hPos, 190)
     End Sub
@@ -1198,7 +1198,7 @@ Public Class Main
         Pl.BulletVelocity = GetSpeed(Pl.Gun)
         Pl.MaxDistance = Pl.BulletVelocity * timeToLive
 
-        Pl.BulletDrop = Double.Parse(getbulletdata(projectileHash, "Gravity"), System.Globalization.CultureInfo.InvariantCulture)
+        Pl.BulletDrop = Math.Abs(Double.Parse(getbulletdata(projectileHash, "Gravity"), System.Globalization.CultureInfo.InvariantCulture))
 
         Pl.TargetRange = numMeters.Value
         Pl.RateOfFire = GetRateOfFire(Pl.Gun)
