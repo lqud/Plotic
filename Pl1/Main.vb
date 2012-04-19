@@ -176,7 +176,7 @@ Public Class Main
         Loop
 
         Dim yPixel As Integer = topY
-        Dim pixelsPerLine As Double = Math.Round(graphWidth / (numDamageMax.Value - numDamageMin.Value) * numTTKVerticalScale.Value, 0)
+        Dim pixelsPerLine As Double = Math.Round(graphWidth / (Pl.DamageMax - Pl.DamageMin) * numTTKVerticalScale.Value, 0)
         Dim penDamage As New System.Drawing.Pen(Color.LightBlue, 1)
         Dim penDamageAlt As New System.Drawing.Pen(Color.LightCyan, 1)
         Dim penDamageEdge As New System.Drawing.Pen(Color.Blue, 3)
@@ -186,16 +186,16 @@ Public Class Main
         Dim meterYValue As Integer = pixelsPerLine
         'Draw Top Line
         g.DrawLine(penDamageEdge, leftX, yPixel, rightX, yPixel)
-        g.DrawString(numDamageMax.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
+        g.DrawString(Pl.DamageMax, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
 
         'Draw Top Line
         Dim rangeInMeters As Double = rightX * metersperPixel
 
-        Dim dblDamageAtMaxRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (numTTKRange.Value - numMinRange.Value))
-        Dim dblDamageAtMinRange As Double = numDamageMin.Value + (((numDamageMax.Value - numDamageMin.Value) / (numMaxRange.Value - numMinRange.Value)) * (0 - numMinRange.Value))
-
+        Dim dblDamageAtMaxRange As Double = Pl.DamageMin + (((Pl.DamageMax - Pl.DamageMin) / (Pl.RangeMax - Pl.RangeMin)) * (numTTKRange.Value - Pl.RangeMin))
+        Dim dblDamageAtMinRange As Double = Pl.DamageMin + (((Pl.DamageMax - Pl.DamageMin) / (Pl.RangeMax - Pl.RangeMin)) * (0 - Pl.RangeMin))
+        'If dblDamageAtMinRange < Pl.DamageMin Then dblDamageAtMinRange = Pl.DamageMin
         Dim TTK As Double = ((Math.Round((100 / dblDamageAtMaxRange), 0) - 1) / (Pl.RateOfFire / 60)) + (numTTKRange.Value / Pl.BulletVelocity)
-        Dim TTKMin As Double = ((Math.Round((100 / numDamageMax.Value), 0) - 1) / (Pl.RateOfFire / 60)) + (numTTKRange.Value / Pl.BulletVelocity)
+        Dim TTKMin As Double = ((Math.Round((100 / dblDamageAtMinRange), 0) - 1) / (Pl.RateOfFire / 60)) + (numTTKRange.Value / Pl.BulletVelocity)
         g.DrawString((Math.Round((TTK * 1000), 0)) & "ms", New Font("Arial", 15), brushGoldenRod, (leftX - 45), (yPixel + 5))
 
         'g.DrawLine(penDamage, 10, yPixel, 1950, yPixel)
@@ -203,7 +203,7 @@ Public Class Main
         Dim intAltToggle As Integer = 0
         Do While (yPixel < bottomY)
             Dim linePercent As Double = meterYValue / graphHeight
-            Dim lineDamage As Double = Math.Round(numDamageMax.Value - ((numDamageMax.Value - numDamageMin.Value) * linePercent), 1)
+            Dim lineDamage As Double = Math.Round(Pl.DamageMax - ((Pl.DamageMax - Pl.DamageMin) * linePercent), 1)
             If intAltToggle = 1 Then
                 g.DrawLine(penDamageAlt, leftX, yPixel, bottomY, yPixel)
                 g.DrawString(lineDamage, New Font("Arial", 15), brushLightBlue, (rightX - 5), (yPixel + 5))
@@ -221,11 +221,11 @@ Public Class Main
             End If
         Loop
         'Draw Right Bottom Line
-        g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, (rightX - 5), (yPixel - 25))
+        g.DrawString(Pl.DamageMin, New Font("Arial", 30), brushBlue, (rightX - 5), (bottomY - 25))
         g.DrawLine(penDamageEdge, leftX, bottomY, rightX, bottomY)
 
         'Draw Left Bottom Line
-        g.DrawString((Math.Round((TTKMin * 1000), 0)) & "ms", New Font("Arial", 15), brushGoldenRod, (leftX - 45), (yPixel - 25))
+        g.DrawString((Math.Round((TTKMin * 1000), 0)) & "ms", New Font("Arial", 15), brushGoldenRod, (leftX - 45), (bottomY - 25))
 
         'g.DrawString(numDamageMin.Value, New Font("Arial", 30), brushBlue, 1950, 1950)
     End Sub
@@ -1894,7 +1894,7 @@ Public Class Main
             drawTTKGrid(Pl.TTKGraphic)
         End If
         If chkDrawDropGrid.Checked Then
-            drawTTKGrid(Pl.TTKGraphic)
+            'drawTTKGrid(Pl.TTKGraphic)
             drawDropGrid(Pl.TTKGraphic)
         End If
         drawTTKBulletDamageArc(Pl.TTKGraphic)
